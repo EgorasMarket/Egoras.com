@@ -1,0 +1,277 @@
+.HomeDiv {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+section.HomeDivSection1 {
+  position: relative;
+  height: 100vh;
+}
+.HomeDivSection1_div {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.HomeDivSection1_div_video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.HomeDivSection1_div_txts_div {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: auto;
+  height: 100%;
+}
+.HomeDivSection1_div_txts {
+  display: flex;
+  flex-direction: column;
+  padding-top: 15em;
+}
+.HomeDivSection1_div_opacityBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#00000045, black);
+}
+.HomeDivSection1_div_txts_1 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+.HomeDivSection1_div_txts_1_head {
+  font-size: 82px;
+  color: #fff;
+  font-weight: 600;
+}
+.HomeDivSection1_div_txts_1_para {
+  font-size: 20px;
+  color: #adadad;
+  width: 60%;
+}
+.HomeDivSection1_div_txts_2 {
+  display: flex;
+  align-items: center;
+}
+.BgButtonNoBorderundefined {
+  padding: 15px;
+  width: 100%;
+  background: #22ad62;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 10px;
+  border: none;
+  max-width: 200px;
+  margin-right: 10px;
+}
+.NoBgButtonWithBorderundefined {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: solid #fff;
+  color: #fff;
+  background: no-repeat;
+  font-weight: 500;
+  max-width: 200px;
+}
+.tricycle_overview_div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 2em;
+}
+.tricycle_overview_div1 {
+  display: flex;
+  border: solid 1px #b6b6b642;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.tricycle_overview_div1_cont1 {
+  color: #fff;
+  width: 100%;
+  max-width: 479px;
+  font-size: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(25px);
+  background: #0000002e;
+  padding: 2em;
+}
+.tricycle_overview_div1_cont2 {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  backdrop-filter: blur(25px);
+  background: #0000002e;
+  color: #fff;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-left: solid 1px #ffffff17;
+  padding: 2em;
+}
+.tricycle_overview_div1_cont2_head {
+  font-size: 32px;
+  font-weight: 500;
+}
+.tricycle_overview_div1_cont2_para {
+  font-weight: 300;
+}
+.HomeDivSection1_div_txts_2_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ====================== HomeDivSection2 styles start===================== */
+/* ======================================================================== */
+/* ======================================================================== */
+.HomeDivSection2 {
+  position: relative;
+  background: #0e0e0e;
+  padding: 6em 0em;
+}
+.HomeDivSection2_area {
+  display: flex;
+  flex-direction: column;
+}
+.HomeDivSection2_area1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.HomeDivSection2_area1_cont1 {
+  width: 100%;
+  font-size: 68px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  text-align: center;
+}
+.HomeDivSection2_area1_cont2 {
+  width: 100%;
+  font-size: 18px;
+  color: #ababab;
+}
+.HomeDivSection2_area2 {
+  margin-top: 4em;
+  position: relative;
+}
+
+.HomeDivSection2_area2_img {
+  width: 100%;
+  border-radius: 25px;
+  height: 600px;
+  object-fit: cover;
+}
+.HomeDivSection2_area2_icon {
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: auto;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.HomeDivSection2_area2_icon_icon {
+  background: #22ad62;
+  padding: 25px;
+  font-size: 13px !important;
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+}
+.genVideo {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100;
+}
+.genVideo_close {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  font-size: 32px !important;
+  background: #000000a1;
+  border-radius: 7px;
+  padding: 3px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1;
+}
+/* ======================================================================== */
+/* ======================================================================== */
+/* ====================== HomeDivSection2 styles end===================== */
+/* ======================================================================== */
+/* ======================================================================== */
+/* ====================== HomeDivSection3 styles start===================== */
+/* ======================================================================== */
+/* ======================================================================== */
+/* ======================================================================== */
+/* ======================================================================== */
+/* ======================================================================== */
+.HomeDivSection3 {
+  height: 100vh;
+  position: relative;
+  padding: 6em 0em;
+}
+.HomeDivSection3_bg {
+  position: absolute;
+  top: 0;
+  border: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.HomeDivSection3_area {
+  position: relative;
+  height: 100%;
+}
+.HomeDivSection3_area_swiper {
+  width: 100%;
+  height: 100%;
+}
+.HomeDivSection3_area_swiper_slide_div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.HomeDivSection3_area_swiper_slide_div_img {
+  width: 100%;
+}
+.swiper-slide.swiper-slide-prev.HomeDivSection3_area_swiper_slide {
+  width: 70em !important;
+  margin-left: -45em !important;
+  margin-right: 18em !important;
+}
+.swiper-slide.swiper-slide-active.HomeDivSection3_area_swiper_slide {
+  width: 70em !important;
+  margin-left: -17em !important;
+  padding: 0em 0em;
+}
+.swiper-slide.swiper-slide-next.HomeDivSection3_area_swiper_slide {
+  width: 70em !important;
+}
+/* ======================================================================== */
+/* ======================================================================== */
+/* ======================================================================== */
+/* ====================== HomeDivSection3 styles end===================== */
