@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Virtual, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
+import Staticdata from "../../assets/json/Static";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -18,35 +19,14 @@ import {
 import "../../stylesheet/Home.css";
 const Home = () => {
   const [genVideo, setGenVideo] = useState(false);
-  const [swiperRef, setSwiperRef] = useState(null);
-  const appendNumber = useRef(500);
-  const prependNumber = useRef(1);
-  // Create array with 500 slides
-  const [slides, setSlides] = useState(
-    Array.from({ length: 500 }).map((_, index) => `Slide ${index + 1}`)
-  );
-
-  const prepend = () => {
-    setSlides([
-      `Slide ${prependNumber.current - 2}`,
-      `Slide ${prependNumber.current - 1}`,
-      ...slides,
-    ]);
-    prependNumber.current = prependNumber.current - 2;
-    swiperRef.slideTo(swiperRef.activeIndex + 2, 0);
-  };
-
-  const append = () => {
-    setSlides([...slides, "Slide " + ++appendNumber.current]);
-  };
-
-  const slideTo = (index) => {
-    swiperRef.slideTo(index - 1, 0);
-  };
+  const [swiperIndex, setSwiperIndex] = useState(0);
   const TogglegenVideoDiv = () => {
     setGenVideo(!genVideo);
   };
-
+  const handleSlideChange = (swiper) => {
+    console.log("Active Slide Index:", swiper.realIndex);
+    setSwiperIndex(swiper.realIndex);
+  };
   return (
     <div className="HomeDiv">
       <section className="HomeDivSection1">
@@ -155,11 +135,11 @@ const Home = () => {
                 alt=""
                 className="HomeDivSection2_area2_img"
               />
-              <div
-                className="HomeDivSection2_area2_icon"
-                onClick={TogglegenVideoDiv}
-              >
-                <PlayArrowIcon className="HomeDivSection2_area2_icon_icon" />
+              <div className="HomeDivSection2_area2_icon">
+                <PlayArrowIcon
+                  className="HomeDivSection2_area2_icon_icon"
+                  onClick={TogglegenVideoDiv}
+                />
               </div>
             </div>
           </div>
@@ -180,8 +160,9 @@ const Home = () => {
         />
         <div className="HomeDivSection3_area">
           <Swiper
+            // ref={swiperRef}
             slidesPerView={3}
-            spaceBetween={30}
+            spaceBetween={10}
             centeredSlides={true}
             pagination={{
               clickable: true,
@@ -190,56 +171,79 @@ const Home = () => {
             modules={[Pagination, Navigation]}
             navigation={true}
             className="HomeDivSection3_area_swiper"
+            onSlideChange={handleSlideChange}
           >
-            <SwiperSlide className="HomeDivSection3_area_swiper_slide">
-              <div className="HomeDivSection3_area_swiper_slide_div">
-                <img
-                  src="/img/dummyimage_porsche.webp"
-                  alt=""
-                  className="HomeDivSection3_area_swiper_slide_div_img"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="HomeDivSection3_area_swiper_slide">
-              <div className="HomeDivSection3_area_swiper_slide_div">
-                <img
-                  src="/img/dummyimage_porsche.webp"
-                  alt=""
-                  className="HomeDivSection3_area_swiper_slide_div_img"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="HomeDivSection3_area_swiper_slide">
-              <div className="HomeDivSection3_area_swiper_slide_div">
-                <img
-                  src="/img/dummyimage_porsche.webp"
-                  alt=""
-                  className="HomeDivSection3_area_swiper_slide_div_img"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="HomeDivSection3_area_swiper_slide">
-              <div className="HomeDivSection3_area_swiper_slide_div">
-                <img
-                  src="/img/dummyimage_porsche.webp"
-                  alt=""
-                  className="HomeDivSection3_area_swiper_slide_div_img"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="HomeDivSection3_area_swiper_slide">
-              <div className="HomeDivSection3_area_swiper_slide_div">
-                <img
-                  src="/img/dummyimage_porsche.webp"
-                  alt=""
-                  className="HomeDivSection3_area_swiper_slide_div_img"
-                />
-              </div>
-            </SwiperSlide>
+            {Staticdata.egr_models_carous.map((data) => (
+              <SwiperSlide
+                className="HomeDivSection3_area_swiper_slide"
+                id={data.id}
+              >
+                <div className="HomeDivSection3_area_swiper_slide_div">
+                  {swiperIndex !== data.id ? null : (
+                    <div className="HomeDivSection3_area_swiper_slide_div_txt">
+                      <div className="HomeDivSection3_area_swiper_slide_div_txt_title">
+                        {data.name} <br /> ({data.model})
+                      </div>
+                      <div className="HomeDivSection3_area_swiper_slide_div_txt_amount">
+                        From #{data.start_price}
+                      </div>
+                    </div>
+                  )}
+
+                  <img
+                    src={data.img}
+                    alt=""
+                    className="HomeDivSection3_area_swiper_slide_div_img"
+                  />
+                  {swiperIndex !== data.id ? null : (
+                    <div className="HomeDivSection3_area_swiper_slide_div_specs_div">
+                      <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1">
+                        <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1_title">
+                          {data.specTitle1}
+                        </div>
+                        <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1_para">
+                          {data.specPara1}
+                        </div>
+                      </div>
+                      <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1">
+                        <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1_title">
+                          {data.specTitle2}
+                        </div>
+                        <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1_para">
+                          {data.specPara2}
+                        </div>
+                      </div>
+                      <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1">
+                        <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1_title">
+                          {data.specTitle3}
+                        </div>
+                        <div className="HomeDivSection3_area_swiper_slide_div_specs_div_1_para">
+                          {data.specPara3}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </section>
-
+      {/* ================= */}
+      {/* ================= */}
+      {/* ================= */}
+      {/* ================= */}
+      {/* ================= */}
+      {/* ================= */}
+      {/* ================= */}
+      <section className="HomeDivSection4">
+        {/* <div className="custom_container"> */}
+        <div className="HomeDivSection4_area">
+          <div className="HomeDivSection4_area1"></div>
+          <div className="HomeDivSection4_area2"></div>
+        </div>
+        {/* </div> */}
+      </section>
       {genVideo === true ? (
         <div className="genVideo">
           <CloseIcon className="genVideo_close" onClick={TogglegenVideoDiv} />
