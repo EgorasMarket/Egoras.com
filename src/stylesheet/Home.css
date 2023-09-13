@@ -3,7 +3,10 @@
   flex-direction: column;
   position: relative;
 }
-section.HomeDivSection1 {
+.HomeDivSection1_div_txts_2_link1 {
+  margin-right: 1em;
+}
+.HomeDivSection1 {
   position: relative;
   height: 100vh;
 }

@@ -16,11 +16,13 @@ const Header = () => {
               </div>
             </div>
             <div className="header_section_2">
-              <img
-                src="/img/egoras-logo.svg"
-                alt=""
-                className="header_section_2_img"
-              />
+              <a href="/">
+                <img
+                  src="/img/egoras-logo.svg"
+                  alt=""
+                  className="header_section_2_img"
+                />
+              </a>
             </div>
             <div className="header_section_3">
               <PermIdentityOutlinedIcon className="header_section_3_icon" />

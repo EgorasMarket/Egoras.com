@@ -54,17 +54,22 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="HomeDivSection1_div_txts_2">
-                  <BgButtonNoBorder
-                    btnTxt={
-                      <div
-                        className="HomeDivSection1_div_txts_2_div
+                  <a
+                    href={`/productdetail/${1}/${"Egora dual fuel tricycle"}`}
+                    className="HomeDivSection1_div_txts_2_link1"
+                  >
+                    <BgButtonNoBorder
+                      btnTxt={
+                        <div
+                          className="HomeDivSection1_div_txts_2_div
                       "
-                      >
-                        View Product{" "}
-                        <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" />
-                      </div>
-                    }
-                  />
+                        >
+                          View Product{" "}
+                          <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" />
+                        </div>
+                      }
+                    />
+                  </a>
                   <a
                     href="/membership/sub"
                     className="HomeDivSection1_div_txts_2_member_link"
