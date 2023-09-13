@@ -7,6 +7,7 @@ import HomeRoute from "./routes/HomeRoute";
 import MembershipRoutes from "./routes/MembershipRoutes";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import SignupRoute from "./routes/SignupRoute";
 function App() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [loadingDiv, setLoadingDiv] = useState(true);
@@ -50,6 +51,7 @@ function App() {
                 path={`/productdetail/:id/:name`}
                 element={<ProductDetailRoute />}
               />
+              <Route path={`/signup`} element={<SignupRoute />} />
               <Route path="/membership/sub" element={<MembershipRoutes />} />
             </Routes>
             <Footer />

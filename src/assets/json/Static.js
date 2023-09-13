@@ -105,5 +105,9 @@ const Staticdata = {
       specPara3: "278 mi** (AMCI Testing Range) w/ Performance Battery Plus",
     },
   ],
+  options: [
+    { value: "0", label: "Male" },
+    { value: "1", label: "Female" },
+  ],
 };
 export default Staticdata;
