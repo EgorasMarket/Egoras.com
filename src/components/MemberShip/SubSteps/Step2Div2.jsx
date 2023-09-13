@@ -4,6 +4,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 // import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import PlanSubDivModal from "./PlanSubDivModal";
 import PlanSubDivs from "./PlanSubDivs";
+import { SUBSCRIBE_MEMBERSHIP } from "../../../services/membership_services";
 // import CloseIcon from "@mui/icons-material/Close";
 const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
   const [activePlan, setActivePlan] = useState("");
@@ -13,6 +14,23 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
   const toggleActivePlan = (e) => {
     setActivePlan(e.currentTarget.id);
     console.log(e.currentTarget.id);
+  };
+
+  const subscribe_membership = async () => {
+    // Map<String, String> body = {
+    // "email": "${email}",
+    //   "type": "membership",
+    //   "referral_code": "${referral_code}",
+    //   "userWallet": "${wallet}",
+    //   "quantity": "1",
+    //   "pin_code": "${pin}",
+    //   "amount": "${selectedValue}",
+    //   "symbol": "EGC",
+    //   "user": "${wallet}",
+    // };
+
+    const res = await SUBSCRIBE_MEMBERSHIP();
+    console.log(res);
   };
   const toggleLiteDiv = (e) => {
     setliteDiv(!liteDiv);
@@ -111,6 +129,7 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
           discount="5"
           toggleCheckAgree={toggleCheckAgree}
           toggleDiv={toggleLiteDiv}
+          subMembership={subscribe_membership}
         />
       ) : null}
 

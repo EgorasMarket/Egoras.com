@@ -8,6 +8,7 @@ const PlanSubDivModal = ({
   discount,
   checkAgree,
   toggleCheckAgree,
+  subMembership,
 }) => {
   return (
     <div className=" planSubDiv">
@@ -64,8 +65,9 @@ const PlanSubDivModal = ({
             </div>
             {checkAgree ? (
               <div className="subscribe_btn">
-                <button className="subscribe_btn_btn">Pay via Metamask</button>
-                <button className="subscribe_btn_btn2">Pay via Egopay</button>
+                <button className="subscribe_btn_btn" onClick={subMembership}>
+                  Pay Membership
+                </button>
               </div>
             ) : (
               <div className="subscribe_btn">
