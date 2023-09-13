@@ -1,16 +1,20 @@
 import React from "react";
 import "./Button.css";
 const BgButtonNoBorder = ({ btnTxt, customClass }) => {
-  return <button className={`BgButtonNoBorder${customClass}`}>{btnTxt}</button>;
+  return (
+    <button className={` BgButtonNoBorder  ${customClass}`}>{btnTxt}</button>
+  );
 };
 const BgButtonWithBorder = ({ btnTxt, customClass }) => {
   return (
-    <button className={`BgButtonWithBorder${customClass}`}>{btnTxt}</button>
+    <button className={` BgButtonWithBorder ${customClass}`}>{btnTxt}</button>
   );
 };
 const NoBgButtonWithBorder = ({ btnTxt, customClass }) => {
   return (
-    <button className={`NoBgButtonWithBorder${customClass}`}>{btnTxt}</button>
+    <button className={`NoBgButtonWithBorder ${customClass}  `}>
+      {btnTxt}
+    </button>
   );
 };
 

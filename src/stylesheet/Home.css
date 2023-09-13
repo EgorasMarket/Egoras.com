@@ -59,7 +59,7 @@ section.HomeDivSection1 {
   display: flex;
   align-items: center;
 }
-.BgButtonNoBorderundefined {
+.BgButtonNoBorder {
   padding: 15px;
   width: 100%;
   background: #22ad62;
@@ -70,7 +70,7 @@ section.HomeDivSection1 {
   max-width: 200px;
   margin-right: 10px;
 }
-.NoBgButtonWithBorderundefined {
+.NoBgButtonWithBorder {
   width: 100%;
   padding: 15px;
   border-radius: 10px;
@@ -261,12 +261,12 @@ section.HomeDivSection1 {
   height: 100%;
 }
 .HomeDivSection3_area_swiper_slide_div_img {
-  width: 100%;
+  width: 70%;
 }
 .swiper-slide.swiper-slide-prev.HomeDivSection3_area_swiper_slide {
   width: 50em !important;
-  margin-left: -30em !important;
-  margin-right: 22em !important;
+  margin-left: -25em !important;
+  margin-right: 16em !important;
 }
 .swiper-slide.swiper-slide-active.HomeDivSection3_area_swiper_slide {
   width: 50em !important;
@@ -275,7 +275,7 @@ section.HomeDivSection1 {
 }
 .swiper-slide.swiper-slide-next.HomeDivSection3_area_swiper_slide {
   width: 50em !important;
-  margin-left: 15em !important;
+  margin-left: 8em !important;
 }
 .HomeDivSection3_area_swiper_slide_div_txt {
   width: 100%;

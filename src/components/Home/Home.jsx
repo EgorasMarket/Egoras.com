@@ -60,12 +60,17 @@ const Home = () => {
                         className="HomeDivSection1_div_txts_2_div
                       "
                       >
-                        Order Now{" "}
+                        View Product{" "}
                         <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" />
                       </div>
                     }
                   />
-                  <NoBgButtonWithBorder btnTxt="Become A merchant" />
+                  <a
+                    href="/membership/sub"
+                    className="HomeDivSection1_div_txts_2_member_link"
+                  >
+                    <NoBgButtonWithBorder btnTxt="Become A merchant" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -244,6 +249,43 @@ const Home = () => {
         </div>
         {/* </div> */}
       </section>
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      <section className="ProductDetailDiv_last_section">
+        <div className="custom_container">
+          <div className="ProductDetailDiv_last_section_area">
+            <img
+              src="/img/dummyDetailPageImages/dumImgCarous1.webp"
+              alt=""
+              className="ProductDetailDiv_last_section_area_img"
+            />
+            <div className="ProductDetailDiv_last_section_area_txt">
+              <div className="ProductDetailDiv_last_section_area_txt_area1">
+                Experience Egoras
+              </div>
+              <div className="ProductDetailDiv_last_section_area_txt_area2">
+                <button className="ProductDetailDiv_last_section_area_txt_area2_btn">
+                  Join Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
+      {/* ====================== */}
       {genVideo === true ? (
         <div className="genVideo">
           <CloseIcon className="genVideo_close" onClick={TogglegenVideoDiv} />

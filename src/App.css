@@ -13,6 +13,7 @@ body {
   max-width: 1600px;
   margin: auto;
   padding: 0em 2em;
+  height: 100%;
 }
 html {
   scroll-behavior: smooth;
@@ -32,7 +33,7 @@ input:-webkit-autofill:active {
 }
 
 ::selection {
-  background-color: #7a5fc0;
+  background-color: #21583a;
   color: #fff;
 }
 button:focus {
@@ -54,4 +55,15 @@ button:focus {
   pointer-events: none;
   z-index: 9999;
   backdrop-filter: blur(2px);
+}
+.loading_div_area {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.loading_div_area_img {
+  width: 150px;
 }

@@ -3,7 +3,7 @@ const Staticdata = {
     {
       id: 0,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
@@ -16,7 +16,7 @@ const Staticdata = {
     {
       id: 1,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
@@ -29,7 +29,7 @@ const Staticdata = {
     {
       id: 2,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
@@ -42,7 +42,7 @@ const Staticdata = {
     {
       id: 3,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
@@ -55,7 +55,7 @@ const Staticdata = {
     {
       id: 4,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
@@ -68,7 +68,7 @@ const Staticdata = {
     {
       id: 5,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
@@ -81,7 +81,7 @@ const Staticdata = {
     {
       id: 6,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
@@ -94,7 +94,7 @@ const Staticdata = {
     {
       id: 7,
       name: "Egoras Generator",
-      img: "/img/dummyimage_porsche2.png",
+      img: "/img/egr_gen1.png",
       model: "EGR 3000",
       start_price: "120,000",
       specTitle1: "Driving Range (EPA Estimate)",
