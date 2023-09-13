@@ -52,7 +52,6 @@ const MemberShipPage = () => {
           >
             <Step1Div toggleSteps={toggleSteps} />
           </div>
-          {/* {step2 == true ? ( */}
           <div
             className={`joinCooperativeModalDiv_area1 ${step2 ? "show2" : ""}`}
           >
@@ -67,9 +66,5 @@ const MemberShipPage = () => {
     </section>
   );
 };
-// const mapStateToProps1 = (state) => ({
-//   auth: state.auth,
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
+
 export default MemberShipPage;
-// export default connect(mapStateToProps1)(EgorasPricingPage);
