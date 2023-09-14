@@ -21,6 +21,16 @@
 .signup_div_section_div_title {
   font-size: 32px;
   font-weight: 600;
+  margin-bottom: 0.5em;
+}
+.signup_div_section_div_container_form_cont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.signup_div_section_div_container_form_cont_span {
   margin-bottom: 1em;
 }
 .signup_div_section_div_container_form {
