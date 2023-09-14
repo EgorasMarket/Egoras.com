@@ -5,8 +5,10 @@ import React, { useState } from "react";
 import "./membership.css";
 import { Step1Div } from "./SubSteps/Step1Div";
 import Step2Div2 from "./SubSteps/Step2Div2";
+import { useSelector } from "react-redux";
 
 const MemberShipPage = () => {
+  const { error } = useSelector((store) => store.auth);
   const [step1, setStep1] = useState(true);
   const [step2, setStep2] = useState(false);
   const [checkedMonth, setCheckedMonth] = useState(false);
@@ -63,6 +65,8 @@ const MemberShipPage = () => {
           </div>
         </div>
       </div>
+
+      <p>{error}</p>
     </section>
   );
 };

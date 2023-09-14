@@ -2,12 +2,15 @@ import React from "react";
 import CheckIcon from "@mui/icons-material/Check";
 // import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { useSelector } from "react-redux";
 
 export const Step1Div = ({ toggleSteps }) => {
+  const { error, loading } = useSelector((state) => state.auth);
   return (
     <>
       <div className="joinCooperativeModalDiv_area_head">
         Egoras Merchant Plans
+        <p> {error === "" ? "is loading" : error}</p>
       </div>
       <div className="joinCooperativeModalDiv_area_sub_head">
         Choose a plan and get amazing value for your money.
