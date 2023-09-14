@@ -25,7 +25,7 @@ const Header = () => {
               </a>
             </div>
             <div className="header_section_3">
-              <a href="/signup">
+              <a href="/login">
                 <PermIdentityOutlinedIcon className="header_section_3_icon" />
               </a>
             </div>

@@ -200,6 +200,12 @@ const Signup = () => {
                 </button>
               </div>
             ) : null}
+            <div className="signup_div_section_div_para">
+              Already have an acccount?{"   "}
+              <a href="/login" className="signup_div_section_div_para_link">
+                Login
+              </a>
+            </div>
           </div>
         </div>
       </section>

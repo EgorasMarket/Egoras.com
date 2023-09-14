@@ -147,3 +147,15 @@
   justify-content: center;
   cursor: pointer;
 }
+.signup_div_section_div_para {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+}
+.signup_div_section_div_para_link {
+  margin-left: 5px;
+  color: #22ad62;
+  font-weight: 600;
+}
