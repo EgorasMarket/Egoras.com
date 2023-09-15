@@ -24,20 +24,22 @@ const ProductDetail = () => {
                     Model EGC-80
                   </div>
                   <div className="ProductDetailDiv_section1_area_txtArea_area1_btn">
-                    <BgButtonNoBorder
-                      //   customClass={
-                      //     "ProductDetailDiv_section1_area_txtArea_area1_btn_btn"
-                      //   }
-                      btnTxt={
-                        <div
-                          className="ProductDetailDiv_section1_area_txtArea_area1_btndiv
+                    <a
+                      href={`/productdetailorder/${1}/${"Egora dual fuel tricycle"}`}
+                      className="HomeDivSection1_div_txts_2_link1"
+                    >
+                      <BgButtonNoBorder
+                        btnTxt={
+                          <div
+                            className="HomeDivSection1_div_txts_2_div
                       "
-                        >
-                          Order Product{" "}
-                          <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" />
-                        </div>
-                      }
-                    />
+                          >
+                            Order Product{" "}
+                            <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" />
+                          </div>
+                        }
+                      />
+                    </a>
                   </div>
                 </div>
                 <div className="ProductDetailDiv_section1_area_txtArea_area2">
@@ -293,9 +295,14 @@ const ProductDetail = () => {
                 Experience Egoras dual fuel <br /> Tricycle (EGC-80)
               </div>
               <div className="ProductDetailDiv_last_section_area_txt_area2">
-                <button className="ProductDetailDiv_last_section_area_txt_area2_btn">
-                  Order Now
-                </button>
+                <a
+                  className="ProductDetailDiv_last_section_area_txt_area2_link"
+                  href={`/productdetailorder/${1}/${"Egora dual fuel tricycle"}`}
+                >
+                  <button className="ProductDetailDiv_last_section_area_txt_area2_btn">
+                    Order Now
+                  </button>
+                </a>
               </div>
             </div>
           </div>

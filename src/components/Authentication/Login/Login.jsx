@@ -48,6 +48,32 @@ const Login = () => {
               {/* ============ */}
               {/* ============ */}
               {/* ============ */}
+              <div className="forgot_password_link_div">
+                <div className="forgot_password_link_div_1">
+                  <input type="checkbox" id="checkbox-1" name="checkbox" />
+                  <label
+                    for="checkbox-1"
+                    className="checkBox_agree_div_body_label"
+                  >
+                    <div className="checkBox_agree_div_body_txt">
+                      Remember me
+                    </div>
+                  </label>
+                </div>
+                <div className="forgot_password_link_div_2">
+                  <a
+                    className="forgot_password_link_div_2_link"
+                    href="/forgotpassword"
+                  >
+                    Forgot Password?{" "}
+                  </a>
+                </div>
+              </div>
+              {/* ============ */}
+              {/* ============ */}
+              {/* ============ */}
+              {/* ============ */}
+              {/* ============ */}
               <button className="signup_div_section_div_container_form_btn">
                 Login
               </button>

@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import { ProductDetailRoute } from "./routes/ProductRoutes";
+import {
+  ProductDetailRoute,
+  ProductDetailPageRoute,
+  ProductCheckoutPageRoute,
+} from "./routes/ProductRoutes";
 import HomeRoute from "./routes/HomeRoute";
 import MembershipRoutes from "./routes/MembershipRoutes";
 import Header from "./components/Header/Header";
@@ -51,6 +55,14 @@ function App() {
               <Route
                 path={`/productdetail/:id/:name`}
                 element={<ProductDetailRoute />}
+              />
+              <Route
+                path={`/productCheckout/:id/:count/:name`}
+                element={<ProductCheckoutPageRoute />}
+              />
+              <Route
+                path={`/productdetailorder/:id/:name`}
+                element={<ProductDetailPageRoute />}
               />
               <Route path={`/signup`} element={<SignupRoute />} />
               <Route path={`/login`} element={<LoginRoute />} />
