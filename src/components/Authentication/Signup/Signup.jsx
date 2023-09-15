@@ -6,12 +6,64 @@ import "react-phone-input-2/lib/plain.css";
 import Staticdata from "../../../assets/json/Static";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { useDispatch, useSelector } from "react-redux";
+// import { setPayload } from "../../../features/user-registration/userRegistration";
+import { registerUser } from "../../../features/auth/authActions";
+import { setPayload } from "../../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 // dummySelectData;
 const Signup = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { payload, loading, error } = useSelector((state) => state.auth);
   const [defaultForm, setDefaultForm] = useState(true);
   const ToggleDefaultForm = () => {
     setDefaultForm(!defaultForm);
   };
+
+  const handleOnChange = (e) => {
+    const { id, value } = e.target;
+    dispatch(setPayload({ ...payload, [id]: value }));
+  };
+
+  const handleSignUp = async () => {
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      fullName,
+      code,
+      username,
+      phone,
+      referral,
+      countrycode,
+    } = payload;
+
+    if (email === "" || password === "") return;
+
+    const res = await dispatch(registerUser(payload));
+
+    console.log(res);
+    if (res.payload.code === 200) {
+      alert("Registration Successful -- redirect to choice page");
+      navigate("/login");
+
+      return;
+    }
+
+    if (res.payload?.data?.success === false) {
+      alert(res.payload?.data?.errorMessage);
+    }
+  };
+
+  if (loading) {
+    return <p>Loading ...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
   return (
     <div className="signup_div">
       <section
@@ -39,8 +91,10 @@ const Signup = () => {
                   <input
                     type="text"
                     id="fullName"
+                    value={payload.fullName}
                     name="fullName"
                     className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -55,9 +109,11 @@ const Signup = () => {
                   </label>
                   <input
                     type="email"
+                    value={payload.email}
                     id="email"
                     name="email"
                     className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -72,9 +128,11 @@ const Signup = () => {
                   </label>
                   <input
                     type="text"
-                    id="userName"
+                    id="username"
+                    value={payload.username}
                     name="userName"
                     className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -90,6 +148,7 @@ const Signup = () => {
                   <Select
                     placeholder="Select Gender"
                     classNamePrefix="select"
+                    id="gender"
                     // defaultValue={Staticdata.dummySelectData[0]}
                     isSearchable={true}
                     name="color"
@@ -144,9 +203,19 @@ const Signup = () => {
                     Phone Number:
                   </label>
                   <PhoneInput
-                    country={"us"}
+                    country={"ng"}
                     enableSearch={true}
-                    // value={this.state.phone}
+                    value={payload.phone}
+                    onChange={(value, country, e, formattedValue) => {
+                      dispatch(
+                        setPayload({
+                          ...payload,
+                          countrycode: country.dialCode,
+                          phone: value,
+                        })
+                      );
+                      console.log(country, formattedValue);
+                    }}
                     // onChange={(phone) => this.setState({ phone })}
                   />
                   {/* ============ */}
@@ -162,9 +231,11 @@ const Signup = () => {
                   </label>
                   <input
                     type="text"
-                    id="referralCode"
-                    name="referralCode"
+                    id="referral"
+                    name="referral"
+                    value={payload.referral}
                     className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -180,8 +251,10 @@ const Signup = () => {
                   <input
                     type="password"
                     id="password"
+                    value={payload.password}
                     name="password"
                     className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -196,16 +269,21 @@ const Signup = () => {
                   </label>
                   <input
                     type="password"
-                    id="password"
-                    name="password"
+                    id="confirm"
+                    value={payload.confirm}
+                    name="confirm"
                     className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
                   />
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
-                  <button className="signup_div_section_div_container_form_btn">
+                  <button
+                    className="signup_div_section_div_container_form_btn"
+                    onClick={handleSignUp}
+                  >
                     Create Account
                   </button>
                 </div>
@@ -213,7 +291,11 @@ const Signup = () => {
             ) : null}
             <div className="signup_div_section_div_para">
               Already have an acccount?{"   "}
-              <a href="/login" className="signup_div_section_div_para_link">
+              <a
+                href="/login"
+                className="signup_div_section_div_para_link"
+                onClick={handleSignUp}
+              >
                 Login
               </a>
             </div>

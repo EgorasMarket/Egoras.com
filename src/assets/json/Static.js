@@ -106,8 +106,8 @@ const Staticdata = {
     },
   ],
   options: [
-    { value: "0", label: "Male" },
-    { value: "1", label: "Female" },
+    { value: "male", label: "Male" },
+    { value: "female", label: "Female" },
   ],
 };
 export default Staticdata;

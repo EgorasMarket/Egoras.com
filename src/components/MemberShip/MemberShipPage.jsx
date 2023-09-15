@@ -65,8 +65,6 @@ const MemberShipPage = () => {
           </div>
         </div>
       </div>
-
-      <p>{error}</p>
     </section>
   );
 };

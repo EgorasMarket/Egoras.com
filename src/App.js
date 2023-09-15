@@ -9,6 +9,8 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import SignupRoute from "./routes/SignupRoute";
 import LoginRoute from "./routes/Login";
+import ProtectedRoute from "./Router/ProtectedRoute";
+import ProductDetail from "./components/Market/ProductDetail";
 function App() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [loadingDiv, setLoadingDiv] = useState(true);
@@ -28,6 +30,7 @@ function App() {
       setLoadingDiv(false);
     }, 3000);
   }, []);
+
   return (
     <>
       {loadingDiv === true ? (
@@ -55,7 +58,12 @@ function App() {
               <Route path={`/signup`} element={<SignupRoute />} />
               <Route path={`/login`} element={<LoginRoute />} />
               <Route path="/membership/sub" element={<MembershipRoutes />} />
+
+              <Route path="/dashboard" element={<ProtectedRoute />}>
+                <Route path="detail" element={<ProductDetail />} />
+              </Route>
             </Routes>
+
             <Footer />
           </div>
         </Router>
