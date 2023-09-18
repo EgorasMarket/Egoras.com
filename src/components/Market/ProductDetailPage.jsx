@@ -7,10 +7,10 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { Rating } from "react-simple-star-rating";
 import "swiper/swiper-bundle.css";
-// import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { Rating } from "react-simple-star-rating";
+// import required modules
 const ProductDetailPage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [count, setCount] = useState(1);
@@ -267,7 +267,7 @@ const ProductDetailPage = () => {
                   </div>
                 </div>
                 <a
-                  href={`/productdetailorder/${1}/${count}/${"Egora dual fuel tricycle"}`}
+                  href={`/productCheckout/${1}/${count}/${"Egora dual fuel tricycle"}`}
                   className="ProductDetailPage_section_area_2_total_div_btn_link"
                 >
                   <button className="ProductDetailPage_section_area_2_total_div_btn">
