@@ -39,6 +39,7 @@ const Signup = () => {
       referral,
       countrycode,
     } = payload;
+    console.log(payload);
 
     if (email === "" || password === "") return;
 
@@ -156,7 +157,7 @@ const Signup = () => {
                     // value={payload.gender}
                     name="gender"
                     onChange={(data) => {
-                      dispatch(setPayload({ ...payload, gender: data.value }));
+                      dispatch(setPayload({ ...payload, gender: data.label }));
                     }}
                     options={Staticdata.options}
                   />
