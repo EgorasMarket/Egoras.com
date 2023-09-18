@@ -169,3 +169,18 @@
   color: #22ad62;
   font-weight: 600;
 }
+
+.forgot_password_link_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1em 0em;
+}
+.forgot_password_link_div_1 {
+  font-size: 14px;
+}
+.forgot_password_link_div_2_link {
+  color: #86ebb5;
+  font-size: 14px;
+  font-weight: 500;
+}

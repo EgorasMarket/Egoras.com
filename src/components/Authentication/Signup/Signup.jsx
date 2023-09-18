@@ -22,6 +22,7 @@ const Signup = () => {
   };
 
   const handleOnChange = (e) => {
+    console.log(e);
     const { id, value } = e.target;
     dispatch(setPayload({ ...payload, [id]: value }));
   };
@@ -33,7 +34,6 @@ const Signup = () => {
       firstName,
       lastName,
       fullName,
-      code,
       username,
       phone,
       referral,
@@ -45,7 +45,7 @@ const Signup = () => {
     const res = await dispatch(registerUser(payload));
 
     console.log(res);
-    if (res.payload.code === 200) {
+    if (res.payload?.code === 200) {
       alert("Registration Successful -- redirect to choice page");
       navigate("/login");
 
@@ -53,8 +53,10 @@ const Signup = () => {
     }
 
     if (res.payload?.data?.success === false) {
-      alert(res.payload?.data?.errorMessage);
+      return alert(res.payload?.data?.errorMessage);
     }
+
+    console.log("Failed");
   };
 
   if (loading) {
@@ -148,10 +150,14 @@ const Signup = () => {
                   <Select
                     placeholder="Select Gender"
                     classNamePrefix="select"
-                    id="gender"
                     // defaultValue={Staticdata.dummySelectData[0]}
+                    id="gender"
                     isSearchable={true}
-                    name="color"
+                    // value={payload.gender}
+                    name="gender"
+                    onChange={(data) => {
+                      dispatch(setPayload({ ...payload, gender: data.value }));
+                    }}
                     options={Staticdata.options}
                   />
                   {/* ============ */}
@@ -167,9 +173,10 @@ const Signup = () => {
                   </label>
                   <input
                     type="date"
-                    id="custom-date"
-                    name="custom-date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
                     className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
                   />
                   {/* ============ */}
                   {/* ============ */}
