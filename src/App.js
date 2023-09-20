@@ -15,9 +15,23 @@ import SignupRoute from "./routes/SignupRoute";
 import LoginRoute from "./routes/Login";
 import ProtectedRoute from "./Router/ProtectedRoute";
 import ProductDetail from "./components/Market/ProductDetail";
+import { VERIFY_USER } from "./services/auth";
+import { verifyUser } from "./features/auth/authActions";
+import { useDispatch } from "react-redux";
 function App() {
+  const dispatch = useDispatch();
+
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [loadingDiv, setLoadingDiv] = useState(true);
+
+  const verify_user = async () => {
+    // const response = await VERIFY_USER();
+    const response = dispatch(verifyUser());
+    console.log(response);
+  };
+  useEffect(() => {
+    verify_user();
+  }, []);
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
     return () => {

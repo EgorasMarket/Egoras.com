@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { LOGIN_USER, REGISTER_USER } from "../../services/auth";
+import { LOGIN_USER, REGISTER_USER, VERIFY_USER } from "../../services/auth";
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (payload, thunkAPI) => {
@@ -20,6 +20,18 @@ export const registerUser = createAsyncThunk(
     } catch (err) {
       console.log("Error : " + err.response.message);
       return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const verifyUser = createAsyncThunk(
+  "auth/verify",
+  async (payload, thunkAPI) => {
+    try {
+      return await VERIFY_USER();
+    } catch (error) {
+      console.log("Error : " + error.response.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
