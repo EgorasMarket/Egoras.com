@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "./authActions";
+import setAuthToken from "../../utils/setAuthToken";
 
 // // initialize userToken from local storage
 // const token = localStorage.getItem("auth")
@@ -78,7 +79,8 @@ const AuthSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload.data.user;
-        localStorage.setItem("auth", action.payload.data.token);
+        localStorage.setItem("x-token", action.payload.data.token);
+        setAuthToken(action.payload.data.token);
         state.token = action.payload.data.token;
         state.loading = false;
       })

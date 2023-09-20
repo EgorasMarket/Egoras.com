@@ -123,7 +123,10 @@ const Login = () => {
               {/* ============ */}
               {/* ============ */}
               {/* ============ */}
-              <button className="signup_div_section_div_container_form_btn">
+              <button
+                className="signup_div_section_div_container_form_btn"
+                onClick={handleLogin}
+              >
                 Login
               </button>
             </div>

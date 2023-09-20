@@ -1,6 +1,8 @@
 import axios from "axios";
 import { SUBSCRIBE_MEMBERSHIP_ROUTE } from "../core/ApiRoutes";
+import setAuthToken from "../utils/setAuthToken";
 export const SUBSCRIBE_MEMBERSHIP = async (payload) => {
+  setAuthToken(localStorage.getItem("x-token"));
   try {
     // SAMPLE PAYLOAD
     // Map<String, String> body = {
@@ -16,6 +18,7 @@ export const SUBSCRIBE_MEMBERSHIP = async (payload) => {
     // };
 
     const res = await axios.post(`${SUBSCRIBE_MEMBERSHIP_ROUTE}`, payload);
+    console.log(res);
 
     return res.data;
   } catch (error) {

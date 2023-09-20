@@ -1,5 +1,6 @@
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { SUBSCRIBE_MEMBERSHIP } from "../../../services/membership_services";
 const PlanSubDivModal = ({
   toggleDiv,
   Plan,
@@ -9,9 +10,38 @@ const PlanSubDivModal = ({
   checkAgree,
   toggleCheckAgree,
   subMembership,
+  visibility,
 }) => {
+  const subscribe_membership = async () => {
+    // Map<String, String> body = {
+    // "email": "${email}",
+    //   "type": "membership",
+    //   "referral_code": "${referral_code}",
+    //   "userWallet": "${wallet}",
+    //   "quantity": "1",
+    //   "pin_code": "${pin}",
+    //   "amount": "${selectedValue}",
+    //   "symbol": "EGC",
+    //   "user": "${wallet}",
+    // };
+
+    let pin = prompt("Enter Your device Pin");
+    const res = await SUBSCRIBE_MEMBERSHIP({
+      pin_code: pin,
+      type: "membership",
+      amount: PlanAmount,
+      amountInNaira: PlanAmountLocal,
+      symbol: "EGC",
+      quantity: "",
+    });
+    console.log(res);
+
+    if (!res.data.success) {
+      alert(res.data.errorMessage);
+    }
+  };
   return (
-    <div className=" planSubDiv">
+    <div className=" planSubDiv" hidden={visibility}>
       <div className="planSubDiv_area">
         <div className="planSubDiv_area_1" onClick={toggleDiv}>
           <CloseIcon className="planSubDiv_area_1_icon" />
@@ -65,7 +95,10 @@ const PlanSubDivModal = ({
             </div>
             {checkAgree ? (
               <div className="subscribe_btn">
-                <button className="subscribe_btn_btn" onClick={subMembership}>
+                <button
+                  className="subscribe_btn_btn"
+                  onClick={subscribe_membership}
+                >
                   Pay Membership
                 </button>
               </div>
