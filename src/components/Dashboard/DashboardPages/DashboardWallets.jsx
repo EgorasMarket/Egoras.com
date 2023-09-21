@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../DashboardStyles/DashboardWallet.css";
-import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
@@ -8,6 +7,9 @@ import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import WalletBalanceDisplay from "./DashboardWalletsComponents/WalletBalanceDisplay";
+import DepositModalComp from "./DashboardWalletsComponents/DepositModalComp";
+import WithdrawModalComp from "./DashboardWalletsComponents/WithdrawModalComp";
 import { QRCode } from "react-qrcode-logo";
 const DashboardWallets = () => {
   const [activeTab, setActiveTab] = useState("egc");
@@ -111,79 +113,20 @@ const DashboardWallets = () => {
       </div>
       <div className="DashboardWalletsDiv_body">
         {activeTab === "egc" ? (
-          <div className="DashboardWalletsDiv_area2">
-            <div className="DashboardWalletsDiv_area2_cont1">
-              Portfolio Balance
-            </div>
-            <div className="DashboardWalletsDiv_area2_cont2">
-              <div className="DashboardWalletsDiv_area2_cont2_area1">
-                <div className="DashboardWalletsDiv_area2_cont2_area1_bal">
-                  240.45{" "}
-                  <span className="DashboardWalletsDiv_area2_cont2_area1_bal_span">
-                    egc
-                  </span>
-                </div>
-                <div className="DashboardWalletsDiv_area2_cont2_area1_profit">
-                  +30.01 egc
-                </div>
-              </div>
-              <div className="DashboardWalletsDiv_area2_cont2_area2">
-                <div
-                  className="DashboardWalletsDiv_area2_cont2_area2_cont1"
-                  onClick={ToggleDepositMoneyModal}
-                >
-                  Deposit
-                </div>
-                <div
-                  className="DashboardWalletsDiv_area2_cont2_area2_cont2"
-                  onClick={ToggleWithdrawMoneyModal}
-                >
-                  Withdraw
-                </div>
-              </div>
-            </div>
-
-            <SwapHorizOutlinedIcon className="walletSwapIcon" />
-          </div>
+          <WalletBalanceDisplay
+            walletBal={parseFloat(254.45).toFixed(2)}
+            walletsymbol={"egc"}
+            depositFunc={ToggleDepositMoneyModal}
+            withdrawFunc={ToggleWithdrawMoneyModal}
+          />
         ) : null}
         {activeTab === "naira" ? (
-          <div className="DashboardWalletsDiv_area2">
-            <div className="DashboardWalletsDiv_area2_cont1">
-              Portfolio Balance
-            </div>
-            <div className="DashboardWalletsDiv_area2_cont2">
-              <div className="DashboardWalletsDiv_area2_cont2_area1">
-                <div className="DashboardWalletsDiv_area2_cont2_area1_bal">
-                  <span className="DashboardWalletsDiv_area2_cont2_area1_bal_span">
-                    ₦
-                  </span>
-                  24,000,000
-                </div>
-                <div className="DashboardWalletsDiv_area2_cont2_area1_profit">
-                  +
-                  <span className="DashboardWalletsDiv_area2_cont2_area1_profit_span">
-                    ₦
-                  </span>
-                  30,000.01
-                </div>
-              </div>
-              <div className="DashboardWalletsDiv_area2_cont2_area2">
-                <div
-                  className="DashboardWalletsDiv_area2_cont2_area2_cont1"
-                  onClick={ToggleDepositMoneyNairaModal}
-                >
-                  Deposit
-                </div>
-                <div
-                  className="DashboardWalletsDiv_area2_cont2_area2_cont2"
-                  onClick={ToggleWithdrawMoneyNairaModal}
-                >
-                  Withdraw
-                </div>
-              </div>
-            </div>
-            <SwapHorizOutlinedIcon className="walletSwapIcon" />
-          </div>
+          <WalletBalanceDisplay
+            walletBal={parseFloat(20000000).toFixed(2)}
+            walletsymbol={"ngn"}
+            depositFunc={ToggleDepositMoneyNairaModal}
+            withdrawFunc={ToggleWithdrawMoneyNairaModal}
+          />
         ) : null}
         <div className="DashboardWalletsDiv_area3">
           <div className="DashboardWalletsDiv_area3_cont1">
@@ -203,240 +146,50 @@ const DashboardWallets = () => {
       {/* ============= */}
       {/* ============= */}
       {depositMoney ? (
-        <div className="depositMoneyDiv">
-          <div className="depositMoneyDiv_cont">
-            <CloseOutlinedIcon
-              className="depositMoneyDiv_icon"
-              onClick={ToggleDepositMoneyModal}
-            />
-            <div className="depositMoneyDiv_cont_1">
-              <div className="depositMoneyDiv_cont_title_cont">
-                <div className="depositMoneyDiv_cont_title_cont_title">
-                  Egc Wallet Deposit
-                </div>
-                <div className="depositMoneyDiv_cont_title_cont_para">
-                  Supercharge your Egc wallet with an array of swift and
-                  efficient funding options!
-                </div>
-              </div>
-              <div className="depositMoneyDiv_cont_body">
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleEgcBlockchainDepositModal}
-                >
-                  <WalletOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Deposit Via Blockchain
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Add funds directly from a blockchain account
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleEgcUserDepositModal}
-                >
-                  <AppShortcutOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Deposit Via Username
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Add funds directly from an egoras user
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="depositMoneyDiv_cont_2">
-              <button
-                className="depositMoneyDiv_cont_2_btn"
-                onClick={ToggleDepositMoneyModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <DepositModalComp
+          symbol={"EGC"}
+          DynamicFunc1={ToggleEgcBlockchainDepositModal}
+          DynamicFunc2={ToggleEgcUserDepositModal}
+          DynamicPara1={"Add funds directly from a blockchain account "}
+          DynamicTitle1={"Deposit via blockchain "}
+          closeModal={ToggleDepositMoneyModal}
+          DepositModaldiv={"Egc"}
+        />
       ) : null}
       {depositMoneyNaira ? (
-        <div className="depositMoneyDiv">
-          <div className="depositMoneyDiv_cont">
-            <CloseOutlinedIcon
-              className="depositMoneyDiv_icon"
-              onClick={ToggleDepositMoneyNairaModal}
-            />
-            <div className="depositMoneyDiv_cont_1">
-              <div className="depositMoneyDiv_cont_title_cont">
-                <div className="depositMoneyDiv_cont_title_cont_title">
-                  Naira Wallet Deposit
-                </div>
-                <div className="depositMoneyDiv_cont_title_cont_para">
-                  Supercharge your Naira wallet with an array of swift and
-                  efficient funding options!
-                </div>
-              </div>
-              <div className="depositMoneyDiv_cont_body">
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleDepositMoneyNairaBankModal}
-                >
-                  <AccountBalanceOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Deposit Via Bank Account
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Add funds directly from a bank account
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleDepositMoneyNairaUserModal}
-                >
-                  <AppShortcutOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Deposit Via Username
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Add funds directly from an egoras user
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="depositMoneyDiv_cont_2">
-              <button
-                className="depositMoneyDiv_cont_2_btn"
-                onClick={ToggleDepositMoneyNairaModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <DepositModalComp
+          symbol={"Naira"}
+          DynamicFunc1={ToggleDepositMoneyNairaBankModal}
+          DynamicFunc2={ToggleDepositMoneyNairaUserModal}
+          DynamicPara1={"Add funds directly from a Bank account "}
+          DynamicTitle1={"Deposit via Bank account "}
+          closeModal={ToggleDepositMoneyNairaModal}
+          DepositModaldiv={"Naira"}
+        />
       ) : null}
       {withdrawMoney ? (
-        <div className="depositMoneyDiv">
-          <div className="depositMoneyDiv_cont">
-            <CloseOutlinedIcon
-              className="depositMoneyDiv_icon"
-              onClick={ToggleWithdrawMoneyModal}
-            />
-            <div className="depositMoneyDiv_cont_1">
-              <div className="depositMoneyDiv_cont_title_cont">
-                <div className="depositMoneyDiv_cont_title_cont_title">
-                  Egc Wallet Withdrawal
-                </div>
-                <div className="depositMoneyDiv_cont_title_cont_para">
-                  Transfer your Egc funds with an array of swift and efficient
-                  transfer options!
-                </div>
-              </div>
-              <div className="depositMoneyDiv_cont_body">
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleEgcBlockchainWithdrawModal}
-                >
-                  <WalletOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Send To Blockchain
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Send funds directly to a blockchain account
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleEgcUserWithdrawtModal}
-                >
-                  <AppShortcutOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Send To An Egoras User
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Send funds directly to an egoras user
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="depositMoneyDiv_cont_2">
-              <button
-                className="depositMoneyDiv_cont_2_btn"
-                onClick={ToggleWithdrawMoneyModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <WithdrawModalComp
+          symbol={"EGC"}
+          DynamicFunc1={ToggleEgcBlockchainWithdrawModal}
+          DynamicFunc2={ToggleEgcUserWithdrawtModal}
+          DynamicPara1={
+            "Transfer your Egc funds with an array of swift and efficient transfer options!"
+          }
+          DynamicTitle1={" Egc Wallet Withdrawal "}
+          closeModal={ToggleWithdrawMoneyModal}
+          WithdrawModaldiv={"Egc"}
+        />
       ) : null}
       {withdrawMoneyNaira ? (
-        <div className="depositMoneyDiv">
-          <div className="depositMoneyDiv_cont">
-            <CloseOutlinedIcon
-              className="depositMoneyDiv_icon"
-              onClick={ToggleWithdrawMoneyNairaModal}
-            />
-            <div className="depositMoneyDiv_cont_1">
-              <div className="depositMoneyDiv_cont_title_cont">
-                <div className="depositMoneyDiv_cont_title_cont_title">
-                  Naira Wallet Withdrawal
-                </div>
-                <div className="depositMoneyDiv_cont_title_cont_para">
-                  Withraw your Naira funds with an array of swift and efficient
-                  withdrawal options!
-                </div>
-              </div>
-              <div className="depositMoneyDiv_cont_body">
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleWithdrawNairaBankModal}
-                >
-                  <AccountBalanceOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Send to Bank Account
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Send funds directly to a bank account
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="depositMoneyDiv_cont_body_cont1"
-                  onClick={ToggleNairaUserWithdrawtModal}
-                >
-                  <AppShortcutOutlinedIcon className="depositMoneyDiv_cont_body_cont1_icon" />
-                  <div className="depositMoneyDiv_cont_body_cont1_title_body">
-                    <div className="depositMoneyDiv_cont_body_cont1_title">
-                      Send to Egoras user
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_cont1_para">
-                      Send funds directly to an egoras user
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="depositMoneyDiv_cont_2">
-              <button
-                className="depositMoneyDiv_cont_2_btn"
-                onClick={ToggleWithdrawMoneyNairaModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <WithdrawModalComp
+          symbol={"Naira"}
+          DynamicFunc1={ToggleWithdrawNairaBankModal}
+          DynamicFunc2={ToggleNairaUserWithdrawtModal}
+          DynamicPara1={"Send funds directly to a bank account"}
+          DynamicTitle1={"Send to Bank Account"}
+          closeModal={ToggleWithdrawMoneyNairaModal}
+          WithdrawModaldiv={"Naira"}
+        />
       ) : null}
       {egcBlockchainDeposit ? (
         <div className="depositMoneyDiv">
