@@ -1,0 +1,71 @@
+.dashboardHome {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dashboardHome_area1 {
+  display: flex;
+  justify-content: space-between;
+}
+.dashboardHome_area1_card1 {
+  width: 100%;
+  background: #0b321c;
+  padding: 2em;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0em 1em;
+  color: #80be9b;
+  position: relative;
+}
+.dashboardHome_area1_card1_title_div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  line-height: 1.2;
+  color: #fff;
+}
+.dashboardHome_area1_card1_title {
+  margin-bottom: 0.5em;
+}
+.dashboardHome_area1_card1_content {
+  font-size: 42px;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  /* justify-content: space-between; */
+}
+.dashboardHome_area1_card1_icon_icon {
+  background: #052212;
+  padding: 7px;
+  font-size: 32px !important;
+  border-radius: 8px;
+}
+.dashboardHome_area1_card1_content_span {
+  font-size: 12px;
+  font-weight: 400;
+  border: solid 1px #427b5b;
+  padding: 8px;
+  border-radius: 20px;
+  width: 75px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* border: solid; */
+}
+
+.dashboardHome_area1_card1_more_icon {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  font-size: 18px !important;
+  cursor: pointer;
+}
+.dashboardHome_area1_card1_content_symbol {
+  font-size: 24px;
+  color: #8a9e92;
+  font-weight: 500;
+}

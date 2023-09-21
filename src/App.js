@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import {
-  ProductDetailRoute,
-  ProductDetailPageRoute,
-  ProductCheckoutPageRoute,
-} from "./routes/ProductRoutes";
-import HomeRoute from "./routes/HomeRoute";
-import MembershipRoutes from "./routes/MembershipRoutes";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import SignupRoute from "./routes/SignupRoute";
-import LoginRoute from "./routes/Login";
-import ProtectedRoute from "./Router/ProtectedRoute";
-import ProductDetail from "./components/Market/ProductDetail";
+
 import { VERIFY_USER } from "./services/auth";
 import { verifyUser } from "./features/auth/authActions";
 import { useDispatch } from "react-redux";
+import Dashboard from "./components/Dashboard/Dashboard";
+import RouteInit from "./routes/HomeRoutes";
 function App() {
   const dispatch = useDispatch();
 
@@ -46,9 +38,10 @@ function App() {
     setLoadingDiv(true);
     const timer = setTimeout(() => {
       setLoadingDiv(false);
-    }, 3000);
+    }, 1000);
   }, []);
-
+  const currentPage = window.location.pathname;
+  const myArr = currentPage.split("/");
   return (
     <>
       {loadingDiv === true ? (
@@ -60,39 +53,23 @@ function App() {
           />
         </div>
       ) : (
-        <Router>
-          <div className="App">
-            <div
-              className="custom-cursor"
-              style={{ left: cursorPosition.x, top: cursorPosition.y }}
-            ></div>
-            <Header />
-            <Routes>
-              <Route path="/" element={<HomeRoute />} />
-              <Route
-                path={`/productdetail/:id/:name`}
-                element={<ProductDetailRoute />}
-              />
-              <Route
-                path={`/productCheckout/:id/:count/:name`}
-                element={<ProductCheckoutPageRoute />}
-              />
-              <Route
-                path={`/productdetailorder/:id/:name`}
-                element={<ProductDetailPageRoute />}
-              />
-              <Route path={`/signup`} element={<SignupRoute />} />
-              <Route path={`/login`} element={<LoginRoute />} />
-              <Route path="/membership/sub" element={<MembershipRoutes />} />
+        <div className="App">
+          <div
+            className="custom-cursor"
+            style={{ left: cursorPosition.x, top: cursorPosition.y }}
+          ></div>
+          {myArr[1] === "dashboard" ? null : <Header />}
+          <Routes>
+            <Route
+              path="/dashboard"
+              element={<Navigate to="/dashboard/home" replace />}
+            />
+          </Routes>
 
-              <Route path="/dashboard" element={<ProtectedRoute />}>
-                <Route path="detail" element={<ProductDetail />} />
-              </Route>
-            </Routes>
+          {myArr[1] === "dashboard" ? <Dashboard /> : <RouteInit />}
 
-            <Footer />
-          </div>
-        </Router>
+          {myArr[1] === "dashboard" ? null : <Footer />}
+        </div>
       )}
     </>
   );
