@@ -41,7 +41,7 @@ const DashboardHome = () => {
             </div>
           </div>
         </div>
-        <div className="dashboardHome_area1_card1">
+        <div className="dashboardHome_area1_card1_last">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
             <ReceiptOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />

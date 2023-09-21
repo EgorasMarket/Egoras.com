@@ -38,7 +38,7 @@ const AuthSlice = createSlice({
     setPayload: (state, action) => {
       //   console.log(action.payload);
 
-      const { fullName } = action.payload;
+      const { fullName, phone } = action.payload;
       state.payload = action.payload;
 
       if (fullName) {
