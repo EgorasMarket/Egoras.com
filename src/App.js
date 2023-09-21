@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import {
-  ProductDetailRoute,
-  ProductDetailPageRoute,
-  ProductCheckoutPageRoute,
-} from "./routes/ProductRoutes";
-import HomeRoute from "./routes/HomeRoute";
-import MembershipRoutes from "./routes/MembershipRoutes";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import SignupRoute from "./routes/SignupRoute";
-import LoginRoute from "./routes/Login";
+import HomeRoutes from "./routes/HomeRoutes";
+import Dashboard from "./components/Dashboard/Dashboard";
+
 function App() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [loadingDiv, setLoadingDiv] = useState(true);
@@ -30,8 +24,10 @@ function App() {
     setLoadingDiv(true);
     const timer = setTimeout(() => {
       setLoadingDiv(false);
-    }, 3000);
+    }, 1000);
   }, []);
+  const currentPage = window.location.pathname;
+  const myArr = currentPage.split("/");
   return (
     <>
       {loadingDiv === true ? (
@@ -43,34 +39,22 @@ function App() {
           />
         </div>
       ) : (
-        <Router>
-          <div className="App">
-            <div
-              className="custom-cursor"
-              style={{ left: cursorPosition.x, top: cursorPosition.y }}
-            ></div>
-            <Header />
-            <Routes>
-              <Route path="/" element={<HomeRoute />} />
-              <Route
-                path={`/productdetail/:id/:name`}
-                element={<ProductDetailRoute />}
-              />
-              <Route
-                path={`/productCheckout/:id/:count/:name`}
-                element={<ProductCheckoutPageRoute />}
-              />
-              <Route
-                path={`/productdetailorder/:id/:name`}
-                element={<ProductDetailPageRoute />}
-              />
-              <Route path={`/signup`} element={<SignupRoute />} />
-              <Route path={`/login`} element={<LoginRoute />} />
-              <Route path="/membership/sub" element={<MembershipRoutes />} />
-            </Routes>
-            <Footer />
-          </div>
-        </Router>
+        <div className="App">
+          <div
+            className="custom-cursor"
+            style={{ left: cursorPosition.x, top: cursorPosition.y }}
+          ></div>
+          {myArr[1] === "dashboard" ? null : <Header />}
+          <Routes>
+            <Route
+              path="/dashboard"
+              element={<Navigate to="/dashboard/home" replace />}
+            />
+          </Routes>
+          {myArr[1] === "dashboard" ? <Dashboard /> : <HomeRoutes />}
+
+          {myArr[1] === "dashboard" ? null : <Footer />}
+        </div>
       )}
     </>
   );

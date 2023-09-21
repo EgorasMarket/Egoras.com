@@ -2080,9 +2080,11 @@ x .benefits_section1_area2_body1_cont2 {
 }
 
 #react-qrcode-logo {
-  height: 100% !important;
+  height: 300px !important;
   border-radius: 10px;
   width: 100% !important;
+  max-width: 300px !important;
+  max-height: 100% !important;
 }
 
 .qr_amount_area {
