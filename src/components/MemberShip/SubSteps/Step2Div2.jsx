@@ -4,6 +4,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 // import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import PlanSubDivModal from "./PlanSubDivModal";
 import PlanSubDivs from "./PlanSubDivs";
+import { SUBSCRIBE_MEMBERSHIP } from "../../../services/membership_services";
 // import CloseIcon from "@mui/icons-material/Close";
 const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
   const [activePlan, setActivePlan] = useState("");
@@ -14,6 +15,36 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
     setActivePlan(e.currentTarget.id);
     console.log(e.currentTarget.id);
   };
+  // Plan="Lite"
+  // PlanAmount="16.0"
+  // PlanAmountLocal="50,000"
+  // checkAgree={checkAgree}
+  // discount="5"
+  // toggleCheckAgree={toggleCheckAgree}
+  // toggleDiv={toggleLiteDiv}
+  // subMembership={subscribe_membership}
+
+  const plans = [
+    {
+      PlanAmount: "16.0",
+      Plan: "Lite",
+      PlanAmountLocal: "50,000",
+      discount: "5",
+    },
+    {
+      PlanAmount: "16.0",
+      Plan: "Lite",
+      PlanAmountLocal: "50,000",
+      discount: "5",
+    },
+    {
+      PlanAmount: "16.0",
+      Plan: "Lite",
+      PlanAmountLocal: "50,000",
+      discount: "5",
+    },
+  ];
+
   const toggleLiteDiv = (e) => {
     setliteDiv(!liteDiv);
   };
@@ -41,6 +72,7 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
           </div>
         </div>
       </div>
+
       <div className="Step2Div2_member_div2">
         <div className="Step2Div2_member_div2_head">Annual Plans</div>
         <div className="Step2Div2_member_div2_body">
@@ -102,41 +134,38 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
       </div>
       <div className="Step2Div2_member_div3"></div>
 
-      {liteDiv ? (
-        <PlanSubDivModal
-          Plan="Lite"
-          PlanAmount="16.0"
-          PlanAmountLocal="50,000"
-          checkAgree={checkAgree}
-          discount="5"
-          toggleCheckAgree={toggleCheckAgree}
-          toggleDiv={toggleLiteDiv}
-        />
-      ) : null}
+      <PlanSubDivModal
+        Plan="Lite"
+        PlanAmount="16.0"
+        PlanAmountLocal="50,000"
+        checkAgree={checkAgree}
+        discount="5"
+        toggleCheckAgree={toggleCheckAgree}
+        toggleDiv={toggleLiteDiv}
+        visibility={!liteDiv}
+      />
 
-      {proDiv ? (
-        <PlanSubDivModal
-          Plan="Pro"
-          PlanAmount="47.7"
-          PlanAmountLocal="150,000"
-          checkAgree={checkAgree}
-          discount="12.5"
-          toggleCheckAgree={toggleCheckAgree}
-          toggleDiv={toggleProDiv}
-        />
-      ) : null}
+      <PlanSubDivModal
+        Plan="Pro"
+        PlanAmount="47.7"
+        PlanAmountLocal="150,000"
+        checkAgree={checkAgree}
+        discount="12.5"
+        toggleCheckAgree={toggleCheckAgree}
+        toggleDiv={toggleProDiv}
+        visibility={!proDiv}
+      />
 
-      {priseDiv ? (
-        <PlanSubDivModal
-          Plan="Enterprise"
-          PlanAmount="95.4"
-          PlanAmountLocal="300,000"
-          checkAgree={checkAgree}
-          discount="25"
-          toggleCheckAgree={toggleCheckAgree}
-          toggleDiv={togglePriseDiv}
-        />
-      ) : null}
+      <PlanSubDivModal
+        Plan="Enterprise"
+        PlanAmount="95.4"
+        PlanAmountLocal="300,000"
+        checkAgree={checkAgree}
+        discount="25"
+        toggleCheckAgree={toggleCheckAgree}
+        toggleDiv={togglePriseDiv}
+        visibility={!priseDiv}
+      />
     </div>
   );
 };

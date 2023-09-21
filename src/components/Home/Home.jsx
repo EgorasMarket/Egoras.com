@@ -5,6 +5,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import Staticdata from "../../assets/json/Static";
+import { useDispatch, useSelector } from "react-redux";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -17,7 +18,10 @@ import {
   NoBgButtonWithBorder,
 } from "../Common/CommonUI/Button";
 import "../../stylesheet/Home.css";
+import { setError } from "../../features/auth/authSlice";
 const Home = () => {
+  const dispatch = useDispatch();
+
   const [genVideo, setGenVideo] = useState(false);
   const [swiperIndex, setSwiperIndex] = useState(0);
   const TogglegenVideoDiv = () => {
@@ -40,6 +44,7 @@ const Home = () => {
             />
             Your browser does not support the video tag.
           </video>
+
           <div className="HomeDivSection1_div_txts_div">
             <div className="custom_container">
               <div className="HomeDivSection1_div_txts">
@@ -283,6 +288,16 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <div>
+        <p
+          onClick={() => {
+            dispatch(setError("this is a sample error"));
+          }}
+        >
+          sample{" "}
+        </p>
+      </div>
       {/* ====================== */}
       {/* ====================== */}
       {/* ====================== */}
