@@ -24,6 +24,7 @@ const Login = () => {
     console.log(res);
     if (res.payload.code === 200) {
       alert("Login successful");
+      navigate("/dashboard");
 
       return;
     }

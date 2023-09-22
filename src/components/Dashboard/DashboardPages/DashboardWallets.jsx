@@ -13,7 +13,11 @@ import WithdrawModalComp from "./DashboardWalletsComponents/WithdrawModalComp";
 import { QRCode } from "react-qrcode-logo";
 import DepositEgc from "./DashboardWalletsComponents/depositEgc";
 import DepositEgcFromUser from "./DashboardWalletsComponents/depositEgcFromUser";
-import SendEgc from "./DashboardWalletsComponents/sendEgc";
+import SendEgc from "./DashboardWalletsComponents/sendEgcInternal";
+import SendEgcInternal from "./DashboardWalletsComponents/sendEgcInternal";
+import SendEgcExternal from "./DashboardWalletsComponents/sendEgcExternal";
+import DepositNairaUser from "./DashboardWalletsComponents/depositNairaUser";
+import DepositNairaFromBank from "./DashboardWalletsComponents/depositNairaFromBank";
 
 const DashboardWallets = () => {
   const [activeTab, setActiveTab] = useState("egc");
@@ -201,114 +205,9 @@ const DashboardWallets = () => {
         />
       ) : null}
       {egcBlockchainWithdrawal ? (
-        <div className="depositMoneyDiv">
-          <div className="depositMoneyDiv_cont">
-            <ArrowBackOutlinedIcon
-              className="depositMoneyDiv_icon"
-              onClick={ToggleEgcBlockchainWithdrawModal}
-            />
-            <div className="depositMoneyDiv_cont_1">
-              <div className="depositMoneyDiv_cont_title_cont">
-                <div className="depositMoneyDiv_cont_title_cont_title">
-                  Send Egc
-                </div>
-                <div className="depositMoneyDiv_cont_title_cont_para">
-                  Send funds directly to a blockchain account
-                </div>
-              </div>
-              <div className="depositMoneyDiv_cont_body">
-                <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
-                    WalletAddress:
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="0xXXXXXXXXXXXXXXX"
-                    // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
-                    className="depositMoneyDiv_cont_body_wallet_addr_div_input"
-                  />
-                </div>
-                <div className="depositMoneyDiv_cont_body_input_div2">
-                  <div className="depositMoneyDiv_cont_body_input_div_title">
-                    Network:
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_input_div_div">
-                    <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
-                      <img
-                        src="/img/bsc_icon.png"
-                        alt=""
-                        className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
-                      />
-                      Binance Smart Chain
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
-                      BEP20
-                    </div>
-                  </div>
-                </div>
-                <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
-                    Withdrawal Amount:
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_input_div">
-                    <input
-                      type="number"
-                      placeholder="0.00"
-                      // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
-                      className="depositMoneyDiv_cont_body_wallet_addr_div_input"
-                    />
-                    <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
-                      Max
-                    </button>
-                  </div>
-                  <div className="availegc_bal_div">
-                    <div className="availegc_bal_div_title">Available</div>
-                    <div className="availegc_bal_div_amount">240.5 EGC</div>
-                  </div>
-                </div>
-                <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
-                    Withdrawal Remarks (optional):
-                  </div>
-                  <input
-                    type="text"
-                    // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
-                    className="depositMoneyDiv_cont_body_wallet_addr_div_input"
-                  />
-                </div>
-
-                <div className="depositMoneyDiv_cont_body_tips_divb">
-                  <div className="depositMoneyDiv_cont_body_tips_div_1">
-                    <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
-                    <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                      Minimum single withdrawal amount: 0.5egc
-                    </div>
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_tips_div_1">
-                    <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
-                    <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                      Maximum single withdrawal amount: 2,000egc
-                    </div>
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_tips_div_1">
-                    <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
-                    <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                      Make sure the the receiver's wallet is a bep20 wallet
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="depositMoneyDiv_cont_2">
-              <button
-                className="depositMoneyDiv_cont_2_btn"
-                // onClick={ToggleEgcBlockchainDepositModal}
-              >
-                Send Funds
-              </button>
-            </div>
-          </div>
-        </div>
+        <SendEgcExternal
+          ToggleEgcBlockchainWithdrawModal={ToggleEgcBlockchainWithdrawModal}
+        />
       ) : null}
       {egcUserDeposit ? (
         <DepositEgcFromUser
@@ -316,198 +215,19 @@ const DashboardWallets = () => {
         />
       ) : null}
       {egcUserWithdrawal ? (
-        <SendEgc ToggleEgcUserWithdrawtModal={ToggleEgcUserWithdrawtModal} />
+        <SendEgcInternal
+          ToggleEgcUserWithdrawtModal={ToggleEgcUserWithdrawtModal}
+        />
       ) : null}
       {depositMoneyNairaBank ? (
-        <div className="depositMoneyDiv">
-          <div className="depositMoneyDiv_cont">
-            <ArrowBackOutlinedIcon
-              className="depositMoneyDiv_icon"
-              onClick={ToggleDepositMoneyNairaBankModal}
-            />
-            <div className="depositMoneyDiv_cont_1">
-              <div className="depositMoneyDiv_cont_title_cont">
-                <div className="depositMoneyDiv_cont_title_cont_title">
-                  Deposit Naira
-                </div>
-                <div className="depositMoneyDiv_cont_title_cont_para">
-                  Add funds directly from a bank account
-                </div>
-              </div>
-              <div className="depositMoneyDiv_cont_body">
-                <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
-                    Account Number:
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_input_div">
-                    <input
-                      type="text"
-                      value={"2327729191"}
-                      className="depositMoneyDiv_cont_body_wallet_addr_div_input"
-                    />
-                    <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
-                      Copy
-                      <ContentCopyOutlinedIcon className="depositMoneyDiv_cont_body_wallet_addr_div_btn_icon" />
-                    </button>
-                  </div>
-                </div>
-                <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
-                    Account Name:
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_input_div">
-                    <input
-                      type="text"
-                      value={"Okwara Ifeanyi Samuel"}
-                      className="depositMoneyDiv_cont_body_wallet_addr_div_input"
-                    />
-                  </div>
-                </div>
-                <div className="depositMoneyDiv_cont_body_input_div2">
-                  <div className="depositMoneyDiv_cont_body_input_div_title">
-                    Bank Name:
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_input_div_div">
-                    <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
-                      <img
-                        src="/img/egc_icon2.svg"
-                        alt=""
-                        className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
-                      />
-                      Providus Bank
-                    </div>
-                  </div>
-                </div>
-
-                <div className="depositMoneyDiv_cont_body_tips_divb">
-                  <div className="depositMoneyDiv_cont_body_tips_div_1">
-                    <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
-                    <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                      Send Naira to this bank account
-                    </div>
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_tips_div_1">
-                    <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
-                    <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                      Only Internal Deposit/Receive
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="depositMoneyDiv_cont_2">
-              <button
-                className="depositMoneyDiv_cont_2_btn"
-                onClick={ToggleDepositMoneyNairaBankModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <DepositNairaFromBank
+          ToggleDepositMoneyNairaBankModal={ToggleDepositMoneyNairaBankModal}
+        />
       ) : null}
       {depositMoneyNairaUser ? (
-        <div className="depositMoneyDiv">
-          <div className="depositMoneyDiv_cont">
-            <ArrowBackOutlinedIcon
-              className="depositMoneyDiv_icon"
-              onClick={ToggleDepositMoneyNairaUserModal}
-            />
-            <div className="depositMoneyDiv_cont_1">
-              <div className="depositMoneyDiv_cont_title_cont">
-                <div className="depositMoneyDiv_cont_title_cont_title">
-                  Deposit Naira
-                </div>
-                <div className="depositMoneyDiv_cont_title_cont_para">
-                  Add funds directly from an egoras user
-                </div>
-              </div>
-              <div className="depositMoneyDiv_cont_body">
-                <div className="depositMoneyDiv_cont_body_input_div">
-                  <div className="depositMoneyDiv_cont_body_input_div_title">
-                    Currency:
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_input_div_div">
-                    <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
-                      <img
-                        src="/img/egc_icon2.svg"
-                        alt=""
-                        className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
-                      />
-                      Nigerian Naira
-                    </div>
-                    <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
-                      NGN
-                    </div>
-                  </div>
-                </div>
-                <div className="depositMoneyDiv_cont_body_qr_div">
-                  <QRCode
-                    value="Cyntax"
-                    quietZone={5}
-                    eyeColor="#fff"
-                    bgColor="#161619"
-                    fgColor="#fff"
-                    logoImage="/img/egc_icon2.svg"
-                    eyeRadius={[
-                      [5, 5, 0, 5],
-                      [5, 5, 5, 0],
-                      [5, 0, 5, 5],
-                    ]}
-                    removeQrCodeBehindLogo={true}
-                    // logoPadding={5}
-                    // logoWidth={15}
-                    logoPaddingStyle="circle"
-                    className="depositMoneyDiv_cont_body_qr_div_qr"
-                  />
-                  <div className="depositMoneyDiv_cont_body_qr_div_txt">
-                    Scan Qrcode or copy and send username to an egoras user to
-                    add funds
-                  </div>
-                </div>
-                <div className="depositMoneyDiv_cont_body_wallet_addr_div">
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
-                    Username:
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_wallet_addr_div_input_div">
-                    <input
-                      type="text"
-                      value={"Cyntax"}
-                      className="depositMoneyDiv_cont_body_wallet_addr_div_input"
-                    />
-                    <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
-                      Copy
-                      <ContentCopyOutlinedIcon className="depositMoneyDiv_cont_body_wallet_addr_div_btn_icon" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="depositMoneyDiv_cont_body_tips_div">
-                  <div className="depositMoneyDiv_cont_body_tips_div_1">
-                    <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
-                    <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                      Send only NGN to this username
-                    </div>
-                  </div>
-                  <div className="depositMoneyDiv_cont_body_tips_div_1">
-                    <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
-                    <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                      Only Internal Deposit/Receive
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="depositMoneyDiv_cont_2">
-              <button
-                className="depositMoneyDiv_cont_2_btn"
-                onClick={ToggleDepositMoneyNairaUserModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <DepositNairaUser
+          ToggleDepositMoneyNairaUserModal={ToggleDepositMoneyNairaUserModal}
+        />
       ) : null}
       {nairaBankWithdrawal ? (
         <div className="depositMoneyDiv">
