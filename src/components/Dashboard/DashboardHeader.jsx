@@ -4,7 +4,9 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 
 import { Avatar } from "modern-react-avatar";
 import "modern-react-avatar/dist/index.css";
+import { useSelector } from "react-redux";
 const DashboardHeader = ({ currentPathName }) => {
+  const { user } = useSelector((state) => state.auth);
   return (
     <div className="DashboardHeader">
       <div className="DashboardHeader_area">
