@@ -7,6 +7,7 @@ import Staticdata from "../../../assets/json/Static";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useDispatch, useSelector } from "react-redux";
+import OtpInput from "react18-input-otp";
 // import { setPayload } from "../../../features/user-registration/userRegistration";
 import { registerUser } from "../../../features/auth/authActions";
 import { setPayload } from "../../../features/auth/authSlice";
@@ -17,6 +18,8 @@ const Signup = () => {
   const dispatch = useDispatch();
   const { payload, loading, error } = useSelector((state) => state.auth);
   const [defaultForm, setDefaultForm] = useState(true);
+  const [otpModal, setOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
   const ToggleDefaultForm = () => {
     setDefaultForm(!defaultForm);
   };
@@ -41,15 +44,21 @@ const Signup = () => {
     } = payload;
     console.log(payload);
 
+    let temp = "+" + phone.toString();
+    let result = temp.replace(countrycode, "0");
+    // payload.phone = result;
+
     if (email === "" || password === "") return;
 
-    const res = await dispatch(registerUser(payload));
+    let newPayload = { ...payload, phone: result };
+
+    const res = await dispatch(registerUser(newPayload));
 
     console.log(res);
     if (res.payload?.code === 200) {
-      alert("Registration Successful -- redirect to choice page");
-      navigate("/login");
-
+      // alert("Registration Successful -- redirect to choice page");
+      // navigate("/login");
+      setOtpModal(true);
       return;
     }
 
@@ -67,6 +76,10 @@ const Signup = () => {
   if (error) {
     return <p>{error}</p>;
   }
+
+  const handleChange = (enteredOtp) => {
+    setOtp(enteredOtp);
+  };
   return (
     <div className="signup_div">
       <section
@@ -215,14 +228,17 @@ const Signup = () => {
                     enableSearch={true}
                     value={payload.phone}
                     onChange={(value, country, e, formattedValue) => {
+                      // let text = value;
+                      // let result = text.replace(country.dialCode, "0");
+                      // console.log(result);
                       dispatch(
                         setPayload({
                           ...payload,
-                          countrycode: country.dialCode,
+                          countrycode: "+" + country.dialCode,
                           phone: value,
                         })
                       );
-                      console.log(country, formattedValue);
+                      console.log(country, formattedValue, value);
                     }}
                     // onChange={(phone) => this.setState({ phone })}
                   />
@@ -299,17 +315,46 @@ const Signup = () => {
             ) : null}
             <div className="signup_div_section_div_para">
               Already have an acccount?{"   "}
-              <a
-                href="/login"
-                className="signup_div_section_div_para_link"
-                onClick={handleSignUp}
-              >
+              <a href="/login" className="signup_div_section_div_para_link">
                 Login
               </a>
             </div>
           </div>
         </div>
       </section>
+      {otpModal ? (
+        <div className="otp_modal">
+          <div className="otp_modal_container">
+            <div className="otp_modal_container_head">Enter the code</div>
+            <div className="otp_modal_container_para">
+              Enter the otp code sent to your mobile number{" "}
+              {"+" + payload.phone}. Be careful not to share the code with
+              anyone.
+            </div>
+            <div className="otp_modal_container_body">
+              <OtpInput
+                id="myInput"
+                placeholder="000000"
+                value={otp}
+                onChange={handleChange}
+                numInputs={6}
+                isSuccessed={false}
+                errorStyle="error"
+                successStyle="success"
+                separator={<span> - </span>}
+                separateAfter={1}
+                shouldAutoFocus
+                onSubmit={console.log(otp)}
+              />
+            </div>
+            <div className="otp_modal_container_body_button">
+              <button className="otp_modal_container_body_button_btn">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
