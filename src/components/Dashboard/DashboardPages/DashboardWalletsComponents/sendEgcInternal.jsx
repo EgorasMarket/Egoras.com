@@ -1,11 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
 import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-const SendEgc = ({ ToggleEgcUserWithdrawtModal }) => {
+import {
+  SEND_CRYPTO_FUNDS_EXTERNAL,
+  SEND_CRYPTO_FUNDS_INTERNAL,
+} from "../../../../services/finance_services";
+const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
+  const [loading, setLoading] = useState(false);
+  const [payload, setPayload] = useState({
+    symbol: "EGC",
+    username_email: "",
+    amount: "",
+    type: "internal_send",
+  });
+
+  const sendFunds = async () => {
+    setLoading(true);
+    const pin = prompt("Please Enter Your Pin");
+
+    const response = await SEND_CRYPTO_FUNDS_INTERNAL({
+      ...payload,
+      pin_code: pin,
+    });
+    console.log(response);
+    setLoading(false);
+
+    if (!response.data.success) {
+      alert(response.data.errorMessage);
+      return;
+    }
+
+    alert("Transaction Successful");
+  };
+
+  const handleOnChange = (e) => {
+    const { id, value } = e.target;
+
+    setPayload({ ...payload, [id]: value });
+  };
+
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
@@ -37,7 +74,7 @@ const SendEgc = ({ ToggleEgcUserWithdrawtModal }) => {
                   Egoras Credit
                 </div>
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
-                  EGC
+                  {payload.symbol}
                 </div>
               </div>
             </div>
@@ -47,6 +84,9 @@ const SendEgc = ({ ToggleEgcUserWithdrawtModal }) => {
               </div>
               <input
                 type="text"
+                id="username_email"
+                value={payload.username_email}
+                onChange={handleOnChange}
                 placeholder="@John Doe"
                 // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
                 className="depositMoneyDiv_cont_body_wallet_addr_div_input"
@@ -60,11 +100,14 @@ const SendEgc = ({ ToggleEgcUserWithdrawtModal }) => {
                 <input
                   type="number"
                   placeholder="0.00"
+                  id="amount"
                   // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
+                  value={payload.amount}
+                  onChange={handleOnChange}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
                 <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
-                  Max
+                  Maxs
                 </button>
               </div>
               <div className="availegc_bal_div">
@@ -100,16 +143,17 @@ const SendEgc = ({ ToggleEgcUserWithdrawtModal }) => {
           </div>
         </div>
         <div className="depositMoneyDiv_cont_2">
-          <button
-            className="depositMoneyDiv_cont_2_btn"
-            // onClick={ToggleEgcUserDepositModal}
-          >
-            Send funds
-          </button>
+          {loading ? (
+            <p>Loading ...</p>
+          ) : (
+            <button className="depositMoneyDiv_cont_2_btn" onClick={sendFunds}>
+              Send funds
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default SendEgc;
+export default SendEgcInternal;
