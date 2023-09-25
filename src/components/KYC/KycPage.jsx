@@ -25,6 +25,18 @@ const KycPage = () => {
     setStep1(!step1);
     setStep2(true);
   };
+  const ToggleStep1Prev = () => {
+    setStep1(!step1);
+    setStartStep(true);
+  };
+  const ToggleStep2Prev = () => {
+    setStep2(!step2);
+    setStep1(true);
+  };
+  const ToggleStep3Prev = () => {
+    setStep3(!step3);
+    setStep2(true);
+  };
   const ToggleStep2 = () => {
     setStep2(!step2);
     setStep3(true);
@@ -38,9 +50,18 @@ const KycPage = () => {
       <div className="custom_container">
         {emailStep ? <KycEmailComp toggleEmailCont={ToggleEmailStep} /> : null}
         {startStep ? <KycStartComp startVerify={ToggleStartStep} /> : null}
-        {step1 ? <KycBvnComp nextStep1={ToggleStep1} /> : null}
-        {step2 ? <KycAddressComp nextStep2={ToggleStep2} /> : null}
-        {step3 ? <KycFacialComp submitVerify={submitVerification} /> : null}
+        {step1 ? (
+          <KycBvnComp nextStep1={ToggleStep1} prevStep={ToggleStep1Prev} />
+        ) : null}
+        {step2 ? (
+          <KycAddressComp nextStep2={ToggleStep2} prevStep={ToggleStep2Prev} />
+        ) : null}
+        {step3 ? (
+          <KycFacialComp
+            submitVerify={submitVerification}
+            prevStep={ToggleStep3Prev}
+          />
+        ) : null}
       </div>
     </div>
   );
