@@ -1,6 +1,11 @@
 import axios from "axios";
 import { EGORAS_PAY_URL } from "../core/constants";
-import { LOGIN, REGISTER_ROUTE, VERIFY_USER_ROUTE } from "../core/ApiRoutes";
+import {
+  LOGIN,
+  REGISTER_ROUTE,
+  VERIFY_OTP_ROUTE,
+  VERIFY_USER_ROUTE,
+} from "../core/ApiRoutes";
 import { CustomResponse } from "../utils/CustomResponse";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -51,6 +56,15 @@ export const VERIFY_USER = async () => {
   try {
     setAuthToken(localStorage.getItem("x-token"));
     const response = await axios.get(VERIFY_USER_ROUTE);
+    return response.data;
+  } catch (error) {
+    return error.response || error.message;
+  }
+};
+export const VERIFY_OTP = async (payload) => {
+  try {
+    setAuthToken(localStorage.getItem("x-token"));
+    const response = await axios.post(VERIFY_OTP_ROUTE, payload);
     return response.data;
   } catch (error) {
     return error.response || error.message;

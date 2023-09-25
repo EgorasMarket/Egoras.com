@@ -21,7 +21,11 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
       return;
     }
 
-    setBankInfo(response.data.vA.data);
+    if (!response.data) {
+      return;
+    }
+
+    setBankInfo(response.data?.vA?.data);
   };
 
   useEffect(() => {

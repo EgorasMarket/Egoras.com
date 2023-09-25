@@ -45,7 +45,13 @@ const DashBoardNav = ({ routes, activeRoute }) => {
             </Link>
           ))}
       </div>
-      <div className="dashNavLogout">
+      <div
+        className="dashNavLogout"
+        onClick={() => {
+          localStorage.removeItem("x-token");
+          window.location.reload();
+        }}
+      >
         <PowerSettingsNewRoundedIcon className="dashNavLogout_icon" />
         <div className="dashNavLogout_txt">Logout</div>
       </div>

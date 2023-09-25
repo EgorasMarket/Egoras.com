@@ -10,3 +10,7 @@ export const GET_WALLET_ROUTE = `${EGORAS_PAY_URL}/api/wallet/get`;
 export const SEND_CRYPTO_EXTERNAL_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/external`;
 export const SEND_CRYPTO_INTERNAL_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/internal`;
 export const GET_VIRTUAL_ACCOUNT_ROUTE = `${EGORAS_PAY_URL}/api/account/bank/transfer`;
+export const GET_BANKS = `${EGORAS_PAY_URL}/api/account/banks`;
+export const VERIFY_ACCOUNT_NUMBER_ROUTE = `${EGORAS_PAY_URL}/api/verify/account/number`;
+export const PAYOUT_TO_BANK_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/cashout`;
+export const VERIFY_OTP_ROUTE = `${EGORAS_PAY_URL}/pub/verify/sms`;

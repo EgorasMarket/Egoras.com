@@ -4,11 +4,21 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { routes } from "../../routes/routes";
 import DashboardHeader from "./DashboardHeader";
 import "./DashboardStyles/Dashboard.css";
+import { useSelector } from "react-redux";
 const Dashboard = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [currentRoute, setCurrentRoute] = React.useState("Dashboard");
 
   const currentPathname = location.pathname;
+
+  const { user } = useSelector((state) => state.auth);
+  useEffect(() => {
+    console.log(user, "madamd");
+    if (user === null || user === undefined) {
+      navigate("/login");
+    }
+  }, [user]);
   useEffect(() => {
     const currentRoute = routes.find(
       (data) => `${data.layout}/${data.path}` === currentPathname
