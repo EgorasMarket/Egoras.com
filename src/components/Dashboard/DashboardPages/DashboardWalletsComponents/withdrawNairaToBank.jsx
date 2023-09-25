@@ -92,6 +92,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
 
     console.log(response);
   };
+
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
