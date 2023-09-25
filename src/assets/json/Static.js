@@ -109,5 +109,11 @@ const Staticdata = {
     { value: "male", label: "Male" },
     { value: "female", label: "Female" },
   ],
+  options2: [
+    { value: "0", label: "River state" },
+    { value: "1", label: "Bayelsa state" },
+    { value: "2", label: "Lagos state" },
+    { value: "3", label: "Edo state" },
+  ],
 };
 export default Staticdata;

@@ -64,8 +64,17 @@ const DashboardHome = () => {
       {/* ================== */}
       {/* ================== */}
       <div className="start_kyc_div">
-        <div className="start_kyc_div_1">Complete KYC</div>{" "}
-        <div className="start_kyc_div_2">Verify</div>{" "}
+        <div className="start_kyc_div_1">
+          <div className="start_kyc_div_1_title">Upgrade your KYC level</div>{" "}
+          <div className="start_kyc_div_1_para">
+            Upgrade your kyc level to level2 to unlock transaction capabilities
+            within the app
+          </div>{" "}
+        </div>{" "}
+        <a href="/kyc/verify" className="start_kyc_div_2_link">
+          {" "}
+          <div className="start_kyc_div_2">Upgrade Level</div>
+        </a>{" "}
       </div>
       {/* ================== */}
       {/* ================== */}

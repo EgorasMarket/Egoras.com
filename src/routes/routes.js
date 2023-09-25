@@ -17,6 +17,7 @@ import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
+import KycPage from "../components/KYC/KycPage";
 const routes = [
   { name: "Home", path: "", component: <Home />, layout: "/" },
   { name: "Signup", path: "signup", component: <Signup />, layout: "/" },
@@ -31,6 +32,12 @@ const routes = [
     name: "Product Detail",
     path: "productdetail/:id/:name",
     component: <ProductDetail />,
+    layout: "/",
+  },
+  {
+    name: "Product Detail",
+    path: "kyc/verify",
+    component: <KycPage />,
     layout: "/",
   },
   {
