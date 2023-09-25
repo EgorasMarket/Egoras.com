@@ -12,6 +12,7 @@ import OtpInput from "react18-input-otp";
 import { registerUser } from "../../../features/auth/authActions";
 import { setPayload } from "../../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { VERIFY_OTP } from "../../../services/auth";
 // dummySelectData;
 const Signup = () => {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const Signup = () => {
     let newPayload = { ...payload, phone: result };
 
     const res = await dispatch(registerUser(newPayload));
+    setPayload(newPayload);
 
     console.log(res);
     if (res.payload?.code === 200) {
@@ -76,6 +78,29 @@ const Signup = () => {
   if (error) {
     return <p>{error}</p>;
   }
+
+  const handleVerifyOtp = async () => {
+    console.log(payload);
+
+    let temp = "+" + payload.phone.toString();
+    let newPhone = temp.replace(payload.countrycode, "0");
+
+    const response = await VERIFY_OTP({
+      code: otp,
+      phone: newPhone,
+    });
+
+    console.log(response);
+
+    if (response.success) {
+      alert("Phone Number verified");
+
+      navigate("/login");
+      return;
+    }
+
+    alert(response.data.errorMessage || "Verification failed!!1");
+  };
 
   const handleChange = (enteredOtp) => {
     setOtp(enteredOtp);
@@ -344,10 +369,13 @@ const Signup = () => {
                 separator={<span> - </span>}
                 separateAfter={1}
                 shouldAutoFocus
-                onSubmit={console.log(otp)}
+                // onSubmit={console.log(otp)}
               />
             </div>
-            <div className="otp_modal_container_body_button">
+            <div
+              className="otp_modal_container_body_button"
+              onClick={handleVerifyOtp}
+            >
               <button className="otp_modal_container_body_button_btn">
                 Send
               </button>

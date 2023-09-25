@@ -13,3 +13,4 @@ export const GET_VIRTUAL_ACCOUNT_ROUTE = `${EGORAS_PAY_URL}/api/account/bank/tra
 export const GET_BANKS = `${EGORAS_PAY_URL}/api/account/banks`;
 export const VERIFY_ACCOUNT_NUMBER_ROUTE = `${EGORAS_PAY_URL}/api/verify/account/number`;
 export const PAYOUT_TO_BANK_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/cashout`;
+export const VERIFY_OTP_ROUTE = `${EGORAS_PAY_URL}/pub/verify/sms`;
