@@ -184,3 +184,7 @@
   font-size: 14px;
   font-weight: 500;
 }
+.signup_div_section_div_container_form_btn:disabled {
+  background: #1f3a2b;
+  color: #4c7f65;
+}

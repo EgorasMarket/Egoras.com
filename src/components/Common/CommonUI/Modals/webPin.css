@@ -1,0 +1,26 @@
+.kifxgU {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.eCByvi {
+  color: #fff !important;
+}
+.hrmTiK:valid {
+  color: #fff !important;
+}
+.eCByvi:focus {
+  border-color: rgb(34 173 98) !important;
+  box-shadow: rgb(34 173 98) 0px 0px 0px 1px !important;
+}
+.otp_modal_container_body_icon {
+  /* height: 100% !important; */
+  background: #3d3d3d;
+  font-size: 24px !important;
+  padding: 4px;
+  border-radius: 6px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #949494 !important;
+}

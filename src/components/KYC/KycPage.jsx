@@ -49,7 +49,14 @@ const KycPage = () => {
     <div className="kypageDiv">
       <div className="custom_container">
         {emailStep ? <KycEmailComp toggleEmailCont={ToggleEmailStep} /> : null}
-        {startStep ? <KycStartComp startVerify={ToggleStartStep} /> : null}
+        {startStep ? (
+          <KycStartComp
+            startVerify={ToggleStartStep}
+            prev={() => {
+              window.location.href = "/dashboard";
+            }}
+          />
+        ) : null}
         {step1 ? (
           <KycBvnComp nextStep1={ToggleStep1} prevStep={ToggleStep1Prev} />
         ) : null}
