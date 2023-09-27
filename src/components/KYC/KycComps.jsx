@@ -5,6 +5,13 @@ import Select from "react-select";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import Staticdata from "../../assets/json/Static";
 import ReactCountryFlagsSelect from "react-country-flags-select";
+import { GET_KYC_STATUS } from "../../services/kyc_services";
+
+const levels = Object.freeze({
+  level1: "LEVEL_1",
+  level2: "LEVEL_2",
+  level3: "LEVEL_3",
+});
 const styles = {
   container: {
     display: "flex",
@@ -32,6 +39,26 @@ const styles = {
   },
 };
 const KycEmailComp = ({ toggleEmailCont }) => {
+  const [response, setResponse] = useState({});
+  const fetchKycStatus = async () => {
+    const response = await GET_KYC_STATUS();
+
+    if (response?.code === null || !response?.code === 200) {
+      return;
+    }
+
+    if (response.data.data.level === levels.level1) {
+      toggleEmailCont();
+      return;
+    }
+    setResponse(response?.data?.data);
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetchKycStatus();
+  }, []);
+
   return (
     <div className="kypageDiv_cont_div">
       <div className="kypageDiv_cont_div_btn">
@@ -65,14 +92,16 @@ const KycEmailComp = ({ toggleEmailCont }) => {
             </div>
           </div>
         </div>
-        <div className="kypageDiv_cont_button_div">
-          <button
-            className="kypageDiv_cont_button_div_btn"
-            onClick={toggleEmailCont}
-          >
-            Continue
-          </button>
-        </div>
+        {!response.level === levels.level1 && (
+          <div className="kypageDiv_cont_button_div">
+            <button
+              className="kypageDiv_cont_button_div_btn"
+              onClick={toggleEmailCont}
+            >
+              Continue
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

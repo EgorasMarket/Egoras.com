@@ -18,17 +18,17 @@ const DashboardHeader = ({ currentPathName }) => {
           <div className="DashboardHeader_area_2_cont2">
             <div className="DashboardHeader_area_2_cont2_cont1">
               <Avatar
-                name="Samuel Ifeanyi"
+                name={`${user?.firstName} ${user?.lastName}`}
                 size="small"
                 className="DashboardHeader_area_2_cont2_cont1_avatar"
               />
             </div>
             <div className="DashboardHeader_area_2_cont2_cont2">
               <div className="DashboardHeader_area_2_cont2_cont2_div1">
-                Ifeanyi Samuel
+                {`${user?.firstName} ${user?.lastName}`}
               </div>
               <div className="DashboardHeader_area_2_cont2_cont2_div2">
-                @Cyntax
+                @{user?.username}
               </div>
             </div>
           </div>
