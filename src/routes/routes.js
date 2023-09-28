@@ -38,7 +38,7 @@ const routes = [
     name: "Product Detail",
     path: "kyc/verify",
     component: <KycPage />,
-    layout: "/",
+    layout: "/dashboard",
   },
   {
     name: "Product Detail Page",

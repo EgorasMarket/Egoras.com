@@ -6,6 +6,9 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import Staticdata from "../../assets/json/Static";
 import ReactCountryFlagsSelect from "react-country-flags-select";
 import { GET_KYC_STATUS } from "../../services/kyc_services";
+import { useDispatch, useSelector } from "react-redux";
+import { setPayload } from "../../features/kyc/kycSlice";
+import axios from "axios";
 
 const levels = Object.freeze({
   level1: "LEVEL_1",
@@ -47,7 +50,11 @@ const KycEmailComp = ({ toggleEmailCont }) => {
       return;
     }
 
-    if (response.data.data.level === levels.level1) {
+    if (
+      response.data.data.level === levels.level1 ||
+      response.data.data.level === levels.level2 ||
+      response.data.data.level === levels.level3
+    ) {
       toggleEmailCont();
       return;
     }
@@ -184,6 +191,9 @@ const KycStartComp = ({ startVerify }) => {
   );
 };
 const KycBvnComp = ({ nextStep1, prevStep }) => {
+  const dispatch = useDispatch();
+  const { payload } = useSelector((state) => state.kyc);
+
   return (
     <div className="kypageDiv_cont_div">
       <div className="kypageDiv_cont_div_btn">
@@ -210,6 +220,11 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
                 type="number"
                 placeholder={"Enter BVN here"}
                 className="kypageDiv_cont_body_email_input2"
+                onChange={(e) => {
+                  const { value } = e.target;
+
+                  dispatch(setPayload({ ...payload, bvnNumber: value }));
+                }}
               />
             </div>
           </div>
@@ -245,7 +260,12 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
             </div>
           </div>
         </div>
-        <div className="kypageDiv_cont_button_div">
+        <div
+          className="kypageDiv_cont_button_div"
+          onClick={() => {
+            alert(JSON.stringify(payload));
+          }}
+        >
           <button className="kypageDiv_cont_button_div_btn" onClick={nextStep1}>
             Next Step
           </button>
@@ -255,7 +275,18 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
   );
 };
 const KycAddressComp = ({ nextStep2, prevStep }) => {
+  const dispatch = useDispatch();
+  const { payload } = useSelector((state) => state.kyc);
+
   const [selected, setSelected] = useState(null);
+
+  const [data, setData] = useState({
+    country: "",
+    state: "",
+    city: "",
+    address: "",
+  });
+
   return (
     <div className="kypageDiv_cont_div">
       <div className="kypageDiv_cont_div_btn">
@@ -276,6 +307,7 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
                 Select Country:
               </div>
               <ReactCountryFlagsSelect
+                labelWithCountryCode
                 selected={selected}
                 onSelect={setSelected}
                 className="kypageDiv_cont_body_email_input2"
@@ -293,9 +325,12 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
                 classNamePrefix="select"
                 className="kypageDiv_cont_body_input_div_slect"
                 defaultValue={Staticdata.options2[0]}
-                id="gender"
+                onChange={(e) => {
+                  setData({ state: e.label });
+                }}
+                id="state"
                 isSearchable={true}
-                name="gender"
+                name="state"
                 options={Staticdata.options2}
               />
             </div>
@@ -308,6 +343,9 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
                 classNamePrefix="select"
                 className="kypageDiv_cont_body_input_div_slect"
                 defaultValue={Staticdata.options2[0]}
+                onChange={(e) => {
+                  setData({ city: e.label });
+                }}
                 id="gender"
                 isSearchable={true}
                 name="gender"
@@ -320,13 +358,27 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
               </div>
               <input
                 type="text"
+                onChange={(e) => {
+                  setData({ address: e.target.value });
+                }}
+                id=""
                 placeholder={"Enter your address"}
                 className="kypageDiv_cont_body_email_input2"
               />
             </div>
           </div>
         </div>
-        <div className="kypageDiv_cont_button_div">
+        <div
+          className="kypageDiv_cont_button_div"
+          onClick={async () => {
+            await dispatch(
+              setPayload({
+                ...payload,
+                address: `address, city, state, country`,
+              })
+            );
+          }}
+        >
           <button className="kypageDiv_cont_button_div_btn" onClick={nextStep2}>
             Next Step
           </button>
