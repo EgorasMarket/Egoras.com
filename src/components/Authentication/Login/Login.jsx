@@ -65,13 +65,6 @@ const Login = () => {
     setIsLoading(true);
   };
 
-  // if (loading) {
-  //   return <ComponentLoading loadingTxt={" Loading Please wait..."} />;
-  // }
-
-  // if (error) {
-  //   return <p>{error}</p>;
-  // }
   useEffect(() => {
     if (values.email && values.password !== "") {
       setDisable(false);

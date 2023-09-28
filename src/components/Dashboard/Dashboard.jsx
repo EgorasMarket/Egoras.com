@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Dashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [currentRoute, setCurrentRoute] = React.useState("Dashboard");
+  const [currentRoute, setCurrentRoute] = useState("Dashboard");
 
   const currentPathname = location.pathname;
 
