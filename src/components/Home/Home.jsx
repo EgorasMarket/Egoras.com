@@ -60,7 +60,7 @@ const Home = () => {
                 </div>
                 <div className="HomeDivSection1_div_txts_2">
                   <a
-                    href={`/productdetail/${1}/${"Egora dual fuel tricycle"}`}
+                    href={`/productdetail/${1}/${"Egoras dual fuel tricycle"}`}
                     className="HomeDivSection1_div_txts_2_link1"
                   >
                     <BgButtonNoBorder

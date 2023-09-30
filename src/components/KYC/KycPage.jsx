@@ -7,7 +7,10 @@ import {
   KycFacialComp,
 } from "./KycComps";
 import "./kyc.css";
+import { UPLOAD_IMAGE, UPLOAD_LEVEL_2_KYC } from "../../services/kyc_services";
+import { useSelector } from "react-redux";
 const KycPage = () => {
+  const { payload } = useSelector((state) => state.kyc);
   const [emailStep, setEmailStep] = useState(true);
   const [startStep, setStartStep] = useState(false);
   const [step1, setStep1] = useState(false);
@@ -41,15 +44,22 @@ const KycPage = () => {
     setStep2(!step2);
     setStep3(true);
   };
-  const submitVerification = () => {
-    alert("Finished Verification");
+  const submitVerification = async () => {
+    // await new_payload.append("image_file", payload.image);
   };
 
   return (
     <div className="kypageDiv">
       <div className="custom_container">
         {emailStep ? <KycEmailComp toggleEmailCont={ToggleEmailStep} /> : null}
-        {startStep ? <KycStartComp startVerify={ToggleStartStep} /> : null}
+        {startStep ? (
+          <KycStartComp
+            startVerify={ToggleStartStep}
+            prev={() => {
+              window.location.href = "/dashboard";
+            }}
+          />
+        ) : null}
         {step1 ? (
           <KycBvnComp nextStep1={ToggleStep1} prevStep={ToggleStep1Prev} />
         ) : null}

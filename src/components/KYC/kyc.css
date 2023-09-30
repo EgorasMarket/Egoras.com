@@ -303,3 +303,34 @@ button.face_id_div_btn {
   margin-top: 1em;
   max-width: 200px;
 }
+.camera-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.camera-feed {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+.face_id_div_video {
+  width: 100%;
+  border-radius: 50%;
+  height: inherit;
+  object-fit: cover;
+}
+.captured-image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.captured_image_img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+}

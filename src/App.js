@@ -6,7 +6,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import HomeRoutes from "./routes/HomeRoutes";
 import Dashboard from "./components/Dashboard/Dashboard";
-
+import DefaultComponentLoading from "./components/Common/CommonUI/Modals/DefaultComponentLoading/DefaultComponentLoading";
 import ProtectedRoute from "./Router/ProtectedRoute";
 import ProductDetail from "./components/Market/ProductDetail";
 import { VERIFY_USER } from "./services/auth";
@@ -39,26 +39,20 @@ function App() {
     setLoadingDiv(true);
     const timer = setTimeout(() => {
       setLoadingDiv(false);
-    }, 1000);
+    }, 2000);
   }, []);
   const currentPage = window.location.pathname;
   const myArr = currentPage.split("/");
   return (
     <>
+      <div
+        className="custom-cursor"
+        style={{ left: cursorPosition.x, top: cursorPosition.y }}
+      ></div>
       {loadingDiv === true ? (
-        <div className="loading_div_area">
-          <img
-            src="/img/egoras_loading.gif"
-            alt=""
-            className="loading_div_area_img"
-          />
-        </div>
+        <DefaultComponentLoading />
       ) : (
         <div className="App">
-          <div
-            className="custom-cursor"
-            style={{ left: cursorPosition.x, top: cursorPosition.y }}
-          ></div>
           {myArr[1] === "dashboard" ? null : <Header />}
           <Routes>
             <Route

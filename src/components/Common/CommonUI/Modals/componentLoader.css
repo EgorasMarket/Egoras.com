@@ -1,0 +1,36 @@
+.componentLoaderDiv {
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.componentLoaderDiv_cont {
+  background: #191919;
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  border: solid 1px #212121;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.componentLoaderDiv_cont_txt {
+  margin-top: 1em;
+  color: #fff;
+  font-size: 14px;
+}
+.componentLoaderDiv_cont_div_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

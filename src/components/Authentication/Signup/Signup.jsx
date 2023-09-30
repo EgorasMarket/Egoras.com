@@ -7,12 +7,13 @@ import Staticdata from "../../../assets/json/Static";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useDispatch, useSelector } from "react-redux";
-import OtpInput from "react18-input-otp";
+
 // import { setPayload } from "../../../features/user-registration/userRegistration";
 import { registerUser } from "../../../features/auth/authActions";
 import { setPayload } from "../../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { VERIFY_OTP } from "../../../services/auth";
+import OtpModal from "../../Common/CommonUI/Modals/OtpModal";
 // dummySelectData;
 const Signup = () => {
   const navigate = useNavigate();
@@ -136,6 +137,7 @@ const Signup = () => {
                     name="fullName"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    // autoComplete="off"
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -155,6 +157,7 @@ const Signup = () => {
                     name="email"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    // autoComplete="off"
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -174,6 +177,7 @@ const Signup = () => {
                     name="userName"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    // autoComplete="off"
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -267,25 +271,7 @@ const Signup = () => {
                     }}
                     // onChange={(phone) => this.setState({ phone })}
                   />
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  <label
-                    htmlFor="ReferralCode"
-                    className="signup_div_section_div_container_form_label"
-                  >
-                    Referral Code:
-                  </label>
-                  <input
-                    type="text"
-                    id="referral"
-                    name="referral"
-                    value={payload.referral}
-                    className="signup_div_section_div_container_form_input"
-                    onChange={handleOnChange}
-                  />
+
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
@@ -304,6 +290,7 @@ const Signup = () => {
                     name="password"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    autoComplete="off"
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -323,7 +310,30 @@ const Signup = () => {
                     name="confirm"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    autoComplete="off"
                   />
+                  {/* ============ */}
+                  {/* ============ */}
+                  {/* ============ */}
+                  {/* ============ */}
+
+                  <label
+                    htmlFor="ReferralCode"
+                    className="signup_div_section_div_container_form_label"
+                  >
+                    Referral Code:
+                  </label>
+                  <input
+                    type="text"
+                    id="referral"
+                    name="referral"
+                    value={payload.referral}
+                    className="signup_div_section_div_container_form_input"
+                    onChange={handleOnChange}
+                    autoComplete="off"
+                    // aria-autocomplete="off"
+                  />
+                  {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
@@ -348,40 +358,12 @@ const Signup = () => {
         </div>
       </section>
       {otpModal ? (
-        <div className="otp_modal">
-          <div className="otp_modal_container">
-            <div className="otp_modal_container_head">Enter the code</div>
-            <div className="otp_modal_container_para">
-              Enter the otp code sent to your mobile number{" "}
-              {"+" + payload.phone}. Be careful not to share the code with
-              anyone.
-            </div>
-            <div className="otp_modal_container_body">
-              <OtpInput
-                id="myInput"
-                placeholder="000000"
-                value={otp}
-                onChange={handleChange}
-                numInputs={6}
-                isSuccessed={false}
-                errorStyle="error"
-                successStyle="success"
-                separator={<span> - </span>}
-                separateAfter={1}
-                shouldAutoFocus
-                // onSubmit={console.log(otp)}
-              />
-            </div>
-            <div
-              className="otp_modal_container_body_button"
-              onClick={handleVerifyOtp}
-            >
-              <button className="otp_modal_container_body_button_btn">
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
+        <OtpModal
+          handleChange={handleChange}
+          otp={otp}
+          handleVerifyOtp={handleVerifyOtp}
+          payload={payload}
+        />
       ) : null}
     </div>
   );

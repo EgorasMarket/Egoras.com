@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../../stylesheet/signupLogin.css";
-import Staticdata from "../../../assets/json/Static";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../features/auth/authActions";
 import { useNavigate } from "react-router-dom";
+import ComponentLoading from "../../Common/CommonUI/Modals/ComponentLoading";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import WebPin from "../../Common/CommonUI/Modals/WebPin";
+import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 // dummySelectData;
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,8 +18,16 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [userPin, setUserPin] = useState(!null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorTxt, setErrorTxt] = useState("");
+  const [pinModal, setPinModal] = useState(false);
 
   const handleLogin = async () => {
+    setDisable(true);
     const { email, password } = values;
 
     if (email === "" || password === "") return;
@@ -23,14 +35,19 @@ const Login = () => {
     const res = await dispatch(loginUser(values));
     console.log(res);
     if (res.payload.code === 200) {
-      alert("Login successful");
-      navigate("/dashboard");
-
+      setDisable(false);
+      if (userPin === null) {
+        setPinModal(true);
+        return;
+      }
+      setSuccess(true);
       return;
     }
 
     if (res.payload?.data?.success === false) {
-      alert(res.payload?.data?.errorMessage);
+      setDisable(false);
+      setErrorTxt(res.payload?.data?.errorMessage);
+      setErrorModal(true);
     }
   };
 
@@ -44,13 +61,18 @@ const Login = () => {
     });
   };
 
-  if (loading) {
-    return <p>Loading ...</p>;
-  }
+  const createPin = () => {
+    setIsLoading(true);
+  };
 
-  if (error) {
-    return <p>{error}</p>;
-  }
+  useEffect(() => {
+    if (values.email && values.password !== "") {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [values]);
+
   return (
     <div className="signup_div">
       <section
@@ -74,6 +96,7 @@ const Login = () => {
                 onChange={handleOnChange}
                 name="email"
                 className="signup_div_section_div_container_form_input"
+                autoComplete="off"
               />
               {/* ============ */}
               {/* ============ */}
@@ -92,6 +115,7 @@ const Login = () => {
                 name="password"
                 onChange={handleOnChange}
                 className="signup_div_section_div_container_form_input"
+                autoComplete="off"
               />
               {/* ============ */}
               {/* ============ */}
@@ -127,8 +151,15 @@ const Login = () => {
               <button
                 className="signup_div_section_div_container_form_btn"
                 onClick={handleLogin}
+                disabled={disable}
               >
-                Login
+                {loading ? (
+                  <>
+                    <ScaleLoader color="#366e51" height={20} />
+                  </>
+                ) : (
+                  " Login"
+                )}
               </button>
             </div>
 
@@ -141,6 +172,31 @@ const Login = () => {
           </div>
         </div>
       </section>
+      {pinModal ? (
+        <WebPin
+          isLoading={isLoading}
+          btnFunc={createPin}
+          pinTitle="Create a transaction pin"
+          pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+          btnFuncTxt="Create Pin"
+        />
+      ) : null}
+      {success ? (
+        <SuccessModal
+          SuccesTxt={"You have successfully logged in "}
+          successFunc={() => {
+            window.location.href = "/dashboard";
+          }}
+        />
+      ) : null}
+      {errorModal ? (
+        <ErrorModal
+          ErrorTxt={errorTxt}
+          errorFunc={() => {
+            setErrorModal(false);
+          }}
+        />
+      ) : null}
     </div>
   );
 };

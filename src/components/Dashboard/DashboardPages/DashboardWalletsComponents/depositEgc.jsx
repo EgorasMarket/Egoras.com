@@ -5,6 +5,7 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { GET_WALLET } from "../../../../services/finance_services";
 import { useSelector } from "react-redux";
+import SmallCompLoader from "../../../Common/CommonUI/Modals/SmallCompLoader";
 const DepositEgc = ({ ToggleEgcBlockchainDepositModal }) => {
   const [loading, setLoading] = useState(true);
   const [payload, setPayload] = useState({
@@ -36,7 +37,7 @@ const DepositEgc = ({ ToggleEgcBlockchainDepositModal }) => {
     return (
       <div className="depositMoneyDiv">
         <div className="depositMoneyDiv_cont">
-          <p>Loading ...</p>
+          <SmallCompLoader loadingTxt={"Loading please wait"} />
         </div>
       </div>
     );

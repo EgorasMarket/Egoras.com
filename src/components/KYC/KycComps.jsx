@@ -5,10 +5,17 @@ import Select from "react-select";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import Staticdata from "../../assets/json/Static";
 import ReactCountryFlagsSelect from "react-country-flags-select";
-import { GET_KYC_STATUS } from "../../services/kyc_services";
+import {
+  GET_KYC_STATUS,
+  UPLOAD_IMAGE,
+  UPLOAD_LEVEL_2_KYC,
+} from "../../services/kyc_services";
 import { useDispatch, useSelector } from "react-redux";
 import { setPayload } from "../../features/kyc/kycSlice";
+import Webcam from "react-webcam";
+
 import axios from "axios";
+import { dataUrlToFile } from "../../utils/Base64ToFile";
 
 const levels = Object.freeze({
   level1: "LEVEL_1",
@@ -113,11 +120,11 @@ const KycEmailComp = ({ toggleEmailCont }) => {
     </div>
   );
 };
-const KycStartComp = ({ startVerify }) => {
+const KycStartComp = ({ startVerify, prev }) => {
   return (
     <div className="kypageDiv_cont_div">
       <div className="kypageDiv_cont_div_btn">
-        <div className="kypageDiv_cont_div_btn_func_btn">
+        <div className="kypageDiv_cont_div_btn_func_btn" onClick={prev}>
           <ArrowBackIcon className="kypageDiv_cont_div_btn_func_btn_icon" />
           Home
         </div>
@@ -222,6 +229,7 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
                 className="kypageDiv_cont_body_email_input2"
                 onChange={(e) => {
                   const { value } = e.target;
+                  if (payload.bvnNumber.length >= 11) return;
 
                   dispatch(setPayload({ ...payload, bvnNumber: value }));
                 }}
@@ -388,46 +396,27 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
   );
 };
 const KycFacialComp = ({ submitVerify, prevStep }) => {
-  const videoRef = useRef(null);
-  const [imageSrc, setImageSrc] = useState(null);
-  const [showCamera, setShowCamera] = useState(false);
+  const { payload } = useSelector((state) => state.kyc);
+  const webcamRef = useRef(null);
+  const dispatch = useDispatch();
+  const [capturedImage, setCapturedImage] = useState(null);
+  const [openCamera, setOpenCamera] = useState(false);
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        setShowCamera(true); // Show the camera feed
-      }
-    } catch (err) {
-      console.error("Error accessing the camera:", err);
-    }
+  const captureImage = async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    await dispatch(setPayload({ ...payload, image: imageSrc }));
+    setCapturedImage(imageSrc);
   };
+  const ToggleOpenCamera = () => {
+    setOpenCamera(!openCamera);
+  };
+  const RetakeImage = () => {
+    setCapturedImage(null);
+  };
+  useEffect(() => {
+    console.log(capturedImage);
+  }, [capturedImage]);
 
-  const captureImage = () => {
-    if (videoRef.current) {
-      const canvas = document.createElement("canvas");
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-      const imageUrl = canvas.toDataURL("image/png");
-      setImageSrc(imageUrl);
-      setShowCamera(false); // Hide the camera feed after capturing
-    }
-  };
-
-  const toggleCamera = () => {
-    if (showCamera) {
-      // If the camera feed is shown, capture the image
-      captureImage();
-    } else {
-      // If the camera feed is hidden, start the camera
-      startCamera();
-    }
-  };
   return (
     <div className="kypageDiv_cont_div">
       <div className="kypageDiv_cont_div_btn">
@@ -447,31 +436,78 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
           </div>
           <div className="kypageDiv_cont_body">
             <div className="face_id_div">
-              <img
-                src="/img/face_scan_icon.png"
-                alt=""
-                className="face_id_div_img"
-              />
-              <button className="face_id_div_btn">Take a selfie </button>
+              {openCamera ? (
+                <>
+                  {capturedImage == null ? (
+                    <div className="camera-container">
+                      <div className="camera-feed">
+                        <Webcam
+                          audio={false}
+                          ref={webcamRef}
+                          screenshotFormat="image/jpeg"
+                          className="face_id_div_video"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="captured-image">
+                      <img
+                        src={capturedImage}
+                        alt="Captured"
+                        className="captured_image_img"
+                      />
+                    </div>
+                  )}
+                </>
+              ) : (
+                <img
+                  src="/img/face_scan_icon.png"
+                  alt=""
+                  className="face_id_div_img"
+                />
+              )}
+              {openCamera ? (
+                <>
+                  {capturedImage == null ? (
+                    <button className="face_id_div_btn" onClick={captureImage}>
+                      Capture Image
+                    </button>
+                  ) : (
+                    <button className="face_id_div_btn" onClick={RetakeImage}>
+                      Retake Image
+                    </button>
+                  )}
+                </>
+              ) : (
+                <button className="face_id_div_btn" onClick={ToggleOpenCamera}>
+                  Take a selfie
+                </button>
+              )}
             </div>
           </div>
         </div>
-        <div style={styles.container}>
-          {showCamera ? (
-            <video ref={videoRef} autoPlay muted style={styles.video} />
-          ) : (
-            imageSrc && (
-              <img src={imageSrc} alt="Captured" style={styles.image} />
-            )
-          )}
-          <button onClick={toggleCamera} style={styles.button}>
-            {showCamera ? "Capture" : "Open Camera"}
-          </button>
-        </div>
+
         <div className="kypageDiv_cont_button_div">
           <button
             className="kypageDiv_cont_button_div_btn"
-            onClick={submitVerify}
+            onClick={async () => {
+              const file = dataUrlToFile(payload.image, "file.jpg");
+              let data = new FormData();
+              data.append("image_file", file);
+              const response = await UPLOAD_IMAGE(data);
+              console.log(response);
+
+              if (!response.success || response?.success === false) {
+                return;
+              }
+
+              let new_payload = payload;
+              new_payload = { ...new_payload, image: response.data.image_name };
+              console.log(new_payload);
+              const res = await UPLOAD_LEVEL_2_KYC(new_payload);
+
+              // console.log(res);
+            }}
           >
             Submit Verification
           </button>

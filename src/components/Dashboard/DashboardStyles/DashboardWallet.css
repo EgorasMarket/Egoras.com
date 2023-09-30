@@ -243,7 +243,8 @@
   padding: 5px;
   display: flex;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 10px;
+  padding: 10px;
 }
 .depositMoneyDiv_cont_body_input_div_div_cont1 {
   display: flex;

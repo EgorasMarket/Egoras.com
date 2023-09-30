@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./DashboardStyles/DashboardNav.css";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DashBoardNav = ({ routes, activeRoute }) => {
+  const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState("Dashboard");
   const ToglleActiveLink = (e) => {
     let id = e.currentTarget.id;
@@ -49,7 +50,7 @@ const DashBoardNav = ({ routes, activeRoute }) => {
         className="dashNavLogout"
         onClick={() => {
           localStorage.removeItem("x-token");
-          window.location.reload();
+          window.location.href = "/login";
         }}
       >
         <PowerSettingsNewRoundedIcon className="dashNavLogout_icon" />
