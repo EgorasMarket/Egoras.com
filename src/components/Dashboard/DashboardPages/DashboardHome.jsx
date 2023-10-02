@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../DashboardStyles/DashboardHome.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import AreaChartComp from "../../Common/CommonUI/Charts/AreaChartComp";
+import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
+import Staticdata from "../../../assets/json/Static";
+import { Table } from "../../Common/CommonUI/Tables/TableComp";
 const DashboardHome = () => {
   return (
     <div className="dashboardHome">
@@ -12,16 +16,23 @@ const DashboardHome = () => {
         <div className="dashboardHome_area1_card1">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
-            <ShoppingCartOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
+            <AccountBalanceWalletOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
           </div>
           <div className="dashboardHome_area1_card1_title_div">
             <div className="dashboardHome_area1_card1_title">
-              Total Items Bought
+              Total EGC Balance
             </div>
             <div className="dashboardHome_area1_card1_content">
-              20
-              <div className="dashboardHome_area1_card1_content_symbol">
-                Itms
+              <div className="dashboardHome_area1_card1_content_amnt">
+                256.49
+                <div className="dashboardHome_area1_card1_content_symbol">
+                  egc
+                </div>
+              </div>
+              <div className="dashboardHome_area1_card1_content_btn_div">
+                <button className="dashboardHome_area1_card1_content_btn">
+                  Fund
+                </button>
               </div>
             </div>
           </div>
@@ -33,14 +44,43 @@ const DashboardHome = () => {
           </div>
           <div className="dashboardHome_area1_card1_title_div">
             <div className="dashboardHome_area1_card1_title">
-              Total Wallet Balance
+              Total Naira Balance
             </div>
             <div className="dashboardHome_area1_card1_content">
-              <div className="dashboardHome_area1_card1_content_symbol">₦</div>
-              10,000,000
+              <div className="dashboardHome_area1_card1_content_amnt">
+                <div className="dashboardHome_area1_card1_content_symbol">
+                  ₦
+                </div>
+                10,000,000
+              </div>
+              <div className="dashboardHome_area1_card1_content_btn_div">
+                <button className="dashboardHome_area1_card1_content_btn">
+                  Fund
+                </button>
+              </div>
             </div>
           </div>
         </div>
+        <div className="dashboardHome_area1_card1">
+          <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
+          <div className="dashboardHome_area1_card1_icon">
+            <ShoppingCartOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
+          </div>
+          <div className="dashboardHome_area1_card1_title_div">
+            <div className="dashboardHome_area1_card1_title">
+              Total Items Bought
+            </div>
+            <div className="dashboardHome_area1_card1_content">
+              <div className="dashboardHome_area1_card1_content_amnt">
+                20
+                <div className="dashboardHome_area1_card1_content_symbol">
+                  itms
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="dashboardHome_area1_card1_last">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
@@ -51,9 +91,11 @@ const DashboardHome = () => {
               Total Transactions
             </div>
             <div className="dashboardHome_area1_card1_content">
-              100{" "}
-              <div className="dashboardHome_area1_card1_content_symbol">
-                Txns
+              <div className="dashboardHome_area1_card1_content_amnt">
+                100
+                <div className="dashboardHome_area1_card1_content_symbol">
+                  txns
+                </div>
               </div>
             </div>
           </div>
@@ -71,7 +113,7 @@ const DashboardHome = () => {
             within the app
           </div>{" "}
         </div>{" "}
-        <a href="/dashboard/kyc/verify" className="start_kyc_div_2_link">
+        <a href="/kyc/verify" className="start_kyc_div_2_link" target="_blank">
           {" "}
           <div className="start_kyc_div_2">Upgrade Level</div>
         </a>{" "}
@@ -80,12 +122,57 @@ const DashboardHome = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
-      <div className="dashboardHome_area2">Chart Data</div>
+      {/* <div className="display_prod_div">
+        <div className="DashboardWalletsDiv_area1_cont">
+          <div
+            id="egc"
+            className={
+              activeTab === "egc"
+                ? "DashboardWalletsDiv_area1_cont_tab1_active"
+                : "DashboardWalletsDiv_area1_cont_tab1"
+            }
+            onClick={ToggleActiveTab}
+          >
+            EGC Wallet
+          </div>
+          <div
+            id="naira"
+            className={
+              activeTab === "naira"
+                ? "DashboardWalletsDiv_area1_cont_tab1_active"
+                : "DashboardWalletsDiv_area1_cont_tab1"
+            }
+            onClick={ToggleActiveTab}
+          >
+            Naira Wallet
+          </div>
+        </div>
+      </div> */}
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
-      <div className="dashboardHome_area3">Transaction Data</div>
+      <div className="dashboardHome_area2">
+        <AreaChartComp />
+      </div>
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      <div className="dashboardHome_area3">
+        <Table
+          tableTitle={"Transactions"}
+          TableData={Staticdata.productsTableData.slice(0, 8)}
+        />
+        {/* <div className="dashboardHome_area3_btn_div">
+          <a
+            href="/dashboard/transaction"
+            className="dashboardHome_area3_btn_link"
+          >
+            <button className="dashboardHome_area3_btn">View more</button>
+          </a>
+        </div> */}
+      </div>
     </div>
   );
 };

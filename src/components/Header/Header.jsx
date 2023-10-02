@@ -13,6 +13,7 @@ const Header = () => {
   const [headerMenu, setHeaderMenu] = useState(false);
   const [modelList, setModelList] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [userData, setUserData] = useState(null);
   const toggleHeaderMenu = () => {
     setHeaderMenu(!headerMenu);
   };
@@ -86,7 +87,19 @@ const Header = () => {
   ];
   useEffect(() => {
     console.log(user);
+    if (user === null) {
+      setUserData(null);
+    } else {
+      setUserData(user);
+    }
+
+    if (user === undefined) {
+      setUserData(null);
+    } else {
+      setUserData(user);
+    }
   }, [user]);
+  console.log(userData);
 
   return (
     <div className="header_div">
@@ -123,14 +136,15 @@ const Header = () => {
               </a>
             </div>
             <div className="header_section_3">
-              {user !== undefined ? (
+              {userData !== null ? (
                 <a href="/dashboard" className="header_section_3_link">
                   <div className="header_section_3_link_txt">Dashboard</div>
                   <NorthEastIcon className="header_section_3_icon2" />
                 </a>
               ) : (
-                <a href="/login">
+                <a href="/login" className="header_section_3_link_2">
                   <PermIdentityOutlinedIcon className="header_section_3_icon" />
+                  Login/Signup
                 </a>
               )}
             </div>
