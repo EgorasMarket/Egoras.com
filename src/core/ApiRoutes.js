@@ -14,3 +14,6 @@ export const GET_BANKS = `${EGORAS_PAY_URL}/api/account/banks`;
 export const VERIFY_ACCOUNT_NUMBER_ROUTE = `${EGORAS_PAY_URL}/api/verify/account/number`;
 export const PAYOUT_TO_BANK_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/cashout`;
 export const VERIFY_OTP_ROUTE = `${EGORAS_PAY_URL}/pub/verify/sms`;
+export const GET_KYC_STATUS_ROUTE = `${EGORAS_PAY_URL}/api/verify/get/my/kyc/status`;
+export const ADD_BVN_ROUTE = `${EGORAS_PAY_URL}/api/verify/add/bvn`;
+export const UPLOAD_IMAGE_ROUTE = `${MART_GPT_URL}/images/file-upload/add`;

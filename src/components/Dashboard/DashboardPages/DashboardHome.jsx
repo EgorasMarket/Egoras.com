@@ -113,7 +113,7 @@ const DashboardHome = () => {
             within the app
           </div>{" "}
         </div>{" "}
-        <a href="/kyc/verify" className="start_kyc_div_2_link" target="_blank">
+        <a href="/dashboard/kyc/verify" className="start_kyc_div_2_link">
           {" "}
           <div className="start_kyc_div_2">Upgrade Level</div>
         </a>{" "}
