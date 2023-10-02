@@ -11,6 +11,7 @@ import DasboardMember from "../components/Dashboard/DashboardPages/DasboardMembe
 import DashboardSwap from "../components/Dashboard/DashboardPages/DashboardSwap";
 import DashboardOrders from "../components/Dashboard/DashboardPages/DashboardOrders";
 import DashboardTransactions from "../components/Dashboard/DashboardPages/DashboardTransactions";
+import DashboardProducts from "../components/Dashboard/DashboardPages/DashboardProducts";
 import DashboardHome from "../components/Dashboard/DashboardPages/DashboardHome";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
@@ -18,6 +19,7 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 import KycPage from "../components/KYC/KycPage";
+import StoreIcon from "@mui/icons-material/Store";
 const routes = [
   { name: "Home", path: "", component: <Home />, layout: "/" },
   { name: "Signup", path: "signup", component: <Signup />, layout: "/" },
@@ -69,10 +71,10 @@ const routes = [
     layout: "/dashboard",
   },
   {
-    name: "Swap",
-    path: "swap",
-    icon: <SwapHorizOutlinedIcon className="DashboardNav_body_1_icon" />,
-    component: <DashboardSwap />,
+    name: "Products",
+    path: "products",
+    icon: <StoreIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardProducts />,
     layout: "/dashboard",
   },
   {
@@ -80,6 +82,13 @@ const routes = [
     path: "orders",
     icon: <BookmarkBorderOutlinedIcon className="DashboardNav_body_1_icon" />,
     component: <DashboardOrders />,
+    layout: "/dashboard",
+  },
+  {
+    name: "Swap",
+    path: "swap",
+    icon: <SwapHorizOutlinedIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardSwap />,
     layout: "/dashboard",
   },
 

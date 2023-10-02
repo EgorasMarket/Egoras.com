@@ -1,7 +1,11 @@
 import React from "react";
-
+import UpdatedSwap from "./UpdatedSwap/UpdatedSwap";
 const DashboardSwap = () => {
-  return <div>DashboardSwap</div>;
+  return (
+    <div>
+      <UpdatedSwap />
+    </div>
+  );
 };
 
 export default DashboardSwap;

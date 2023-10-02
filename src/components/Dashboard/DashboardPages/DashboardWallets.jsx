@@ -20,7 +20,8 @@ import DepositNairaUser from "./DashboardWalletsComponents/depositNairaUser";
 import DepositNairaFromBank from "./DashboardWalletsComponents/depositNairaFromBank";
 import WithdrawNairaToBank from "./DashboardWalletsComponents/withdrawNairaToBank";
 import WithdrawNairaToUser from "./DashboardWalletsComponents/withdrawNairaToUser";
-
+import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
+import Staticdata from "../../../assets/json/Static";
 const DashboardWallets = () => {
   const [activeTab, setActiveTab] = useState("egc");
   const [depositMoney, setDepositMoney] = useState(false);
@@ -138,15 +139,16 @@ const DashboardWallets = () => {
             withdrawFunc={ToggleWithdrawMoneyNairaModal}
           />
         ) : null}
-        <div className="DashboardWalletsDiv_area3">
+        {/* <div className="DashboardWalletsDiv_area3">
           <div className="DashboardWalletsDiv_area3_cont1">
             Transaction Chart
           </div>
-        </div>
+        </div> */}
         <div className="DashboardWalletsDiv_area3">
-          <div className="DashboardWalletsDiv_area3_cont1">
-            Transaction Table
-          </div>
+          <TablePagination
+            tableTitle={"Wallet Transactions"}
+            TableData={Staticdata.productsTableData}
+          />
         </div>
       </div>
 
