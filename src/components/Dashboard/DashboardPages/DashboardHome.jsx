@@ -9,7 +9,40 @@ import AreaChartComp from "../../Common/CommonUI/Charts/AreaChartComp";
 import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
 import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
+import { useSelector } from "react-redux";
+import { GET_WALLET } from "../../../services/finance_services";
+import { GENERATE_USER_WALLET_ADDRESS } from "../../../services/auth";
 const DashboardHome = () => {
+  const { user } = useSelector((state) => state.auth);
+
+  const generateWallet = async () => {
+    const response = await GET_WALLET({
+      symbol: "EGC",
+    });
+
+    if (response.success === undefined || !response.success) {
+      return;
+    }
+    /**
+     *      
+     * Map<String, String> data = {
+            "email": email,
+            "wallet": wallet,
+          };
+     */
+    console.log(response.data.address, "generating wallet");
+    const registerAddress = await GENERATE_USER_WALLET_ADDRESS({
+      wallet: response.data.address,
+      email: user.email,
+    });
+    console.log(registerAddress, "responses");
+  };
+  useEffect(() => {
+    console.log("i am running here");
+    if (user.wallet_address === "n/a" || user.wallet_address === "") {
+      generateWallet();
+    }
+  }, []);
   return (
     <div className="dashboardHome">
       <div className="dashboardHome_area1">
