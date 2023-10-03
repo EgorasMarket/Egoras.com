@@ -20,7 +20,7 @@ const DashboardOrders = () => {
     setSaleDetails(product_id);
     console.log(product_id);
   };
-
+  //
   const showPurchasedProduct = async () => {
     const response = await SHOW_ALL_PURCHASED_PRODUCT(user?.wallet_address);
     console.log(response);
