@@ -39,8 +39,13 @@
   color: #6e6e78;
   padding: 10px;
 }
-.DashboardWalletsDiv_area2 {
+.DashboardWalletsDiv_body {
+  display: flex;
+  flex-direction: column;
   margin-top: 2em;
+}
+.DashboardWalletsDiv_area2 {
+  margin-top: 0em;
   display: flex;
   flex-direction: column;
   background: #000;
@@ -68,6 +73,8 @@
   font-size: 62px;
   font-weight: 600;
   color: #fff;
+  display: flex;
+  align-items: baseline;
 }
 .DashboardWalletsDiv_area2_cont2_area1_profit {
   font-size: 24px;
@@ -378,4 +385,41 @@
 }
 .DashboardWalletsDiv_area3 {
   margin-top: 2em;
+  margin-bottom: 6em;
+}
+@media screen and (max-width: 1000px) {
+  .DashboardWalletsDiv_area2_cont2 {
+    display: flex;
+    flex-direction: column;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2 {
+    width: 100%;
+    margin-top: 1em;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2_cont1 {
+    width: 100%;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2_cont2 {
+    width: 100%;
+  }
+  .DashboardWalletsDiv_area2 {
+    padding: 1em;
+  }
+}
+@media screen and (max-width: 767px) {
+  .DashboardWalletsDiv_area2_cont2_area1_bal {
+    font-size: 48px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_profit {
+    font-size: 18px;
+  }
+  .DashboardWalletsDiv_area3 {
+    margin-top: 1em;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_bal_txt {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

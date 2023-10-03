@@ -15,8 +15,12 @@ import {
   GENERATE_USER_WALLET_ADDRESS,
   GENERATE_USER_WALLET_ADDRESS_MART_GPT,
 } from "../../../services/auth";
+
 const DashboardHome = () => {
+  const [nairaBalance, setNairaBalance] = useState("");
+  const [egcBalance, setEgcBalance] = useState(0);
   const { user } = useSelector((state) => state.auth);
+  const { data } = useSelector((state) => state.wallet);
 
   const generateWallet = async () => {
     const response = await GET_WALLET({
@@ -49,6 +53,15 @@ const DashboardHome = () => {
       generateWallet();
     }
   }, []);
+
+  useEffect(() => {
+    console.log(data);
+    console.log(data[0]?.value);
+    console.log(data[1]?.value);
+    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
+    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+  }, []);
+
   return (
     <div className="dashboardHome">
       <div className="dashboardHome_area1">
@@ -63,7 +76,9 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                256.49
+                <div className="dashboardHome_area1_card1_content_amnt_txt">
+                  {parseFloat(egcBalance).toFixed(4)}
+                </div>
                 <div className="dashboardHome_area1_card1_content_symbol">
                   egc
                 </div>
@@ -90,7 +105,9 @@ const DashboardHome = () => {
                 <div className="dashboardHome_area1_card1_content_symbol">
                   ₦
                 </div>
-                10,000,000
+                <div className="dashboardHome_area1_card1_content_amnt_txt">
+                  {parseFloat(nairaBalance).toFixed(2)}
+                </div>
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -116,25 +133,10 @@ const DashboardHome = () => {
                   itms
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboardHome_area1_card1_last">
-          <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
-          <div className="dashboardHome_area1_card1_icon">
-            <ReceiptOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
-          </div>
-          <div className="dashboardHome_area1_card1_title_div">
-            <div className="dashboardHome_area1_card1_title">
-              Total Transactions
-            </div>
-            <div className="dashboardHome_area1_card1_content">
-              <div className="dashboardHome_area1_card1_content_amnt">
-                100
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  txns
-                </div>
+              <div className="dashboardHome_area1_card1_content_btn_div">
+                <button className="dashboardHome_area1_card1_content_btn">
+                  View
+                </button>
               </div>
             </div>
           </div>

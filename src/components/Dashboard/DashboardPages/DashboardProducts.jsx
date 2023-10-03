@@ -56,7 +56,7 @@ const DashboardProducts = () => {
         >
           Other Products
         </div>
-        <input type="search" name="" id="" />
+        {/* <input type="search" name="" id="" /> */}
       </div>
 
       {activeTab === "egoras" ? (

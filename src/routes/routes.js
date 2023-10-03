@@ -71,7 +71,7 @@ const routes = [
     layout: "/dashboard",
   },
   {
-    name: "All Products",
+    name: "Products",
     path: "products",
     icon: <StoreIcon className="DashboardNav_body_1_icon" />,
     component: <DashboardProducts />,

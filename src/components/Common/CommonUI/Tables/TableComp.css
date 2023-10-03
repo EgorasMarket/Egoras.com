@@ -171,4 +171,14 @@
   align-items: center;
   justify-content: center;
   margin-top: 1em;
+  margin-bottom: 0em;
+}
+@media screen and (max-width: 767px) {
+  .TableCompWithDiv {
+    padding: 1em;
+  }
+  .TableCompWithDiv_title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
 }

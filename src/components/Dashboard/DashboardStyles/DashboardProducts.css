@@ -95,3 +95,97 @@
   flex-direction: column;
   justify-content: center;
 }
+@media screen and (max-width: 1610px) {
+  .DashboardProdDiv_body_cont1_details_txt_title {
+    color: #747483;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .DashboardProdDiv_body_cont1_details_txt_amount {
+    font-size: 32px;
+    font-weight: 600;
+    color: #e2e2fb;
+    margin-top: 10px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media screen and (max-width: 1370px) {
+  .DashboardProdDiv_body {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 767px) {
+  .DashboardProdDiv_body_cont1_img {
+    width: 100%;
+    max-width: 200px;
+    background: #29292f;
+    padding: 10px;
+    border-radius: 15px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .DashboardProdDiv_body_cont1_details {
+    display: flex;
+    align-items: flex-end;
+    /* height: 100%; */
+    justify-content: space-between;
+    width: 100%;
+    min-width: 130px;
+    flex-direction: column;
+  }
+  .DashboardProdDiv_body_cont1_details_txt {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+  .DashboardProdDiv_body_cont1_details_txt_title {
+    color: #747483;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .DashboardProdDiv_body_cont1_details_txt_amount {
+    font-size: 32px;
+    font-weight: 600;
+    color: #e2e2fb;
+    margin-top: 0px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .DashboardProdDiv_body_cont1_details_btn_div {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .DashboardProdDiv_body_cont1_details_btn_div_btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 7px;
+    border: 0;
+    font-weight: 500;
+    font-size: 14px;
+    background: #22ad62;
+    color: #fff;
+  }
+
+  .DashboardProdDiv_div1 {
+    padding: 5px;
+  }
+  .DashboardProdDiv_div1_cont1_active {
+    padding: 10px;
+  }
+  .DashboardProdDiv_div1_cont1 {
+    padding: 10px;
+  }
+}
