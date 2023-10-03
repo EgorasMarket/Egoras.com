@@ -99,7 +99,6 @@ const Header = () => {
       setUserData(user);
     }
   }, [user]);
-  console.log(userData);
 
   return (
     <div className="header_div">

@@ -7,7 +7,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/swiper-bundle.css";
 import { FreeMode, Pagination, Navigation, Thumbs } from "swiper/modules";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   MAKE_PAYMENT_FOR_PRODUCT,
   PRODUCT_DETAILS,
@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import WebPin from "../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 const ProductCheckoutPage = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { id, count, name } = useParams();
 
@@ -72,6 +73,7 @@ const ProductCheckoutPage = () => {
     }
 
     toast.success("Product Purchase Successful");
+    navigate("/dashboard/orders");
   };
   const handleProductPurchase = async () => {
     setPinModal(true);

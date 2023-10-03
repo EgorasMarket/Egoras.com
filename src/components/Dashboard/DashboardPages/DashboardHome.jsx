@@ -10,11 +10,11 @@ import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
 import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
 import { useSelector } from "react-redux";
+import { GET_WALLET } from "../../../services/finance_services";
 import {
-  GET_WALLET,
-  FETCH_WALLET_BALANCES,
-} from "../../../services/finance_services";
-import { GENERATE_USER_WALLET_ADDRESS } from "../../../services/auth";
+  GENERATE_USER_WALLET_ADDRESS,
+  GENERATE_USER_WALLET_ADDRESS_MART_GPT,
+} from "../../../services/auth";
 const DashboardHome = () => {
   const [nairaBalance, setNairaBalance] = useState("");
   const [egcBalance, setEgcBalance] = useState("");
@@ -29,23 +29,20 @@ const DashboardHome = () => {
     if (response.success === undefined || !response.success) {
       return;
     }
-    /**
-     *      
-     * Map<String, String> data = {
-            "email": email,
-            "wallet": wallet,
-          };
-     */
+
     console.log(response.data.address, "generating wallet");
     const registerAddress = await GENERATE_USER_WALLET_ADDRESS({
       wallet: response.data.address,
       email: user.email,
     });
+    await GENERATE_USER_WALLET_ADDRESS_MART_GPT({
+      userAddress: response.data.address,
+    });
     console.log(registerAddress, "responses");
   };
   useEffect(() => {
     console.log("i am running here");
-    if (user.wallet_address === "n/a" || user.wallet_address === "") {
+    if (user?.wallet_address === "n/a" || user?.wallet_address === "") {
       generateWallet();
     }
   }, []);

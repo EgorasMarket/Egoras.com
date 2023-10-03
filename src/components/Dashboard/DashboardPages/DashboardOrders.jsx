@@ -130,7 +130,10 @@ const DashboardOrders = () => {
             <>
               {data.id === saleDetails ? (
                 <div>
-                  <DashboardOrderModal closeModal={ToggleSaleDetails} />
+                  <DashboardOrderModal
+                    closeModal={ToggleSaleDetails}
+                    payload={data}
+                  />
                 </div>
               ) : null}
             </>

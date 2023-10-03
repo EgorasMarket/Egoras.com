@@ -10,6 +10,8 @@ export const ALL_PRODUCTS = `${MART_GPT_URL}/product/uploaded`;
 export const SPECIFIC_PRODUCTS = `${MART_GPT_URL}/product/uploaded/check`;
 export const GET_WALLET_ROUTE = `${EGORAS_PAY_URL}/api/wallet/get`;
 export const REGISTER_USER_WALLET_ADDRESS = `${EGORAS_PAY_URL}/pub/register/wallet`;
+export const REGISTER_WALLET_MARTGPT = `${MART_GPT_URL}/pub/register/user/address`;
+
 export const SEND_CRYPTO_EXTERNAL_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/external`;
 export const SEND_CRYPTO_INTERNAL_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/internal`;
 export const GET_VIRTUAL_ACCOUNT_ROUTE = `${EGORAS_PAY_URL}/api/account/bank/transfer`;
