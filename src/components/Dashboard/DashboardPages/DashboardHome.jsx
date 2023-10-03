@@ -31,6 +31,8 @@ const DashboardHome = () => {
   const [confirmPinModal, setConfirmPinModal] = useState(false);
   const [pinModal, setPinModal] = useState(false);
 
+  const [pinProcessing, setPinProcessing] = useState(false);
+
   const generateWallet = async () => {
     const response = await GET_WALLET({
       symbol: "EGC",
@@ -91,6 +93,7 @@ const DashboardHome = () => {
       return;
     }
 
+    setPinProcessing(true);
     const response = await SET_USER_PIN({
       code: pin,
       type: "set",
@@ -110,7 +113,6 @@ const DashboardHome = () => {
   const handleOnComplete1 = (e) => {
     const value = e.join("");
     setPinVal(value);
-    // setPinPayload({ ...pinPayload, pin: value });
   };
   const handleOnComplete2 = (e) => {
     const value = e.join("");
@@ -270,6 +272,7 @@ const DashboardHome = () => {
       {confirmPinModal && (
         <WebPin
           btnFunc={processPinRequest}
+          isLoading={pinProcessing}
           btnFuncTxt={"Confirm"}
           handleOnComplete={handleOnComplete2}
           pinTitle={"Please Confirm Your Pin"}
