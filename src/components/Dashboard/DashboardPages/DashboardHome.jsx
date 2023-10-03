@@ -10,10 +10,16 @@ import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
 import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
 import { useSelector } from "react-redux";
-import { GET_WALLET } from "../../../services/finance_services";
+import {
+  GET_WALLET,
+  FETCH_WALLET_BALANCES,
+} from "../../../services/finance_services";
 import { GENERATE_USER_WALLET_ADDRESS } from "../../../services/auth";
 const DashboardHome = () => {
+  const [nairaBalance, setNairaBalance] = useState("");
+  const [egcBalance, setEgcBalance] = useState("");
   const { user } = useSelector((state) => state.auth);
+  const { data } = useSelector((state) => state.wallet);
 
   const generateWallet = async () => {
     const response = await GET_WALLET({
@@ -43,6 +49,15 @@ const DashboardHome = () => {
       generateWallet();
     }
   }, []);
+
+  useEffect(() => {
+    console.log(data);
+    console.log(data[0].value);
+    console.log(data[1].value);
+    setEgcBalance(data[0].value);
+    setNairaBalance(data[1].value);
+  }, []);
+
   return (
     <div className="dashboardHome">
       <div className="dashboardHome_area1">
@@ -58,7 +73,7 @@ const DashboardHome = () => {
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
                 <div className="dashboardHome_area1_card1_content_amnt_txt">
-                  256.49
+                  {parseFloat(egcBalance).toFixed(4)}
                 </div>
                 <div className="dashboardHome_area1_card1_content_symbol">
                   egc
@@ -87,7 +102,7 @@ const DashboardHome = () => {
                   ₦
                 </div>
                 <div className="dashboardHome_area1_card1_content_amnt_txt">
-                  10,000,000
+                  {parseFloat(nairaBalance).toFixed(2)}
                 </div>
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">

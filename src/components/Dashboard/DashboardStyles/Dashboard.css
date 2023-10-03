@@ -26,3 +26,27 @@
   background: #2c2c2c !important;
   border-radius: 50px;
 }
+@media screen and (max-width: 1000px) {
+  .Dashboard {
+    display: flex;
+    height: 100vh;
+    background: #000000;
+    position: relative;
+    flex-direction: column-reverse;
+  }
+  .Dashboard_body_area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .Dashboard_body {
+    height: 100vh;
+    background: #29292f;
+    padding: 1em;
+    position: relative;
+    border-radius: 30px;
+    overflow-y: scroll;
+    padding-top: 6em;
+    padding-bottom: 6em;
+  }
+}

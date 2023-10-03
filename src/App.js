@@ -12,6 +12,7 @@ import ProductDetail from "./components/Market/ProductDetail";
 import { VERIFY_USER } from "./services/auth";
 import { verifyUser } from "./features/auth/authActions";
 import { useDispatch } from "react-redux";
+import { fetchWalletBalance } from "./features/walletServices/walletActions";
 function App() {
   const dispatch = useDispatch();
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -22,8 +23,15 @@ function App() {
     const response = dispatch(verifyUser());
     console.log(response);
   };
+
+  const fetch_walllet = async () => {
+    // const response = await VERIFY_USER();
+    const response = dispatch(fetchWalletBalance());
+    console.log(response);
+  };
   useEffect(() => {
     verify_user();
+    fetch_walllet();
   }, []);
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);

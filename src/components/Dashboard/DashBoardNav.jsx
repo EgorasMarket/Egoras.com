@@ -46,6 +46,27 @@ const DashBoardNav = ({ routes, activeRoute }) => {
             </Link>
           ))}
       </div>
+      <div className="DashboardNav_body_mobile">
+        {routes
+          .filter((data) => data.layout === "/dashboard")
+          .slice(0, 5)
+          .map((data) => (
+            <Link to={`${data.layout}/${data.path}`}>
+              <div
+                id={data.name}
+                className={
+                  activeLink === data.name
+                    ? "DashboardNav_body_1_active"
+                    : "DashboardNav_body_1"
+                }
+                onClick={ToglleActiveLink}
+              >
+                {data.icon}
+                <div className="DashboardNav_body_1_txt">{data.name}</div>
+              </div>
+            </Link>
+          ))}
+      </div>
       <div
         className="dashNavLogout"
         onClick={() => {

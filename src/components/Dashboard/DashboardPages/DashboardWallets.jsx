@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../DashboardStyles/DashboardWallet.css";
-import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
-import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import WalletBalanceDisplay from "./DashboardWalletsComponents/WalletBalanceDisplay";
 import DepositModalComp from "./DashboardWalletsComponents/DepositModalComp";
 import WithdrawModalComp from "./DashboardWalletsComponents/WithdrawModalComp";
@@ -22,8 +15,13 @@ import WithdrawNairaToBank from "./DashboardWalletsComponents/withdrawNairaToBan
 import WithdrawNairaToUser from "./DashboardWalletsComponents/withdrawNairaToUser";
 import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
 import Staticdata from "../../../assets/json/Static";
+import { useSelector } from "react-redux";
+
 const DashboardWallets = () => {
-  const [activeTab, setActiveTab] = useState("egc");
+  const { data } = useSelector((state) => state.wallet);
+  const [nairaBalance, setNairaBalance] = useState("");
+  const [egcBalance, setEgcBalance] = useState("");
+  const [activeTab, setActiveTab] = useState("naira");
   const [depositMoney, setDepositMoney] = useState(false);
   const [withdrawMoney, setWithdrawMoney] = useState(false);
   const [egcBlockchainDeposit, setEgcBlockchainDeposit] = useState(false);
@@ -94,21 +92,17 @@ const DashboardWallets = () => {
     setNairaUserWithdrawal(!nairaUserWithdrawal);
     setWithdrawMoneyNaira(!withdrawMoneyNaira);
   };
+  useEffect(() => {
+    console.log(data);
+    console.log(data[0].value);
+    console.log(data[1].value);
+    setEgcBalance(data[0].value);
+    setNairaBalance(data[1].value);
+  }, []);
   return (
     <div className="DashboardWalletsDiv">
       <div className="DashboardWalletsDiv_area1">
         <div className="DashboardWalletsDiv_area1_cont">
-          <div
-            id="egc"
-            className={
-              activeTab === "egc"
-                ? "DashboardWalletsDiv_area1_cont_tab1_active"
-                : "DashboardWalletsDiv_area1_cont_tab1"
-            }
-            onClick={ToggleActiveTab}
-          >
-            EGC Wallet
-          </div>
           <div
             id="naira"
             className={
@@ -120,12 +114,23 @@ const DashboardWallets = () => {
           >
             Naira Wallet
           </div>
+          <div
+            id="egc"
+            className={
+              activeTab === "egc"
+                ? "DashboardWalletsDiv_area1_cont_tab1_active"
+                : "DashboardWalletsDiv_area1_cont_tab1"
+            }
+            onClick={ToggleActiveTab}
+          >
+            EGC Wallet
+          </div>
         </div>
       </div>
       <div className="DashboardWalletsDiv_body">
         {activeTab === "egc" ? (
           <WalletBalanceDisplay
-            walletBal={parseFloat(254.45).toFixed(2)}
+            walletBal={parseFloat(egcBalance).toFixed(4)}
             walletsymbol={"egc"}
             depositFunc={ToggleDepositMoneyModal}
             withdrawFunc={ToggleWithdrawMoneyModal}
@@ -133,17 +138,12 @@ const DashboardWallets = () => {
         ) : null}
         {activeTab === "naira" ? (
           <WalletBalanceDisplay
-            walletBal={parseFloat(20000000).toFixed(2)}
+            walletBal={parseFloat(nairaBalance).toFixed(2)}
             walletsymbol={"ngn"}
             depositFunc={ToggleDepositMoneyNairaModal}
             withdrawFunc={ToggleWithdrawMoneyNairaModal}
           />
         ) : null}
-        {/* <div className="DashboardWalletsDiv_area3">
-          <div className="DashboardWalletsDiv_area3_cont1">
-            Transaction Chart
-          </div>
-        </div> */}
         <div className="DashboardWalletsDiv_area3">
           <TablePagination
             tableTitle={"Wallet Transactions"}

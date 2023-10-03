@@ -12,7 +12,9 @@ const WalletBalanceDisplay = ({
       <div className="DashboardWalletsDiv_area2_cont2">
         <div className="DashboardWalletsDiv_area2_cont2_area1">
           <div className="DashboardWalletsDiv_area2_cont2_area1_bal">
-            {walletBal}
+            <div className="DashboardWalletsDiv_area2_cont2_area1_bal_txt">
+              {walletBal}
+            </div>
             <span className="DashboardWalletsDiv_area2_cont2_area1_bal_span">
               {walletsymbol}
             </span>
