@@ -9,7 +9,16 @@ import AreaChartComp from "../../Common/CommonUI/Charts/AreaChartComp";
 import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
 import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
+import { FETCH_WALLET_BALANCES } from "../../../services/finance_services";
 const DashboardHome = () => {
+  const getWalletBalances = async () => {
+    const response = await FETCH_WALLET_BALANCES();
+    console.log(response);
+  };
+  useEffect(() => {
+    getWalletBalances();
+  }, []);
+
   return (
     <div className="dashboardHome">
       <div className="dashboardHome_area1">

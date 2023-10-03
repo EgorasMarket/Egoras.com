@@ -52,7 +52,7 @@ function App() {
       {loadingDiv === true ? (
         <DefaultComponentLoading />
       ) : (
-        <div className="App">
+        <div className="dark App">
           {myArr[1] === "dashboard" ? null : <Header />}
           <Routes>
             <Route
