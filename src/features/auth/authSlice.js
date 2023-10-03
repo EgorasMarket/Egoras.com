@@ -64,7 +64,6 @@ const AuthSlice = createSlice({
     builder
 
       .addCase(verifyUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.user = action.payload.data.user;
         state.meta = action.payload.data.meta;

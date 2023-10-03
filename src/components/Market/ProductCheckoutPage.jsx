@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../stylesheet/checkout.css";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,7 +7,117 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/swiper-bundle.css";
 import { FreeMode, Pagination, Navigation, Thumbs } from "swiper/modules";
+import { useParams } from "react-router-dom";
+import {
+  MAKE_PAYMENT_FOR_PRODUCT,
+  PRODUCT_DETAILS,
+} from "../../services/product_services";
+import { numberWithCommas } from "../../assets/js/numberWithCommas";
+import { useSelector } from "react-redux";
+import WebPin from "../Common/CommonUI/Modals/WebPin";
+import { ToastContainer, toast } from "react-toastify";
 const ProductCheckoutPage = () => {
+  const { user } = useSelector((state) => state.auth);
+  const { id, count, name } = useParams();
+
+  const [pinModal, setPinModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [product, setProduct] = useState({});
+  const [pin, setPin] = useState("");
+  const [processing, setProcessing] = useState(false);
+
+  const [pinloading, setPinLoading] = useState(false);
+
+  const [payload, setPayload] = useState({
+    type: "product",
+    product_id: id,
+    index_id: "",
+    quantity: count,
+    pin_code: "",
+    amount: "",
+    symbol: "NGN",
+    user: user.wallet_address,
+  });
+
+  const fetchProductDetail = async () => {
+    const response = await PRODUCT_DETAILS(id);
+    setLoading(false);
+    if (!response.success) {
+      setError("Failure to fetch product");
+      return;
+    }
+    setProduct(response.data);
+    setPayload({
+      ...payload,
+      index_id: response.data.index_id,
+      amount: response.data.final_amount,
+    });
+    console.log(response);
+  };
+
+  const createPin = async () => {
+    let temp = payload;
+    temp = { ...payload, pin_code: pin };
+    setPinModal(false);
+    setProcessing(true);
+
+    const response = await MAKE_PAYMENT_FOR_PRODUCT(temp);
+    console.log(response);
+
+    setProcessing(false);
+    if (!response.data.success) {
+      toast.warn(response.data.errorMessage);
+      return;
+    }
+
+    toast.success("Product Purchase Successful");
+  };
+  const handleProductPurchase = async () => {
+    setPinModal(true);
+    // Map<String, String> body = {
+    //   "type": "product",
+    //   "product_id": "${product_id}",
+    //   "index_id": "${index_id}",
+    //   // "wallet_address": "${wallet}",
+    //   "quantity": "${product_count}",
+    //   "pin_code": "${pin}",
+    //   "amount": "${amount}",
+    //   "symbol": "NGN",
+    //   "user": "${wallet}",
+    // };
+  };
+
+  useEffect(() => {
+    fetchProductDetail();
+
+    //fetch the product
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="ProductDetailPage_div">
+        <section className="ProductDetailPage_section">
+          <p>loading ...</p>
+        </section>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>
+        <h1>An error occured</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  let items = [];
+  for (let i = 1; i <= count; i++) {
+    items.push(product);
+  }
+
   return (
     <div className="ProductCheckoutPage_div">
       <section className="ProductCheckoutPage_div_section">
@@ -19,106 +129,30 @@ const ProductCheckoutPage = () => {
                   Your Order
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_1_area1_body">
-                  <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
-                      <img
-                        src="/img/egr_gen1_detail_img.png"
-                        alt=""
-                        className="ProductCheckoutPage_div_section_area_1_area1_body_1_img"
-                      />
-                    </div>
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
-                        Egoras Dual Fuel Tricycle
+                  {items.map((item, index) => {
+                    const images = JSON.parse(item.product_images);
+                    return (
+                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
+                          <img
+                            src={images[0]}
+                            alt=""
+                            className="ProductCheckoutPage_div_section_area_1_area1_body_1_img"
+                          />
+                        </div>
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
+                          <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
+                            {item.product_name}
+                          </div>
+                          <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
+                            {numberWithCommas(
+                              parseFloat(product.final_amount).toFixed(2)
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
-                        #1,400,000.00
-                      </div>
-                    </div>
-                  </div>
-                  {/* ======= */}
-                  {/* ======= */}
-                  {/* ======= */}
-                  <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
-                      <img
-                        src="/img/egr_gen1_detail_img.png"
-                        alt=""
-                        className="ProductCheckoutPage_div_section_area_1_area1_body_1_img"
-                      />
-                    </div>
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
-                        Egoras Dual Fuel Tricycle
-                      </div>
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
-                        #1,400,000.00
-                      </div>
-                    </div>
-                  </div>
-                  {/* ======= */}
-                  {/* ======= */}
-                  {/* ======= */}
-                  <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
-                      <img
-                        src="/img/egr_gen1_detail_img.png"
-                        alt=""
-                        className="ProductCheckoutPage_div_section_area_1_area1_body_1_img"
-                      />
-                    </div>
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
-                        Egoras Dual Fuel Tricycle
-                      </div>
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
-                        #1,400,000.00
-                      </div>
-                    </div>
-                  </div>
-                  {/* ======= */}
-                  {/* ======= */}
-                  {/* ======= */}
-                  <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
-                      <img
-                        src="/img/egr_gen1_detail_img.png"
-                        alt=""
-                        className="ProductCheckoutPage_div_section_area_1_area1_body_1_img"
-                      />
-                    </div>
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
-                        Egoras Dual Fuel Tricycle
-                      </div>
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
-                        #1,400,000.00
-                      </div>
-                    </div>
-                  </div>
-                  {/* ======= */}
-                  {/* ======= */}
-                  {/* ======= */}
-                  <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
-                      <img
-                        src="/img/egr_gen1_detail_img.png"
-                        alt=""
-                        className="ProductCheckoutPage_div_section_area_1_area1_body_1_img"
-                      />
-                    </div>
-                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
-                        Egoras Dual Fuel Tricycle
-                      </div>
-                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
-                        #1,400,000.00
-                      </div>
-                    </div>
-                  </div>
-                  {/* ======= */}
-                  {/* ======= */}
-                  {/* ======= */}
+                    );
+                  })}
                 </div>
               </div>
               <div className="ProductCheckoutPage_div_section_area_1_area2">
@@ -127,7 +161,7 @@ const ProductCheckoutPage = () => {
                     Quantity
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_1_area2_cont1_para">
-                    20
+                    {count}
                   </div>
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_1_area2_cont1">
@@ -135,7 +169,9 @@ const ProductCheckoutPage = () => {
                     Sub Total
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_1_area2_cont1_para">
-                    #1,400,000.00
+                    {numberWithCommas(
+                      parseFloat(product.final_amount * count).toFixed(2)
+                    )}
                   </div>
                 </div>
               </div>
@@ -154,21 +190,21 @@ const ProductCheckoutPage = () => {
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
                     <input
                       type="text"
-                      value={"Full Name"}
+                      value={`${user.firstName} ${user.lastName}`}
                       className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
                     />
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
                     <input
                       type="email"
-                      value={"Email"}
+                      value={user.email}
                       className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
                     />
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
                     <input
                       type="number"
-                      value={"Phone Number"}
+                      value={user.phone}
                       className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
                     />
                   </div>
@@ -304,7 +340,7 @@ const ProductCheckoutPage = () => {
                     Quantity
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
-                    5
+                    {count}
                   </div>
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
@@ -312,7 +348,9 @@ const ProductCheckoutPage = () => {
                     Unit Amount
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
-                    #1,400,000.00
+                    {numberWithCommas(
+                      parseFloat(product.final_amount).toFixed(2)
+                    )}
                   </div>
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
@@ -328,17 +366,45 @@ const ProductCheckoutPage = () => {
                     Total
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
-                    #1,400,000.00
+                    {numberWithCommas(
+                      parseFloat(product.final_amount * count).toFixed(2)
+                    )}
                   </div>
                 </div>
-                <button className="ProductCheckoutPage_div_section_area_2_area3_button">
-                  Checkout
-                </button>
+
+                {processing ? (
+                  <p>Loading...</p>
+                ) : (
+                  <button
+                    className="ProductCheckoutPage_div_section_area_2_area3_button"
+                    onClick={handleProductPurchase}
+                  >
+                    Checkout
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
+
+        <ToastContainer />
       </section>
+
+      {pinModal ? (
+        <WebPin
+          isLoading={pinloading}
+          btnFunc={createPin}
+          pinTitle="Enter Pin to validate Transaction"
+          pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+          btnFuncTxt="Proceed"
+          handleOnComplete={(e) => {
+            const a = e.join("");
+            setPin(a);
+            // setPayload({ ...payload, pin_code: a });
+            return;
+          }}
+        />
+      ) : null}
     </div>
   );
 };
