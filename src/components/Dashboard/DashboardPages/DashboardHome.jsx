@@ -13,7 +13,11 @@ import { useSelector } from "react-redux";
 import { GET_WALLET } from "../../../services/finance_services";
 import { ShimmerButton } from "react-shimmer-effects-18";
 import { toast, ToastContainer } from "react-toastify";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/swiper-bundle.css";
+import { Pagination } from "swiper/modules";
 import {
   GENERATE_USER_WALLET_ADDRESS,
   GENERATE_USER_WALLET_ADDRESS_MART_GPT,
@@ -120,7 +124,13 @@ const DashboardHome = () => {
     const value = e.join("");
     setConfirmPinVal(value);
   };
-
+  const images = [
+    "/img/egr_gen1_detail_img.png",
+    "/img/egr_gen1_detail_img.png",
+    "/img/egr_gen1_detail_img.png",
+    "/img/egr_gen1_detail_img.png",
+    "/img/egr_gen1_detail_img.png",
+  ];
   return (
     <div className="dashboardHome">
       <div className="dashboardHome_area1">
@@ -218,6 +228,93 @@ const DashboardHome = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      <div className="dash_home_products">
+        <div className="dash_home_products_title">
+          Egoras Products{" "}
+          <a
+            href="/dashboard/products"
+            className="dash_home_products_title_link"
+          >
+            <button className="dash_home_products_title_link_btn">
+              View All
+            </button>
+          </a>
+        </div>
+        <div className="dash_home_products_cont1">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            pagination={{
+              dynamicBullets: true,
+            }}
+            breakpoints={{
+              500: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              // 768: {
+              //   slidesPerView: 2,
+              //   spaceBetween: 40,
+              // },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1200: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1400: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+              },
+              1800: {
+                slidesPerView: 5,
+                spaceBetween: 30,
+              },
+            }}
+            modules={[Pagination]}
+            className="dash_home_products_swiper"
+          >
+            {images.map((data) => (
+              <SwiperSlide className="dash_home_products_swiper_slide">
+                <div className="dash_home_products_div">
+                  <div className="dash_home_products_div_1">
+                    <img
+                      src={data}
+                      className="dash_home_products_swiper_slide_img"
+                    />
+                  </div>
+                  <div className="dash_home_products_div_body">
+                    <div className="dash_home_products_div_body_title">
+                      Egoras Dual Fuel Generator
+                    </div>
+                    <div className="dash_home_products_div_body_brand">
+                      Egoras
+                    </div>
+                    <div className="dash_home_products_div_body_amount">
+                      #120,000.00
+                    </div>
+                    <div className="dash_home_products_div_body_btn_div">
+                      <button className="dash_home_products_div_body_btn">
+                        Purchase
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
       {/* ================== */}
