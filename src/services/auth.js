@@ -5,6 +5,7 @@ import {
   REGISTER_ROUTE,
   REGISTER_USER_WALLET_ADDRESS,
   REGISTER_WALLET_MARTGPT,
+  SET_USER_PIN_ROUTE,
   VERIFY_OTP_ROUTE,
   VERIFY_USER_ROUTE,
 } from "../core/ApiRoutes";
@@ -105,6 +106,16 @@ export const VERIFY_OTP = async (payload) => {
   try {
     setAuthToken(localStorage.getItem("x-token"));
     const response = await axios.post(VERIFY_OTP_ROUTE, payload);
+    return response.data;
+  } catch (error) {
+    return error.response || error.message;
+  }
+};
+export const SET_USER_PIN = async (payload) => {
+  // Map<String, String> data = {"code": pin, "type": "set"};
+  try {
+    setAuthToken(localStorage.getItem("x-token"));
+    const response = await axios.post(SET_USER_PIN_ROUTE, payload);
     return response.data;
   } catch (error) {
     return error.response || error.message;

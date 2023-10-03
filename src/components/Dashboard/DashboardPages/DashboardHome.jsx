@@ -14,13 +14,22 @@ import { GET_WALLET } from "../../../services/finance_services";
 import {
   GENERATE_USER_WALLET_ADDRESS,
   GENERATE_USER_WALLET_ADDRESS_MART_GPT,
+  SET_USER_PIN,
 } from "../../../services/auth";
+import WebPin from "../../Common/CommonUI/Modals/WebPin";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const DashboardHome = () => {
+  const navigate = useNavigate();
   const [nairaBalance, setNairaBalance] = useState("");
   const [egcBalance, setEgcBalance] = useState(0);
   const { user } = useSelector((state) => state.auth);
   const { data } = useSelector((state) => state.wallet);
+  const [pin, setPinVal] = useState("");
+  const [confirmPin, setConfirmPinVal] = useState("");
+  const [confirmPinModal, setConfirmPinModal] = useState(false);
+  const [pinModal, setPinModal] = useState(false);
 
   const generateWallet = async () => {
     const response = await GET_WALLET({
@@ -30,13 +39,7 @@ const DashboardHome = () => {
     if (response.success === undefined || !response.success) {
       return;
     }
-    /**
-     *      
-     * Map<String, String> data = {
-            "email": email,
-            "wallet": wallet,
-          };
-     */
+
     console.log(response.data.address, "generating wallet");
     const registerAddress = await GENERATE_USER_WALLET_ADDRESS({
       wallet: response.data.address,
@@ -46,6 +49,10 @@ const DashboardHome = () => {
       userAddress: response.data.address,
     });
     console.log(registerAddress, "responses");
+  };
+
+  const setPin = async () => {
+    setPinModal(true);
   };
   useEffect(() => {
     console.log("i am running here");
@@ -61,6 +68,54 @@ const DashboardHome = () => {
     setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
     setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
   }, []);
+
+  useEffect(() => {
+    //check if the pin is empty
+    if (
+      user?.user_pin === null ||
+      user?.user_pin === "" ||
+      user?.user_pin === undefined
+    ) {
+      setPin();
+    }
+  }, []);
+
+  const proceedToConfirm = () => {
+    setPinModal(false);
+    setConfirmPinModal(true);
+  };
+  const processPinRequest = async () => {
+    if (pin !== confirmPin) {
+      toast.warn("Pin does not match");
+      console.log("pin does not match");
+      return;
+    }
+
+    const response = await SET_USER_PIN({
+      code: pin,
+      type: "set",
+    });
+
+    console.log(response);
+
+    if (response.success) {
+      toast.success("Pin is set Successfully");
+      navigate(0);
+      return;
+    }
+
+    toast.warn(response.errorMessage);
+  };
+
+  const handleOnComplete1 = (e) => {
+    const value = e.join("");
+    setPinVal(value);
+    // setPinPayload({ ...pinPayload, pin: value });
+  };
+  const handleOnComplete2 = (e) => {
+    const value = e.join("");
+    setConfirmPinVal(value);
+  };
 
   return (
     <div className="dashboardHome">
@@ -200,11 +255,33 @@ const DashboardHome = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
+
+      {pinModal && (
+        <WebPin
+          btnFunc={proceedToConfirm}
+          btnFuncTxt={"Next"}
+          handleOnComplete={handleOnComplete1}
+          pinTitle={"Please Set a Pin"}
+          pinPara={
+            "You'll need to create a pin to be able to make transactions"
+          }
+        />
+      )}
+      {confirmPinModal && (
+        <WebPin
+          btnFunc={processPinRequest}
+          btnFuncTxt={"Confirm"}
+          handleOnComplete={handleOnComplete2}
+          pinTitle={"Please Confirm Your Pin"}
+          pinPara={"Just to be sure, we'll want you to confirm your pin "}
+        />
+      )}
       <div className="dashboardHome_area3">
         <Table
           tableTitle={"Transactions"}
           TableData={Staticdata.productsTableData.slice(0, 8)}
         />
+
         {/* <div className="dashboardHome_area3_btn_div">
           <a
             href="/dashboard/transaction"
@@ -214,6 +291,8 @@ const DashboardHome = () => {
           </a>
         </div> */}
       </div>
+
+      <ToastContainer />
     </div>
   );
 };
