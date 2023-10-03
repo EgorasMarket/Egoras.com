@@ -577,7 +577,6 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
                 console.log(new_payload);
                 const res = await UPLOAD_LEVEL_2_KYC(new_payload);
                 console.log(res);
-
                 setProcessing(false);
                 if (res.success) {
                   toast.success("Information Submitted Successfully");

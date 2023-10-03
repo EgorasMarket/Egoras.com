@@ -4,14 +4,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { PinInput, StatefulPinInput } from "react-input-pin-code";
-const WebPin = ({
-  btnFunc,
-  pinTitle,
-  pinPara,
-  btnFuncTxt,
-  isLoading,
-  handleOnComplete,
-}) => {
+const WebPin = ({ btnFunc, pinTitle, pinPara, btnFuncTxt, isLoading }) => {
   //   const [values, setValues] = React.useState(["", "", "", " "]);
   const [pinHidden, setPinHidden] = useState(true);
   const ViewPin = () => {
@@ -30,7 +23,7 @@ const WebPin = ({
             mask={pinHidden}
             className="otp_modal_container_body_pin_input"
             autoComplete="off"
-            onComplete={handleOnComplete}
+            value
           />
           {pinHidden ? (
             <VisibilityIcon

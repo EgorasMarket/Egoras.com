@@ -1,7 +1,9 @@
 import { EGORAS_PAY_URL, MART_GPT_URL } from "./constants";
 
 export const SUBSCRIBE_MEMBERSHIP_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/fortPayNewSub`;
+export const PAY_FOR_PRODUCT = `${EGORAS_PAY_URL}/api/withdrawal/fortPayNew`;
 export const VERIFY_USER_ROUTE = `${EGORAS_PAY_URL}/api/me`;
+export const VIEW_PURCHASED_PRODUCTS = `${MART_GPT_URL}/order/buy`;
 export const LOGIN = `${EGORAS_PAY_URL}/pub/login`;
 export const REGISTER_ROUTE = `${EGORAS_PAY_URL}/pub/register`;
 export const ALL_PRODUCTS = `${MART_GPT_URL}/product/uploaded`;
@@ -19,3 +21,5 @@ export const ADD_BVN_ROUTE = `${EGORAS_PAY_URL}/api/verify/add/bvn`;
 export const UPLOAD_IMAGE_ROUTE = `${MART_GPT_URL}/images/file-upload/add`;
 export const GET_WALLET_BALANCES = `${EGORAS_PAY_URL}/api/portfolio`;
 export const GET_USER_PRODUCT_ORDERS = `${EGORAS_PAY_URL}/order/buy`;
+export const FETCH_ALL_PRODUCTS = `${MART_GPT_URL}/product/uploaded`;
+export const FETCH_PRODUCT_DETAILS = `${MART_GPT_URL}/product/uploaded/check`;
