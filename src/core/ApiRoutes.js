@@ -20,5 +20,7 @@ export const VERIFY_OTP_ROUTE = `${EGORAS_PAY_URL}/pub/verify/sms`;
 export const GET_KYC_STATUS_ROUTE = `${EGORAS_PAY_URL}/api/verify/get/my/kyc/status`;
 export const ADD_BVN_ROUTE = `${EGORAS_PAY_URL}/api/verify/add/bvn`;
 export const UPLOAD_IMAGE_ROUTE = `${MART_GPT_URL}/images/file-upload/add`;
+export const GET_WALLET_BALANCES = `${EGORAS_PAY_URL}/api/portfolio`;
+export const GET_USER_PRODUCT_ORDERS = `${EGORAS_PAY_URL}/order/buy`;
 export const FETCH_ALL_PRODUCTS = `${MART_GPT_URL}/product/uploaded`;
 export const FETCH_PRODUCT_DETAILS = `${MART_GPT_URL}/product/uploaded/check`;
