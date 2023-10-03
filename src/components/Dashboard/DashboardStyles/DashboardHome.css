@@ -163,3 +163,17 @@
   color: #fff;
   background: #22ad62;
 }
+
+@media screen and (max-width: 1280px) {
+  .dashboardHome_area1_card1_content_amnt_txt {
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media screen and (max-width: 1115px) {
+  .dashboardHome_area1_card1_content_amnt_txt {
+    max-width: 100px;
+  }
+}

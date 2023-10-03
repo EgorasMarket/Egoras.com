@@ -33,7 +33,9 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                256.49
+                <div className="dashboardHome_area1_card1_content_amnt_txt">
+                  256.49
+                </div>
                 <div className="dashboardHome_area1_card1_content_symbol">
                   egc
                 </div>
@@ -60,7 +62,9 @@ const DashboardHome = () => {
                 <div className="dashboardHome_area1_card1_content_symbol">
                   ₦
                 </div>
-                10,000,000
+                <div className="dashboardHome_area1_card1_content_amnt_txt">
+                  10,000,000
+                </div>
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -86,25 +90,10 @@ const DashboardHome = () => {
                   itms
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboardHome_area1_card1_last">
-          <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
-          <div className="dashboardHome_area1_card1_icon">
-            <ReceiptOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
-          </div>
-          <div className="dashboardHome_area1_card1_title_div">
-            <div className="dashboardHome_area1_card1_title">
-              Total Transactions
-            </div>
-            <div className="dashboardHome_area1_card1_content">
-              <div className="dashboardHome_area1_card1_content_amnt">
-                100
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  txns
-                </div>
+              <div className="dashboardHome_area1_card1_content_btn_div">
+                <button className="dashboardHome_area1_card1_content_btn">
+                  View
+                </button>
               </div>
             </div>
           </div>
