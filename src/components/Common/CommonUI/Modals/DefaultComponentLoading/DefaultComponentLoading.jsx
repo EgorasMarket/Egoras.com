@@ -1,5 +1,6 @@
 import React from "react";
 import PuffLoader from "react-spinners/PuffLoader";
+
 import HashLoader from "react-spinners/HashLoader";
 import BounceLoader from "react-spinners/BounceLoader";
 import MoonLoader from "react-spinners/MoonLoader";

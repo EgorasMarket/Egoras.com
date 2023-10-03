@@ -50,3 +50,24 @@
     padding-bottom: 6em;
   }
 }
+.ProductLoadingDiv {
+  padding: 2em;
+  /* background: #000; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+}
+.prod_loading_cont {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.prod_loading_cont_txt {
+  margin-top: 1em;
+  color: #d3d3df;
+}

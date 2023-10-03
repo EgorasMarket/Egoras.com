@@ -11,21 +11,23 @@ import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
 import { useSelector } from "react-redux";
 import { GET_WALLET } from "../../../services/finance_services";
+import { ShimmerButton } from "react-shimmer-effects-18";
+import { toast, ToastContainer } from "react-toastify";
+
 import {
   GENERATE_USER_WALLET_ADDRESS,
   GENERATE_USER_WALLET_ADDRESS_MART_GPT,
   SET_USER_PIN,
 } from "../../../services/auth";
-import WebPin from "../../Common/CommonUI/Modals/WebPin";
-import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import WebPin from "../../Common/CommonUI/Modals/WebPin";
 const DashboardHome = () => {
   const navigate = useNavigate();
   const [nairaBalance, setNairaBalance] = useState("");
   const [egcBalance, setEgcBalance] = useState(0);
+  const { data, loading } = useSelector((state) => state.wallet);
+  const [contentLoadingTable, setContentLoadingTable] = useState(true);
   const { user } = useSelector((state) => state.auth);
-  const { data } = useSelector((state) => state.wallet);
   const [pin, setPinVal] = useState("");
   const [confirmPin, setConfirmPinVal] = useState("");
   const [confirmPinModal, setConfirmPinModal] = useState(false);
@@ -133,12 +135,19 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                <div className="dashboardHome_area1_card1_content_amnt_txt">
-                  {parseFloat(egcBalance).toFixed(4)}
-                </div>
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  egc
-                </div>
+                {loading ? (
+                  <ShimmerButton size="md" className="custom_shimmer" />
+                ) : (
+                  <>
+                    {" "}
+                    <div className="dashboardHome_area1_card1_content_amnt_txt">
+                      {parseFloat(egcBalance).toFixed(4)}
+                    </div>
+                    <div className="dashboardHome_area1_card1_content_symbol">
+                      egc
+                    </div>
+                  </>
+                )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -159,12 +168,18 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  ₦
-                </div>
-                <div className="dashboardHome_area1_card1_content_amnt_txt">
-                  {parseFloat(nairaBalance).toFixed(2)}
-                </div>
+                {loading ? (
+                  <ShimmerButton size="md" className="custom_shimmer" />
+                ) : (
+                  <>
+                    <div className="dashboardHome_area1_card1_content_symbol">
+                      ₦
+                    </div>
+                    <div className="dashboardHome_area1_card1_content_amnt_txt">
+                      {parseFloat(nairaBalance).toFixed(2)}
+                    </div>
+                  </>
+                )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -185,10 +200,16 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                20
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  itms
-                </div>
+                {loading ? (
+                  <ShimmerButton size="md" className="custom_shimmer" />
+                ) : (
+                  <>
+                    20
+                    <div className="dashboardHome_area1_card1_content_symbol">
+                      itms
+                    </div>
+                  </>
+                )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -283,6 +304,7 @@ const DashboardHome = () => {
         <Table
           tableTitle={"Transactions"}
           TableData={Staticdata.productsTableData.slice(0, 8)}
+          contentLoading={contentLoadingTable}
         />
 
         {/* <div className="dashboardHome_area3_btn_div">
