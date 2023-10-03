@@ -5,6 +5,8 @@ import Select from "react-select";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import Staticdata from "../../assets/json/Static";
 import ReactCountryFlagsSelect from "react-country-flags-select";
+
+import { Country, State, City } from "country-state-city";
 import {
   GET_KYC_STATUS,
   UPLOAD_IMAGE,
@@ -18,6 +20,9 @@ import axios from "axios";
 import { dataUrlToFile } from "../../utils/Base64ToFile";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+const customCountries = {
+  NG: "Nigeria",
+};
 
 const levels = Object.freeze({
   level1: "LEVEL_1",
@@ -54,6 +59,7 @@ const styles = {
     cursor: "pointer",
   },
 };
+
 const KycEmailComp = ({ toggleEmailCont }) => {
   const [response, setResponse] = useState({});
   const fetchKycStatus = async () => {
@@ -347,15 +353,52 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
 const KycAddressComp = ({ nextStep2, prevStep }) => {
   const dispatch = useDispatch();
   const { payload } = useSelector((state) => state.kyc);
+  const [states, setStates] = useState([]);
+  const [cities, setCity] = useState([]);
+  const [country, setCountry] = useState("");
+  const [state, setSelectedState] = useState("");
+  const [city, setSelectedCity] = useState("");
+  const [address, setAddress] = useState("");
 
   const [selected, setSelected] = useState(null);
 
   const [data, setData] = useState({
-    country: "",
+    country: "Nigeria",
     state: "",
     city: "",
     address: "",
   });
+
+  useEffect(() => {
+    let states = State.getStatesOfCountry("NG");
+    console.log(states);
+
+    //intercept the state object
+    let tempState = states;
+
+    tempState.forEach((state) => {
+      state.value = state.name;
+      state.label = state.name;
+    });
+    setStates(tempState);
+  }, []);
+
+  const handleStateOnChange = (e) => {
+    console.log(e);
+    setSelectedState(e.label);
+    const city = City.getCitiesOfState("NG", e.isoCode.toString());
+    let tempCity = city;
+    tempCity.forEach((c) => {
+      c.value = c.name;
+      c.label = c.name;
+    });
+    // setData({ ...data, state: e.label });
+    setCity(tempCity);
+  };
+  const handleCityOnChange = (e) => {
+    // setData({ ...data, city: e.label });
+    setSelectedCity(e.label);
+  };
 
   return (
     <div className="kypageDiv_cont_div">
@@ -377,14 +420,13 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
                 Select Country:
               </div>
               <ReactCountryFlagsSelect
-                labelWithCountryCode
                 selected={selected}
                 onSelect={setSelected}
+                customCountries={customCountries}
                 className="kypageDiv_cont_body_email_input2"
                 searchable={true}
                 clearIcon={true}
               />
-              ;
             </div>
             <div className="kypageDiv_cont_body_input_div">
               <div className="kypageDiv_cont_body_input_div_title">
@@ -394,14 +436,13 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
                 placeholder="Select State"
                 classNamePrefix="select"
                 className="kypageDiv_cont_body_input_div_slect"
-                defaultValue={Staticdata.options2[0]}
-                onChange={(e) => {
-                  setData({ state: e.label });
-                }}
+                // value={state}
+                onChange={handleStateOnChange}
                 id="state"
                 isSearchable={true}
                 name="state"
-                options={Staticdata.options2}
+                options={states}
+                // options={Staticdata.options2}
               />
             </div>
             <div className="kypageDiv_cont_body_input_div">
@@ -412,14 +453,15 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
                 placeholder="Select City"
                 classNamePrefix="select"
                 className="kypageDiv_cont_body_input_div_slect"
-                defaultValue={Staticdata.options2[0]}
-                onChange={(e) => {
-                  setData({ city: e.label });
-                }}
+                // value={city}
+                onChange={handleCityOnChange}
+                // onChange={(e) => {
+                //   setData({ city: e.label });
+                // }}
                 id="gender"
                 isSearchable={true}
                 name="gender"
-                options={Staticdata.options2}
+                options={cities}
               />
             </div>
             <div className="kypageDiv_cont_body_input_div">
@@ -429,7 +471,8 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
               <input
                 type="text"
                 onChange={(e) => {
-                  setData({ address: e.target.value });
+                  setAddress(e.target.value);
+                  // setData({ address: e.target.value });
                 }}
                 id=""
                 placeholder={"Enter your address"}
@@ -441,15 +484,30 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
         <div
           className="kypageDiv_cont_button_div"
           onClick={async () => {
-            await dispatch(
-              setPayload({
-                ...payload,
-                address: `address, city, state, country`,
-              })
-            );
+            // JSON.stringify(payload);
+            // await dispatch(
+            //   setPayload({
+            //     ...payload,
+            //     address: `address, city, state, country`,
+            //   })
+            // );
           }}
         >
-          <button className="kypageDiv_cont_button_div_btn" onClick={nextStep2}>
+          <button
+            className="kypageDiv_cont_button_div_btn"
+            // onClick={nextStep2}
+            onClick={async () => {
+              console.log(state, city, address);
+              await dispatch(
+                setPayload({
+                  ...payload,
+                  address: `${address}, ${city}, ${state}, ${"Nigeria"}`,
+                })
+              );
+
+              nextStep2();
+            }}
+          >
             Next Step
           </button>
         </div>
@@ -586,11 +644,11 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
                   return;
                 }
 
-                if (typeof res?.data?.errorMessage === "string") {
-                  toast.error(res.data.errorMessage);
+                if (typeof res?.data?.errorMessage === "object") {
+                  toast.error("Incorrect BVN Number Provided");
                   return;
                 }
-                toast.success("An error Occured!!!");
+                toast.error(res?.data?.errorMessage);
               }}
             >
               Submit Verification
