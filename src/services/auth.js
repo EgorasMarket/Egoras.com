@@ -3,6 +3,7 @@ import { EGORAS_PAY_URL } from "../core/constants";
 import {
   LOGIN,
   REGISTER_ROUTE,
+  REGISTER_USER_WALLET_ADDRESS,
   VERIFY_OTP_ROUTE,
   VERIFY_USER_ROUTE,
 } from "../core/ApiRoutes";
@@ -43,6 +44,27 @@ export const REGISTER_USER = async (payload) => {
      */
   try {
     const response = await axios.post(`${REGISTER_ROUTE}`, payload);
+
+    console.log(response.data.message);
+    return response.data;
+  } catch (error) {
+    console.log(error.response || error.response.data.message);
+    return error.response;
+  }
+};
+export const GENERATE_USER_WALLET_ADDRESS = async (payload) => {
+  /**
+     *      
+     * Map<String, String> data = {
+            "email": email,
+            "wallet": wallet,
+          };
+     */
+  try {
+    const response = await axios.post(
+      `${REGISTER_USER_WALLET_ADDRESS}`,
+      payload
+    );
 
     console.log(response.data.message);
     return response.data;
