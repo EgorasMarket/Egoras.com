@@ -76,3 +76,42 @@ button:focus {
   z-index: 9999;
   backdrop-filter: blur(2px);
 }
+/* .shimmer {
+  background: linear-gradient(
+    to right,
+    #29292f 8%,
+    #5e5e68 18%,
+    #29292f 33%
+  ) !important;
+  animation: shimmer 2.2s linear infinite forwards;
+} */
+.shimmerCustom {
+  background: linear-gradient(
+    to right,
+    #29292f 8%,
+    #5c5c68 18%,
+    #29292f 33%
+  ) !important;
+  background-size: 1000px 100% !important;
+  animation: shimmer 2.2s linear infinite forwards !important;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+.shimmer {
+  background-image: linear-gradient(
+    to right,
+    #29292f 8%,
+    #5c5c68 18%,
+    #29292f 33%
+  ) !important;
+}
+.shimmer-button {
+  margin-bottom: 0px !important;
+}

@@ -11,15 +11,18 @@ import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
 import { useSelector } from "react-redux";
 import { GET_WALLET } from "../../../services/finance_services";
+import { ShimmerButton } from "react-shimmer-effects-18";
+
 import {
   GENERATE_USER_WALLET_ADDRESS,
   GENERATE_USER_WALLET_ADDRESS_MART_GPT,
 } from "../../../services/auth";
 const DashboardHome = () => {
   const [nairaBalance, setNairaBalance] = useState("");
-  const [egcBalance, setEgcBalance] = useState("");
+  const [egcBalance, setEgcBalance] = useState(0);
+  const [contentLoadingTable, setContentLoadingTable] = useState(true);
   const { user } = useSelector((state) => state.auth);
-  const { data } = useSelector((state) => state.wallet);
+  const { data, loading } = useSelector((state) => state.wallet);
 
   const generateWallet = async () => {
     const response = await GET_WALLET({
@@ -49,10 +52,10 @@ const DashboardHome = () => {
 
   useEffect(() => {
     console.log(data);
-    console.log(data[0].value);
-    console.log(data[1].value);
-    setEgcBalance(data[0].value);
-    setNairaBalance(data[1].value);
+    console.log(data[0]?.value);
+    console.log(data[1]?.value);
+    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
+    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
   }, []);
 
   return (
@@ -69,12 +72,19 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                <div className="dashboardHome_area1_card1_content_amnt_txt">
-                  {parseFloat(egcBalance).toFixed(4)}
-                </div>
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  egc
-                </div>
+                {loading ? (
+                  <ShimmerButton size="md" className="custom_shimmer" />
+                ) : (
+                  <>
+                    {" "}
+                    <div className="dashboardHome_area1_card1_content_amnt_txt">
+                      {parseFloat(egcBalance).toFixed(4)}
+                    </div>
+                    <div className="dashboardHome_area1_card1_content_symbol">
+                      egc
+                    </div>
+                  </>
+                )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -95,12 +105,18 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  ₦
-                </div>
-                <div className="dashboardHome_area1_card1_content_amnt_txt">
-                  {parseFloat(nairaBalance).toFixed(2)}
-                </div>
+                {loading ? (
+                  <ShimmerButton size="md" className="custom_shimmer" />
+                ) : (
+                  <>
+                    <div className="dashboardHome_area1_card1_content_symbol">
+                      ₦
+                    </div>
+                    <div className="dashboardHome_area1_card1_content_amnt_txt">
+                      {parseFloat(nairaBalance).toFixed(2)}
+                    </div>
+                  </>
+                )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -121,10 +137,16 @@ const DashboardHome = () => {
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
-                20
-                <div className="dashboardHome_area1_card1_content_symbol">
-                  itms
-                </div>
+                {loading ? (
+                  <ShimmerButton size="md" className="custom_shimmer" />
+                ) : (
+                  <>
+                    20
+                    <div className="dashboardHome_area1_card1_content_symbol">
+                      itms
+                    </div>
+                  </>
+                )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
                 <button className="dashboardHome_area1_card1_content_btn">
@@ -197,6 +219,7 @@ const DashboardHome = () => {
         <Table
           tableTitle={"Transactions"}
           TableData={Staticdata.productsTableData.slice(0, 8)}
+          contentLoading={contentLoadingTable}
         />
         {/* <div className="dashboardHome_area3_btn_div">
           <a

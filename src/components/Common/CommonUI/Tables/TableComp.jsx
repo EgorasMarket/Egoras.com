@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Paginate from "../Pagination/Paginate";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import { ShimmerButton } from "react-shimmer-effects-18";
 
 import "./TableComp.css";
 // ======
 // ======
 // ======
 // ======
-export const TablePagination = ({ TableData, tableTitle }) => {
+export const TablePagination = ({ TableData, tableTitle, contentLoading }) => {
   const [smallMenu, setSmallMenu] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const PER_PAGE = 8;
@@ -97,29 +98,58 @@ export const TablePagination = ({ TableData, tableTitle }) => {
               </tr>
             </thead>
 
-            <tbody className="stakingTable_body">
-              {currentTransactions.map((data) => {
-                return (
-                  <tr className="stakingTable_body_row ">
-                    <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
-                      {" "}
-                      {data.prodName}
-                    </td>
-                    <td className="stakingTable_body_row_data">
-                      {data.amount}
-                    </td>
-                    <td className="stakingTable_body_row_data">
-                      {data.prodBrand}
-                    </td>
+            {contentLoading ? (
+              <tbody className="stakingTable_body">
+                {currentTransactions.map((data) => {
+                  return (
+                    <tr className="stakingTable_body_row ">
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
 
-                    <td className="stakingTable_body_row_data">{data.Date}</td>
-                    <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
-                      {data.status}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+                      <td className="stakingTable_body_row_data">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            ) : (
+              <tbody className="stakingTable_body">
+                {currentTransactions.map((data) => {
+                  return (
+                    <tr className="stakingTable_body_row ">
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
+                        {" "}
+                        {data.prodName}
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        {data.amount}
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        {data.prodBrand}
+                      </td>
+
+                      <td className="stakingTable_body_row_data">
+                        {data.Date}
+                      </td>
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                        {data.status}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
           </table>
         )}
       </div>
@@ -129,7 +159,8 @@ export const TablePagination = ({ TableData, tableTitle }) => {
     </div>
   );
 };
-export const Table = ({ TableData, tableTitle }) => {
+
+export const Table = ({ TableData, tableTitle, contentLoading }) => {
   const [smallMenu, setSmallMenu] = useState(false);
 
   const ToggleSmallMenu = () => {
@@ -209,29 +240,58 @@ export const Table = ({ TableData, tableTitle }) => {
               </tr>
             </thead>
 
-            <tbody className="stakingTable_body">
-              {TableData.map((data) => {
-                return (
-                  <tr className="stakingTable_body_row ">
-                    <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
-                      {" "}
-                      {data.prodName}
-                    </td>
-                    <td className="stakingTable_body_row_data">
-                      {data.amount}
-                    </td>
-                    <td className="stakingTable_body_row_data">
-                      {data.prodBrand}
-                    </td>
+            {contentLoading ? (
+              <tbody className="stakingTable_body">
+                {TableData.map((data) => {
+                  return (
+                    <tr className="stakingTable_body_row ">
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
 
-                    <td className="stakingTable_body_row_data">{data.Date}</td>
-                    <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
-                      {data.status}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+                      <td className="stakingTable_body_row_data">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            ) : (
+              <tbody className="stakingTable_body">
+                {TableData.map((data) => {
+                  return (
+                    <tr className="stakingTable_body_row ">
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
+                        {" "}
+                        {data.prodName}
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        {data.amount}
+                      </td>
+                      <td className="stakingTable_body_row_data">
+                        {data.prodBrand}
+                      </td>
+
+                      <td className="stakingTable_body_row_data">
+                        {data.Date}
+                      </td>
+                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                        {data.status}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
           </table>
         )}
       </div>

@@ -18,7 +18,7 @@ import Staticdata from "../../../assets/json/Static";
 import { useSelector } from "react-redux";
 
 const DashboardWallets = () => {
-  const { data } = useSelector((state) => state.wallet);
+  const { data, loading } = useSelector((state) => state.wallet);
   const [nairaBalance, setNairaBalance] = useState("");
   const [egcBalance, setEgcBalance] = useState("");
   const [activeTab, setActiveTab] = useState("naira");
@@ -34,6 +34,7 @@ const DashboardWallets = () => {
   const [withdrawMoneyNaira, setWithdrawMoneyNaira] = useState(false);
   const [nairaBankWithdrawal, setNairaBankWithdrawal] = useState(false);
   const [nairaUserWithdrawal, setNairaUserWithdrawal] = useState(false);
+  const [contentLoadingTable, setContentLoadingTable] = useState(true);
 
   const ToggleActiveTab = (e) => [setActiveTab(e.currentTarget.id)];
 
@@ -134,6 +135,7 @@ const DashboardWallets = () => {
             walletsymbol={"egc"}
             depositFunc={ToggleDepositMoneyModal}
             withdrawFunc={ToggleWithdrawMoneyModal}
+            loading={loading}
           />
         ) : null}
         {activeTab === "naira" ? (
@@ -142,12 +144,14 @@ const DashboardWallets = () => {
             walletsymbol={"ngn"}
             depositFunc={ToggleDepositMoneyNairaModal}
             withdrawFunc={ToggleWithdrawMoneyNairaModal}
+            loading={loading}
           />
         ) : null}
         <div className="DashboardWalletsDiv_area3">
           <TablePagination
             tableTitle={"Wallet Transactions"}
             TableData={Staticdata.productsTableData}
+            contentLoading={contentLoadingTable}
           />
         </div>
       </div>

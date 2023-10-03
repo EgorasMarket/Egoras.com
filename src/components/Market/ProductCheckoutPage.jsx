@@ -38,7 +38,7 @@ const ProductCheckoutPage = () => {
     pin_code: "",
     amount: "",
     symbol: "NGN",
-    user: user.wallet_address,
+    user: user?.wallet_address,
   });
 
   const fetchProductDetail = async () => {
@@ -67,13 +67,15 @@ const ProductCheckoutPage = () => {
     console.log(response);
 
     setProcessing(false);
-    if (!response.data.success) {
+    if (response.success === true) {
+      toast.success("Product Purchase Successful");
+      navigate("/dashboard/orders");
+      return;
+    }
+    if (!response?.data?.success || !response?.data) {
       toast.warn(response.data.errorMessage);
       return;
     }
-
-    toast.success("Product Purchase Successful");
-    navigate("/dashboard/orders");
   };
   const handleProductPurchase = async () => {
     setPinModal(true);
