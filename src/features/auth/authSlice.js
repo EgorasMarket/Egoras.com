@@ -65,8 +65,8 @@ const AuthSlice = createSlice({
 
       .addCase(verifyUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.data.user;
-        state.meta = action.payload.data.meta;
+        state.user = action.payload.data?.user;
+        state.meta = action.payload.data?.meta;
       })
       .addCase(verifyUser.pending, (state, action) => {
         state.loading = true;

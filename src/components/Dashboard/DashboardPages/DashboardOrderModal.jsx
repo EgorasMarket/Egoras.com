@@ -7,16 +7,21 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/swiper-bundle.css";
 import { Pagination } from "swiper/modules";
-const DashboardOrderModal = ({ closeModal }) => {
+const DashboardOrderModal = ({ closeModal, payload }) => {
   const count = 8;
   const ProdQuantity = 150;
-  const images = [
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-  ];
+  // const images = [
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  // ];
+
+  const images = JSON.parse(payload.product_images);
+  const specifications = payload.product_specifications.split(",");
+  console.log(specifications);
+
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
@@ -47,7 +52,7 @@ const DashboardOrderModal = ({ closeModal }) => {
           </div>
           <div className="dashboard_order_detail_body_2">
             <div className="dashboard_order_detail_body_2_title">
-              Egoras Dual Fuel Tricycle (EGC-80)
+              {payload.product_name}
             </div>
             {/* ===== */}
             {/* ===== */}
@@ -56,7 +61,7 @@ const DashboardOrderModal = ({ closeModal }) => {
             <div className="dashboard_order_detail_body_2_code">
               Product code:{" "}
               <span className="Pdashboard_order_detail_body_2_code_span">
-                48029
+                {payload.product_id}
               </span>{" "}
             </div>
             {/* ===== */}
@@ -77,7 +82,7 @@ const DashboardOrderModal = ({ closeModal }) => {
               <div className="dashboard_order_detail_body_2_count_quant_div">
                 Quantity:{" "}
                 <span className="dashboard_order_detail_body_2_count_quant_div_span">
-                  {ProdQuantity}
+                  {payload.quantity}
                 </span>
               </div>
             </div>
@@ -90,53 +95,26 @@ const DashboardOrderModal = ({ closeModal }) => {
                 Specifications
               </div>
               <div className="ProductDetailPage_section_area_2_tec_div_body">
-                <div className="ProductDetailPage_section_area_2_tec_div_body_1">
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_title">
-                    Weight
-                  </div>
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_para">
-                    200gm
-                  </div>
-                </div>
-                <div className="ProductDetailPage_section_area_2_tec_div_body_1">
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_title">
-                    Weight
-                  </div>
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_para">
-                    200gm
-                  </div>
-                </div>
-                <div className="ProductDetailPage_section_area_2_tec_div_body_1">
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_title">
-                    Weight
-                  </div>
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_para">
-                    200gm
-                  </div>
-                </div>
-                <div className="ProductDetailPage_section_area_2_tec_div_body_1">
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_title">
-                    Weight
-                  </div>
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_para">
-                    200gm
-                  </div>
-                </div>
-                <div className="ProductDetailPage_section_area_2_tec_div_body_1">
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_title">
-                    Weight
-                  </div>
-                  <div className="ProductDetailPage_section_area_2_tec_div_body_1_para">
-                    200gm
-                  </div>
-                </div>
+                {specifications.map((data, index) => {
+                  let val = data.split(":");
+                  return (
+                    <div className="ProductDetailPage_section_area_2_tec_div_body_1">
+                      <div className="ProductDetailPage_section_area_2_tec_div_body_1_title">
+                        {val[0]}
+                      </div>
+                      <div className="ProductDetailPage_section_area_2_tec_div_body_1_para">
+                        {val[1]}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             {/* ===== */}
             {/* ===== */}
             {/* ===== */}
             <div className="ProductDetailPage_section_area_2_warranty_div">
-              2years Warranty
+              2 years Warranty
             </div>
             {/* ===== */}
             {/* ===== */}
@@ -147,7 +125,7 @@ const DashboardOrderModal = ({ closeModal }) => {
                   Quantity
                 </div>
                 <div className="ProductDetailPage_section_area_2_total_div_1_para">
-                  {count}
+                  {payload.quantity}
                 </div>
               </div>
               <div className="ProductDetailPage_section_area_2_total_div_1">
@@ -155,7 +133,7 @@ const DashboardOrderModal = ({ closeModal }) => {
                   Unit Amount
                 </div>
                 <div className="ProductDetailPage_section_area_2_total_div_1_para">
-                  #{numberWithCommas(parseFloat(1400000).toFixed(2))}
+                  {numberWithCommas(parseFloat(payload.amount).toFixed(2))}
                 </div>
               </div>
               <div className="ProductDetailPage_section_area_2_total_div_1">
@@ -163,14 +141,18 @@ const DashboardOrderModal = ({ closeModal }) => {
                   Total
                 </div>
                 <div className="ProductDetailPage_section_area_2_total_div_1_para">
-                  #{numberWithCommas(parseFloat(count * 1400000).toFixed(2))}
+                  {numberWithCommas(
+                    parseFloat(
+                      Number(payload.quantity) * payload.amount
+                    ).toFixed(2)
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="depositMoneyDiv_cont_2">
-          <button className="depositMoneyDiv_cont_2_btn">
+          <button disabled className="depositMoneyDiv_cont_2_btn">
             Move to finance
           </button>
         </div>

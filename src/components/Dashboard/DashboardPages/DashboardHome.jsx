@@ -11,7 +11,10 @@ import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
 import { useSelector } from "react-redux";
 import { GET_WALLET } from "../../../services/finance_services";
-import { GENERATE_USER_WALLET_ADDRESS } from "../../../services/auth";
+import {
+  GENERATE_USER_WALLET_ADDRESS,
+  GENERATE_USER_WALLET_ADDRESS_MART_GPT,
+} from "../../../services/auth";
 const DashboardHome = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -35,11 +38,14 @@ const DashboardHome = () => {
       wallet: response.data.address,
       email: user.email,
     });
+    await GENERATE_USER_WALLET_ADDRESS_MART_GPT({
+      userAddress: response.data.address,
+    });
     console.log(registerAddress, "responses");
   };
   useEffect(() => {
     console.log("i am running here");
-    if (user.wallet_address === "n/a" || user.wallet_address === "") {
+    if (user?.wallet_address === "n/a" || user?.wallet_address === "") {
       generateWallet();
     }
   }, []);

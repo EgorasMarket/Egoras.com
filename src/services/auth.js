@@ -4,6 +4,7 @@ import {
   LOGIN,
   REGISTER_ROUTE,
   REGISTER_USER_WALLET_ADDRESS,
+  REGISTER_WALLET_MARTGPT,
   VERIFY_OTP_ROUTE,
   VERIFY_USER_ROUTE,
 } from "../core/ApiRoutes";
@@ -65,6 +66,23 @@ export const GENERATE_USER_WALLET_ADDRESS = async (payload) => {
       `${REGISTER_USER_WALLET_ADDRESS}`,
       payload
     );
+
+    console.log(response.data.message);
+    return response.data;
+  } catch (error) {
+    console.log(error.response || error.response.data.message);
+    return error.response;
+  }
+};
+export const GENERATE_USER_WALLET_ADDRESS_MART_GPT = async (payload) => {
+  /**
+     *      
+     * Map<String, String> data = {
+            "userAddress": wallet,
+          };
+     */
+  try {
+    const response = await axios.post(`${REGISTER_WALLET_MARTGPT}`, payload);
 
     console.log(response.data.message);
     return response.data;
