@@ -18,17 +18,14 @@ const DashboardProducts = () => {
     setProductLoading(true);
     const response = await ALL_PRODUCTS();
     console.log(response);
-    if (response.success === true) {
-      setProductLoading(false);
-    } else {
-      setProductLoading(true);
-    }
-    if (!response.status) {
+    setProductLoading(false);
+    if (response?.status === false) {
+      console.log("cnnnnnnnn");
       toast.warn("Cannont retrieve all products");
+      return;
     }
+    console.log("no near");
     setProducts(response.data.getAllUploadedProduct);
-    //filter through all the products
-
     const ano = response.data.getAllUploadedProduct.filter((data) => {
       console.log(data);
       return data.product_brand === "Egoras";

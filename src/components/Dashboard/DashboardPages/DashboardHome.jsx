@@ -142,14 +142,8 @@ const DashboardHome = () => {
     setProductLoading(true);
     const response = await ALL_PRODUCTS();
     console.log(response);
-    if (response.success === true) {
-      setProductLoading(false);
-    } else {
-      setProductLoading(true);
-    }
-    if (!response.status) {
-      toast.warn("Cannont retrieve all products");
-    }
+    setProductLoading(false);
+
     const ano = response.data.getAllUploadedProduct.filter((data) => {
       console.log(data);
       return data.product_brand === "Egoras";
