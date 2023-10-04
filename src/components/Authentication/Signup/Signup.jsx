@@ -7,7 +7,9 @@ import Staticdata from "../../../assets/json/Static";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useDispatch, useSelector } from "react-redux";
-
+import ScaleLoader from "react-spinners/ScaleLoader";
+import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 // import { setPayload } from "../../../features/user-registration/userRegistration";
 import { registerUser } from "../../../features/auth/authActions";
 import { setPayload } from "../../../features/auth/authSlice";
@@ -20,8 +22,47 @@ const Signup = () => {
   const dispatch = useDispatch();
   const { payload, loading, error } = useSelector((state) => state.auth);
   const [defaultForm, setDefaultForm] = useState(true);
+  const [submitDisable, setSubmitDisable] = useState(true);
+  const [otpDisable, setOtpDisable] = useState(true);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [nextDisable, setNextDisable] = useState(true);
+  const [errorModal, setErrorModal] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errorTxt, setErrorTxt] = useState("");
   const [otpModal, setOtpModal] = useState(false);
   const [otp, setOtp] = useState("");
+
+  useEffect(() => {
+    if (otp == "") {
+      setOtpDisable(true);
+    } else {
+      setOtpDisable(false);
+    }
+  }, [otp]);
+
+  useEffect(() => {
+    if (
+      payload.fullName == "" ||
+      payload.email == "" ||
+      payload.username == ""
+    ) {
+      setNextDisable(true);
+    } else {
+      setNextDisable(false);
+    }
+  }, [payload.fullName, payload.email, payload.username]);
+  useEffect(() => {
+    if (
+      payload.phone == "" ||
+      payload.password == "" ||
+      payload.confirm == ""
+    ) {
+      setSubmitDisable(true);
+    } else {
+      setSubmitDisable(false);
+    }
+  }, [payload.phone, payload.password, payload.confirm]);
+
   const ToggleDefaultForm = () => {
     setDefaultForm(!defaultForm);
   };
@@ -33,6 +74,7 @@ const Signup = () => {
   };
 
   const handleSignUp = async () => {
+    setSubmitDisable(true);
     const {
       email,
       password,
@@ -59,28 +101,28 @@ const Signup = () => {
 
     console.log(res);
     if (res.payload?.code === 200) {
-      // alert("Registration Successful -- redirect to choice page");
-      // navigate("/login");
+      setSubmitDisable(false);
       setOtpModal(true);
       return;
     }
 
     if (res.payload?.data?.success === false) {
-      return alert(res.payload?.data?.errorMessage);
+      setSubmitDisable(false);
+      setErrorModal(true);
+      setErrorTxt(res.payload?.data?.errorMessage);
+      // return alert(res.payload?.data?.errorMessage);
     }
 
     console.log("Failed");
   };
-
-  if (loading) {
-    return <p>Loading ...</p>;
-  }
 
   if (error) {
     return <p>{error}</p>;
   }
 
   const handleVerifyOtp = async () => {
+    setOtpDisable(true);
+    setOtpLoading(true);
     console.log(payload);
 
     let temp = "+" + payload.phone.toString();
@@ -94,18 +136,21 @@ const Signup = () => {
     console.log(response);
 
     if (response.success) {
-      alert("Phone Number verified");
-
-      navigate("/login");
+      setSuccess(true);
+      setOtpDisable(false);
+      setOtpLoading(false);
       return;
     }
 
-    alert(response.data.errorMessage || "Verification failed!!1");
+    setErrorTxt(response.data.errorMessage || "Verification failed!!1");
+    setOtpDisable(false);
+    setOtpLoading(false);
   };
 
   const handleChange = (enteredOtp) => {
     setOtp(enteredOtp);
   };
+
   return (
     <div className="signup_div">
       <section
@@ -230,6 +275,7 @@ const Signup = () => {
                   <button
                     className="signup_div_section_div_container_form_btn"
                     onClick={ToggleDefaultForm}
+                    disabled={nextDisable}
                   >
                     Next{" "}
                     <ChevronRightIcon className="signup_div_section_div_container_form_btn_icon" />
@@ -342,8 +388,15 @@ const Signup = () => {
                   <button
                     className="signup_div_section_div_container_form_btn"
                     onClick={handleSignUp}
+                    disabled={submitDisable}
                   >
-                    Create Account
+                    {loading ? (
+                      <>
+                        <ScaleLoader color="#366e51" height={20} />
+                      </>
+                    ) : (
+                      " Create account"
+                    )}
                   </button>
                 </div>
               </div>
@@ -363,6 +416,24 @@ const Signup = () => {
           otp={otp}
           handleVerifyOtp={handleVerifyOtp}
           payload={payload}
+          otpDisable={otpDisable}
+          otpLoading={otpLoading}
+        />
+      ) : null}
+      {success ? (
+        <SuccessModal
+          SuccesTxt={"You have successfully verified your phone number "}
+          successFunc={() => {
+            window.location.href = "/login";
+          }}
+        />
+      ) : null}
+      {errorModal ? (
+        <ErrorModal
+          ErrorTxt={errorTxt}
+          errorFunc={() => {
+            setErrorModal(false);
+          }}
         />
       ) : null}
     </div>

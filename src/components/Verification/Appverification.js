@@ -121,7 +121,6 @@ const AppVerification = () => {
                         >
                           You have successfully verified your email address.
                         </span>
-
                         <div
                           className="signup_para"
                           style={{ fontSize: "16px", fontWeight: "400" }}
