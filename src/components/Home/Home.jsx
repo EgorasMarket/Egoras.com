@@ -60,7 +60,8 @@ const Home = () => {
                 </div>
                 <div className="HomeDivSection1_div_txts_2">
                   <a
-                    href={`/productdetail/${1}/${"Egoras dual fuel tricycle"}`}
+                    href="#"
+                    // href={`/productdetail/${1}/${"Egoras dual fuel tricycle"}`}
                     className="HomeDivSection1_div_txts_2_link1"
                   >
                     <BgButtonNoBorder
@@ -277,7 +278,7 @@ const Home = () => {
         <div className="custom_container">
           <div className="ProductDetailDiv_last_section_area">
             <img
-              src="/img/dummyDetailPageImages/dumImgCarous1.webp"
+              src="/img/dummyDetailPageImages/Big Gen.png"
               alt=""
               className="ProductDetailDiv_last_section_area_img"
             />
@@ -294,16 +295,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <div>
-        <p
-          onClick={() => {
-            dispatch(setError("this is a sample error"));
-          }}
-        >
-          sample{" "}
-        </p>
-      </div>
       {/* ====================== */}
       {/* ====================== */}
       {/* ====================== */}

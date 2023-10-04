@@ -226,3 +226,37 @@
   color: #fff;
   font-weight: 500;
 }
+
+@media screen and (max-width: 1023px) {
+  .ProductDetailDiv_last_section {
+    padding: 4em 0em;
+  }
+  .ProductDetailDiv_last_section_area {
+    height: 100%;
+    border-radius: 10px;
+  }
+  .ProductDetailDiv_last_section_area_txt_area2_btn {
+    width: 100%;
+    max-width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #22ad62;
+    color: #fff;
+    font-weight: 500;
+  }
+  .ProductDetailDiv_last_section_area_txt_area1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 24px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .ProductDetailDiv_last_section_area_txt {
+    position: absolute;
+    height: 100%;
+    padding: 4em 1em;
+  }
+}

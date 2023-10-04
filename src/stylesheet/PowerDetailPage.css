@@ -240,3 +240,65 @@ svg.star-svg {
   width: 100% !important;
   border-radius: 5px;
 }
+@media screen and (max-width: 1300px) {
+  .ProductDetailPage_section_area_2 {
+    margin-left: 2em;
+  }
+}
+@media screen and (max-width: 999px) {
+  .ProductDetailPage_section_area {
+    display: flex;
+    margin-top: 2em;
+    position: relative;
+    flex-direction: column;
+  }
+  .ProductDetailPage_section_area_1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    height: 100%;
+    margin-bottom: 2em;
+  }
+  .ProductDetailPage_section_area_2 {
+    margin-left: 0em;
+  }
+  .ProductDetailPage_section_area_2_count_quant_div_span .shimmer {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .ProductDetailPage_section_area_1Swiper_slide {
+    width: 100% !important;
+    padding: 2em 2em;
+    padding-top: 2em;
+    /* margin-right: 0px !important; */
+  }
+  .ProductDetailPage_section_area_1Swiper {
+    border-radius: 10px;
+  }
+  .ProductDetailPage_section_area_1Swiper_thumb_thumb {
+    padding: 10px;
+    border-radius: 9px;
+  }
+  .ProductDetailPage_section_area_2_title {
+    font-size: 28px;
+  }
+  .ProductDetailPage_section_area_2_amount {
+    font-size: 32px;
+  }
+  .ProductDetailPage_section_area_2_count {
+    padding: 1em;
+  }
+  .ProductDetailPage_section_area_1 .shimmer-button--lg {
+    height: 200px !important;
+    width: 100% !important;
+    border-radius: 5px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .ProductDetailPage_section_area_2_title {
+    font-size: 24px;
+  }
+}

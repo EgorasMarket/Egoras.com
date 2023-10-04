@@ -278,7 +278,7 @@
   color: #0a592e;
 }
 .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: -2% !important;
+  bottom: 5% !important;
 }
 .ProductCheckoutPage_div_section_area_1_area3_bodySwiper {
   width: 100% !important;
@@ -303,6 +303,7 @@
   left: 0;
   height: 100%;
   opacity: 0.2;
+  object-fit: cover;
 }
 .ProductCheckoutPage_div_section_area_2_area1_body_cont .shimmer-button--lg {
   width: 100% !important;
@@ -339,4 +340,63 @@
   background: #00000080;
   z-index: 100;
   backdrop-filter: blur(3px);
+  padding: 1em;
+}
+@media screen and (max-width: 1023px) {
+  .ProductCheckoutPage_div_section_area_1_area3_body_card1 {
+    padding: 1em;
+  }
+}
+@media screen and (max-width: 999px) {
+  .ProductCheckoutPage_div_section_area_1_area3_body_card1 {
+    padding: 1em;
+  }
+  .ProductCheckoutPage_div_section_area_2 {
+    width: 100%;
+  }
+  .ProductCheckoutPage_div_section_area_1 {
+    width: 100%;
+    margin-right: 0em;
+    margin-bottom: 1em;
+    position: relative;
+  }
+  .ProductCheckoutPage_div_section_area {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 600px) {
+  .ProductCheckoutPage_div_section_area_1_area3_body {
+    padding: 1em;
+  }
+  .ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal {
+    font-size: 32px;
+    font-weight: 600;
+  }
+  .ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_title {
+    font-size: 18px;
+    color: #c0c0c0;
+    font-weight: 500;
+  }
+  .swiper-slide.swiper-slide-prev.ProductCheckoutPage_div_section_area_1_area3_bodySwiper_slide {
+    margin-right: 1em !important;
+    margin-left: 5em !important;
+    width: 90% !important;
+  }
+  .ProductCheckoutPage_div_section_area_1_area1_body {
+    height: 300px;
+  }
+  .swiper-slide.ProductCheckoutPage_div_section_area_1_area3_bodySwiper_slide.swiper-slide-next {
+    margin-left: 1em !important;
+  }
+  .ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

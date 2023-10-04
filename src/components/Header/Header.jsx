@@ -8,6 +8,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import { useSelector } from "react-redux";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const [headerMenu, setHeaderMenu] = useState(false);
@@ -156,6 +157,17 @@ const Header = () => {
                 </a>
               )}
             </div>
+            <div className="header_section_3_mobile">
+              {userData !== null ? (
+                <a href="/dashboard" className="header_section_3_link_2">
+                  <DashboardIcon className="header_section_3_icon" />
+                </a>
+              ) : (
+                <a href="/login" className="header_section_3_link_2">
+                  <PermIdentityOutlinedIcon className="header_section_3_icon" />
+                </a>
+              )}
+            </div>
           </div>
         </div>
         {headerMenu ? (
@@ -224,6 +236,15 @@ const Header = () => {
                   <div className="headerMenuDiv_cont_cont1_title">Models</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
                 </div>
+                <a
+                  href="/dashboard/products"
+                  className="headerMenuDiv_cont_cont1"
+                >
+                  <div className="headerMenuDiv_cont_cont1_title">
+                    All products
+                  </div>
+                  <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
+                </a>
                 <div className="headerMenuDiv_cont_cont1">
                   <div className="headerMenuDiv_cont_cont1_title">About</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
