@@ -46,7 +46,9 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
       <div className="depositMoneyDiv_cont">
         <ArrowBackOutlinedIcon
           className="depositMoneyDiv_icon"
-          onClick={ToggleDepositMoneyNairaBankModal}
+          // onClick={() => {
+          //   // ToggleDepositMoneyNairaBankModal();
+          // }}
         />
 
         {Object.keys(bankInfo).length === 0 ? (
