@@ -22,7 +22,6 @@ import useUserEligible from "../../hooks/useUserEligible";
 
 const ProductCheckoutPage = () => {
   useProtect(); // call this hooks on a component you want to protect
-
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { data, loading } = useSelector((state) => state.wallet);

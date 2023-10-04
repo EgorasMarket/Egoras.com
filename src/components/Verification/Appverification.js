@@ -7,6 +7,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import LoadingIcons from "react-loading-icons";
+import { useNavigate, useParams } from "react-router-dom";
 // import { CustomAlert } from "../../../../CustomAlert";
 // import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,15 +17,16 @@ import "./Kcl.css";
 // import { getAuthentication } from "../../../../actions/auth";
 // import { setAlert } from "../../../../actions/alert";
 
-const AppVerification = ({ match }) => {
+const AppVerification = () => {
   // const [token,setToken]=useState();
-  const [formData2, setFormData2] = useState(match.params.id);
+  const { id } = useParams();
+  // const [formData2, setFormData2] = useState(id);
   const [loadingState, setLoadingState] = useState(true);
   const [successState, setSuccessState] = useState(null);
   const [toke, setToke] = useState({ email: "", password: "" });
-  console.log(formData2);
+  console.log(id);
 
-  const verifyEgorasAppEmail = (email_auth) => async (dispatch) => {
+  const verifyEgorasAppEmail = async () => {
     const config = {
       headers: {
         Accept: "*",
@@ -34,7 +36,7 @@ const AppVerification = ({ match }) => {
     };
 
     const body = JSON.stringify({
-      code: email_auth,
+      code: id,
     });
 
     console.log(body);
@@ -46,38 +48,38 @@ const AppVerification = ({ match }) => {
         config
       );
       console.log(res);
-      return {
-        success: true,
-        data: res.data,
-      };
+      if (res.data.success == true) {
+        setLoadingState(false);
+        setSuccessState(true);
+        console.log("success");
+      } else {
+        setLoadingState(false);
+        setSuccessState(false);
+        console.log("error");
+      }
     } catch (err) {
       console.log(err.response);
-
-      return {
-        success: false,
-        data: err.response,
-      };
-    }
-  };
-  useEffect(async () => {
-    let res3 = await verifyEgorasAppEmail(formData2);
-
-    console.log(res3);
-
-    if (res3.success == true) {
-      setLoadingState(false);
-      setSuccessState(true);
-      console.log("success");
-    } else {
       setLoadingState(false);
       setSuccessState(false);
-      console.log("error");
     }
-  }, [formData2]);
-
-  const submitLogin = async (e) => {
-    window.close();
   };
+  useEffect(() => {
+    verifyEgorasAppEmail();
+    // console.log(res3);
+    // if (res3.success == true) {
+    //   setLoadingState(false);
+    //   setSuccessState(true);
+    //   console.log("success");
+    // } else {
+    //   setLoadingState(false);
+    //   setSuccessState(false);
+    //   console.log("error");
+    // }
+  }, [id]);
+
+  // const submitLogin = async (e) => {
+  //   window.close();
+  // };
 
   return (
     <Fragment>
@@ -85,30 +87,23 @@ const AppVerification = ({ match }) => {
         <section className="signup_section">
           <div className="container">
             <div className="signup_area">
-              <div className="signup_cont_head">
-                <a href="/">
-                  <img
-                    src="/img/egoras-logo.svg"
-                    alt=""
-                    className="signup_title_img"
-                  />
-                </a>
-              </div>
               <div className="signup_cont">
                 {loadingState ? (
                   <>
                     <LoadingIcons.TailSpin
-                      stroke="#000"
+                      stroke="#22ad62"
                       width="145px"
                       height="145px"
                       strokeWidth="3"
                     />
-                    <p>Authenticating please wait ...</p>
+                    <p style={{ marginTop: "1em" }}>
+                      Authenticating please wait ...
+                    </p>
                   </>
                 ) : (
                   <>
                     {successState ? (
-                      <div>
+                      <>
                         <img
                           src="/img/check.png"
                           alt=""
@@ -122,16 +117,16 @@ const AppVerification = ({ match }) => {
                         <div className="signup_title">Congratulation!</div>
                         <span
                           className="signup_para"
-                          style={{ fontSize: "22px", fontWeight: "600" }}
+                          style={{ fontSize: "18px", fontWeight: "500" }}
                         >
                           You have successfully verified your email address.
                         </span>
 
                         <div
                           className="signup_para"
-                          style={{ fontSize: "16px", fontWeight: "500" }}
+                          style={{ fontSize: "16px", fontWeight: "400" }}
                         >
-                          Proceed to App to view your dashboard.
+                          Please return to the platform to continue.
                         </div>
                         <div className="signup_inputs_cont">
                           {/* <button
@@ -143,9 +138,9 @@ const AppVerification = ({ match }) => {
                                                             <span>Close</span>
                                                         </button> */}
                         </div>
-                      </div>
+                      </>
                     ) : (
-                      <div>
+                      <>
                         <img
                           src="/img/close.png"
                           alt=""
@@ -164,7 +159,7 @@ const AppVerification = ({ match }) => {
                         </div>
                         <span
                           className="signup_para"
-                          style={{ fontSize: "22px", fontWeight: "600" }}
+                          style={{ fontSize: "18px", fontWeight: "500" }}
                         >
                           Sorry, your email verification was not successful
                         </span>
@@ -182,7 +177,7 @@ const AppVerification = ({ match }) => {
                                                             <span>Close</span>
                                                         </button> */}
                         </div>
-                      </div>
+                      </>
                     )}
                   </>
                 )}
