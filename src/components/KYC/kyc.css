@@ -369,6 +369,7 @@ button.face_id_div_btn {
 .kyc_review_message_div_cont_2_para {
   font-size: 16px;
   color: #9b9b9b;
+  text-align: center;
 }
 .kyc_review_message_div_cont_2_btn {
   /* width: 130px; */

@@ -22,7 +22,6 @@ import useUserEligible from "../../hooks/useUserEligible";
 
 const ProductCheckoutPage = () => {
   useProtect(); // call this hooks on a component you want to protect
-
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { data, loading } = useSelector((state) => state.wallet);
@@ -300,38 +299,38 @@ const ProductCheckoutPage = () => {
     );
   }
 
-  if (!eligible) {
-    return (
-      <div className="kyc_review_message_div">
-        <div className="kyc_review_message_div_cont">
-          <div className="kyc_review_message_div_cont_1">
-            <img
-              src="/img/verification_svg1.svg"
-              alt=""
-              className="kypageDiv_cont_img"
-            />
-          </div>
-          <div className="kyc_review_message_div_cont_2">
-            <div className="kyc_review_message_div_cont_2_title">
-              Criteria not satisfied
-            </div>
-            <div className="kyc_review_message_div_cont_2_para">
-              You will need to complete at least KYC level 2 to be able to make
-              purchase
-            </div>
-            <a
-              href="/dashboard"
-              className="kyc_review_message_div_cont_2_btn_link"
-            >
-              <button className="kyc_review_message_div_cont_2_btn">
-                Go to Verification
-              </button>
-            </a>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // if (!eligible) {
+  //   return (
+  //     <div className="kyc_review_message_div">
+  //       <div className="kyc_review_message_div_cont">
+  //         <div className="kyc_review_message_div_cont_1">
+  //           <img
+  //             src="/img/verification_svg1.svg"
+  //             alt=""
+  //             className="kypageDiv_cont_img"
+  //           />
+  //         </div>
+  //         <div className="kyc_review_message_div_cont_2">
+  //           <div className="kyc_review_message_div_cont_2_title">
+  //             Criteria not satisfied
+  //           </div>
+  //           <div className="kyc_review_message_div_cont_2_para">
+  //             You will need to complete at least KYC level 2 to be able to make
+  //             purchase
+  //           </div>
+  //           <a
+  //             href="/dashboard"
+  //             className="kyc_review_message_div_cont_2_btn_link"
+  //           >
+  //             <button className="kyc_review_message_div_cont_2_btn">
+  //               Go to Verification
+  //             </button>
+  //           </a>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   let items = [];
   for (let i = 1; i <= count; i++) {
@@ -638,6 +637,37 @@ const ProductCheckoutPage = () => {
             return;
           }}
         />
+      ) : null}
+
+      {!eligible ? (
+        <div className="not_eligible_div">
+          <div className="kyc_review_message_div_cont">
+            <div className="kyc_review_message_div_cont_1">
+              <img
+                src="/img/verification_svg1.svg"
+                alt=""
+                className="kypageDiv_cont_img"
+              />
+            </div>
+            <div className="kyc_review_message_div_cont_2">
+              <div className="kyc_review_message_div_cont_2_title">
+                Criteria not satisfied
+              </div>
+              <div className="kyc_review_message_div_cont_2_para">
+                You will need to complete at least KYC level 2 to be able to
+                make purchase
+              </div>
+              <a
+                href="/kyc/verify"
+                className="kyc_review_message_div_cont_2_btn_link"
+              >
+                <button className="kyc_review_message_div_cont_2_btn">
+                  Go to Verification
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
       ) : null}
     </div>
   );

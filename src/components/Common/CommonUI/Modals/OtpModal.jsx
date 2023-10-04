@@ -1,7 +1,16 @@
 import React from "react";
 import "./otpModal.css";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 import OtpInput from "react18-input-otp";
-const OtpModal = ({ handleChange, otp, handleVerifyOtp, payload }) => {
+const OtpModal = ({
+  handleChange,
+  otp,
+  handleVerifyOtp,
+  payload,
+  otpLoading,
+  otpDisable,
+}) => {
   return (
     <div className="otp_modal">
       <div className="otp_modal_container">
@@ -31,7 +40,18 @@ const OtpModal = ({ handleChange, otp, handleVerifyOtp, payload }) => {
           className="otp_modal_container_body_button"
           onClick={handleVerifyOtp}
         >
-          <button className="otp_modal_container_body_button_btn">Send</button>
+          <button
+            className="otp_modal_container_body_button_btn"
+            disabled={otpDisable}
+          >
+            {otpLoading ? (
+              <>
+                <ScaleLoader color="#366e51" height={20} />
+              </>
+            ) : (
+              " Send"
+            )}
+          </button>
         </div>
       </div>
     </div>
