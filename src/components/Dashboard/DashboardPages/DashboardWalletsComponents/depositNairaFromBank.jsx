@@ -32,8 +32,6 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
     fetchVirtualAccount();
   }, []);
 
-  //something new
-
   if (loading) {
     return (
       <div className="depositMoneyDiv">
@@ -46,12 +44,7 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
-        <ArrowBackOutlinedIcon
-          className="depositMoneyDiv_icon"
-          // onClick={() => {
-          //   // ToggleDepositMoneyNairaBankModal();
-          // }}
-        />
+        <ArrowBackOutlinedIcon className="depositMoneyDiv_icon" />
 
         {Object.keys(bankInfo).length === 0 ? (
           <div className="">
