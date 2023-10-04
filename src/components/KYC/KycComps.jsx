@@ -168,14 +168,26 @@ const KycStartComp = ({ startVerify, prev }) => {
   }, []);
 
   if (
-    response.level === levels.level2 &&
-    response.status === status.notVerified
+    (response.level === levels.level2 &&
+      response.status === status.notVerified) ||
+    (response.level === levels.level3 && response.status === status.notVerified)
   ) {
     return (
       <div className="kypageDiv_cont_div">
         <div className="kypageDiv_cont_div_btn">
           <h1>Your Document is being reviewied </h1>
           <p>Once completed, you'll be notified</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (response.level === levels.level3 && response.status === status.verified) {
+    return (
+      <div className="kypageDiv_cont_div">
+        <div className="kypageDiv_cont_div_btn">
+          <h1>Your Account have been fully verified </h1>
+          <p>You have Unlimited Access to all the features </p>
         </div>
       </div>
     );
