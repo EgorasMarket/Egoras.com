@@ -14,7 +14,6 @@ const Dashboard = () => {
 
   const { user } = useSelector((state) => state.auth);
   useEffect(() => {
-    console.log(user, "madamd");
     if (user === null || user === undefined) {
       // navigate("/login");
       window.location.href = "/login";

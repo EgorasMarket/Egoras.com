@@ -24,12 +24,12 @@ const customCountries = {
   NG: "Nigeria",
 };
 
-const levels = Object.freeze({
+export const levels = Object.freeze({
   level1: "LEVEL_1",
   level2: "LEVEL_2",
   level3: "LEVEL_3",
 });
-const status = Object.freeze({
+export const status = Object.freeze({
   verified: "VERIFIED",
   notVerified: "NOT_VERIFIED",
 });
@@ -205,10 +205,32 @@ const KycStartComp = ({ startVerify, prev }) => {
 
   if (response.level === levels.level3 && response.status === status.verified) {
     return (
-      <div className="kypageDiv_cont_div">
-        <div className="kypageDiv_cont_div_btn">
-          <h1>Your Account have been fully verified </h1>
-          <p>You have Unlimited Access to all the features </p>
+      <div className="kyc_review_message_div">
+        <div className="kyc_review_message_div_cont">
+          <div className="kyc_review_message_div_cont_1">
+            <img
+              src="/img/verification_svg1.svg"
+              alt=""
+              className="kypageDiv_cont_img"
+            />
+          </div>
+          <div className="kyc_review_message_div_cont_2">
+            <div className="kyc_review_message_div_cont_2_title">
+              Your KYC Verification is Complete!!!{" "}
+            </div>
+            <div className="kyc_review_message_div_cont_2_para">
+              You now have unlimited access to all our features. Thank you for
+              taking your time to provide all the neccessary information.
+            </div>
+            <a
+              href="/dashboard"
+              className="kyc_review_message_div_cont_2_btn_link"
+            >
+              <button className="kyc_review_message_div_cont_2_btn">
+                Back home
+              </button>
+            </a>
+          </div>
         </div>
       </div>
     );

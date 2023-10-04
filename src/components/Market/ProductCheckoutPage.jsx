@@ -17,8 +17,12 @@ import { useSelector } from "react-redux";
 import WebPin from "../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import { ShimmerButton } from "react-shimmer-effects-18";
+import useProtect from "../../hooks/useProtect";
+import useUserEligible from "../../hooks/useUserEligible";
 
 const ProductCheckoutPage = () => {
+  useProtect(); // call this hooks on a component you want to protect
+
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { data, loading } = useSelector((state) => state.wallet);
@@ -83,18 +87,8 @@ const ProductCheckoutPage = () => {
   };
   const handleProductPurchase = async () => {
     setPinModal(true);
-    // Map<String, String> body = {
-    //   "type": "product",
-    //   "product_id": "${product_id}",
-    //   "index_id": "${index_id}",
-    //   // "wallet_address": "${wallet}",
-    //   "quantity": "${product_count}",
-    //   "pin_code": "${pin}",
-    //   "amount": "${amount}",
-    //   "symbol": "NGN",
-    //   "user": "${wallet}",
-    // };
   };
+  const eligible = useUserEligible();
 
   useEffect(() => {
     fetchProductDetail();
@@ -302,6 +296,39 @@ const ProductCheckoutPage = () => {
       <div>
         <h1>An error occured</h1>
         <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (!eligible) {
+    return (
+      <div className="kyc_review_message_div">
+        <div className="kyc_review_message_div_cont">
+          <div className="kyc_review_message_div_cont_1">
+            <img
+              src="/img/verification_svg1.svg"
+              alt=""
+              className="kypageDiv_cont_img"
+            />
+          </div>
+          <div className="kyc_review_message_div_cont_2">
+            <div className="kyc_review_message_div_cont_2_title">
+              Criteria not satisfied
+            </div>
+            <div className="kyc_review_message_div_cont_2_para">
+              You will need to complete at least KYC level 2 to be able to make
+              purchase
+            </div>
+            <a
+              href="/dashboard"
+              className="kyc_review_message_div_cont_2_btn_link"
+            >
+              <button className="kyc_review_message_div_cont_2_btn">
+                Go to Verification
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
     );
   }
