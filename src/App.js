@@ -33,16 +33,16 @@ function App() {
     verify_user();
     fetch_walllet();
   }, []);
-  useEffect(() => {
-    document.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousemove", handleMouseMove);
+  //   return () => {
+  //     document.removeEventListener("mousemove", handleMouseMove);
+  //   };
+  // }, []);
 
-  const handleMouseMove = (e) => {
-    setCursorPosition({ x: e.pageX, y: e.pageY });
-  };
+  // const handleMouseMove = (e) => {
+  //   setCursorPosition({ x: e.pageX, y: e.pageY });
+  // };
   useEffect(() => {
     setLoadingDiv(true);
     const timer = setTimeout(() => {
@@ -53,10 +53,10 @@ function App() {
   const myArr = currentPage.split("/");
   return (
     <>
-      <div
+      {/* <div
         className="custom-cursor"
         style={{ left: cursorPosition.x, top: cursorPosition.y }}
-      ></div>
+      ></div> */}
       {/* <Route
         exact
         path="/verify/email/address/:id"

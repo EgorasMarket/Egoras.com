@@ -389,9 +389,9 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
           </div>
           <div
             className="kypageDiv_cont_button_div"
-            onClick={() => {
-              alert(JSON.stringify(payload));
-            }}
+            // onClick={() => {
+            //   alert(JSON.stringify(payload));
+            // }}
           >
             <button
               className="kypageDiv_cont_button_div_btn"

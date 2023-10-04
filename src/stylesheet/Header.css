@@ -40,7 +40,7 @@ section.header_section {
   align-items: center;
   justify-content: center;
 }
-img.header_section_2_img {
+.header_section_2_img {
   width: 150px;
 }
 .header_section_3 {
@@ -243,4 +243,38 @@ img.header_section_2_img {
 .header_section_3_link_2_prd {
   color: #ababab;
   margin-left: 20px;
+}
+.header_section_3_mobile {
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  .header_section_3_mobile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .header_section_3 {
+    display: none;
+  }
+  .header_section_3_link_2_prd {
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .header_section_3_mobile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .header_section_3 {
+    display: none;
+  }
+  .header_section_3_link_2_prd {
+    display: none;
+  }
+  .header_section_2_img {
+    width: 150px;
+  }
 }
