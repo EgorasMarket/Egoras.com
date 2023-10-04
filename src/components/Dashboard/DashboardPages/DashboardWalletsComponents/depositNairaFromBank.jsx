@@ -32,6 +32,8 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
     fetchVirtualAccount();
   }, []);
 
+  // hellow world
+
   if (loading) {
     return (
       <div className="depositMoneyDiv">
