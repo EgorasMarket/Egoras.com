@@ -260,3 +260,12 @@
     padding: 4em 1em;
   }
 }
+@media screen and (max-width: 600px) {
+  .ProductDetailDiv_last_section {
+    padding: 2em 0;
+  }
+  .ProductDetailDiv_last_section_area {
+    height: 200px;
+    border-radius: 10px;
+  }
+}

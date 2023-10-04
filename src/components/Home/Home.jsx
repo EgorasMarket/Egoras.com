@@ -71,7 +71,7 @@ const Home = () => {
                       "
                         >
                           View Product{" "}
-                          <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" />
+                          {/* <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" /> */}
                         </div>
                       }
                     />

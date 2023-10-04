@@ -47,6 +47,15 @@
     padding: 2em 0em;
   }
   .footerDiv_area_2 {
+    padding: 1em 1em;
+    border-top: solid 1px #191919;
+    margin-top: 1em;
+    color: #8d8d8d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
     padding-bottom: 0em;
   }
 }
