@@ -57,6 +57,11 @@ function App() {
         className="custom-cursor"
         style={{ left: cursorPosition.x, top: cursorPosition.y }}
       ></div>
+      {/* <Route
+        exact
+        path="/verify/email/address/:id"
+        component={Appverification}
+      /> */}
       {loadingDiv === true ? (
         <DefaultComponentLoading />
       ) : (

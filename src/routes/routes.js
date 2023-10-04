@@ -7,6 +7,7 @@ import ProductDetailPage from "../components/Market/ProductDetailPage";
 import ProductCheckoutPage from "../components/Market/ProductCheckoutPage";
 import Signup from "../components/Authentication/Signup/Signup";
 import DashboardWallets from "../components/Dashboard/DashboardPages/DashboardWallets";
+import AppVerification from "../components/Verification/Appverification";
 import DasboardMember from "../components/Dashboard/DashboardPages/DasboardMember";
 import DashboardSwap from "../components/Dashboard/DashboardPages/DashboardSwap";
 import DashboardOrders from "../components/Dashboard/DashboardPages/DashboardOrders";
@@ -28,6 +29,12 @@ const routes = [
     name: "Membership",
     path: "membership/sub",
     component: <MemberShipPage />,
+    layout: "/",
+  },
+  {
+    name: "verify",
+    path: "verify/email/address/:id",
+    component: <AppVerification />,
     layout: "/",
   },
   {
