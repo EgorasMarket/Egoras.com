@@ -10,14 +10,18 @@ import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
 import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
 import { useSelector } from "react-redux";
+import { ALL_PRODUCTS } from "../../../services/product_services";
 import { GET_WALLET } from "../../../services/finance_services";
 import { ShimmerButton } from "react-shimmer-effects-18";
 import { toast, ToastContainer } from "react-toastify";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/swiper-bundle.css";
 import { Pagination } from "swiper/modules";
+import { SHOW_ALL_PURCHASED_PRODUCT } from "../../../services/product_services";
+import NodataComp from "../../Common/CommonUI/NodataComp";
 import {
   GENERATE_USER_WALLET_ADDRESS,
   GENERATE_USER_WALLET_ADDRESS_MART_GPT,
@@ -36,6 +40,9 @@ const DashboardHome = () => {
   const [confirmPin, setConfirmPinVal] = useState("");
   const [confirmPinModal, setConfirmPinModal] = useState(false);
   const [pinModal, setPinModal] = useState(false);
+  const [productLoading, setProductLoading] = useState(true);
+  const [egorasProducts, setEgorasProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const [pinProcessing, setPinProcessing] = useState(false);
 
@@ -124,13 +131,44 @@ const DashboardHome = () => {
     const value = e.join("");
     setConfirmPinVal(value);
   };
-  const images = [
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-    "/img/egr_gen1_detail_img.png",
-  ];
+  // const images = [
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  //   "/img/egr_gen1_detail_img.png",
+  // ];
+  const fechAllProducts = async () => {
+    setProductLoading(true);
+    const response = await ALL_PRODUCTS();
+    console.log(response);
+    if (response.success === true) {
+      setProductLoading(false);
+    } else {
+      setProductLoading(true);
+    }
+    if (!response.status) {
+      toast.warn("Cannont retrieve all products");
+    }
+    const ano = response.data.getAllUploadedProduct.filter((data) => {
+      console.log(data);
+      return data.product_brand === "Egoras";
+    });
+    setEgorasProducts(ano);
+  };
+  useEffect(() => {
+    fechAllProducts();
+  }, []);
+  const showPurchasedProduct = async () => {
+    const response = await SHOW_ALL_PURCHASED_PRODUCT(user?.wallet_address);
+    console.log(response);
+
+    setOrders(response.data);
+  };
+
+  useEffect(() => {
+    showPurchasedProduct();
+  }, []);
   return (
     <div className="dashboardHome">
       <div className="dashboardHome_area1">
@@ -160,9 +198,11 @@ const DashboardHome = () => {
                 )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
-                <button className="dashboardHome_area1_card1_content_btn">
-                  Fund
-                </button>
+                <a href="/dashboard/wallet">
+                  <button className="dashboardHome_area1_card1_content_btn">
+                    Fund
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -192,9 +232,11 @@ const DashboardHome = () => {
                 )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
-                <button className="dashboardHome_area1_card1_content_btn">
-                  Fund
-                </button>
+                <a href="/dashboard/wallet">
+                  <button className="dashboardHome_area1_card1_content_btn">
+                    Fund
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -214,7 +256,7 @@ const DashboardHome = () => {
                   <ShimmerButton size="md" className="custom_shimmer" />
                 ) : (
                   <>
-                    20
+                    {orders.length}
                     <div className="dashboardHome_area1_card1_content_symbol">
                       itms
                     </div>
@@ -222,9 +264,11 @@ const DashboardHome = () => {
                 )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
-                <button className="dashboardHome_area1_card1_content_btn">
-                  View
-                </button>
+                <a href="/dashboard/orders">
+                  <button className="dashboardHome_area1_card1_content_btn">
+                    View
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -246,47 +290,220 @@ const DashboardHome = () => {
             </button>
           </a>
         </div>
-        <div className="dash_home_products_cont1">
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={10}
-            pagination={{
-              dynamicBullets: true,
-            }}
-            breakpoints={{
-              500: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              // 768: {
-              //   slidesPerView: 2,
-              //   spaceBetween: 40,
-              // },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              1200: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              1400: {
-                slidesPerView: 4,
-                spaceBetween: 30,
-              },
-              1800: {
-                slidesPerView: 5,
-                spaceBetween: 30,
-              },
-            }}
-            modules={[Pagination]}
-            className="dash_home_products_swiper"
-          >
-            {images.map((data) => (
+        {productLoading ? (
+          <div className="dash_home_products_cont1_loading_div">
+            <div className="dash_home_products_swiper_slide_div_loading">
+              <div className="dash_home_products_div">
+                <div className="dash_home_products_div_1">
+                  <ShimmerButton size="lg" className="custom_shimmer" />
+                </div>
+                <div className="dash_home_products_div_body">
+                  <div className="dash_home_products_div_body_title">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_brand">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_amount">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_btn_div">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="dash_home_products_swiper_slide_div_loading">
+              <div className="dash_home_products_div">
+                <div className="dash_home_products_div_1">
+                  <ShimmerButton size="lg" className="custom_shimmer" />
+                </div>
+                <div className="dash_home_products_div_body">
+                  <div className="dash_home_products_div_body_title">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_brand">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_amount">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_btn_div">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="dash_home_products_swiper_slide_div_loading">
+              <div className="dash_home_products_div">
+                <div className="dash_home_products_div_1">
+                  <ShimmerButton size="lg" className="custom_shimmer" />
+                </div>
+                <div className="dash_home_products_div_body">
+                  <div className="dash_home_products_div_body_title">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_brand">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_amount">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_btn_div">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="dash_home_products_swiper_slide_div_loading">
+              <div className="dash_home_products_div">
+                <div className="dash_home_products_div_1">
+                  <ShimmerButton size="lg" className="custom_shimmer" />
+                </div>
+                <div className="dash_home_products_div_body">
+                  <div className="dash_home_products_div_body_title">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_brand">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_amount">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_btn_div">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="dash_home_products_swiper_slide_div_loading">
+              <div className="dash_home_products_div">
+                <div className="dash_home_products_div_1">
+                  <ShimmerButton size="lg" className="custom_shimmer" />
+                </div>
+                <div className="dash_home_products_div_body">
+                  <div className="dash_home_products_div_body_title">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_brand">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_amount">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_btn_div">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="dash_home_products_swiper_slide_div_loading">
+              <div className="dash_home_products_div">
+                <div className="dash_home_products_div_1">
+                  <ShimmerButton size="lg" className="custom_shimmer" />
+                </div>
+                <div className="dash_home_products_div_body">
+                  <div className="dash_home_products_div_body_title">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_brand">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_amount">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                  <div className="dash_home_products_div_body_btn_div">
+                    <ShimmerButton size="md" className="custom_shimmer" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {" "}
+            {egorasProducts <= 0 ? (
+              <NodataComp />
+            ) : (
+              <>
+                <div className="dash_home_products_cont1">
+                  <Swiper
+                    slidesPerView={1}
+                    spaceBetween={10}
+                    pagination={{
+                      dynamicBullets: true,
+                    }}
+                    breakpoints={{
+                      500: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                      },
+                      // 768: {
+                      //   slidesPerView: 2,
+                      //   spaceBetween: 40,
+                      // },
+                      768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                      },
+                      1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                      },
+                      1200: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                      },
+                      1400: {
+                        slidesPerView: 4,
+                        spaceBetween: 30,
+                      },
+                      1800: {
+                        slidesPerView: 5,
+                        spaceBetween: 30,
+                      },
+                    }}
+                    modules={[Pagination]}
+                    className="dash_home_products_swiper"
+                  >
+                    {egorasProducts.slice(0, 5).map((data) => {
+                      const image = JSON.parse(data.product_images);
+                      return (
+                        <SwiperSlide className="dash_home_products_swiper_slide">
+                          <div className="dash_home_products_swiper_slide_div">
+                            <div className="dash_home_products_div">
+                              <div className="dash_home_products_div_1">
+                                <img
+                                  src={image[0]}
+                                  className="dash_home_products_swiper_slide_img"
+                                />
+                              </div>
+                              <div className="dash_home_products_div_body">
+                                <div className="dash_home_products_div_body_title">
+                                  {data.product_name}
+                                </div>
+                                <div className="dash_home_products_div_body_brand">
+                                  Egoras
+                                </div>
+                                <div className="dash_home_products_div_body_amount">
+                                  ₦{parseFloat(data.final_amount).toFixed(2)}
+                                </div>
+                                <div className="dash_home_products_div_body_btn_div">
+                                  <a
+                                    href={`/productdetailorder/${data.product_id}/${data.product_name}`}
+                                  >
+                                    <button className="dash_home_products_div_body_btn">
+                                      Purchase
+                                    </button>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
+                    {/* {images.map((data) => (
               <SwiperSlide className="dash_home_products_swiper_slide">
                 <div className="dash_home_products_div">
                   <div className="dash_home_products_div_1">
@@ -313,9 +530,50 @@ const DashboardHome = () => {
                   </div>
                 </div>
               </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+            ))} */}
+                  </Swiper>
+                </div>
+                <div className="dash_home_products_cont1_mobile">
+                  {egorasProducts.map((data) => {
+                    const image = JSON.parse(data.product_images);
+                    return (
+                      <div className="dash_home_products_swiper_slide_div">
+                        <div className="dash_home_products_div">
+                          <div className="dash_home_products_div_1">
+                            <img
+                              src={image[0]}
+                              className="dash_home_products_swiper_slide_img"
+                            />
+                          </div>
+                          <div className="dash_home_products_div_body">
+                            <div className="dash_home_products_div_body_title">
+                              {data.product_name}
+                            </div>
+                            <div className="dash_home_products_div_body_brand">
+                              Egoras
+                            </div>
+                            <div className="dash_home_products_div_body_amount">
+                              ₦{parseFloat(data.final_amount).toFixed(2)}
+                            </div>
+                            <div className="dash_home_products_div_body_btn_div">
+                              <a
+                                href={`/productdetailorder/${data.product_id}/${data.product_name}`}
+                              >
+                                <button className="dash_home_products_div_body_btn">
+                                  Purchase
+                                </button>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
       {/* ================== */}
       {/* ================== */}

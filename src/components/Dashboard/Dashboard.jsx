@@ -16,7 +16,8 @@ const Dashboard = () => {
   useEffect(() => {
     console.log(user, "madamd");
     if (user === null || user === undefined) {
-      navigate("/login");
+      // navigate("/login");
+      window.location.href = "/login";
     }
   }, [user]);
   useEffect(() => {

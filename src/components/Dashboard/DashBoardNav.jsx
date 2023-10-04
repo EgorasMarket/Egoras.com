@@ -20,11 +20,13 @@ const DashBoardNav = ({ routes, activeRoute }) => {
   return (
     <div className="DashboardNav">
       <div className="DashboardNav_head">
-        <img
-          src="/img/egoras-logo.svg"
-          alt=""
-          className="DashboardNav_head_img"
-        />
+        <a href="/">
+          <img
+            src="/img/egoras-logo.svg"
+            alt=""
+            className="DashboardNav_head_img"
+          />
+        </a>
       </div>
       <div className="DashboardNav_body">
         {routes

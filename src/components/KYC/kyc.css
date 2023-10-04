@@ -334,3 +334,58 @@ button.face_id_div_btn {
   border-radius: 50%;
   object-fit: cover;
 }
+.kyc_review_message_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kyc_review_message_div_cont {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
+  border: solid 1px #2d2d2d;
+  border-radius: 15px;
+  background: #181818;
+}
+.kyc_review_message_div_cont_2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+}
+.kyc_review_message_div_cont_2_title {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.kyc_review_message_div_cont_2_para {
+  font-size: 16px;
+  color: #9b9b9b;
+}
+.kyc_review_message_div_cont_2_btn {
+  /* width: 130px; */
+  background: #22ad62;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 0;
+  width: 100%;
+  color: #fff;
+  font-weight: 500;
+  margin-top: 1em;
+}
+.kyc_review_message_div_cont_2_btn_link {
+  width: 100%;
+}
