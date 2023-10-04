@@ -137,7 +137,7 @@ const Header = () => {
             <div className="header_section_2">
               <a href="/">
                 <img
-                  src="/img/egoras-logo.svg"
+                  src="/img/egoras-logo.png"
                   alt=""
                   className="header_section_2_img"
                 />

@@ -72,6 +72,7 @@
   border: none;
   max-width: 200px;
   margin-right: 10px;
+  border: solid #22ad62;
 }
 .NoBgButtonWithBorder {
   width: 100%;
@@ -526,7 +527,7 @@
     font-size: 48px;
   }
   .HomeDivSection3_area {
-    padding: 1em 0em;
+    padding: 0em 0;
   }
   .HomeDivSection3_area_swiper_slide_div_txt_title {
     font-size: 28px;
@@ -559,5 +560,26 @@
   }
   .HomeDivSection3_area_swiper_slide_div_img {
     width: 80%;
+  }
+  .tricycle_overview_div {
+    bottom: 0;
+    padding-bottom: 3em;
+    position: absolute;
+    width: 100%;
+  }
+  .tricycle_overview_div1_cont2_head {
+    font-size: 16px;
+  }
+  .HomeDivSection1_div_txts {
+    padding-top: 6em;
+  }
+  .HomeDivSection3 {
+    padding: 3em 0em;
+  }
+  .BgButtonNoBorder {
+    font-size: 14px;
+  }
+  .NoBgButtonWithBorder {
+    font-size: 14px;
   }
 }

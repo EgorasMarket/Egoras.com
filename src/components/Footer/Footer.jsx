@@ -24,7 +24,7 @@ const Footer = () => {
           <div className="footerDiv_area_1">
             <div className="footerDiv_area_1_img_div">
               <img
-                src="/img/egoras-logo.svg"
+                src="/img/egoras-logo.png"
                 alt=""
                 className="footerDiv_area_1_img"
               />
