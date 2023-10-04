@@ -19,8 +19,8 @@ import { useSelector } from "react-redux";
 
 const DashboardWallets = () => {
   const { data, loading } = useSelector((state) => state.wallet);
-  const [nairaBalance, setNairaBalance] = useState("");
-  const [egcBalance, setEgcBalance] = useState("");
+  const [nairaBalance, setNairaBalance] = useState("0");
+  const [egcBalance, setEgcBalance] = useState("0");
   const [activeTab, setActiveTab] = useState("naira");
   const [depositMoney, setDepositMoney] = useState(false);
   const [withdrawMoney, setWithdrawMoney] = useState(false);
@@ -95,10 +95,10 @@ const DashboardWallets = () => {
   };
   useEffect(() => {
     console.log(data);
-    console.log(data[0].value);
-    console.log(data[1].value);
-    setEgcBalance(data[0].value);
-    setNairaBalance(data[1].value);
+    console.log(data[0]?.value);
+    console.log(data[1]?.value);
+    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
+    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
   }, []);
   return (
     <div className="DashboardWalletsDiv">

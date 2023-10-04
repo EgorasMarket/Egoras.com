@@ -16,13 +16,17 @@ import { numberWithCommas } from "../../assets/js/numberWithCommas";
 import { useSelector } from "react-redux";
 import WebPin from "../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
+import { ShimmerButton } from "react-shimmer-effects-18";
+
 const ProductCheckoutPage = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+  const { data, loading } = useSelector((state) => state.wallet);
   const { id, count, name } = useParams();
-
+  const [nairaBalance, setNairaBalance] = useState(0);
+  const [egcBalance, setEgcBalance] = useState(0);
   const [pinModal, setPinModal] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [prodloading, setProdLoading] = useState(true);
   const [error, setError] = useState("");
   const [product, setProduct] = useState({});
   const [pin, setPin] = useState("");
@@ -43,7 +47,7 @@ const ProductCheckoutPage = () => {
 
   const fetchProductDetail = async () => {
     const response = await PRODUCT_DETAILS(id);
-    setLoading(false);
+    setProdLoading(false);
     if (!response.success) {
       setError("Failure to fetch product");
       return;
@@ -98,12 +102,197 @@ const ProductCheckoutPage = () => {
     //fetch the product
   }, [id]);
 
-  if (loading) {
+  useEffect(() => {
+    console.log(data);
+    console.log(data[0]?.value);
+    console.log(data[1]?.value);
+    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
+    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+  }, []);
+
+  if (prodloading) {
     return (
-      <div className="ProductDetailPage_div">
-        <section className="ProductDetailPage_section">
-          <p>loading ...</p>
+      <div className="ProductCheckoutPage_div">
+        <section className="ProductCheckoutPage_div_section">
+          <div className="custom_container">
+            <div className="ProductCheckoutPage_div_section_area">
+              <div className="ProductCheckoutPage_div_section_area_1">
+                <div className="ProductCheckoutPage_div_section_area_1_area1">
+                  <div className="ProductCheckoutPage_div_section_area_1_area1_head">
+                    Your Order
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_1_area1_body">
+                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
+                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
+                        <ShimmerButton size="lg" className="custom_shimmer" />
+                      </div>
+                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
+                          <ShimmerButton size="sm" className="custom_shimmer" />
+                        </div>
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
+                          <ShimmerButton size="sm" className="custom_shimmer" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
+                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
+                        <ShimmerButton size="lg" className="custom_shimmer" />
+                      </div>
+                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
+                          <ShimmerButton size="sm" className="custom_shimmer" />
+                        </div>
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
+                          <ShimmerButton size="sm" className="custom_shimmer" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_1_area1_body_1">
+                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_img_div">
+                        <ShimmerButton size="lg" className="custom_shimmer" />
+                      </div>
+                      <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1">
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_title">
+                          <ShimmerButton size="sm" className="custom_shimmer" />
+                        </div>
+                        <div className="ProductCheckoutPage_div_section_area_1_area1_body_1_area1_amount">
+                          <ShimmerButton size="sm" className="custom_shimmer" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ProductCheckoutPage_div_section_area_1_area2">
+                  <div className="ProductCheckoutPage_div_section_area_1_area2_cont1">
+                    <div className="ProductCheckoutPage_div_section_area_1_area2_cont1_title">
+                      Quantity
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_1_area2_cont1_para">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_1_area2_cont1">
+                    <div className="ProductCheckoutPage_div_section_area_1_area2_cont1_title">
+                      Sub Total
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_1_area2_cont1_para">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* ================ */}
+              {/* ================ */}
+              {/* ================ */}
+              {/* ================ */}
+              {/* ================ */}
+              <div className="ProductCheckoutPage_div_section_area_2">
+                <div className="ProductCheckoutPage_div_section_area_2_area1">
+                  <div className="ProductCheckoutPage_div_section_area_2_area1_title">
+                    Personal Info
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_2_area1_body">
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ProductCheckoutPage_div_section_area_2_area2">
+                  <div className="ProductCheckoutPage_div_section_area_2_area1_title">
+                    Billing Info
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_2_area1_body">
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+                </div>
+                <div className="ProductCheckoutPage_div_section_area_1_area3">
+                  <div className="ProductCheckoutPage_div_section_area_1_area3_title">
+                    Payment Info
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_1_area3_body">
+                    <ShimmerButton size="lg" className="custom_shimmer" />
+                    {/* <ShimmerButton size="lg" className="custom_shimmer" /> */}
+                  </div>
+                </div>
+                <div className="ProductCheckoutPage_div_section_area_2_area3">
+                  <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_head">
+                      Quantity
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_head">
+                      Unit Amount
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_head">
+                      Non-Merchant Fee
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+                  <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_head">
+                      Total
+                    </div>
+                    <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
+                      <ShimmerButton size="lg" className="custom_shimmer" />
+                    </div>
+                  </div>
+
+                  <ShimmerButton size="lg" className="custom_shimmer" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ToastContainer />
         </section>
+
+        {pinModal ? (
+          <WebPin
+            isLoading={pinloading}
+            btnFunc={createPin}
+            pinTitle="Enter Pin to validate Transaction"
+            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            btnFuncTxt="Proceed"
+            handleOnComplete={(e) => {
+              const a = e.join("");
+              setPin(a);
+              // setPayload({ ...payload, pin_code: a });
+              return;
+            }}
+          />
+        ) : null}
       </div>
     );
   }
@@ -279,12 +468,19 @@ const ProductCheckoutPage = () => {
                             <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_title">
                               Naira Wallet
                             </div>
-                            <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal">
-                              <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
-                                ₦
-                              </span>
-                              100,000.00
-                            </div>
+                            {loading ? (
+                              <ShimmerButton
+                                size="md"
+                                className="custom_shimmer"
+                              />
+                            ) : (
+                              <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal">
+                                <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
+                                  ₦
+                                </span>
+                                {parseFloat(nairaBalance).toFixed(2)}
+                              </div>
+                            )}
                           </div>
                           <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2">
                             Swap Funds{" "}
@@ -311,12 +507,19 @@ const ProductCheckoutPage = () => {
                             <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_title egc_card">
                               Egoras Credit Wallet
                             </div>
-                            <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal">
-                              340.25
-                              <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
-                                egc
-                              </span>{" "}
-                            </div>
+                            {loading ? (
+                              <ShimmerButton
+                                size="md"
+                                className="custom_shimmer"
+                              />
+                            ) : (
+                              <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal">
+                                {parseFloat(egcBalance).toFixed(4)}
+                                <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
+                                  egc
+                                </span>{" "}
+                              </div>
+                            )}
                           </div>
                           <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2 egc_card">
                             Swap Funds{" "}

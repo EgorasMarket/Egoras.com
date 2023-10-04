@@ -173,10 +173,31 @@ const KycStartComp = ({ startVerify, prev }) => {
     (response.level === levels.level3 && response.status === status.notVerified)
   ) {
     return (
-      <div className="kypageDiv_cont_div">
-        <div className="kypageDiv_cont_div_btn">
-          <h1>Your Document is being reviewied </h1>
-          <p>Once completed, you'll be notified</p>
+      <div className="kyc_review_message_div">
+        <div className="kyc_review_message_div_cont">
+          <div className="kyc_review_message_div_cont_1">
+            <img
+              src="/img/verification_svg1.svg"
+              alt=""
+              className="kypageDiv_cont_img"
+            />
+          </div>
+          <div className="kyc_review_message_div_cont_2">
+            <div className="kyc_review_message_div_cont_2_title">
+              Your Document is being reviewed{" "}
+            </div>
+            <div className="kyc_review_message_div_cont_2_para">
+              Once completed, you'll be notified
+            </div>
+            <a
+              href="/dashboard"
+              className="kyc_review_message_div_cont_2_btn_link"
+            >
+              <button className="kyc_review_message_div_cont_2_btn">
+                Back home
+              </button>
+            </a>
+          </div>
         </div>
       </div>
     );

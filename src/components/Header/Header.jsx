@@ -116,14 +116,22 @@ const Header = () => {
                   Close
                 </div>
               ) : (
-                <div
-                  className="header_section_1_menu_btn"
-                  onClick={toggleHeaderMenu}
-                >
-                  <MenuIcon className="header_section_1_menu_btn_icon" />
-                  Menu
-                </div>
+                <>
+                  <div
+                    className="header_section_1_menu_btn"
+                    onClick={toggleHeaderMenu}
+                  >
+                    <MenuIcon className="header_section_1_menu_btn_icon" />
+                    Menu
+                  </div>
+                </>
               )}
+              <a
+                href="/dashboard/products"
+                className="header_section_3_link_2_prd"
+              >
+                All Products
+              </a>
             </div>
             <div className="header_section_2">
               <a href="/">
@@ -134,6 +142,7 @@ const Header = () => {
                 />
               </a>
             </div>
+
             <div className="header_section_3">
               {userData !== null ? (
                 <a href="/dashboard" className="header_section_3_link">

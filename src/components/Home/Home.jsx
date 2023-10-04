@@ -76,11 +76,17 @@ const Home = () => {
                     />
                   </a>
                   <a
+                    href="/dashboard/products"
+                    className="HomeDivSection1_div_txts_2_member_link"
+                  >
+                    <NoBgButtonWithBorder btnTxt="View all products" />
+                  </a>
+                  {/* <a
                     href="/membership/sub"
                     className="HomeDivSection1_div_txts_2_member_link"
                   >
                     <NoBgButtonWithBorder btnTxt="Become A merchant" />
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
