@@ -32,7 +32,7 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
     fetchVirtualAccount();
   }, []);
 
-  // hellow world is here
+  //something new
 
   if (loading) {
     return (
