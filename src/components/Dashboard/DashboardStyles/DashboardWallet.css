@@ -417,9 +417,20 @@
     margin-top: 1em;
   }
   .DashboardWalletsDiv_area2_cont2_area1_bal_txt {
-    max-width: 200px;
+    max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+@media screen and (max-width: 600px) {
+  .DashboardWalletsDiv_area2_cont2_area1_bal {
+    font-size: 28px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_profit {
+    font-size: 14px;
+  }
+  .DashboardWalletsDiv_area2_cont1 {
+    font-size: 14px;
   }
 }

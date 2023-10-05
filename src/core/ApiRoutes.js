@@ -28,3 +28,4 @@ export const GET_USER_PRODUCT_ORDERS = `${EGORAS_PAY_URL}/order/buy`;
 export const FETCH_SWAP_PRICES = `${EGORAS_PAY_URL}/api/swap/price`;
 export const FETCH_ALL_PRODUCTS = `${MART_GPT_URL}/product/uploaded`;
 export const FETCH_PRODUCT_DETAILS = `${MART_GPT_URL}/product/uploaded/check`;
+export const SUBMIT_DELIVERY_TYPE = `${EGORAS_PAY_URL}/api/withdrawal/fortPay`;

@@ -183,7 +183,7 @@ const DashboardHome = () => {
                   <>
                     {" "}
                     <div className="dashboardHome_area1_card1_content_amnt_txt">
-                      {parseFloat(egcBalance).toFixed(4)}
+                      {parseFloat(egcBalance).toFixed(2)}
                     </div>
                     <div className="dashboardHome_area1_card1_content_symbol">
                       egc

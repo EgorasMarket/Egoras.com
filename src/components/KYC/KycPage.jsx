@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   KycEmailComp,
   KycBvnComp,
@@ -13,6 +13,7 @@ const KycPage = () => {
   const { payload } = useSelector((state) => state.kyc);
   const [emailStep, setEmailStep] = useState(true);
   const [startStep, setStartStep] = useState(false);
+
   const [step1, setStep1] = useState(false);
   const [step2, setStep2] = useState(false);
   const [step3, setStep3] = useState(false);
@@ -50,29 +51,29 @@ const KycPage = () => {
 
   return (
     <div className="kypageDiv">
-      <div className="custom_container">
-        {emailStep ? <KycEmailComp toggleEmailCont={ToggleEmailStep} /> : null}
-        {startStep ? (
-          <KycStartComp
-            startVerify={ToggleStartStep}
-            prev={() => {
-              window.location.href = "/dashboard";
-            }}
-          />
-        ) : null}
-        {step1 ? (
-          <KycBvnComp nextStep1={ToggleStep1} prevStep={ToggleStep1Prev} />
-        ) : null}
-        {step2 ? (
-          <KycAddressComp nextStep2={ToggleStep2} prevStep={ToggleStep2Prev} />
-        ) : null}
-        {step3 ? (
-          <KycFacialComp
-            submitVerify={submitVerification}
-            prevStep={ToggleStep3Prev}
-          />
-        ) : null}
-      </div>
+      {/* <div className="custom_container"> */}
+      {emailStep ? <KycEmailComp toggleEmailCont={ToggleEmailStep} /> : null}
+      {startStep ? (
+        <KycStartComp
+          startVerify={ToggleStartStep}
+          prev={() => {
+            window.location.href = "/dashboard";
+          }}
+        />
+      ) : null}
+      {step1 ? (
+        <KycBvnComp nextStep1={ToggleStep1} prevStep={ToggleStep1Prev} />
+      ) : null}
+      {step2 ? (
+        <KycAddressComp nextStep2={ToggleStep2} prevStep={ToggleStep2Prev} />
+      ) : null}
+      {step3 ? (
+        <KycFacialComp
+          submitVerify={submitVerification}
+          prevStep={ToggleStep3Prev}
+        />
+      ) : null}
+      {/* </div> */}
     </div>
   );
 };
