@@ -8,7 +8,12 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { SEND_CRYPTO_FUNDS_INTERNAL } from "../../../../services/finance_services";
+import WebPin from "../../../Common/CommonUI/Modals/WebPin";
+import { ToastContainer, toast } from "react-toastify";
 const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
+  const [loading, setLoading] = useState(false);
+  const [pin, setPin] = useState("");
+  const [pinModal, setPinModal] = useState(false);
   const [payload, setPayload] = useState({
     pin_code: "",
     symbol: "NGN",
@@ -22,20 +27,34 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
     setPayload({ ...payload, [id]: value });
   };
   const initiatePayout = async () => {
-    const pin = prompt("Please enter Your Pin");
-
+    setLoading(true);
     let data = payload;
 
     data = { ...data, pin_code: pin };
 
     const response = await SEND_CRYPTO_FUNDS_INTERNAL(data);
     console.log(response);
+    setLoading(false);
 
     if (response.data.success === false) {
-      alert(response.data.errorMessage);
+      setPinModal(false);
+      toast.error(response.data.errorMessage);
       return;
     }
-    alert("success");
+    setPinModal(false);
+    toast.success("success");
+    window.location.href = "/dashboard/transaction";
+  };
+
+  const prepare = () => {
+    const { username_email, amount } = payload;
+    ///do simple validation
+
+    if (username_email === "" || amount === "") {
+      toast.warn("Some fields are empty");
+      return;
+    }
+    setPinModal(true);
   };
   return (
     <div className="depositMoneyDiv">
@@ -50,7 +69,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
               Send Naira
             </div>
             <div className="depositMoneyDiv_cont_title_cont_para">
-              Send funds directly to an egoras user
+              Send Naira directly to an Egoras user
             </div>
           </div>
           <div className="depositMoneyDiv_cont_body">
@@ -134,14 +153,27 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
           </div>
         </div>
         <div className="depositMoneyDiv_cont_2">
-          <button
-            className="depositMoneyDiv_cont_2_btn"
-            onClick={initiatePayout}
-          >
+          <button className="depositMoneyDiv_cont_2_btn" onClick={prepare}>
             Send funds
           </button>
         </div>
+
+        {pinModal ? (
+          <WebPin
+            isLoading={loading}
+            btnFunc={initiatePayout}
+            pinTitle="Enter Pin to validate Transaction"
+            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            btnFuncTxt="Proceed"
+            handleOnComplete={(e) => {
+              const a = e.join("");
+              setPin(a);
+              return;
+            }}
+          />
+        ) : null}
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -12,7 +12,11 @@ import {
   PAYOUT_TO_BANK,
   VERIFY_BANK_ACCOUNT_NUMBER,
 } from "../../../../services/finance_services";
+import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
+  const [loading, setLoading] = useState(false);
+  const [pin, setPin] = useState("");
+  const [pinModal, setPinModal] = useState(false);
   const [bankList, setBankList] = useState([]);
   const [beneficiary, setBaneficiary] = useState("--");
   const [bankInfo, setBankInfo] = useState({
@@ -29,6 +33,10 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
     amount: "",
     bank_info: {},
   });
+
+  const process = () => {
+    setPinModal(true);
+  };
   const fetchBankList = async () => {
     if (bankList.length >= 1) return;
     const response = await FETCH_BANK_LIST();
@@ -76,11 +84,14 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
 
   const handlePayout = async () => {
     setBankInfo({ ...bankInfo, account_name: beneficiary });
-    const pin = prompt("Please enter your Pin");
-
+    // const pin = prompt("Please enter your Pin");
     let data = payload;
 
-    data = { ...data, bank_info: bankInfo, pin_code: pin };
+    data = {
+      ...data,
+      bank_info: { ...bankInfo, account_name: beneficiary },
+      pin_code: pin,
+    };
 
     const response = await PAYOUT_TO_BANK(data);
     console.log(response);
@@ -121,7 +132,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
               Send Naira
             </div>
             <div className="depositMoneyDiv_cont_title_cont_para">
-              Send funds directly to a Bank account
+              Send Naira directly to a Bank account
             </div>
           </div>
           <div className="depositMoneyDiv_cont_body">
@@ -267,10 +278,25 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
           </div>
         </div>
         <div className="depositMoneyDiv_cont_2">
-          <button className="depositMoneyDiv_cont_2_btn" onClick={handlePayout}>
+          <button className="depositMoneyDiv_cont_2_btn" onClick={process}>
             Send Funds
           </button>
         </div>
+
+        {pinModal ? (
+          <WebPin
+            isLoading={loading}
+            btnFunc={handlePayout}
+            pinTitle="Enter Pin to validate Transaction"
+            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            btnFuncTxt="Proceed"
+            handleOnComplete={(e) => {
+              const a = e.join("");
+              setPin(a);
+              return;
+            }}
+          />
+        ) : null}
       </div>
     </div>
   );

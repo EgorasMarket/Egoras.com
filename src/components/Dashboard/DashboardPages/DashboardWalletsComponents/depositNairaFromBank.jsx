@@ -8,20 +8,21 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { FETCH_VIRTUAL_ACCOUNT } from "../../../../services/finance_services";
+import SmallCompLoader from "../../../Common/CommonUI/Modals/SmallCompLoader";
 const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
   const [loading, setLoading] = useState(true);
   const [bankInfo, setBankInfo] = useState({});
+  const [error, setError] = useState("");
   const fetchVirtualAccount = async () => {
+    setLoading(true);
     const response = await FETCH_VIRTUAL_ACCOUNT();
-    console.log(response);
+    console.log(response, "");
 
     setLoading(false);
-    if (response.success === false) {
-      alert(response.data.errorMessage || "An error occurred");
-      return;
-    }
+    if (response.data.success === false) {
+      console.log("help!!!!");
+      setError(response.data.errorMessage);
 
-    if (!response.data) {
       return;
     }
 
@@ -36,20 +37,57 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
     return (
       <div className="depositMoneyDiv">
         <div className="depositMoneyDiv_cont">
-          <p>loading ...</p>
+          <SmallCompLoader loadingTxt={"Loading please wait"} />
         </div>
       </div>
     );
   }
+
+  // if (error) {
+  //   return (
+  //     <div className="">
+  //       <p>Couldn't resolve bank information, </p>
+  //       <p>Please contact support</p>
+  //     </div>
+  //   );
+  // }
+
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
-        <ArrowBackOutlinedIcon className="depositMoneyDiv_icon" />
+        <ArrowBackOutlinedIcon
+          className="depositMoneyDiv_icon"
+          onClick={ToggleDepositMoneyNairaBankModal}
+        />
 
-        {Object.keys(bankInfo).length === 0 ? (
-          <div className="">
-            <p>Couldn't resolve bank information, </p>
-            <p>Please contact support</p>
+        {error ? (
+          <div className="not_eligible_div">
+            <div className="kyc_review_message_div_cont">
+              <div className="kyc_review_message_div_cont_1">
+                <img
+                  src="/img/verification_svg1.svg"
+                  alt=""
+                  className="kypageDiv_cont_img"
+                />
+              </div>
+              <div className="kyc_review_message_div_cont_2">
+                <div className="kyc_review_message_div_cont_2_title">
+                  Criteria not satisfied
+                </div>
+                <div className="kyc_review_message_div_cont_2_para">
+                  You will need to complete at least KYC level 2 to be able to
+                  recieve funds
+                </div>
+                <a
+                  href="/kyc/verify"
+                  className="kyc_review_message_div_cont_2_btn_link"
+                >
+                  <button className="kyc_review_message_div_cont_2_btn">
+                    Go to Verification
+                  </button>
+                </a>
+              </div>
+            </div>
           </div>
         ) : (
           <>

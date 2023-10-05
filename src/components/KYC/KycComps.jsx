@@ -235,6 +235,38 @@ const KycStartComp = ({ startVerify, prev }) => {
       </div>
     );
   }
+  if (response.level === levels.level2 && response.status === status.verified) {
+    return (
+      <div className="kyc_review_message_div">
+        <div className="kyc_review_message_div_cont">
+          <div className="kyc_review_message_div_cont_1">
+            <img
+              src="/img/verification_svg1.svg"
+              alt=""
+              className="kypageDiv_cont_img"
+            />
+          </div>
+          <div className="kyc_review_message_div_cont_2">
+            <div className="kyc_review_message_div_cont_2_title">
+              Your KYC Verification Level 2 is Complete!!!
+            </div>
+            <div className="kyc_review_message_div_cont_2_para">
+              You now have access to all our features. Thank you for taking your
+              time to provide all the neccessary information.
+            </div>
+            <a
+              href="/dashboard"
+              className="kyc_review_message_div_cont_2_btn_link"
+            >
+              <button className="kyc_review_message_div_cont_2_btn">
+                Back home
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="kypageDiv_cont_div">
       <>
