@@ -14,7 +14,7 @@ const Footer = () => {
       setCurrentYear(new Date().getFullYear());
     }, 1000); // Update the year every second (you can adjust the interval as needed)
 
-    // Clear the interval when the component unmounts
+    // Clear the interval when the component unmounts    sss
     return () => clearInterval(intervalId);
   }, []);
   return (

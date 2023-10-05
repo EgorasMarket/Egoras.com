@@ -62,6 +62,11 @@ export const FETCH_BANK_LIST = async (
 };
 export const VERIFY_BANK_ACCOUNT_NUMBER = async (payload) => {
   setAuthToken(localStorage.getItem("x-token"));
+  // Map<String, dynamic> data = {
+  //   "number": v,
+  //   "bankCode": _exc.bankcodes[slugify(
+  //       _exc.selectedBankName.value)]
+  // };
   try {
     const res = await axios.post(VERIFY_ACCOUNT_NUMBER_ROUTE, payload);
     return res.data;

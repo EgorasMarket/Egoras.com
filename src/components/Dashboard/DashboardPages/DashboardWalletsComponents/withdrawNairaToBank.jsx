@@ -14,13 +14,14 @@ import {
 } from "../../../../services/finance_services";
 const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
   const [bankList, setBankList] = useState([]);
-  const [beneficiary, setBaneficiary] = useState("johndoe");
+  const [beneficiary, setBaneficiary] = useState("--");
   const [bankInfo, setBankInfo] = useState({
     bank_code: "",
     account_number: "",
     bank_name: "",
-    account_name: "Goodluck Kingsley", //remove in production
+    account_name: "--", //remove in production
   });
+  const [isNameResolved, setIsNameResolved] = useState(false);
 
   const [payload, setPayload] = useState({
     pin_code: "",
@@ -51,22 +52,30 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
     });
   };
 
-  const handleAccountNumberOnChange = (e) => {
+  const handleAccountNumberOnChange = async (e) => {
     const { value, id } = e.target;
-    if (value.length == 10) {
-      //verify the account number
-
+    if (value.length > 10) return;
+    if (value.length < 10) {
       setBankInfo({ ...bankInfo, account_number: value });
-      verify_account_number(value);
+      setBaneficiary("--");
       return;
     }
-    setBankInfo({ ...bankInfo, account_number: value });
+    // setBankInfo({ ...bankInfo, account_number: value });
+    setBankInfo({
+      ...bankInfo,
+      account_number: value,
+    });
+    verify_account_number(value);
+    console.log(bankInfo);
+
+    return;
   };
   useEffect(() => {
     fetchBankList();
   }, []);
 
   const handlePayout = async () => {
+    setBankInfo({ ...bankInfo, account_name: beneficiary });
     const pin = prompt("Please enter your Pin");
 
     let data = payload;
@@ -84,13 +93,19 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
     alert("successful");
   };
 
+  const handleAccountNameOnChange = async (e) => {};
   const verify_account_number = async (number) => {
     const response = await VERIFY_BANK_ACCOUNT_NUMBER({
       number: number,
       bankCode: bankInfo.bank_code,
     });
+    if (!response.success) {
+      setIsNameResolved(false);
+      return;
+    }
 
-    console.log(response);
+    setBaneficiary(response.data.responseBody.accountName);
+    setIsNameResolved(true);
   };
 
   return (
@@ -167,12 +182,13 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
               />
             </div>
 
-            <div className="depositMoneyDiv_cont_body_input_div2">
-              <div className="depositMoneyDiv_cont_body_input_div_title">
-                Account Name:
-              </div>
-              <div className="depositMoneyDiv_cont_body_input_div_div">
-                {/* <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
+            {isNameResolved ? (
+              <div className="depositMoneyDiv_cont_body_input_div2">
+                <div className="depositMoneyDiv_cont_body_input_div_title">
+                  Account Name:
+                </div>
+                <div className="depositMoneyDiv_cont_body_input_div_div">
+                  {/* <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
                     src="/img/bsc_icon.png"
                     alt=""
@@ -180,11 +196,25 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
                   />
                   Nigerian Naira
                 </div> */}
-                <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
-                  {beneficiary}
+                  <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
+                    <input
+                      placeholder="johndoe"
+                      onChange={handleAccountNameOnChange}
+                      value={beneficiary}
+                      className="depositMoneyDiv_cont_body_wallet_addr_div_input"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="depositMoneyDiv_cont_body_input_div2">
+                <div className="depositMoneyDiv_cont_body_input_div_div">
+                  <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
+                    <p> Invalid Account</p>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
               <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
                 Withdrawal Amount:
