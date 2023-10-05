@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
-import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
   SEND_CRYPTO_FUNDS_EXTERNAL,
   SEND_CRYPTO_FUNDS_INTERNAL,
 } from "../../../../services/finance_services";
+import WebPin from "../../../Common/CommonUI/Modals/WebPin";
+import { ToastContainer, toast } from "react-toastify";
 const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
   const [loading, setLoading] = useState(false);
+  const [pinModal, setPinModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [pin, setPin] = useState("");
+
   const [payload, setPayload] = useState({
     symbol: "EGC",
     username_email: "",
@@ -22,21 +24,32 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
 
   const sendFunds = async () => {
     setLoading(true);
-    const pin = prompt("Please Enter Your Pin");
-
     const response = await SEND_CRYPTO_FUNDS_EXTERNAL({
       ...payload,
       pin_code: pin,
     });
     console.log(response);
     setLoading(false);
-
     if (!response.data.success) {
-      alert(response.data.errorMessage);
+      setPinModal(false);
+      toast.warn(response.data.errorMessage);
+      // alert(response.data.errorMessage);
       return;
     }
+    setPinModal(false);
+    toast.success("Transaction successful");
+    setSuccessModal(true);
+  };
 
-    alert("Transaction Successful");
+  const processSend = () => {
+    const { wallet_address, amount } = payload;
+    ///do simple validation
+
+    if (wallet_address === "" || amount === "") {
+      toast.warn("Some fields are empty");
+      return;
+    }
+    setPinModal(true);
   };
 
   const handleOnChange = (e) => {
@@ -156,14 +169,30 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
           ) : (
             <button
               className="depositMoneyDiv_cont_2_btn"
-              onClick={sendFunds}
-              // onClick={ToggleEgcBlockchainDepositModal}
+              onClick={processSend}
             >
               Send Funds
             </button>
           )}
         </div>
+
+        {pinModal ? (
+          <WebPin
+            isLoading={loading}
+            btnFunc={sendFunds}
+            pinTitle="Enter Pin to validate Transaction"
+            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            btnFuncTxt="Proceed"
+            handleOnComplete={(e) => {
+              const a = e.join("");
+              setPin(a);
+              return;
+            }}
+          />
+        ) : null}
       </div>
+
+      <ToastContainer />
     </div>
   );
 };

@@ -34,7 +34,6 @@ import {
 import { GET_SWAP_PRICE } from "../../../../services/swap_services";
 
 const UpdatedSwap = () => {
-  // old swap
   const [tokenModal, setTokenModal] = useState(false);
   const [tokenModal2, setTokenModal2] = useState(false);
   const [id, setId] = useState("1");
@@ -50,25 +49,11 @@ const UpdatedSwap = () => {
   const [SwapBalance, setSwapBalance] = useState("");
   const [activeDuration, setActiveDuration] = useState("hr1");
   const [shareSwap, setShareSwap] = useState(false);
-  // old swap
-
-  // started here
   const [marketPrice, setMarketPrice] = useState(0.0);
 
-  //variables for the new swap
-  let toName = "";
-  let pageState = "SWAP";
-  let toBalance = 0.0;
-  let toSymbol = "";
-  let toPrice = 0.0;
-  let selectedBalance = 0.0;
-  let selectedSymbol = "";
   const getSwapPrice = async () => {
     const response = await GET_SWAP_PRICE({ tokenA: "NGN", tokenB: "EGC" });
     console.log(response);
-    if (!response.success) return;
-
-    setMarketPrice(response.data.price);
   };
   useEffect(() => {
     getSwapPrice();

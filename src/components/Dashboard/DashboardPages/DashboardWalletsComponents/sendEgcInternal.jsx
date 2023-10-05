@@ -9,8 +9,13 @@ import {
   SEND_CRYPTO_FUNDS_EXTERNAL,
   SEND_CRYPTO_FUNDS_INTERNAL,
 } from "../../../../services/finance_services";
+import WebPin from "../../../Common/CommonUI/Modals/WebPin";
+import { ToastContainer, toast } from "react-toastify";
 const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
   const [loading, setLoading] = useState(false);
+  const [pin, setPin] = useState("");
+  const [pinModal, setPinModal] = useState(false);
+
   const [payload, setPayload] = useState({
     symbol: "EGC",
     username_email: "",
@@ -20,7 +25,6 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
 
   const sendFunds = async () => {
     setLoading(true);
-    const pin = prompt("Please Enter Your Pin");
 
     const response = await SEND_CRYPTO_FUNDS_INTERNAL({
       ...payload,
@@ -30,13 +34,26 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
     setLoading(false);
 
     if (!response.data.success) {
-      alert(response.data.errorMessage);
+      setPinModal(false);
+      toast.error(response.data.errorMessage);
       return;
     }
-
-    alert("Transaction Successful");
+    setPinModal(false);
+    toast.success("transaction successful");
+    window.location.href = "/dashboard";
+    // alert("Transaction Successful");
   };
 
+  const processSend = () => {
+    const { username_email, amount } = payload;
+    ///do simple validation
+
+    if (username_email === "" || amount === "") {
+      toast.warn("Some fields are empty");
+      return;
+    }
+    setPinModal(true);
+  };
   const handleOnChange = (e) => {
     const { id, value } = e.target;
 
@@ -146,12 +163,32 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
           {loading ? (
             <p>Loading ...</p>
           ) : (
-            <button className="depositMoneyDiv_cont_2_btn" onClick={sendFunds}>
+            <button
+              className="depositMoneyDiv_cont_2_btn"
+              onClick={processSend}
+            >
               Send funds
             </button>
           )}
         </div>
+
+        {pinModal ? (
+          <WebPin
+            isLoading={loading}
+            btnFunc={sendFunds}
+            pinTitle="Enter Pin to validate Transaction"
+            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            btnFuncTxt="Proceed"
+            handleOnComplete={(e) => {
+              const a = e.join("");
+              setPin(a);
+              return;
+            }}
+          />
+        ) : null}
       </div>
+
+      <ToastContainer />
     </div>
   );
 };
