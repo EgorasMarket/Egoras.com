@@ -13,6 +13,7 @@ import {
   VERIFY_BANK_ACCOUNT_NUMBER,
 } from "../../../../services/finance_services";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
+import { ToastContainer, toast } from "react-toastify";
 const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
@@ -35,6 +36,15 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
   });
 
   const process = () => {
+    if (
+      bankInfo.account_name === "" ||
+      bankInfo.account_number === "" ||
+      bankInfo.bank_name === "" ||
+      payload.amount === ""
+    ) {
+      toast.warn("Some fields are empty");
+      return;
+    }
     setPinModal(true);
   };
   const fetchBankList = async () => {
@@ -83,6 +93,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
   }, []);
 
   const handlePayout = async () => {
+    setLoading(true);
     setBankInfo({ ...bankInfo, account_name: beneficiary });
     // const pin = prompt("Please enter your Pin");
     let data = payload;
@@ -94,14 +105,17 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
     };
 
     const response = await PAYOUT_TO_BANK(data);
-    console.log(response);
+    setLoading(false);
 
     if (response.data?.success === false) {
-      alert(response?.data?.errorMessage);
+      setPinModal(false);
+      toast.error(response?.data?.errorMessage);
       return;
     }
 
-    alert("successful");
+    setPinModal(false);
+    toast.success("successful");
+    window.location.href = "/dashboard/transaction";
   };
 
   const handleAccountNameOnChange = async (e) => {};
@@ -298,6 +312,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
           />
         ) : null}
       </div>
+      <ToastContainer />
     </div>
   );
 };
