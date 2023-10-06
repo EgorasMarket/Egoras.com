@@ -44,7 +44,7 @@ const AreaChartComp = ({
               className="customAreaChart_div_tooltip"
               onChange={CustomTooltip}
             >
-              ${ThousandFormatter(ChartValue)}
+              ₦{ThousandFormatter(ChartValue)}
             </div>
           )}
         </>

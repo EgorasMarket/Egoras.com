@@ -1,7 +1,7 @@
 import React from "react";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import { ShimmerButton } from "react-shimmer-effects-18";
-
+import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
 const WalletBalanceDisplay = ({
   walletBal,
   walletsymbol,
@@ -22,7 +22,7 @@ const WalletBalanceDisplay = ({
             <>
               <div className="DashboardWalletsDiv_area2_cont2_area1_bal">
                 <div className="DashboardWalletsDiv_area2_cont2_area1_bal_txt">
-                  {walletBal}
+                  {numberWithCommas(walletBal)}
                 </div>
                 <span className="DashboardWalletsDiv_area2_cont2_area1_bal_span">
                   {walletsymbol}

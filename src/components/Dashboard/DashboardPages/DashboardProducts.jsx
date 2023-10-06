@@ -5,6 +5,7 @@ import { ALL_PRODUCTS } from "../../../services/product_services";
 import { toast } from "react-toastify";
 import SyncLoader from "react-spinners/SyncLoader";
 import NodataComp from "../../Common/CommonUI/NodataComp";
+import { numberWithCommas } from "../../../assets/js/numberWithCommas";
 const DashboardProducts = () => {
   const [activeTab, setActiveTab] = useState("egoras");
   const ToggleActiveTab = (e) => [setActiveTab(e.currentTarget.id)];
@@ -112,7 +113,10 @@ const DashboardProducts = () => {
                                   {data.product_name}
                                 </div>
                                 <div className="DashboardProdDiv_body_cont1_details_txt_amount">
-                                  ₦{parseFloat(data.final_amount).toFixed(2)}
+                                  ₦
+                                  {numberWithCommas(
+                                    parseFloat(data.final_amount).toFixed(2)
+                                  )}
                                 </div>
                               </div>
                               <div className="DashboardProdDiv_body_cont1_details_btn_div">
@@ -178,7 +182,10 @@ const DashboardProducts = () => {
                                   {data.product_name}
                                 </div>
                                 <div className="DashboardProdDiv_body_cont1_details_txt_amount">
-                                  ₦{parseFloat(data.final_amount).toFixed(2)}
+                                  ₦
+                                  {numberWithCommas(
+                                    parseFloat(data.final_amount).toFixed(2)
+                                  )}
                                 </div>
                               </div>
                               <div className="DashboardProdDiv_body_cont1_details_btn_div">

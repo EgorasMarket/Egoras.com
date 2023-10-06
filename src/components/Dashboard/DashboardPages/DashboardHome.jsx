@@ -15,6 +15,7 @@ import { GET_WALLET } from "../../../services/finance_services";
 import { ShimmerButton } from "react-shimmer-effects-18";
 import { toast, ToastContainer } from "react-toastify";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { numberWithCommas } from "../../../assets/js/numberWithCommas";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/swiper-bundle.css";
@@ -230,7 +231,7 @@ const DashboardHome = () => {
                   <>
                     {" "}
                     <div className="dashboardHome_area1_card1_content_amnt_txt">
-                      {parseFloat(egcBalance).toFixed(2)}
+                      {numberWithCommas(parseFloat(egcBalance).toFixed(2))}
                     </div>
                     <div className="dashboardHome_area1_card1_content_symbol">
                       egc
@@ -267,7 +268,7 @@ const DashboardHome = () => {
                       ₦
                     </div>
                     <div className="dashboardHome_area1_card1_content_amnt_txt">
-                      {parseFloat(nairaBalance).toFixed(2)}
+                      {numberWithCommas(parseFloat(nairaBalance).toFixed(2))}
                     </div>
                   </>
                 )}
@@ -527,7 +528,10 @@ const DashboardHome = () => {
                                   Egoras
                                 </div>
                                 <div className="dash_home_products_div_body_amount">
-                                  ₦{parseFloat(data.final_amount).toFixed(2)}
+                                  ₦
+                                  {numberWithCommas(
+                                    parseFloat(data.final_amount).toFixed(2)
+                                  )}
                                 </div>
                                 <div className="dash_home_products_div_body_btn_div">
                                   <a
