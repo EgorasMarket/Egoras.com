@@ -107,6 +107,7 @@ const DashboardHome = () => {
         }),
       }));
       console.log(transformedData, "transformedData");
+      console.log(transformedData, "transformedData");
       setNewState(transformedData);
       if (transformedData.length > 0) {
         setlastIndex(transformedData.length - 1);
