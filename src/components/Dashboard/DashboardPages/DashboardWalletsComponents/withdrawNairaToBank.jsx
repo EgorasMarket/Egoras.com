@@ -14,10 +14,13 @@ import {
 } from "../../../../services/finance_services";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
+import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
   const [bankList, setBankList] = useState([]);
   const [beneficiary, setBaneficiary] = useState("--");
   const [bankInfo, setBankInfo] = useState({
@@ -114,8 +117,8 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
     }
 
     setPinModal(false);
-    toast.success("successful");
-    window.location.href = "/dashboard/transaction";
+    setSuccessMsg("Transaction succesful");
+    setSuccessModal(true);
   };
 
   const handleAccountNameOnChange = async (e) => {};
@@ -308,6 +311,15 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+          />
+        ) : null}
+
+        {successModal ? (
+          <SuccessModal
+            SuccesTxt={successMsg}
+            successFunc={() => {
+              window.location.href = "/dashboard/transaction";
             }}
           />
         ) : null}

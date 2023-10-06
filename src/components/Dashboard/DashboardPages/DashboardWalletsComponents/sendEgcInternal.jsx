@@ -11,10 +11,13 @@ import {
 } from "../../../../services/finance_services";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
+import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
 
   const [payload, setPayload] = useState({
     symbol: "EGC",
@@ -38,16 +41,14 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
       toast.error(response.data.errorMessage);
       return;
     }
+    setSuccessMsg("Transaction succesful");
     setPinModal(false);
-    toast.success("transaction successful");
-    window.location.href = "/dashboard";
-    // alert("Transaction Successful");
+    setSuccessModal(true);
   };
 
   const processSend = () => {
     const { username_email, amount } = payload;
-    ///do simple validation
-
+    ///do basic validation
     if (username_email === "" || amount === "") {
       toast.warn("Some fields are empty");
       return;
@@ -183,6 +184,15 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+          />
+        ) : null}
+
+        {successModal ? (
+          <SuccessModal
+            SuccesTxt={successMsg}
+            successFunc={() => {
+              window.location.href = "/dashboard/transaction";
             }}
           />
         ) : null}

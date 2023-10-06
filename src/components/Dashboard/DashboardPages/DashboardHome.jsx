@@ -30,7 +30,9 @@ import {
 } from "../../../services/auth";
 import { useNavigate } from "react-router-dom";
 import WebPin from "../../Common/CommonUI/Modals/WebPin";
+import useUserEligible from "../../../hooks/useUserEligible";
 const DashboardHome = () => {
+  const isEligible = useUserEligible();
   const navigate = useNavigate();
   const [nairaBalance, setNairaBalance] = useState("");
   const [egcBalance, setEgcBalance] = useState(0);
@@ -624,19 +626,26 @@ const DashboardHome = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
-      <div className="start_kyc_div">
-        <div className="start_kyc_div_1">
-          <div className="start_kyc_div_1_title">Upgrade your KYC level</div>{" "}
-          <div className="start_kyc_div_1_para">
-            Upgrade your kyc level to level2 to unlock transaction capabilities
-            within the app
+
+      {!isEligible ? (
+        <div className="start_kyc_div">
+          <div className="start_kyc_div_1">
+            <div className="start_kyc_div_1_title">Upgrade your KYC level</div>{" "}
+            <div className="start_kyc_div_1_para">
+              Upgrade your kyc level to level2 to unlock transaction
+              capabilities within the app
+            </div>{" "}
           </div>{" "}
-        </div>{" "}
-        <a href="/kyc/verify" className="start_kyc_div_2_link" target="_blank">
-          {" "}
-          <div className="start_kyc_div_2">Upgrade Level</div>
-        </a>{" "}
-      </div>
+          <a
+            href="/kyc/verify"
+            className="start_kyc_div_2_link"
+            target="_blank"
+          >
+            {" "}
+            <div className="start_kyc_div_2">Upgrade Level</div>
+          </a>{" "}
+        </div>
+      ) : null}
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}

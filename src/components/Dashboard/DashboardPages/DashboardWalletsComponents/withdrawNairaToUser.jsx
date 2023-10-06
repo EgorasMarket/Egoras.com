@@ -10,10 +10,13 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { SEND_CRYPTO_FUNDS_INTERNAL } from "../../../../services/finance_services";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
+import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
   const [payload, setPayload] = useState({
     pin_code: "",
     symbol: "NGN",
@@ -42,8 +45,10 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
       return;
     }
     setPinModal(false);
-    toast.success("success");
-    window.location.href = "/dashboard/transaction";
+    setSuccessMsg("Transaction succesful");
+    setSuccessModal(true);
+    setPinModal(false);
+    // window.location.href = "/dashboard/transaction";
   };
 
   const prepare = () => {
@@ -169,6 +174,15 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+          />
+        ) : null}
+
+        {successModal ? (
+          <SuccessModal
+            SuccesTxt={successMsg}
+            successFunc={() => {
+              window.location.href = "/dashboard/transaction";
             }}
           />
         ) : null}

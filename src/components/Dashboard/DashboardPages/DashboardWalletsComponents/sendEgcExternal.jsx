@@ -7,10 +7,12 @@ import {
 } from "../../../../services/finance_services";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
+import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
   const [loading, setLoading] = useState(false);
   const [pinModal, setPinModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
   const [pin, setPin] = useState("");
 
   const [payload, setPayload] = useState({
@@ -36,8 +38,9 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
       // alert(response.data.errorMessage);
       return;
     }
+    setSuccessMsg("Transaction succesful");
     setPinModal(false);
-    toast.success("Transaction successful");
+    // toast.success("Transaction successful");
     setSuccessModal(true);
   };
 
@@ -187,6 +190,15 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+          />
+        ) : null}
+
+        {successModal ? (
+          <SuccessModal
+            SuccesTxt={successMsg}
+            successFunc={() => {
+              window.location.href = "/dashboard/transaction";
             }}
           />
         ) : null}

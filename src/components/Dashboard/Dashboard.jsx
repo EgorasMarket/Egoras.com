@@ -12,13 +12,13 @@ const Dashboard = () => {
 
   const currentPathname = location.pathname;
 
-  const { user } = useSelector((state) => state.auth);
-  useEffect(() => {
-    if (user === null || user === undefined) {
-      // navigate("/login");
-      window.location.href = "/login";
-    }
-  }, [user]);
+  const { user, loading, error } = useSelector((state) => state.auth);
+  // useEffect(() => {
+  //   if (user === null || user === undefined) {
+  //     // navigate("/login");
+  //     window.location.href = "/login";
+  //   }
+  // }, [user]);
   useEffect(() => {
     const currentRoute = routes.find(
       (data) => `${data.layout}/${data.path}` === currentPathname
@@ -44,19 +44,26 @@ const Dashboard = () => {
       }
     });
   };
-  return (
-    <div className="Dashboard">
-      <div className="Dashboard_body_area_1">
-        <DashBoardNav routes={routes} activeRoute={currentRoute} />
-      </div>
-      <div className="Dashboard_body_area">
-        <DashboardHeader currentPathName={currentRoute} />
-        <div className="Dashboard_body">
-          <Routes>{getRoutes(routes)}</Routes>
+
+  if (user) {
+    return (
+      <div className="Dashboard">
+        <div className="Dashboard_body_area_1">
+          <DashBoardNav routes={routes} activeRoute={currentRoute} />
+        </div>
+        <div className="Dashboard_body_area">
+          <DashboardHeader currentPathName={currentRoute} />
+          <div className="Dashboard_body">
+            <Routes>{getRoutes(routes)}</Routes>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  if (loading === false && user === null) {
+    return (window.location.href = "/login");
+  }
 };
 
 export default Dashboard;
