@@ -5,6 +5,7 @@ import { ShimmerButton } from "react-shimmer-effects-18";
 import Staticdata from "../../../../assets/json/Static";
 import NodataComp from "../NodataComp";
 import "./TableComp.css";
+import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
 // ======
 // ======
 // ======
@@ -30,6 +31,7 @@ export const TablePagination = ({
   const ToggleSmallMenu = () => {
     setSmallMenu(!smallMenu);
   };
+
   return (
     <div className="TableCompWithDiv">
       <div className="TableCompWithDiv_title">
@@ -152,7 +154,7 @@ export const TablePagination = ({
                           </td>
                         ) : data.type === "INTERNAL" &&
                           metaData.to_username !== "cyntax" ? (
-                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first debit">
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
                             <div className="debit">Internal Debit</div>
                           </td>
                         ) : (
@@ -163,7 +165,7 @@ export const TablePagination = ({
 
                         <td className="stakingTable_body_row_data">
                           {metaData.symbol === "NGN" ? "₦" : null}{" "}
-                          {parseFloat(data.amount).toFixed(2)}{" "}
+                          {numberWithCommas(parseFloat(data.amount).toFixed(2))}{" "}
                           {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
                         </td>
                         <td className="stakingTable_body_row_data">
@@ -334,7 +336,7 @@ export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
                           </td>
                         ) : data.type === "INTERNAL" &&
                           metaData.to_username !== "cyntax" ? (
-                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first debit">
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
                             <div className="debit">Internal Debit</div>
                           </td>
                         ) : (
@@ -345,7 +347,7 @@ export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
 
                         <td className="stakingTable_body_row_data">
                           {metaData.symbol === "NGN" ? "₦" : null}{" "}
-                          {parseFloat(data.amount).toFixed(2)}{" "}
+                          {numberWithCommas(parseFloat(data.amount).toFixed(2))}{" "}
                           {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
                         </td>
                         <td className="stakingTable_body_row_data">
