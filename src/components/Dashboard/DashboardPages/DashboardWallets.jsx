@@ -98,8 +98,23 @@ const DashboardWallets = () => {
     console.log(data);
     console.log(data[0]?.value);
     console.log(data[1]?.value);
-    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
-    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+
+    if (data[0].name === "Naira") {
+      setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
+      return;
+    }
+    if (data[1].name === "Naira") {
+      setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+      return;
+    }
+    if (data[0].name === "Egoras Credit") {
+      setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
+      return;
+    }
+    if (data[1].name === "Egoras Credit") {
+      setEgcBalance(data[1]?.value === null ? "0" : data[1]?.value);
+      return;
+    }
   }, []);
   const fetchWalletTransactions = async () => {
     setContentLoadingTable(true);

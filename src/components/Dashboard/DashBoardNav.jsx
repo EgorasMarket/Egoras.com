@@ -22,7 +22,7 @@ const DashBoardNav = ({ routes, activeRoute }) => {
       <div className="DashboardNav_head">
         <a href="/">
           <img
-            src="/img/egoras-logo.svg"
+            src="/img/egoras-logo.png"
             alt=""
             className="DashboardNav_head_img"
           />
