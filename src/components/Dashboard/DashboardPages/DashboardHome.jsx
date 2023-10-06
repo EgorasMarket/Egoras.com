@@ -106,14 +106,22 @@ const DashboardHome = () => {
           year: "numeric",
         }),
       }));
+      console.log(transformedData, "transformedData");
       setNewState(transformedData);
-      setlastIndex(transformedData.length - 1);
-      setLastArray(transformedData[transformedData.length - 1]);
-      setChartValue(() => transformedData[transformedData.length - 1].value);
-      setChartTime(() => transformedData[transformedData.length - 1].timestamp);
+      if (transformedData.length > 0) {
+        setlastIndex(transformedData.length - 1);
+        setLastArray(transformedData[transformedData.length - 1]);
+        setChartValue(() => transformedData[transformedData.length - 1].value);
+        setChartTime(
+          () => transformedData[transformedData.length - 1].timestamp
+        );
+        return;
+      }
     } else {
       setChartLoading(true);
       setContentLoadingTable(true);
+      // setNewState([]);
+
       // setTableData([]);
     }
     console.log(response.data);
