@@ -132,7 +132,7 @@
 
 .updatedCooperativeSection1 {
   position: relative;
-  height: 100vh;
+  height: 100svh;
   padding: 6em;
   /* display: flex; */
   background: #f1f1f1;
@@ -243,7 +243,7 @@
 
 section.popularProductsSection {
   position: relative;
-  /* height: 100vh; */
+  /* height: 100svh; */
   padding: 6em 0em;
   /* display: flex; */
   background: #0d0c14;
@@ -726,7 +726,7 @@ video.video-poster {
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   left: 0;
   display: flex;
   align-items: center;
@@ -943,7 +943,7 @@ video.video-poster {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   z-index: 100000;
   background: #000000c2;
   display: flex;
@@ -1712,7 +1712,7 @@ x .benefits_section1_area2_body1_cont2 {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background: #00000075;
   z-index: 10000;
   padding: 4em;
@@ -1768,7 +1768,7 @@ x .benefits_section1_area2_body1_cont2 {
   color: #fff;
   padding-top: 6em;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 .dark .joinCooperativeDiv {
@@ -2034,7 +2034,7 @@ x .benefits_section1_area2_body1_cont2 {
   right: 0;
   background: #0b0b0bb5;
   backdrop-filter: blur(10px);
-  height: 100vh;
+  height: 100svh;
   width: 100vw;
   z-index: 100000;
   display: flex;
@@ -2352,7 +2352,7 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
   z-index: 100;
   background: #00000065;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   top: 0;
   left: 0;
   display: flex;
@@ -2618,7 +2618,7 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background: #00000075;
     z-index: 10000;
     padding: 1em;

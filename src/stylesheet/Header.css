@@ -81,7 +81,7 @@ section.header_section {
   background: #00000026;
   width: 100%;
   max-width: 600px;
-  height: 100vh;
+  height: 100svh;
   top: 0;
   padding: 4em;
   backdrop-filter: blur(50px);

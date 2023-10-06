@@ -18,7 +18,7 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
     username_email: "",
     amount: "",
     type: "external_send",
-    network: "BEP-20",
+    network: "bep20",
     wallet_address: "",
   });
 

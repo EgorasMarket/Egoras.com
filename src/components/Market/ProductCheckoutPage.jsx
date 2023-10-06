@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "../../stylesheet/checkout.css";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Select from "react-select";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/swiper-bundle.css";
 import { FreeMode, Pagination, Navigation, Thumbs } from "swiper/modules";
 import { useNavigate, useParams } from "react-router-dom";
+import Lottie from "lottie-react";
+import successLoader from "../../assets/icons/LottieSuccess.json";
+import { Country, State, City } from "country-state-city";
 import {
   MAKE_PAYMENT_FOR_PRODUCT,
   PRODUCT_DETAILS,
 } from "../../services/product_services";
+import { SUBMIT_USER_DELIEVRY } from "../../services/products";
 import { numberWithCommas } from "../../assets/js/numberWithCommas";
 import { useSelector } from "react-redux";
 import WebPin from "../Common/CommonUI/Modals/WebPin";
@@ -19,6 +25,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { ShimmerButton } from "react-shimmer-effects-18";
 import useProtect from "../../hooks/useProtect";
 import useUserEligible from "../../hooks/useUserEligible";
+import SuccessModal from "../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 
 const ProductCheckoutPage = () => {
   useProtect(); // call this hooks on a component you want to protect
@@ -34,9 +42,15 @@ const ProductCheckoutPage = () => {
   const [product, setProduct] = useState({});
   const [pin, setPin] = useState("");
   const [processing, setProcessing] = useState(false);
-
+  const [success, setSuccess] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorTxt, setErrorTxt] = useState("");
   const [pinloading, setPinLoading] = useState(false);
-
+  const [states, setStates] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
+  const [deliveryVal, setDeliveryVal] = useState("");
+  const [successTxt, setSuccessTxt] = useState("");
   const [payload, setPayload] = useState({
     type: "product",
     product_id: id,
@@ -47,6 +61,19 @@ const ProductCheckoutPage = () => {
     symbol: "NGN",
     user: user?.wallet_address,
   });
+  console.log(id);
+  useEffect(() => {
+    let states = State.getStatesOfCountry("NG");
+    console.log(states);
+    //intercept the state object
+    let tempState = states;
+    tempState.forEach((state) => {
+      state.value = state.name;
+      state.label = state.name;
+    });
+    setStates(tempState);
+    console.log(tempState);
+  }, []);
 
   const fetchProductDetail = async () => {
     const response = await PRODUCT_DETAILS(id);
@@ -65,22 +92,30 @@ const ProductCheckoutPage = () => {
   };
 
   const createPin = async () => {
+    setPinLoading(true);
     let temp = payload;
-    temp = { ...payload, pin_code: pin };
-    setPinModal(false);
     setProcessing(true);
-
+    temp = { ...payload, pin_code: pin };
+    // setPinModal(false);
     const response = await MAKE_PAYMENT_FOR_PRODUCT(temp);
     console.log(response);
 
-    setProcessing(false);
     if (response.success === true) {
-      toast.success("Product Purchase Successful");
-      navigate("/dashboard/orders");
+      // toast.success("Product Purchase Successful");
+      console.log(response);
+      setSuccess(true);
+      setPinLoading(false);
+      setProcessing(false);
       return;
     }
     if (!response?.data?.success || !response?.data) {
-      toast.warn(response.data.errorMessage);
+      setErrorModal(true);
+      setPinLoading(false);
+      setProcessing(false);
+      setErrorTxt(response.data.errorMessage);
+      setPinModal(false);
+      console.log(response);
+      // toast.warn(response.data.errorMessage);
       return;
     }
   };
@@ -102,6 +137,89 @@ const ProductCheckoutPage = () => {
     setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
     setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
   }, []);
+
+  const handleStateOnChange = (e) => {
+    console.log(e);
+    setSelectedState(e.label);
+    const city = City.getCitiesOfState("NG", e.isoCode.toString());
+    let tempCity = city;
+    tempCity.forEach((c) => {
+      c.value = c.name;
+      c.label = c.name;
+    });
+  };
+
+  console.log(selectedState);
+  console.log(deliveryVal);
+  const checkedPickupStore = () => {
+    setDeliveryVal("PICKUP");
+  };
+  const checkedPickupDelivery = () => {
+    setDeliveryVal("DELIVERY");
+  };
+
+  const handleDelivery = async () => {
+    const values = {
+      email: user.email,
+      delivery_type: deliveryVal,
+      state: selectedState,
+      item: name,
+    };
+    console.log(values);
+    const response = await SUBMIT_USER_DELIEVRY(id, values);
+    console.log(response);
+    if (response.success === true) {
+      setSuccessModal(true);
+      setSuccessTxt(
+        "You have selcted to pick up your product on delivery, our customer service will reach out to you soon."
+      );
+      console.log(response);
+      return;
+    }
+    if (!response?.data?.success || !response?.data) {
+      setErrorModal(true);
+      setErrorTxt(response.data.errorMessage);
+      console.log(response);
+      return;
+    }
+  };
+  const handleDeliveryStore = async () => {
+    const values = {
+      email: user.email,
+      delivery_type: deliveryVal,
+      item: name,
+    };
+    console.log(values);
+    const response = await SUBMIT_USER_DELIEVRY(id, values);
+    console.log(response);
+    if (response.success === true) {
+      setSuccessModal(true);
+      setSuccessTxt(
+        <div className="pickupFromStoreDiv">
+          <div className="pickupFromStoreDiv_1">
+            You have selected the option to pick up your item from our store
+          </div>
+          <div className="pickupFromStoreDiv_1_cont">
+            <div className="pickupFromStoreDiv_1_cont_1">
+              Here are the list of our stores to pick up your product from
+            </div>
+            <div className="pickupFromStoreDiv_1_cont_2">
+              282 PH/ABA expressway, Rumuokwrushi junction. Port Harcourt,
+              Nigeria
+            </div>
+          </div>
+        </div>
+      );
+      console.log(response);
+      return;
+    }
+    if (!response?.data?.success || !response?.data) {
+      setErrorModal(true);
+      setErrorTxt(response.data.errorMessage);
+      console.log(response);
+      return;
+    }
+  };
 
   if (prodloading) {
     return (
@@ -267,25 +385,7 @@ const ProductCheckoutPage = () => {
               </div>
             </div>
           </div>
-
-          <ToastContainer />
         </section>
-
-        {pinModal ? (
-          <WebPin
-            isLoading={pinloading}
-            btnFunc={createPin}
-            pinTitle="Enter Pin to validate Transaction"
-            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
-            btnFuncTxt="Proceed"
-            handleOnComplete={(e) => {
-              const a = e.join("");
-              setPin(a);
-              // setPayload({ ...payload, pin_code: a });
-              return;
-            }}
-          />
-        ) : null}
       </div>
     );
   }
@@ -298,39 +398,6 @@ const ProductCheckoutPage = () => {
       </div>
     );
   }
-
-  // if (!eligible) {
-  //   return (
-  //     <div className="kyc_review_message_div">
-  //       <div className="kyc_review_message_div_cont">
-  //         <div className="kyc_review_message_div_cont_1">
-  //           <img
-  //             src="/img/verification_svg1.svg"
-  //             alt=""
-  //             className="kypageDiv_cont_img"
-  //           />
-  //         </div>
-  //         <div className="kyc_review_message_div_cont_2">
-  //           <div className="kyc_review_message_div_cont_2_title">
-  //             Criteria not satisfied
-  //           </div>
-  //           <div className="kyc_review_message_div_cont_2_para">
-  //             You will need to complete at least KYC level 2 to be able to make
-  //             purchase
-  //           </div>
-  //           <a
-  //             href="/dashboard"
-  //             className="kyc_review_message_div_cont_2_btn_link"
-  //           >
-  //             <button className="kyc_review_message_div_cont_2_btn">
-  //               Go to Verification
-  //             </button>
-  //           </a>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   let items = [];
   for (let i = 1; i <= count; i++) {
@@ -531,7 +598,7 @@ const ProductCheckoutPage = () => {
                         <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1">
                           <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1">
                             <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_title egc_card">
-                              Egoras Credit Wallet
+                              EGC Wallet
                             </div>
                             {loading ? (
                               <ShimmerButton
@@ -540,7 +607,7 @@ const ProductCheckoutPage = () => {
                               />
                             ) : (
                               <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal">
-                                {parseFloat(egcBalance).toFixed(4)}
+                                {parseFloat(egcBalance).toFixed(2)}
                                 <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
                                   egc
                                 </span>{" "}
@@ -586,14 +653,14 @@ const ProductCheckoutPage = () => {
                     )}
                   </div>
                 </div>
-                <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
+                {/* <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_head">
                     Non-Merchant Fee
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
                     #20,000
                   </div>
-                </div>
+                </div> */}
                 <div className="ProductCheckoutPage_div_section_area_2_area3_cont">
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_head">
                     Total
@@ -606,7 +673,9 @@ const ProductCheckoutPage = () => {
                 </div>
 
                 {processing ? (
-                  <p>Loading...</p>
+                  <button className="ProductCheckoutPage_div_section_area_2_area3_button">
+                    <ScaleLoader color="#366e51" height={20} />
+                  </button>
                 ) : (
                   <button
                     className="ProductCheckoutPage_div_section_area_2_area3_button"
@@ -628,7 +697,7 @@ const ProductCheckoutPage = () => {
           isLoading={pinloading}
           btnFunc={createPin}
           pinTitle="Enter Pin to validate Transaction"
-          pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+          pinPara="Enter your transaction pin to complete your product purchase"
           btnFuncTxt="Proceed"
           handleOnComplete={(e) => {
             const a = e.join("");
@@ -639,6 +708,124 @@ const ProductCheckoutPage = () => {
         />
       ) : null}
 
+      {success ? (
+        <div className="successCheckoutDiv">
+          <div className="successCheckoutDiv_cont">
+            <div className="successModalDiv_cont_animation">
+              <Lottie
+                animationData={successLoader}
+                loop={false}
+                autoPlay={true}
+                className="successModalDiv_cont_animation_icon2"
+                preserveAspectRatio="xMidYMid meet"
+              />
+            </div>
+            <div className="successCheckoutDiv_cont_body">
+              <div className="successCheckoutDiv_cont_body_1">
+                <div className="successCheckoutDiv_cont_body_1_title">
+                  Successful Purchase
+                </div>
+                <div className="successCheckoutDiv_cont_body_1_para">
+                  You have succesfully placed your order for {count} {name}
+                </div>
+              </div>
+              <div className="successCheckoutDiv_cont_body_2">
+                <div className="successCheckoutDiv_cont_body_2_title">
+                  Delivery Options
+                </div>
+                <div className="successCheckoutDiv_cont_body_1_para">
+                  Select the delivery option that best suites you.
+                </div>
+                <div className="successCheckoutDiv_cont_body_2_body">
+                  <div className="successCheckoutDiv_cont_body_2_body_1_div">
+                    <input
+                      type="radio"
+                      id="radio-1"
+                      name="radio"
+                      // checked={checkedMetamask}
+                      onChange={checkedPickupDelivery}
+                    />
+                    <label
+                      className={
+                        deliveryVal === "DELIVERY"
+                          ? "successCheckoutDiv_cont_body_2_body_1 successCheckoutDiv_cont_body_2_body_1_active"
+                          : "successCheckoutDiv_cont_body_2_body_1"
+                      }
+                      for="radio-1"
+                    >
+                      Pick up on delivery
+                    </label>
+                  </div>
+                  <div className="successCheckoutDiv_cont_body_2_body_1_div">
+                    <input
+                      type="radio"
+                      id="radio-2"
+                      name="radio"
+                      // checked={checkedMetamask}
+                      onChange={checkedPickupStore}
+                    />
+                    <label
+                      className={
+                        deliveryVal === "PICKUP"
+                          ? "successCheckoutDiv_cont_body_2_body_1 successCheckoutDiv_cont_body_2_body_1_active"
+                          : "successCheckoutDiv_cont_body_2_body_1"
+                      }
+                      for="radio-2"
+                    >
+                      Pick up from store
+                    </label>
+                  </div>
+                  {deliveryVal === "PICKUP" ? null : (
+                    <Select
+                      placeholder="Select State"
+                      classNamePrefix="select"
+                      className="kypageDiv_cont_body_input_div_slect"
+                      // value={selectedState}
+                      onChange={handleStateOnChange}
+                      id="state"
+                      isSearchable={true}
+                      name="state"
+                      options={states}
+                    />
+                  )}
+                  {deliveryVal === "PICKUP" ? (
+                    <button
+                      className="successCheckoutDiv_cont_body_2_body_submit"
+                      onClick={handleDeliveryStore}
+                    >
+                      Submit
+                    </button>
+                  ) : (
+                    <button
+                      className="successCheckoutDiv_cont_body_2_body_submit"
+                      onClick={handleDelivery}
+                    >
+                      Submit
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {successModal ? (
+        <SuccessModal
+          SuccesTxt={successTxt}
+          successFunc={() => {
+            window.location.href = "/dashboard/orders";
+          }}
+        />
+      ) : null}
+      {errorModal ? (
+        <ErrorModal
+          ErrorTxt={errorTxt}
+          errorFunc={() => {
+            setErrorModal(false);
+          }}
+        />
+      ) : null}
       {!eligible ? (
         <div className="not_eligible_div">
           <div className="kyc_review_message_div_cont">

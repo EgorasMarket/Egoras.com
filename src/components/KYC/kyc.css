@@ -1,13 +1,15 @@
 .kypageDiv {
-  height: 100vh;
+  height: 100svh;
   padding: 8em 0em;
   background: #000;
   position: relative;
+  overflow-y: scroll;
 }
 .kypageDiv_cont_div {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: fit-content;
+  height: inherit;
 }
 .kypageDiv_cont_div_btn {
   width: 100%;
@@ -33,6 +35,11 @@
   color: #92929c;
   font-weight: 400;
 }
+.kypageDiv_cont_button_div_btn:disabled {
+  background: #273a30;
+  color: #416853;
+  cursor: not-allowed;
+}
 .kypageDiv_cont_div_btn_func_btn_icon {
   background: #ffffff26;
   border-radius: 40px;
@@ -44,18 +51,17 @@
 }
 .kypageDiv_cont {
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
   margin: auto;
-  height: fit-content;
-  min-height: 100%;
+  height: inherit;
+  /* min-height: 100%; */
   background: #161619;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 3em;
+  padding: 2em;
   border: solid 1px #26262a;
-  overflow-y: scroll;
 }
 .kypageDiv_cont::-webkit-scrollbar {
   display: none;
@@ -124,6 +130,7 @@
   padding-top: 1em;
   border-top: solid 1px #2c2c32;
   flex-direction: column;
+  margin-top: 2em;
 }
 .kypageDiv_cont_button_div_txt {
   font-size: 14px;
@@ -389,4 +396,62 @@ button.face_id_div_btn {
 }
 .kyc_review_message_div_cont_2_btn_link {
   width: 100%;
+}
+@media screen and (max-width: 600px) {
+  .kypageDiv {
+    padding: 5em 1em;
+    padding-top: 7em;
+  }
+  .kypageDiv_cont_img_div {
+    width: 250px;
+  }
+  .kypageDiv_cont_head {
+    font-size: 24px;
+  }
+  .kypageDiv_cont_para {
+    font-size: 14px;
+  }
+  .kypageDiv_cont_body_start_verify {
+    margin-top: 1em;
+  }
+  .kypageDiv_cont {
+    padding: 1em;
+  }
+  .kypageDiv_cont_body_start_verify_cont1_body2_title {
+    font-size: 14px;
+  }
+  .kypageDiv_cont_body_start_verify_cont1_body2_para {
+    font-size: 12px;
+  }
+  .kypageDiv_cont_button_div_btn {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+  .kypageDiv_cont_button_div_txt {
+    font-size: 12px;
+  }
+  .kypageDiv_cont_body_start_verify_answers_cont1_txt {
+    font-size: 14px;
+  }
+  .kypageDiv_cont_body {
+    margin-top: 1em;
+  }
+  .kypageDiv_cont_body_email_input_code {
+    font-size: 32px;
+  }
+  .face_id_div_img {
+    max-width: 250px;
+  }
+  .camera-feed {
+    width: 250px;
+    height: 250px;
+  }
+  .face_id_div {
+    margin-bottom: 2em;
+  }
+  .captured_image_img {
+    width: 250px;
+    height: 250px;
+  }
 }

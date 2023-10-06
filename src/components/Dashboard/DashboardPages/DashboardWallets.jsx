@@ -131,7 +131,7 @@ const DashboardWallets = () => {
       <div className="DashboardWalletsDiv_body">
         {activeTab === "egc" ? (
           <WalletBalanceDisplay
-            walletBal={parseFloat(egcBalance).toFixed(4)}
+            walletBal={parseFloat(egcBalance).toFixed(2)}
             walletsymbol={"egc"}
             depositFunc={ToggleDepositMoneyModal}
             withdrawFunc={ToggleWithdrawMoneyModal}

@@ -427,7 +427,7 @@ const ProductDetailPage = () => {
               {/* ===== */}
               {/* ===== */}
               <div className="ProductDetailPage_section_area_2_warranty_div">
-                2years Warranty
+                Max 6months Warranty
               </div>
               {/* ===== */}
               {/* ===== */}

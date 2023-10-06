@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,4 +63,12 @@
   background: #22ad62;
   color: #fff;
   font-weight: 500;
+}
+@media screen and (max-width: 600px) {
+  .successModalDiv_cont_animation_icon {
+    width: 150px;
+  }
+  .successModalDiv_cont_body_title {
+    font-size: 32px;
+  }
 }

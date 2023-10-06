@@ -5,7 +5,9 @@ import Select from "react-select";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import Staticdata from "../../assets/json/Static";
 import ReactCountryFlagsSelect from "react-country-flags-select";
-
+import ScaleLoader from "react-spinners/ScaleLoader";
+import SuccessModal from "../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 import { Country, State, City } from "country-state-city";
 import {
   GET_KYC_STATUS,
@@ -33,32 +35,6 @@ export const status = Object.freeze({
   verified: "VERIFIED",
   notVerified: "NOT_VERIFIED",
 });
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: "2rem",
-  },
-  video: {
-    width: "100%",
-    maxWidth: "400px",
-    marginBottom: "1rem",
-  },
-  image: {
-    width: "100%",
-    maxWidth: "400px",
-    marginBottom: "1rem",
-  },
-  button: {
-    padding: "0.5rem 1rem",
-    fontSize: "1rem",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    cursor: "pointer",
-  },
-};
 
 const KycEmailComp = ({ toggleEmailCont }) => {
   const [response, setResponse] = useState({});
@@ -144,6 +120,7 @@ const KycEmailComp = ({ toggleEmailCont }) => {
     </div>
   );
 };
+
 const KycStartComp = ({ startVerify, prev }) => {
   const [response, setResponse] = useState({});
   const fetchKycStatus = async () => {
@@ -298,10 +275,10 @@ const KycStartComp = ({ startVerify, prev }) => {
                 <FaceIcon className="kypageDiv_cont_body_start_verify_cont1_icon" />
                 <div className="kypageDiv_cont_body_start_verify_cont1_body2">
                   <div className="kypageDiv_cont_body_start_verify_cont1_body2_title">
-                    Take a selfie of yourself
+                    Provide your BVN
                   </div>
                   <div className="kypageDiv_cont_body_start_verify_cont1_body2_para">
-                    To match your face to your BVN
+                    Provide your bvn for better verification
                   </div>
                 </div>
               </div>
@@ -309,10 +286,10 @@ const KycStartComp = ({ startVerify, prev }) => {
                 <FaceIcon className="kypageDiv_cont_body_start_verify_cont1_icon" />
                 <div className="kypageDiv_cont_body_start_verify_cont1_body2">
                   <div className="kypageDiv_cont_body_start_verify_cont1_body2_title">
-                    Take a selfie of yourself
+                    Verify your address
                   </div>
                   <div className="kypageDiv_cont_body_start_verify_cont1_body2_para">
-                    To match your face to your BVN
+                    To match your address to your BVN
                   </div>
                 </div>
               </div>
@@ -345,10 +322,19 @@ const KycStartComp = ({ startVerify, prev }) => {
     </div>
   );
 };
+
 const KycBvnComp = ({ nextStep1, prevStep }) => {
   const dispatch = useDispatch();
   const { payload } = useSelector((state) => state.kyc);
-
+  const [disable, setDisable] = useState(true);
+  // useEffect(() => {
+  //   if (payload.bvnNumber.length < 11) {
+  //     setDisable(true);
+  //   } else {
+  //     setDisable(false);
+  //   }
+  //   console.log(payload.bvnNumber);
+  // }, [payload.bvnNumber]);
   return (
     <div className="kypageDiv_cont_div">
       <>
@@ -380,8 +366,15 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
                   className="kypageDiv_cont_body_email_input2"
                   onChange={(e) => {
                     const { value } = e.target;
+                    if (
+                      e.target.value.length < 11 ||
+                      e.target.value.length > 11
+                    ) {
+                      setDisable(true);
+                    } else {
+                      setDisable(false);
+                    }
                     if (payload.bvnNumber.length >= 11) return;
-
                     dispatch(setPayload({ ...payload, bvnNumber: value }));
                   }}
                 />
@@ -427,6 +420,7 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
           >
             <button
               className="kypageDiv_cont_button_div_btn"
+              disabled={disable}
               onClick={nextStep1}
             >
               Next Step
@@ -446,6 +440,7 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
   const [state, setSelectedState] = useState("");
   const [city, setSelectedCity] = useState("");
   const [address, setAddress] = useState("");
+  const [disable, setDisable] = useState(true);
 
   const [selected, setSelected] = useState(null);
 
@@ -459,10 +454,8 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
   useEffect(() => {
     let states = State.getStatesOfCountry("NG");
     console.log(states);
-
     //intercept the state object
     let tempState = states;
-
     tempState.forEach((state) => {
       state.value = state.name;
       state.label = state.name;
@@ -486,7 +479,14 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
     // setData({ ...data, city: e.label });
     setSelectedCity(e.label);
   };
-
+  useEffect(() => {
+    if (city == "" || state == "" || address === "") {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
+    console.log(state, city, address);
+  }, [state, city, address]);
   return (
     <div className="kypageDiv_cont_div">
       <div className="kypageDiv_cont_div_btn">
@@ -583,6 +583,7 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
           <button
             className="kypageDiv_cont_button_div_btn"
             // onClick={nextStep2}
+            disabled={disable}
             onClick={async () => {
               console.log(state, city, address);
               await dispatch(
@@ -610,6 +611,10 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
   const [capturedImage, setCapturedImage] = useState(null);
   const [openCamera, setOpenCamera] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorTxt, setErrorTxt] = useState("");
 
   const captureImage = async () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -623,6 +628,11 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
     setCapturedImage(null);
   };
   useEffect(() => {
+    if (capturedImage === null) {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
     console.log(capturedImage);
   }, [capturedImage]);
 
@@ -698,10 +708,13 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
 
         <div className="kypageDiv_cont_button_div">
           {processing ? (
-            <p>loading ...</p>
+            <button className="kypageDiv_cont_button_div_btn" disabled={true}>
+              <ScaleLoader color="#366e51" height={20} />
+            </button>
           ) : (
             <button
               className="kypageDiv_cont_button_div_btn"
+              disabled={disable}
               onClick={async () => {
                 setProcessing(true);
                 const file = dataUrlToFile(payload.image, "file.jpg");
@@ -724,18 +737,23 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
                 console.log(res);
                 setProcessing(false);
                 if (res.success) {
-                  toast.success("Information Submitted Successfully");
-                  setTimeout(() => {
-                    navigate(0);
-                  }, 2000);
+                  // toast.success("Information Submitted Successfully");
+                  // setTimeout(() => {
+                  //   navigate(0);
+                  // }, 2000);
+                  setSuccess(true);
                   return;
                 }
 
                 if (typeof res?.data?.errorMessage === "object") {
-                  toast.error("Incorrect BVN Number Provided");
+                  // toast.error("Incorrect BVN Number Provided");
+                  setErrorModal(true);
+                  setErrorTxt("Incorrect BVN Number Provided");
                   return;
                 }
                 toast.error(res?.data?.errorMessage);
+                setErrorModal(true);
+                setErrorTxt(res?.data?.errorMessage);
               }}
             >
               Submit Verification
@@ -743,6 +761,25 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
           )}
         </div>
       </div>
+
+      {success ? (
+        <SuccessModal
+          SuccesTxt={
+            "You have successfully submitted your Kyc Level2 info please wait while we verify your information "
+          }
+          successFunc={() => {
+            window.location.href = "/dashboard";
+          }}
+        />
+      ) : null}
+      {errorModal ? (
+        <ErrorModal
+          ErrorTxt={errorTxt}
+          errorFunc={() => {
+            setErrorModal(false);
+          }}
+        />
+      ) : null}
       <ToastContainer />
     </div>
   );

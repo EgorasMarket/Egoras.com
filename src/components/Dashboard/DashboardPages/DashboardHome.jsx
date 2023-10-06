@@ -70,10 +70,12 @@ const DashboardHome = () => {
     setPinModal(true);
   };
   useEffect(() => {
-    console.log("i am running here");
-    if (user?.wallet_address === "n/a" || user?.wallet_address === "") {
-      generateWallet();
-    }
+    // console.log("i am running here");
+    setTimeout(() => {
+      if (user?.wallet_address === "n/a" || user?.wallet_address === "") {
+        generateWallet();
+      }
+    }, 5000);
   }, []);
 
   useEffect(() => {
@@ -131,13 +133,7 @@ const DashboardHome = () => {
     const value = e.join("");
     setConfirmPinVal(value);
   };
-  // const images = [
-  //   "/img/egr_gen1_detail_img.png",
-  //   "/img/egr_gen1_detail_img.png",
-  //   "/img/egr_gen1_detail_img.png",
-  //   "/img/egr_gen1_detail_img.png",
-  //   "/img/egr_gen1_detail_img.png",
-  // ];
+
   const fechAllProducts = async () => {
     setProductLoading(true);
     const response = await ALL_PRODUCTS();
@@ -183,7 +179,7 @@ const DashboardHome = () => {
                   <>
                     {" "}
                     <div className="dashboardHome_area1_card1_content_amnt_txt">
-                      {parseFloat(egcBalance).toFixed(4)}
+                      {parseFloat(egcBalance).toFixed(2)}
                     </div>
                     <div className="dashboardHome_area1_card1_content_symbol">
                       egc
