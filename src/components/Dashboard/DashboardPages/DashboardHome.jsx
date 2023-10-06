@@ -15,12 +15,12 @@ import { GET_WALLET } from "../../../services/finance_services";
 import { ShimmerButton } from "react-shimmer-effects-18";
 import { toast, ToastContainer } from "react-toastify";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/swiper-bundle.css";
 import { Pagination } from "swiper/modules";
 import { SHOW_ALL_PURCHASED_PRODUCT } from "../../../services/product_services";
+import { FETCH_WALLET_TRANSACTIONS } from "../../../services/finance_services";
 import NodataComp from "../../Common/CommonUI/NodataComp";
 import {
   GENERATE_USER_WALLET_ADDRESS,
@@ -43,9 +43,14 @@ const DashboardHome = () => {
   const [productLoading, setProductLoading] = useState(true);
   const [egorasProducts, setEgorasProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-
+  const [tableData, setTableData] = useState([]);
+  const [newState, setNewState] = useState([]);
+  const [ChartValue, setChartValue] = useState(0);
+  const [ChartTime, setChartTime] = useState(0);
+  const [LastArray, setLastArray] = useState(0);
+  const [lastIndex, setlastIndex] = useState(0);
+  const [chartLoading, setChartLoading] = useState(true);
   const [pinProcessing, setPinProcessing] = useState(false);
-
   const generateWallet = async () => {
     const response = await GET_WALLET({
       symbol: "EGC",
@@ -78,6 +83,52 @@ const DashboardHome = () => {
     }, 5000);
   }, []);
 
+  const fetchWalletTransactions = async () => {
+    setContentLoadingTable(true);
+    const response = await FETCH_WALLET_TRANSACTIONS();
+    if (response.success === true) {
+      setChartLoading(false);
+      setContentLoadingTable(false);
+      setTableData(response.data);
+      const transformedData = response.data.map((data) => ({
+        value: parseFloat(data.amount),
+        timestamp: new Date(data.createdAt).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        }),
+        month: new Date(data.createdAt).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        }),
+      }));
+      setNewState(transformedData);
+      setlastIndex(transformedData.length - 1);
+      setLastArray(transformedData[transformedData.length - 1]);
+      setChartValue(() => transformedData[transformedData.length - 1].value);
+      setChartTime(() => transformedData[transformedData.length - 1].timestamp);
+    } else {
+      setChartLoading(true);
+      setContentLoadingTable(true);
+      // setTableData([]);
+    }
+    console.log(response.data);
+    console.log(response);
+  };
+  useEffect(() => {
+    fetchWalletTransactions();
+  }, []);
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      setChartValue(payload[0].payload.value);
+      setChartTime(payload[0].payload.timestamp);
+    } else {
+      setChartValue(LastArray.value);
+      setChartTime(LastArray.timestamp);
+    }
+    return null;
+  };
   useEffect(() => {
     console.log(data);
     console.log(data[0]?.value);
@@ -142,7 +193,7 @@ const DashboardHome = () => {
 
     const ano = response.data.getAllUploadedProduct.filter((data) => {
       console.log(data);
-      return data.product_brand === "Egoras";
+      return data.product_brand === "EGORAS";
     });
     setEgorasProducts(ano);
   };
@@ -586,43 +637,37 @@ const DashboardHome = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
-      {/* <div className="display_prod_div">
-        <div className="DashboardWalletsDiv_area1_cont">
-          <div
-            id="egc"
-            className={
-              activeTab === "egc"
-                ? "DashboardWalletsDiv_area1_cont_tab1_active"
-                : "DashboardWalletsDiv_area1_cont_tab1"
-            }
-            onClick={ToggleActiveTab}
-          >
-            EGC Wallet
-          </div>
-          <div
-            id="naira"
-            className={
-              activeTab === "naira"
-                ? "DashboardWalletsDiv_area1_cont_tab1_active"
-                : "DashboardWalletsDiv_area1_cont_tab1"
-            }
-            onClick={ToggleActiveTab}
-          >
-            Naira Wallet
-          </div>
-        </div>
-      </div> */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
       <div className="dashboardHome_area2">
-        <AreaChartComp />
+        <AreaChartComp
+          chartData={newState}
+          CustomTooltip={CustomTooltip}
+          chartLoading={chartLoading}
+          ChartValue={ChartValue}
+          ChartTime={ChartTime}
+        />
       </div>
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
+
+      <div className="dashboardHome_area3">
+        <Table
+          tableTitle={"Transactions"}
+          TableData={tableData.slice(0, 8)}
+          dummyData={Staticdata.productsTableData.slice(0, 8)}
+          contentLoading={contentLoadingTable}
+        />
+
+        {/* <div className="dashboardHome_area3_btn_div">
+          <a
+            href="/dashboard/transaction"
+            className="dashboardHome_area3_btn_link"
+          >
+            <button className="dashboardHome_area3_btn">View more</button>
+          </a>
+        </div> */}
+      </div>
 
       {pinModal && (
         <WebPin
@@ -645,23 +690,6 @@ const DashboardHome = () => {
           pinPara={"Just to be sure, we'll want you to confirm your pin "}
         />
       )}
-      <div className="dashboardHome_area3">
-        <Table
-          tableTitle={"Transactions"}
-          TableData={Staticdata.productsTableData.slice(0, 8)}
-          contentLoading={contentLoadingTable}
-        />
-
-        {/* <div className="dashboardHome_area3_btn_div">
-          <a
-            href="/dashboard/transaction"
-            className="dashboardHome_area3_btn_link"
-          >
-            <button className="dashboardHome_area3_btn">View more</button>
-          </a>
-        </div> */}
-      </div>
-
       <ToastContainer />
     </div>
   );

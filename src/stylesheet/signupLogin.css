@@ -61,6 +61,34 @@
   font-weight: 500;
   background: #313131;
 }
+.signup_div_section_div_container_form_input_pasowrd {
+  border-radius: 7px;
+  padding: 10px;
+  border: solid 1px #383838;
+  font-size: 14px;
+  color: #97a89f;
+  font-weight: 500;
+  background: #313131;
+  width: 100%;
+}
+.otp_modal_container_body_icon2 {
+  background: #1d1d1d;
+  font-size: 24px !important;
+  padding: 4px;
+  border-radius: 6px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #949494 !important;
+  position: absolute;
+  right: 2%;
+}
+.password_div {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
 .signup_div_section_div_container_form_btn {
   margin-top: 10px;
   padding: 15px;

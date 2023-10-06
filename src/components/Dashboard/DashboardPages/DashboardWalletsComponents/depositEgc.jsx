@@ -42,6 +42,21 @@ const DepositEgc = ({ ToggleEgcBlockchainDepositModal }) => {
       </div>
     );
   }
+  const copyText = () => {
+    var copyText = document.getElementById("myInput");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copied address ";
+    tooltip.style.display = "block";
+  };
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+    tooltip.style.display = "none";
+  }
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
@@ -129,10 +144,16 @@ const DepositEgc = ({ ToggleEgcBlockchainDepositModal }) => {
                   type="text"
                   value={payload.address}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
+                  id="myInput"
                 />
-                <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
+                <button
+                  className="depositMoneyDiv_cont_body_wallet_addr_div_btn"
+                  onClick={copyText}
+                  onMouseOut={outFunc}
+                >
                   Copy
                   <ContentCopyOutlinedIcon className="depositMoneyDiv_cont_body_wallet_addr_div_btn_icon" />
+                  <span className="tooltiptext" id="myTooltip"></span>
                 </button>
               </div>
             </div>

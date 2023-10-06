@@ -30,7 +30,7 @@ export const SUBMIT_USER_DELIEVRY = async (prodId, payload) => {
   console.log(prodId, payload);
   setAuthToken(localStorage.getItem("x-token"));
   try {
-    const res = await axios.post(
+    const res = await axios.put(
       `${SUBMIT_DELIVERY_TYPE}/${prodId}/delivery`,
       payload
     );

@@ -260,6 +260,13 @@ section.header_section {
   .header_section_3_link_2_prd {
     display: none;
   }
+  .headerMenuDiv_cont {
+    margin-top: 1em;
+    max-width: 100%;
+  }
+  .headerMenuDiv {
+    padding: 4em 2em;
+  }
 }
 @media screen and (max-width: 500px) {
   .header_section_3_mobile {

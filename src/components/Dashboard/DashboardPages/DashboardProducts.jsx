@@ -28,9 +28,14 @@ const DashboardProducts = () => {
     setProducts(response.data.getAllUploadedProduct);
     const ano = response.data.getAllUploadedProduct.filter((data) => {
       console.log(data);
-      return data.product_brand === "Egoras";
+      return data.product_brand === "EGORAS";
+    });
+    const ano2 = response.data.getAllUploadedProduct.filter((data) => {
+      console.log(data);
+      return data.product_brand !== "EGORAS";
     });
     setEgorasProducts(ano);
+    setOtherProducts(ano2);
   };
 
   useEffect(() => {
@@ -91,34 +96,38 @@ const DashboardProducts = () => {
                   {egorasProducts.map((data) => {
                     const image = JSON.parse(data.product_images);
                     return (
-                      <div className="DashboardProdDiv_body_cont1">
-                        <div className="DashboardProdDiv_body_cont1_img">
-                          <img
-                            src={image[0]}
-                            alt=""
-                            className="DashboardProdDiv_body_cont1_img_image"
-                          />
-                        </div>
-                        <div className="DashboardProdDiv_body_cont1_details">
-                          <div className="DashboardProdDiv_body_cont1_details_txt">
-                            <div className="DashboardProdDiv_body_cont1_details_txt_title">
-                              {data.product_name}
+                      <>
+                        {data.quantity < 1 ? null : (
+                          <div className="DashboardProdDiv_body_cont1">
+                            <div className="DashboardProdDiv_body_cont1_img">
+                              <img
+                                src={image[0]}
+                                alt=""
+                                className="DashboardProdDiv_body_cont1_img_image"
+                              />
                             </div>
-                            <div className="DashboardProdDiv_body_cont1_details_txt_amount">
-                              ₦{parseFloat(data.final_amount).toFixed(2)}
+                            <div className="DashboardProdDiv_body_cont1_details">
+                              <div className="DashboardProdDiv_body_cont1_details_txt">
+                                <div className="DashboardProdDiv_body_cont1_details_txt_title">
+                                  {data.product_name}
+                                </div>
+                                <div className="DashboardProdDiv_body_cont1_details_txt_amount">
+                                  ₦{parseFloat(data.final_amount).toFixed(2)}
+                                </div>
+                              </div>
+                              <div className="DashboardProdDiv_body_cont1_details_btn_div">
+                                <a
+                                  href={`/productdetailorder/${data.product_id}/${data.product_name}`}
+                                >
+                                  <button className="DashboardProdDiv_body_cont1_details_btn_div_btn">
+                                    Order Product
+                                  </button>
+                                </a>
+                              </div>
                             </div>
                           </div>
-                          <div className="DashboardProdDiv_body_cont1_details_btn_div">
-                            <a
-                              href={`/productdetailorder/${data.product_id}/${data.product_name}`}
-                            >
-                              <button className="DashboardProdDiv_body_cont1_details_btn_div_btn">
-                                Order Product
-                              </button>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                        )}
+                      </>
                     );
                   })}
                 </div>
@@ -127,36 +136,71 @@ const DashboardProducts = () => {
           )}
         </>
       ) : (
-        <div className="DashboardProdDiv_body">
-          {Staticdata.egr_models_carous.map((data) => (
-            <div className="DashboardProdDiv_body_cont1">
-              <div className="DashboardProdDiv_body_cont1_img">
-                <img
-                  src={data.img}
-                  alt=""
-                  className="DashboardProdDiv_body_cont1_img_image"
+        <>
+          {productLoading ? (
+            <div className="ProductLoadingDiv">
+              <div className="prod_loading_cont">
+                <SyncLoader
+                  color="#22ad62"
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                  className="loading_div_area_cont_icon"
+                  // size={80}
+                  speedMultiplier={1}
                 />
-              </div>
-              <div className="DashboardProdDiv_body_cont1_details">
-                <div className="DashboardProdDiv_body_cont1_details_txt">
-                  <div className="DashboardProdDiv_body_cont1_details_txt_title">
-                    {data.name}
-                  </div>
-                  <div className="DashboardProdDiv_body_cont1_details_txt_amount">
-                    ₦{data.start_price}
-                  </div>
-                </div>
-                <div className="DashboardProdDiv_body_cont1_details_btn_div">
-                  <a href={`/productdetailorder/${data.id}/${data.name}`}>
-                    <button className="DashboardProdDiv_body_cont1_details_btn_div_btn">
-                      Order Product
-                    </button>
-                  </a>
+                <div className="prod_loading_cont_txt">
+                  Fetching Products Please wait...
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          ) : (
+            <>
+              {otherProducts.length <= 0 ? (
+                <NodataComp />
+              ) : (
+                <div className="DashboardProdDiv_body">
+                  {otherProducts.map((data) => {
+                    const image = JSON.parse(data.product_images);
+                    return (
+                      <>
+                        {data.quantity < 1 ? null : (
+                          <div className="DashboardProdDiv_body_cont1">
+                            <div className="DashboardProdDiv_body_cont1_img">
+                              <img
+                                src={image[0]}
+                                alt=""
+                                className="DashboardProdDiv_body_cont1_img_image"
+                              />
+                            </div>
+                            <div className="DashboardProdDiv_body_cont1_details">
+                              <div className="DashboardProdDiv_body_cont1_details_txt">
+                                <div className="DashboardProdDiv_body_cont1_details_txt_title">
+                                  {data.product_name}
+                                </div>
+                                <div className="DashboardProdDiv_body_cont1_details_txt_amount">
+                                  ₦{parseFloat(data.final_amount).toFixed(2)}
+                                </div>
+                              </div>
+                              <div className="DashboardProdDiv_body_cont1_details_btn_div">
+                                <a
+                                  href={`/productdetailorder/${data.product_id}/${data.product_name}`}
+                                >
+                                  <button className="DashboardProdDiv_body_cont1_details_btn_div_btn">
+                                    Order Product
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })}
+                </div>
+              )}
+            </>
+          )}
+        </>
       )}
     </div>
   );

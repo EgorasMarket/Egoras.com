@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import Paginate from "../Pagination/Paginate";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { ShimmerButton } from "react-shimmer-effects-18";
-
+import Staticdata from "../../../../assets/json/Static";
+import NodataComp from "../NodataComp";
 import "./TableComp.css";
 // ======
 // ======
 // ======
 // ======
-export const TablePagination = ({ TableData, tableTitle, contentLoading }) => {
+export const TablePagination = ({
+  TableData,
+  tableTitle,
+  contentLoading,
+  dummyData,
+}) => {
   const [smallMenu, setSmallMenu] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const PER_PAGE = 8;
@@ -28,6 +34,12 @@ export const TablePagination = ({ TableData, tableTitle, contentLoading }) => {
     <div className="TableCompWithDiv">
       <div className="TableCompWithDiv_title">
         {tableTitle}{" "}
+        {/* <a
+          href="/dashboard/transaction"
+          className="TableCompWithDiv_title_link"
+        >
+          <button className="TableCompWithDiv_title_btn">View All</button>
+        </a> */}
         <div
           className="TableCompWithDiv_title_drop_down"
           onClick={ToggleSmallMenu}
@@ -47,37 +59,7 @@ export const TablePagination = ({ TableData, tableTitle, contentLoading }) => {
         </div>
       </div>
       <div className="TableCompWithDiv_cont">
-        {currentTransactions.length <= 0 ? (
-          <>
-            <table className="TableCompWithDiv_cont_table">
-              <thead className="TableCompWithDiv_cont_head">
-                <tr className="TableCompWithDiv_cont_head_titles">
-                  <th className="TableCompWithDiv_cont_head_titles_div TableCompWithDiv_cont_head_titles_div_first">
-                    Product Name
-                  </th>
-                  <th className="TableCompWithDiv_cont_head_titles_div">
-                    Amount
-                  </th>
-                  <th className="TableCompWithDiv_cont_head_titles_div">
-                    Product Brand
-                  </th>
-                  <th className="TableCompWithDiv_cont_head_titles_div">
-                    Date
-                  </th>
-
-                  <th className="TableCompWithDiv_cont_head_titles_div  TableCompWithDiv_cont_head_titles_div_last">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-            </table>
-            <div className="noTransactionData_div">
-              <div className="noTransactionData_div_cont">
-                No Transactions at the moment
-              </div>
-            </div>
-          </>
-        ) : (
+        {contentLoading ? (
           <table className="TableCompWithDiv_cont_table">
             <thead className="TableCompWithDiv_cont_head">
               <tr className="TableCompWithDiv_cont_head_titles">
@@ -97,60 +79,124 @@ export const TablePagination = ({ TableData, tableTitle, contentLoading }) => {
                 </th>
               </tr>
             </thead>
+            <tbody className="stakingTable_body">
+              {dummyData.map((data) => {
+                return (
+                  <tr className="stakingTable_body_row ">
+                    <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                    <td className="stakingTable_body_row_data">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                    <td className="stakingTable_body_row_data">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
 
-            {contentLoading ? (
-              <tbody className="stakingTable_body">
-                {currentTransactions.map((data) => {
-                  return (
-                    <tr className="stakingTable_body_row ">
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-
-                      <td className="stakingTable_body_row_data">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            ) : (
-              <tbody className="stakingTable_body">
-                {currentTransactions.map((data) => {
-                  return (
-                    <tr className="stakingTable_body_row ">
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
-                        {" "}
-                        {data.prodName}
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        {data.amount}
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        {data.prodBrand}
-                      </td>
-
-                      <td className="stakingTable_body_row_data">
-                        {data.Date}
-                      </td>
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
-                        {data.status}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+                    <td className="stakingTable_body_row_data">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                    <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
+        ) : (
+          <>
+            {currentTransactions.length <= 0 ? (
+              <NodataComp />
+            ) : (
+              <table className="TableCompWithDiv_cont_table">
+                <thead className="TableCompWithDiv_cont_head">
+                  <tr className="TableCompWithDiv_cont_head_titles">
+                    <th className="TableCompWithDiv_cont_head_titles_div TableCompWithDiv_cont_head_titles_div_first">
+                      Type
+                    </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      Amount
+                    </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      From
+                    </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      Date
+                    </th>
+
+                    <th className="TableCompWithDiv_cont_head_titles_div  TableCompWithDiv_cont_head_titles_div_last">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="stakingTable_body">
+                  {currentTransactions.map((data) => {
+                    const metaData = JSON.parse(data.meta);
+                    // Convert the createdAt date to the desired format
+                    const createdAtDate = new Date(data.createdAt);
+                    const formattedDate = `${createdAtDate.getDate()}/${
+                      createdAtDate.getMonth() + 1
+                    }/${createdAtDate.getFullYear()}`;
+
+                    // Extract the part of the email before the "@" symbol
+                    const emailParts = data.email.split("@");
+                    const maskedEmail = `${emailParts[0].slice(0, 8)}...`;
+
+                    return (
+                      <tr className="stakingTable_body_row ">
+                        {data.type === "INTERNAL" &&
+                        metaData.to_username === "cyntax" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="credit">Internal Credit</div>
+                          </td>
+                        ) : data.type === "INTERNAL" &&
+                          metaData.to_username !== "cyntax" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first debit">
+                            <div className="debit">Internal Debit</div>
+                          </td>
+                        ) : (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="normal">{data.type}</div>
+                          </td>
+                        )}
+
+                        <td className="stakingTable_body_row_data">
+                          {metaData.symbol === "NGN" ? "₦" : null}{" "}
+                          {parseFloat(data.amount).toFixed(2)}{" "}
+                          {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
+                        </td>
+                        <td className="stakingTable_body_row_data">
+                          <div className="stakingTable_body_row_email">
+                            {maskedEmail}
+                          </div>
+                        </td>
+
+                        <td className="stakingTable_body_row_data">
+                          {formattedDate}
+                        </td>
+                        <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                          <div className="stakingTable_body_row_data_last_div">
+                            {data.status === "SUCCESS" ? (
+                              <div className="stakingTable_body_row_status_success">
+                                {data.status}
+                              </div>
+                            ) : data.status === "PENDING" ? (
+                              <div className="stakingTable_body_row_status_pending">
+                                {data.status}
+                              </div>
+                            ) : (
+                              <>{data.status}</>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </>
         )}
       </div>
       {currentTransactions.length <= 0 ? null : (
@@ -160,7 +206,7 @@ export const TablePagination = ({ TableData, tableTitle, contentLoading }) => {
   );
 };
 
-export const Table = ({ TableData, tableTitle, contentLoading }) => {
+export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
   const [smallMenu, setSmallMenu] = useState(false);
 
   const ToggleSmallMenu = () => {
@@ -170,7 +216,13 @@ export const Table = ({ TableData, tableTitle, contentLoading }) => {
     <div className="TableCompWithDiv">
       <div className="TableCompWithDiv_title">
         {tableTitle}{" "}
-        <div
+        <a
+          href="/dashboard/transaction"
+          className="TableCompWithDiv_title_link"
+        >
+          <button className="TableCompWithDiv_title_btn">View All</button>
+        </a>
+        {/* <div
           className="TableCompWithDiv_title_drop_down"
           onClick={ToggleSmallMenu}
         >
@@ -186,40 +238,10 @@ export const Table = ({ TableData, tableTitle, contentLoading }) => {
               </div>
             </div>
           ) : null}
-        </div>
+        </div> */}
       </div>
       <div className="TableCompWithDiv_cont">
-        {TableData.length <= 0 ? (
-          <>
-            <table className="TableCompWithDiv_cont_table">
-              <thead className="TableCompWithDiv_cont_head">
-                <tr className="TableCompWithDiv_cont_head_titles">
-                  <th className="TableCompWithDiv_cont_head_titles_div TableCompWithDiv_cont_head_titles_div_first">
-                    Product Name
-                  </th>
-                  <th className="TableCompWithDiv_cont_head_titles_div">
-                    Amount
-                  </th>
-                  <th className="TableCompWithDiv_cont_head_titles_div">
-                    Product Brand
-                  </th>
-                  <th className="TableCompWithDiv_cont_head_titles_div">
-                    Date
-                  </th>
-
-                  <th className="TableCompWithDiv_cont_head_titles_div  TableCompWithDiv_cont_head_titles_div_last">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-            </table>
-            <div className="noTransactionData_div">
-              <div className="noTransactionData_div_cont">
-                No Transactions at the moment
-              </div>
-            </div>
-          </>
-        ) : (
+        {contentLoading ? (
           <table className="TableCompWithDiv_cont_table">
             <thead className="TableCompWithDiv_cont_head">
               <tr className="TableCompWithDiv_cont_head_titles">
@@ -239,60 +261,124 @@ export const Table = ({ TableData, tableTitle, contentLoading }) => {
                 </th>
               </tr>
             </thead>
+            <tbody className="stakingTable_body">
+              {dummyData.map((data) => {
+                return (
+                  <tr className="stakingTable_body_row ">
+                    <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                    <td className="stakingTable_body_row_data">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                    <td className="stakingTable_body_row_data">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
 
-            {contentLoading ? (
-              <tbody className="stakingTable_body">
-                {TableData.map((data) => {
-                  return (
-                    <tr className="stakingTable_body_row ">
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-
-                      <td className="stakingTable_body_row_data">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
-                        <ShimmerButton size="md" className="custom_shimmer" />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            ) : (
-              <tbody className="stakingTable_body">
-                {TableData.map((data) => {
-                  return (
-                    <tr className="stakingTable_body_row ">
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_first  ">
-                        {" "}
-                        {data.prodName}
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        {data.amount}
-                      </td>
-                      <td className="stakingTable_body_row_data">
-                        {data.prodBrand}
-                      </td>
-
-                      <td className="stakingTable_body_row_data">
-                        {data.Date}
-                      </td>
-                      <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
-                        {data.status}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+                    <td className="stakingTable_body_row_data">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                    <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                      <ShimmerButton size="md" className="custom_shimmer" />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
+        ) : (
+          <>
+            {TableData.length <= 0 ? (
+              <NodataComp />
+            ) : (
+              <table className="TableCompWithDiv_cont_table">
+                <thead className="TableCompWithDiv_cont_head">
+                  <tr className="TableCompWithDiv_cont_head_titles">
+                    <th className="TableCompWithDiv_cont_head_titles_div TableCompWithDiv_cont_head_titles_div_first">
+                      Type
+                    </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      Amount
+                    </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      From
+                    </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      Date
+                    </th>
+
+                    <th className="TableCompWithDiv_cont_head_titles_div  TableCompWithDiv_cont_head_titles_div_last">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="stakingTable_body">
+                  {TableData.map((data) => {
+                    const metaData = JSON.parse(data.meta);
+                    // Convert the createdAt date to the desired format
+                    const createdAtDate = new Date(data.createdAt);
+                    const formattedDate = `${createdAtDate.getDate()}/${
+                      createdAtDate.getMonth() + 1
+                    }/${createdAtDate.getFullYear()}`;
+
+                    // Extract the part of the email before the "@" symbol
+                    const emailParts = data.email.split("@");
+                    const maskedEmail = `${emailParts[0].slice(0, 8)}...`;
+
+                    return (
+                      <tr className="stakingTable_body_row ">
+                        {data.type === "INTERNAL" &&
+                        metaData.to_username === "cyntax" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="credit">Internal Credit</div>
+                          </td>
+                        ) : data.type === "INTERNAL" &&
+                          metaData.to_username !== "cyntax" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first debit">
+                            <div className="debit">Internal Debit</div>
+                          </td>
+                        ) : (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="normal">{data.type}</div>
+                          </td>
+                        )}
+
+                        <td className="stakingTable_body_row_data">
+                          {metaData.symbol === "NGN" ? "₦" : null}{" "}
+                          {parseFloat(data.amount).toFixed(2)}{" "}
+                          {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
+                        </td>
+                        <td className="stakingTable_body_row_data">
+                          <div className="stakingTable_body_row_email">
+                            {maskedEmail}
+                          </div>
+                        </td>
+
+                        <td className="stakingTable_body_row_data">
+                          {formattedDate}
+                        </td>
+                        <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
+                          <div className="stakingTable_body_row_data_last_div">
+                            {data.status === "SUCCESS" ? (
+                              <div className="stakingTable_body_row_status_success">
+                                {data.status}
+                              </div>
+                            ) : data.status === "PENDING" ? (
+                              <div className="stakingTable_body_row_status_pending">
+                                {data.status}
+                              </div>
+                            ) : (
+                              <>{data.status}</>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </>
         )}
       </div>
     </div>

@@ -20,11 +20,26 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 import KycPage from "../components/KYC/KycPage";
+import Privacy from "../components/PrivacyPolicy/Privacy";
+import TermsAndConditions from "../components/PrivacyPolicy/TermsAndConditions";
+// import
 import StoreIcon from "@mui/icons-material/Store";
 const routes = [
   { name: "Home", path: "", component: <Home />, layout: "/" },
   { name: "Signup", path: "signup", component: <Signup />, layout: "/" },
   { name: "Login", path: "login", component: <Login />, layout: "/" },
+  {
+    name: "Terms & Conditions",
+    path: "terms-conditions",
+    component: <TermsAndConditions />,
+    layout: "/",
+  },
+  {
+    name: "Terms & Conditions",
+    path: "privacy",
+    component: <Privacy />,
+    layout: "/",
+  },
   {
     name: "Membership",
     path: "membership/sub",

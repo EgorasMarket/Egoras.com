@@ -16,6 +16,8 @@ import { setPayload } from "../../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { VERIFY_OTP } from "../../../services/auth";
 import OtpModal from "../../Common/CommonUI/Modals/OtpModal";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // dummySelectData;
 const Signup = () => {
   const navigate = useNavigate();
@@ -31,7 +33,8 @@ const Signup = () => {
   const [errorTxt, setErrorTxt] = useState("");
   const [otpModal, setOtpModal] = useState(false);
   const [otp, setOtp] = useState("");
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible2, setPasswordVisible2] = useState(false);
   useEffect(() => {
     if (otp == "") {
       setOtpDisable(true);
@@ -141,7 +144,7 @@ const Signup = () => {
       setOtpLoading(false);
       return;
     }
-
+    setErrorModal(true);
     setErrorTxt(response.data.errorMessage || "Verification failed!!1");
     setOtpDisable(false);
     setOtpLoading(false);
@@ -150,7 +153,12 @@ const Signup = () => {
   const handleChange = (enteredOtp) => {
     setOtp(enteredOtp);
   };
-
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+  const togglePasswordVisibility2 = () => {
+    setPasswordVisible2(!passwordVisible2);
+  };
   return (
     <div className="signup_div">
       <section
@@ -329,15 +337,29 @@ const Signup = () => {
                   >
                     Password:
                   </label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={payload.password}
-                    name="password"
-                    className="signup_div_section_div_container_form_input"
-                    onChange={handleOnChange}
-                    autoComplete="off"
-                  />
+
+                  <div className="password_div">
+                    <input
+                      type={passwordVisible ? "text" : "password"}
+                      id="password"
+                      value={payload.password}
+                      name="password"
+                      className="signup_div_section_div_container_form_input_pasowrd"
+                      onChange={handleOnChange}
+                      autoComplete="off"
+                    />
+                    {passwordVisible ? (
+                      <VisibilityOffIcon
+                        onClick={togglePasswordVisibility}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    ) : (
+                      <VisibilityIcon
+                        onClick={togglePasswordVisibility}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    )}
+                  </div>
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
@@ -349,15 +371,29 @@ const Signup = () => {
                   >
                     Confirm Password:
                   </label>
-                  <input
-                    type="password"
-                    id="confirm"
-                    value={payload.confirm}
-                    name="confirm"
-                    className="signup_div_section_div_container_form_input"
-                    onChange={handleOnChange}
-                    autoComplete="off"
-                  />
+                  <div className="password_div">
+                    <input
+                      type={passwordVisible2 ? "text" : "password"}
+                      id="confirm"
+                      value={payload.confirm}
+                      name="confirm"
+                      className="signup_div_section_div_container_form_input_pasowrd"
+                      onChange={handleOnChange}
+                      autoComplete="off"
+                    />
+                    {passwordVisible2 ? (
+                      <VisibilityOffIcon
+                        onClick={togglePasswordVisibility2}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    ) : (
+                      <VisibilityIcon
+                        onClick={togglePasswordVisibility2}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    )}
+                  </div>
+
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}

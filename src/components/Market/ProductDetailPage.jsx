@@ -39,8 +39,8 @@ const ProductDetailPage = () => {
       setCount(1);
       return;
     }
-    if (parseFloat(e.target.value) >= ProdQuantity) {
-      setCount(ProdQuantity);
+    if (parseFloat(e.target.value) >= product.quantity) {
+      setCount(product.quantity);
       console.log("ive reached");
       return;
     }
@@ -72,7 +72,7 @@ const ProductDetailPage = () => {
     } else {
       setSubDisable(false);
     }
-    if (count === ProdQuantity) {
+    if (count === product.quantity) {
       setAddDisable(true);
     } else {
       setAddDisable(false);
@@ -362,6 +362,7 @@ const ProductDetailPage = () => {
               {/* ===== */}
               {/* ===== */}
               <div className="ProductDetailPage_section_area_2_amount">
+                ₦
                 {numberWithCommas(
                   parseFloat(count * product.final_amount).toFixed(2)
                 )}
@@ -446,7 +447,7 @@ const ProductDetailPage = () => {
                     Unit Amount
                   </div>
                   <div className="ProductDetailPage_section_area_2_total_div_1_para">
-                    #
+                    ₦
                     {numberWithCommas(
                       parseFloat(product.final_amount).toFixed(2)
                     )}
@@ -457,20 +458,29 @@ const ProductDetailPage = () => {
                     Total
                   </div>
                   <div className="ProductDetailPage_section_area_2_total_div_1_para">
-                    #
+                    ₦
                     {numberWithCommas(
                       parseFloat(count * product.final_amount).toFixed(2)
                     )}
                   </div>
                 </div>
-                <a
-                  href={`/productCheckout/${id}/${count}/${product.product_name}`}
-                  className="ProductDetailPage_section_area_2_total_div_btn_link"
-                >
-                  <button className="ProductDetailPage_section_area_2_total_div_btn">
-                    Proceed to checkout
+                {product.quantity < 0 ? (
+                  <button
+                    className="ProductDetailPage_section_area_2_total_div_btn"
+                    disabled
+                  >
+                    Out Of Stock
                   </button>
-                </a>
+                ) : (
+                  <a
+                    href={`/productCheckout/${id}/${count}/${product.product_name}`}
+                    className="ProductDetailPage_section_area_2_total_div_btn_link"
+                  >
+                    <button className="ProductDetailPage_section_area_2_total_div_btn">
+                      Proceed to checkout
+                    </button>
+                  </a>
+                )}
               </div>
             </div>
           </div>

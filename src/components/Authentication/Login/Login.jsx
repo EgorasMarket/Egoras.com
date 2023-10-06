@@ -8,6 +8,8 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import WebPin from "../../Common/CommonUI/Modals/WebPin";
 import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // dummySelectData;
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ const Login = () => {
   const [errorModal, setErrorModal] = useState(false);
   const [errorTxt, setErrorTxt] = useState("");
   const [pinModal, setPinModal] = useState(false);
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const handleLogin = async () => {
     setDisable(true);
     const { email, password } = values;
@@ -72,7 +74,9 @@ const Login = () => {
       setDisable(true);
     }
   }, [values]);
-
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   return (
     <div className="signup_div">
       <section
@@ -109,14 +113,28 @@ const Login = () => {
               >
                 Password:
               </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                onChange={handleOnChange}
-                className="signup_div_section_div_container_form_input"
-                autoComplete="off"
-              />
+              <div className="password_div">
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  onChange={handleOnChange}
+                  className="signup_div_section_div_container_form_input_pasowrd"
+                  autoComplete="off"
+                />
+                {passwordVisible ? (
+                  <VisibilityOffIcon
+                    onClick={togglePasswordVisibility}
+                    className="otp_modal_container_body_icon2"
+                  />
+                ) : (
+                  <VisibilityIcon
+                    onClick={togglePasswordVisibility}
+                    className="otp_modal_container_body_icon2"
+                  />
+                )}
+              </div>
+
               {/* ============ */}
               {/* ============ */}
               {/* ============ */}

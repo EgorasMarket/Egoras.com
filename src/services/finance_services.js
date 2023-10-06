@@ -8,6 +8,7 @@ import {
   SEND_CRYPTO_INTERNAL_ROUTE,
   VERIFY_ACCOUNT_NUMBER_ROUTE,
   GET_WALLET_BALANCES,
+  GET_WALLET_TRANSACTIONS,
 } from "../core/ApiRoutes";
 import setAuthToken from "../utils/setAuthToken";
 export const GET_WALLET = async (payload) => {
@@ -87,6 +88,15 @@ export const FETCH_WALLET_BALANCES = async (payload) => {
   setAuthToken(localStorage.getItem("x-token"));
   try {
     const res = await axios.get(GET_WALLET_BALANCES, payload);
+    return res.data;
+  } catch (error) {
+    return error.response || error.message;
+  }
+};
+export const FETCH_WALLET_TRANSACTIONS = async () => {
+  setAuthToken(localStorage.getItem("x-token"));
+  try {
+    const res = await axios.get(GET_WALLET_TRANSACTIONS);
     return res.data;
   } catch (error) {
     return error.response || error.message;

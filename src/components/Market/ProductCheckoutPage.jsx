@@ -51,6 +51,9 @@ const ProductCheckoutPage = () => {
   const [selectedState, setSelectedState] = useState("");
   const [deliveryVal, setDeliveryVal] = useState("");
   const [successTxt, setSuccessTxt] = useState("");
+  const [deliverBtnDisable, setDeliverBtnDisable] = useState("");
+  const [deliverBtnDisable2, setDeliverBtnDisable2] = useState("");
+  const [isDeliverLoading, setIsDeliverLoading] = useState("");
   const [payload, setPayload] = useState({
     type: "product",
     product_id: id,
@@ -137,6 +140,20 @@ const ProductCheckoutPage = () => {
     setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
     setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
   }, []);
+  useEffect(() => {
+    if (selectedState == "" || deliveryVal == "") {
+      setDeliverBtnDisable(true);
+    } else {
+      setDeliverBtnDisable(false);
+    }
+  }, [selectedState, deliveryVal]);
+  useEffect(() => {
+    if (deliveryVal === "") {
+      setDeliverBtnDisable2(true);
+    } else {
+      setDeliverBtnDisable2(false);
+    }
+  }, [deliveryVal]);
 
   const handleStateOnChange = (e) => {
     console.log(e);
@@ -159,6 +176,7 @@ const ProductCheckoutPage = () => {
   };
 
   const handleDelivery = async () => {
+    setIsDeliverLoading(true);
     const values = {
       email: user.email,
       delivery_type: deliveryVal,
@@ -169,6 +187,7 @@ const ProductCheckoutPage = () => {
     const response = await SUBMIT_USER_DELIEVRY(id, values);
     console.log(response);
     if (response.success === true) {
+      setIsDeliverLoading(false);
       setSuccessModal(true);
       setSuccessTxt(
         "You have selcted to pick up your product on delivery, our customer service will reach out to you soon."
@@ -177,6 +196,7 @@ const ProductCheckoutPage = () => {
       return;
     }
     if (!response?.data?.success || !response?.data) {
+      setIsDeliverLoading(false);
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
       console.log(response);
@@ -184,6 +204,7 @@ const ProductCheckoutPage = () => {
     }
   };
   const handleDeliveryStore = async () => {
+    setIsDeliverLoading(true);
     const values = {
       email: user.email,
       delivery_type: deliveryVal,
@@ -193,6 +214,8 @@ const ProductCheckoutPage = () => {
     const response = await SUBMIT_USER_DELIEVRY(id, values);
     console.log(response);
     if (response.success === true) {
+      setIsDeliverLoading(false);
+
       setSuccessModal(true);
       setSuccessTxt(
         <div className="pickupFromStoreDiv">
@@ -214,6 +237,8 @@ const ProductCheckoutPage = () => {
       return;
     }
     if (!response?.data?.success || !response?.data) {
+      setIsDeliverLoading(false);
+
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
       console.log(response);
@@ -455,6 +480,7 @@ const ProductCheckoutPage = () => {
                     Sub Total
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_1_area2_cont1_para">
+                    ₦
                     {numberWithCommas(
                       parseFloat(product.final_amount * count).toFixed(2)
                     )}
@@ -648,6 +674,7 @@ const ProductCheckoutPage = () => {
                     Unit Amount
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
+                    ₦
                     {numberWithCommas(
                       parseFloat(product.final_amount).toFixed(2)
                     )}
@@ -666,6 +693,7 @@ const ProductCheckoutPage = () => {
                     Total
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area3_cont_para">
+                    ₦
                     {numberWithCommas(
                       parseFloat(product.final_amount * count).toFixed(2)
                     )}
@@ -740,25 +768,6 @@ const ProductCheckoutPage = () => {
                   <div className="successCheckoutDiv_cont_body_2_body_1_div">
                     <input
                       type="radio"
-                      id="radio-1"
-                      name="radio"
-                      // checked={checkedMetamask}
-                      onChange={checkedPickupDelivery}
-                    />
-                    <label
-                      className={
-                        deliveryVal === "DELIVERY"
-                          ? "successCheckoutDiv_cont_body_2_body_1 successCheckoutDiv_cont_body_2_body_1_active"
-                          : "successCheckoutDiv_cont_body_2_body_1"
-                      }
-                      for="radio-1"
-                    >
-                      Pick up on delivery
-                    </label>
-                  </div>
-                  <div className="successCheckoutDiv_cont_body_2_body_1_div">
-                    <input
-                      type="radio"
                       id="radio-2"
                       name="radio"
                       // checked={checkedMetamask}
@@ -775,7 +784,27 @@ const ProductCheckoutPage = () => {
                       Pick up from store
                     </label>
                   </div>
-                  {deliveryVal === "PICKUP" ? null : (
+                  <div className="successCheckoutDiv_cont_body_2_body_1_div">
+                    <input
+                      type="radio"
+                      id="radio-1"
+                      name="radio"
+                      // checked={checkedMetamask}
+                      onChange={checkedPickupDelivery}
+                    />
+                    <label
+                      className={
+                        deliveryVal === "DELIVERY"
+                          ? "successCheckoutDiv_cont_body_2_body_1 successCheckoutDiv_cont_body_2_body_1_active"
+                          : "successCheckoutDiv_cont_body_2_body_1"
+                      }
+                      for="radio-1"
+                    >
+                      Pick up on delivery
+                    </label>
+                  </div>
+
+                  {deliveryVal === "DELIVERY" ? (
                     <Select
                       placeholder="Select State"
                       classNamePrefix="select"
@@ -787,18 +816,35 @@ const ProductCheckoutPage = () => {
                       name="state"
                       options={states}
                     />
-                  )}
+                  ) : null}
                   {deliveryVal === "PICKUP" ? (
                     <button
                       className="successCheckoutDiv_cont_body_2_body_submit"
                       onClick={handleDeliveryStore}
+                      disabled={deliverBtnDisable2}
                     >
-                      Submit
+                      {isDeliverLoading ? (
+                        <ScaleLoader color="#366e51" height={20} />
+                      ) : (
+                        " Submit"
+                      )}
+                    </button>
+                  ) : deliveryVal === "DELIVERY" ? (
+                    <button
+                      className="successCheckoutDiv_cont_body_2_body_submit"
+                      onClick={handleDelivery}
+                      disabled={deliverBtnDisable}
+                    >
+                      {isDeliverLoading ? (
+                        <ScaleLoader color="#366e51" height={20} />
+                      ) : (
+                        " Submit"
+                      )}
                     </button>
                   ) : (
                     <button
                       className="successCheckoutDiv_cont_body_2_body_submit"
-                      onClick={handleDelivery}
+                      disabled={true}
                     >
                       Submit
                     </button>
