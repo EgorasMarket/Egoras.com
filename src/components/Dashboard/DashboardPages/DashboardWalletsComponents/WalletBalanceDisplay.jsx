@@ -35,7 +35,7 @@ const WalletBalanceDisplay = ({
           ) : (
             <>
               <div className="DashboardWalletsDiv_area2_cont2_area1_profit">
-                +30.01 {walletsymbol}
+                _ _ _
               </div>
             </>
           )}

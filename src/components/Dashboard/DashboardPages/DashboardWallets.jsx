@@ -13,7 +13,8 @@ import DepositNairaUser from "./DashboardWalletsComponents/depositNairaUser";
 import DepositNairaFromBank from "./DashboardWalletsComponents/depositNairaFromBank";
 import WithdrawNairaToBank from "./DashboardWalletsComponents/withdrawNairaToBank";
 import WithdrawNairaToUser from "./DashboardWalletsComponents/withdrawNairaToUser";
-import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
+import { TablePagination, Table } from "../../Common/CommonUI/Tables/TableComp";
+import { FETCH_WALLET_TRANSACTIONS } from "../../../services/finance_services";
 import Staticdata from "../../../assets/json/Static";
 import { useSelector } from "react-redux";
 
@@ -35,7 +36,7 @@ const DashboardWallets = () => {
   const [nairaBankWithdrawal, setNairaBankWithdrawal] = useState(false);
   const [nairaUserWithdrawal, setNairaUserWithdrawal] = useState(false);
   const [contentLoadingTable, setContentLoadingTable] = useState(true);
-
+  const [tableData, setTableData] = useState([]);
   const ToggleActiveTab = (e) => [setActiveTab(e.currentTarget.id)];
 
   const ToggleDepositMoneyModal = () => {
@@ -100,6 +101,23 @@ const DashboardWallets = () => {
     setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
     setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
   }, []);
+  const fetchWalletTransactions = async () => {
+    setContentLoadingTable(true);
+    const response = await FETCH_WALLET_TRANSACTIONS();
+    if (response.success === true) {
+      setContentLoadingTable(false);
+      setTableData(response.data);
+    } else {
+      setContentLoadingTable(true);
+      //  setTableData([]);
+    }
+    console.log(response.data);
+    console.log(response);
+  };
+  useEffect(() => {
+    fetchWalletTransactions();
+  }, []);
+
   return (
     <div className="DashboardWalletsDiv">
       <div className="DashboardWalletsDiv_area1">
@@ -148,10 +166,13 @@ const DashboardWallets = () => {
           />
         ) : null}
         <div className="DashboardWalletsDiv_area3">
-          <TablePagination
+          <Table
             tableTitle={"Wallet Transactions"}
-            TableData={Staticdata.productsTableData}
+            TableData={tableData
+              .filter((data) => data.type !== "PURCHASE")
+              .slice(0, 8)}
             contentLoading={contentLoadingTable}
+            dummyData={Staticdata.productsTableData.slice(0, 8)}
           />
         </div>
       </div>

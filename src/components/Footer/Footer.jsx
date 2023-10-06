@@ -18,51 +18,73 @@ const Footer = () => {
     return () => clearInterval(intervalId);
   }, []);
   return (
-    <div className="footerDiv">
-      <div className="custom_container">
-        <div className="footerDiv_area">
-          <div className="footerDiv_area_1">
-            <div className="footerDiv_area_1_img_div">
-              <img
-                src="/img/egoras-logo.png"
-                alt=""
-                className="footerDiv_area_1_img"
-              />
+    <div className="footerDiv" id="footer">
+      <div className="container">
+        <div className="footerDivArea">
+          <div className="footerDiv1">
+            <div className="footerDiv1_area1">
+              <div className="footerDiv1_area1_cont1">
+                <img
+                  src="/img/egoras-logo.png"
+                  alt=""
+                  className="footerDiv1_img2"
+                />
+              </div>
+              <div className="footerDiv1_area1_cont2">
+                <div className="footerDiv1_area1_cont2_links">
+                  <a href="https://twitter.com/egorasHQ">
+                    <TwitterIcon className="footerDiv1_area1_cont2_links_link1" />
+                  </a>
+                  <a href="https://ng.linkedin.com/company/egorashq">
+                    <LinkedInIcon className="footerDiv1_area1_cont2_links_link1" />
+                  </a>
+                  <a href="https://www.facebook.com/egorasmarket/">
+                    <FacebookIcon className="footerDiv1_area1_cont2_links_link1" />
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="footerDiv_area_1_socials_div">
-              <a
-                href="https://www.facebook.com/egorasmarket/"
-                className="footerDiv_area_1_socials_div_link1"
-                target="_blank"
-              >
-                <FacebookIcon className="footerDiv_area_1_socials_div_link1_icon" />
-              </a>
-              <a
-                href="https://twitter.com/egorasHQ"
-                className="footerDiv_area_1_socials_div_link1"
-                target="_blank"
-              >
-                <TwitterIcon className="footerDiv_area_1_socials_div_link1_icon" />
-              </a>
-              <a
-                href="https://ng.linkedin.com/company/egorashq"
-                className="footerDiv_area_1_socials_div_link1"
-                target="_blank"
-              >
-                <LinkedInIcon className="footerDiv_area_1_socials_div_link1_icon" />
-              </a>
-              <a
-                href="https://t.me/s/egorasmarket?before=480"
-                className="footerDiv_area_1_socials_div_link1"
-                target="_blank"
-              >
-                <TelegramIcon className="footerDiv_area_1_socials_div_link1_icon" />
-              </a>
+            <div className="footerDiv1_area2">
+              <div className="footerDiv1_area2_cont1">
+                <div className="footerDiv1_area2_title">Company</div>
+                <div className="footerDiv1_area2_title_subLinks_div">
+                  <a
+                    href="/privacy"
+                    className="footerDiv1_area2_title_subLinks_div_link1"
+                  >
+                    Privacy Policy
+                  </a>
+                  <a
+                    href="/terms-conditions"
+                    className="footerDiv1_area2_title_subLinks_div_link1"
+                  >
+                    Terms & conditions
+                  </a>
+                  {/* <a
+                    href="/about"
+                    className="footerDiv1_area2_title_subLinks_div_link1"
+                  >
+                    About Us
+                  </a> */}
+                </div>
+              </div>
+              <div className="footerDiv1_area2_cont1">
+                <div className="footerDiv1_area2_title">Need Help?</div>
+                <div className="footerDiv1_area2_title_subLinks_div">
+                  <a
+                    href="#"
+                    className="footerDiv1_area2_title_subLinks_div_link1"
+                  >
+                    support@egoras.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="footerDiv_area_2">
-            &copy; {currentYear} Egoras Technologies LTD(RC - 1832671). All
-            rights reserved.
+
+          <hr className="footer_hr" />
+          <div className="footer_lastDiv">
+            © {currentYear} Fort Technologies, ltd.
           </div>
         </div>
       </div>

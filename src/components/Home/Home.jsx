@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import Staticdata from "../../assets/json/Static";
 import { useDispatch, useSelector } from "react-redux";
+import { numberWithCommas } from "../../assets/js/numberWithCommas";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -207,8 +208,19 @@ const Home = () => {
                         {data.name} <br /> ({data.model})
                       </div>
                       <div className="HomeDivSection3_area_swiper_slide_div_txt_amount">
-                        From #{data.start_price}
+                        From ₦
+                        {numberWithCommas(
+                          parseFloat(data.start_price).toFixed(2)
+                        )}
                       </div>
+                      <a
+                        href={`/productdetailorder/${data.prodId}/${data.prodName}`}
+                        style={{ marginTop: "10px" }}
+                      >
+                        <button className="HomeDivSection3_area_swiper_slide_div_txt_btn">
+                          Order Product
+                        </button>
+                      </a>
                     </div>
                   )}
 
@@ -258,14 +270,7 @@ const Home = () => {
       {/* ================= */}
       {/* ================= */}
       {/* ================= */}
-      <section className="HomeDivSection4">
-        {/* <div className="custom_container"> */}
-        <div className="HomeDivSection4_area">
-          <div className="HomeDivSection4_area1"></div>
-          <div className="HomeDivSection4_area2"></div>
-        </div>
-        {/* </div> */}
-      </section>
+
       {/* ====================== */}
       {/* ====================== */}
       {/* ====================== */}
@@ -274,7 +279,7 @@ const Home = () => {
       {/* ====================== */}
       {/* ====================== */}
       {/* ====================== */}
-      <section className="ProductDetailDiv_last_section">
+      {/* <section className="ProductDetailDiv_last_section">
         <div className="custom_container">
           <div className="ProductDetailDiv_last_section_area">
             <img
@@ -294,6 +299,62 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </section> */}
+      <section className="landingPageSectionlast">
+        <div className="container">
+          <div className="landingPageSectionlast_area">
+            <div className="landingPageSectionlast_area_1">
+              <div className="landingPageSectionlast_area_1_title">
+                Get the Egopay <br /> App!
+              </div>
+              <div className="landingPageSectionlast_area_1_btn_div">
+                <a
+                  href="https://play.google.com/store/apps/details?id=ng.fort.pay"
+                  className="landingPageSection1_area1_div3_btn1_link"
+                >
+                  <button className="landingPageSection1_area1_div3_btn1">
+                    <div className="landingPageSection1_area1_div3_btn1_cont1">
+                      <img
+                        src="/img/playstore_black_icon.svg"
+                        alt=""
+                        className="landingPageSection1_area1_div3_btn1_cont1_img"
+                      />
+                    </div>
+                    <div className="landingPageSection1_area1_div3_btn1_cont2">
+                      <div className="landingPageSection1_area1_div3_btn1_cont2_area1">
+                        Available on
+                      </div>
+                      <div className="landingPageSection1_area1_div3_btn1_cont2_area2">
+                        Play Store
+                      </div>
+                    </div>
+                  </button>
+                </a>
+                <a
+                  href="/login"
+                  rel="noopener noreferrer"
+                  className="landingPageSection1_area1_div3_btn1_link"
+                >
+                  <button className="landingPageSection1_area1_div3_btn1_join">
+                    Join Egoras
+                  </button>
+                </a>
+              </div>
+            </div>
+            <div className="landingPageSectionlast_area_2">
+              <img
+                src="/img/download_now_screen.png"
+                alt=""
+                className="landingPageSectionlast_area_2_img"
+              />
+            </div>
+          </div>
+        </div>
+        <img
+          src="/img/hero_bg_lines.svg"
+          alt=""
+          className="landingPageSection1_img_lines"
+        />
       </section>
       {/* ====================== */}
       {/* ====================== */}

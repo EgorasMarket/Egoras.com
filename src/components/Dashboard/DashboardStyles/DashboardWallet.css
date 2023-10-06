@@ -387,6 +387,34 @@
   margin-top: 2em;
   margin-bottom: 6em;
 }
+.depositMoneyDiv_cont_body_wallet_addr_div_btn .tooltiptext {
+  display: none;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 106%;
+  left: -100%;
+  margin-left: -100px;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
 @media screen and (max-width: 1000px) {
   .DashboardWalletsDiv_area2_cont2 {
     display: flex;

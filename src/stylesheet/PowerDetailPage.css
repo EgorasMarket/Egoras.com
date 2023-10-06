@@ -166,6 +166,11 @@ svg.star-svg {
   font-weight: 500;
   width: 100%;
 }
+.ProductDetailPage_section_area_2_total_div_btn:disabled {
+  background: #22553a;
+  color: #549673;
+  cursor: not-allowed;
+}
 .ProductDetailPage_section_area_2_total_div_btn_link {
   width: 100%;
 }

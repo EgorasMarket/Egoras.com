@@ -4,7 +4,7 @@ import { NumericFormat } from "react-number-format";
 export const numberWithCommas = (x) => {
   return (
     <>
-      ₦<NumericFormat value={x} displayType="text" thousandSeparator={true} />
+      <NumericFormat value={x} displayType="text" thousandSeparator={true} />
     </>
   );
 };

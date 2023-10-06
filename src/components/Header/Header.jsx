@@ -9,6 +9,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import { useSelector } from "react-redux";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import Staticdata from "../../assets/json/Static";
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const [headerMenu, setHeaderMenu] = useState(false);
@@ -182,7 +183,7 @@ const Header = () => {
                   Back
                 </div>
                 <div className="headerMenuDiv_cont_model_list_div">
-                  {Models.map((data) => (
+                  {Staticdata.egr_models_carous2.map((data) => (
                     <div
                       id={data.id}
                       className="headerMenuDiv_cont_model_list_div_1"
@@ -203,16 +204,8 @@ const Header = () => {
                             <div className="headerMenuDiv_cont_model_list_div_1_hovered_cont">
                               <div className="headerMenuDiv_cont_model_list_div_1_hovered_buttons">
                                 <a
-                                  className="headerMenuDiv_cont_model_list_div_1_hovered_buttons_link1"
-                                  href={`/productdetail/${data.id}/${data.productName}`}
-                                >
-                                  <button className="headerMenuDiv_cont_model_list_div_1_hovered_button1">
-                                    View Product
-                                  </button>
-                                </a>
-                                <a
                                   className="headerMenuDiv_cont_model_list_div_1_hovered_buttons_link2"
-                                  href={`/productdetailorder/${data.id}/${data.productName}`}
+                                  href={`/productdetailorder/${data.prodId}/${data.prodName}`}
                                 >
                                   <button className="headerMenuDiv_cont_model_list_div_1_hovered_button2">
                                     Order Product
@@ -245,22 +238,18 @@ const Header = () => {
                   </div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
                 </a>
-                <div className="headerMenuDiv_cont_cont1">
-                  <div className="headerMenuDiv_cont_cont1_title">About</div>
+                <a href="/privacy" className="headerMenuDiv_cont_cont1">
+                  <div className="headerMenuDiv_cont_cont1_title">Privacy</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
-                </div>
-                <div className="headerMenuDiv_cont_cont1">
+                </a>
+                <a
+                  href="https://www.martgpt.org/"
+                  target="_blank"
+                  className="headerMenuDiv_cont_cont1"
+                >
                   <div className="headerMenuDiv_cont_cont1_title">Martgpt</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
-                </div>
-                <div className="headerMenuDiv_cont_cont1">
-                  <div className="headerMenuDiv_cont_cont1_title">Egopay</div>
-                  <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
-                </div>
-                <div className="headerMenuDiv_cont_cont1">
-                  <div className="headerMenuDiv_cont_cont1_title">Fort</div>
-                  <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
-                </div>
+                </a>
               </div>
             )}
           </div>
