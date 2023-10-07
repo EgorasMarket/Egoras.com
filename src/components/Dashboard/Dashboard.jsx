@@ -17,6 +17,7 @@ const Dashboard = () => {
     if (user === null || (user === undefined && loading === false)) {
       window.location.href = "/login";
     }
+    console.log(user);
   }, [user]);
   useEffect(() => {
     const currentRoute = routes.find(
