@@ -52,7 +52,7 @@ const Privacy = () => {
               </div>
               <p className="AboutUsPara" data-aos="fade-right">
                 This Privacy and Cookie Notice provides information on how
-                fortdao collects and processes your personal data when you visit
+                egoras collects and processes your personal data when you visit
                 our website or mobile applications.
               </p>
             </div>
@@ -71,8 +71,8 @@ const Privacy = () => {
                 continually improve our products and services. We may collect,
                 use, store and transfer the following different kinds of
                 personal data about you: Here for marketing and personal data
-                optimization purposes. fortdao also uses Google Digital
-                Marketing to propose targeted offers. To find out more:
+                optimization purposes. egoras also uses Google Digital Marketing
+                to propose targeted offers. To find out more:
                 <br />
                 <br /> Information you provide to us: We receive and store the
                 information you provide to us including your identity data,
@@ -80,7 +80,7 @@ const Privacy = () => {
                 <br />
                 <br /> Information on your use of our website and/or mobile
                 applications: We automatically collect and store certain types
-                of information regarding your use of the fortdao including
+                of information regarding your use of the egoras including
                 information about your searches, views, downloads and
                 transactions.
                 <br />
