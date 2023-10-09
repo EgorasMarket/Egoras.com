@@ -144,7 +144,7 @@
   backdrop-filter: blur(3px);
   display: flex;
   justify-content: flex-end;
-  z-index: 10;
+  z-index: 1100;
 }
 .depositMoneyDiv_cont {
   background: #161619;
@@ -218,6 +218,9 @@
   font-size: 28px !important;
   cursor: pointer;
   z-index: 100;
+  background: #000000b3;
+  border-radius: 5px;
+  padding: 4px;
 }
 .depositMoneyDiv_cont_2 {
   border-top: solid 1px #2b2b31;
@@ -459,6 +462,9 @@
     font-size: 14px;
   }
   .DashboardWalletsDiv_area2_cont1 {
+    font-size: 14px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_bal_span {
     font-size: 14px;
   }
 }

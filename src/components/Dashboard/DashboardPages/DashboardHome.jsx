@@ -141,6 +141,10 @@ const DashboardHome = () => {
     }
     return null;
   };
+
+  console.log("====================================");
+  console.log(user, "yyyyyyyyy");
+  console.log("====================================");
   useEffect(() => {
     console.log(data);
     console.log(data[0]?.value);
@@ -551,7 +555,7 @@ const DashboardHome = () => {
                                   {data.product_name}
                                 </div>
                                 <div className="dash_home_products_div_body_brand">
-                                  Egoras
+                                  Brand: Egoras
                                 </div>
                                 <div className="dash_home_products_div_body_amount">
                                   ₦
@@ -621,10 +625,13 @@ const DashboardHome = () => {
                               {data.product_name}
                             </div>
                             <div className="dash_home_products_div_body_brand">
-                              Egoras
+                              Brand: Egoras
                             </div>
                             <div className="dash_home_products_div_body_amount">
-                              ₦{parseFloat(data.final_amount).toFixed(2)}
+                              ₦
+                              {numberWithCommas(
+                                parseFloat(data.final_amount).toFixed(2)
+                              )}
                             </div>
                             <div className="dash_home_products_div_body_btn_div">
                               <a
@@ -694,8 +701,8 @@ const DashboardHome = () => {
           TableData={tableData.slice(0, 8)}
           dummyData={Staticdata.productsTableData.slice(0, 8)}
           contentLoading={contentLoadingTable}
+          userName={user.username}
         />
-
         {/* <div className="dashboardHome_area3_btn_div">
           <a
             href="/dashboard/transaction"

@@ -147,6 +147,9 @@
   font-size: 13px;
   border-bottom: solid 1px #33333d;
 }
+.stakingTable_body_row:hover {
+  background: #1c1c20;
+}
 .stakingTable_body_row_data {
   box-sizing: border-box;
   margin: 0px;
@@ -187,7 +190,9 @@
   padding: 5px 10px;
   background: #1f1f24;
   width: fit-content;
-  border-radius: 8px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .debit {
@@ -195,14 +200,28 @@
   background: #431414;
   width: -moz-fit-content;
   width: fit-content;
-  border-radius: 8px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+.stakingTable_body_row_data_icon {
+  font-size: 14px !important;
+  margin-left: 0px;
+}
+.stakingTable_body_row_data_img {
+  width: 10px;
+  border-radius: 50%;
+  /* opacity: .6; */
+  margin-right: 5px;
 }
 .credit {
   padding: 5px 10px;
   background: #19492e;
   width: -moz-fit-content;
   width: fit-content;
-  border-radius: 8px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
 }
 .stakingTable_body_row_status_pending {
   padding: 5px 10px;
@@ -222,6 +241,73 @@
 .stakingTable_body_row_data_last_div {
   display: flex;
   justify-content: flex-end;
+}
+.stakingTable_body_row_email {
+  border: solid 1px #28312c;
+  padding: 5px 10px;
+  width: fit-content;
+  border-radius: 31px;
+  margin: auto;
+}
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+  justify-content: flex-end;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+.page-link {
+  position: relative;
+  display: block;
+  /* padding: 0.5rem 0.75rem; */
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #000000 !important;
+  background-color: #1a2b22 !important;
+  border: 1px solid #1a251f !important;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff !important;
+}
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff !important;
+  background-color: #22ad62 !important;
+  border-color: #22ad62 !important;
+}
+.pagination_header_body_cont1 {
+  font-size: 22px;
+}
+.depositMoneyDiv_table_body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4em;
+}
+
+.depositMoneyDiv_table_body_title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  border-bottom: solid 1px #4b4b53;
+  padding-bottom: 10px;
+}
+.depositMoneyDiv_table_body_cont {
+  display: flex;
+  flex-direction: column;
+}
+.depositMoneyDiv_table_body_cont_1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 0em;
+  font-size: 14px;
+}
+.depositMoneyDiv_table_body_cont_1_div1 {
+  color: #9797a7;
 }
 @media screen and (max-width: 767px) {
   .TableCompWithDiv {

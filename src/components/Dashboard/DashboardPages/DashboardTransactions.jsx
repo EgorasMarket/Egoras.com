@@ -4,8 +4,10 @@ import { FETCH_WALLET_TRANSACTIONS } from "../../../services/finance_services";
 import Staticdata from "../../../assets/json/Static";
 import "../DashboardStyles/dashboardTransactions.css";
 import { ShimmerButton } from "react-shimmer-effects-18";
+import { useSelector } from "react-redux";
 
 const DashboardTransactions = () => {
+  const { user } = useSelector((state) => state.auth);
   const [contentLoadingTable, setContentLoadingTable] = useState(true);
   const [tableData, setTableData] = useState([]);
   const fetchWalletTransactions = async () => {
@@ -49,6 +51,8 @@ const DashboardTransactions = () => {
           contentLoading={contentLoadingTable}
           dummyData={Staticdata.productsTableData.slice(0, 8)}
           view={false}
+          userName={user.username}
+          email={user.email}
         />
       </div>
     </div>

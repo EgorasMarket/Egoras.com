@@ -5,7 +5,10 @@ import { ShimmerButton } from "react-shimmer-effects-18";
 import Staticdata from "../../../../assets/json/Static";
 import NodataComp from "../NodataComp";
 import "./TableComp.css";
+import NorthEastIcon from "@mui/icons-material/NorthEast";
+import SouthWestIcon from "@mui/icons-material/SouthWest";
 import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
+import TableModal from "./TableModal";
 // ======
 // ======
 // ======
@@ -15,7 +18,10 @@ export const TablePagination = ({
   tableTitle,
   contentLoading,
   dummyData,
+  userName,
+  email,
 }) => {
+  const [saleDetails, setSaleDetails] = useState("");
   const [smallMenu, setSmallMenu] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const PER_PAGE = 8;
@@ -23,9 +29,27 @@ export const TablePagination = ({
   function handlePageClick({ selected: selectedPage }) {
     setCurrentPage(selectedPage);
   }
+  const updatedTransactions = TableData.map((transaction) => {
+    if (transaction.type === "DEPOSIT") {
+      transaction.type = "Credit";
+    } else if (
+      transaction.type === "CASHOUT" ||
+      transaction.type === "WITHDRAWAL"
+    ) {
+      transaction.type = "Debit";
+    }
+    return transaction;
+  });
+  const ToggleSaleDetails = (product_id) => {
+    setSaleDetails(product_id);
+    console.log(product_id);
+  };
   const offset = currentPage * PER_PAGE;
-  const pageCount = Math.ceil(TableData.length / PER_PAGE);
-  const currentTransactions = TableData.slice(offset, offset + PER_PAGE);
+  const pageCount = Math.ceil(updatedTransactions.length / PER_PAGE);
+  const currentTransactions = updatedTransactions.slice(
+    offset,
+    offset + PER_PAGE
+  );
   console.log(currentTransactions);
 
   const ToggleSmallMenu = () => {
@@ -121,10 +145,14 @@ export const TablePagination = ({
                       Amount
                     </th>
                     <th className="TableCompWithDiv_cont_head_titles_div">
-                      From
+                      To
                     </th>
+
                     <th className="TableCompWithDiv_cont_head_titles_div">
                       Date
+                    </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      Time
                     </th>
 
                     <th className="TableCompWithDiv_cont_head_titles_div  TableCompWithDiv_cont_head_titles_div_last">
@@ -140,26 +168,94 @@ export const TablePagination = ({
                     const formattedDate = `${createdAtDate.getDate()}/${
                       createdAtDate.getMonth() + 1
                     }/${createdAtDate.getFullYear()}`;
+                    console.log("====================================");
+                    console.log(metaData);
+                    console.log("====================================");
 
-                    // Extract the part of the email before the "@" symbol
-                    const emailParts = data.email.split("@");
-                    const maskedEmail = `${emailParts[0].slice(0, 8)}...`;
+                    const timestamp = data.createdAt;
 
+                    // Parse the timestamp into a Date object
+                    const date = new Date(timestamp);
+
+                    // Get the hours and minutes
+                    const hours = date.getHours();
+                    const minutes = date.getMinutes();
+
+                    // Format the time
+                    const formattedTime = `${hours % 12}:${minutes
+                      .toString()
+                      .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
+
+                    console.log(formattedTime);
                     return (
-                      <tr className="stakingTable_body_row ">
-                        {data.type === "INTERNAL" &&
-                        metaData.to_username === "cyntax" ? (
+                      <tr
+                        className="stakingTable_body_row "
+                        id={data.id}
+                        onClick={() => {
+                          ToggleSaleDetails(data.id);
+                        }}
+                      >
+                        {metaData.to_username === userName &&
+                        data.type === "INTERNAL" ? (
                           <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
-                            <div className="credit">Internal Credit</div>
+                            <div className="credit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              Credit{" "}
+                              <SouthWestIcon className="stakingTable_body_row_data_icon" />{" "}
+                            </div>
                           </td>
-                        ) : data.type === "INTERNAL" &&
-                          metaData.to_username !== "cyntax" ? (
+                        ) : metaData.to_username !== userName &&
+                          data.type === "INTERNAL" ? (
                           <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
-                            <div className="debit">Internal Debit</div>
+                            <div className="debit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              Debit{" "}
+                              <NorthEastIcon className="stakingTable_body_row_data_icon" />
+                            </div>
+                          </td>
+                        ) : data.type === "Credit" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="credit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              {data.type}{" "}
+                              <SouthWestIcon className="stakingTable_body_row_data_icon" />{" "}
+                            </div>
+                          </td>
+                        ) : data.type === "Debit" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="debit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              {data.type}
+                              <NorthEastIcon className="stakingTable_body_row_data_icon" />{" "}
+                            </div>
                           </td>
                         ) : (
                           <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
-                            <div className="normal">{data.type}</div>
+                            <div className="normal">
+                              {" "}
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              {data.type}
+                            </div>
                           </td>
                         )}
 
@@ -168,14 +264,18 @@ export const TablePagination = ({
                           {numberWithCommas(parseFloat(data.amount).toFixed(2))}{" "}
                           {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
                         </td>
+
                         <td className="stakingTable_body_row_data">
                           <div className="stakingTable_body_row_email">
-                            {maskedEmail}
+                            @{`${data.to_email.slice(0, 8)}...`}
                           </div>
                         </td>
 
                         <td className="stakingTable_body_row_data">
                           {formattedDate}
+                        </td>
+                        <td className="stakingTable_body_row_data">
+                          {formattedTime}
                         </td>
                         <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
                           <div className="stakingTable_body_row_data_last_div">
@@ -204,16 +304,84 @@ export const TablePagination = ({
       {currentTransactions.length <= 0 ? null : (
         <Paginate pageCount={pageCount} handlePageClick={handlePageClick} />
       )}
+
+      {saleDetails === ""
+        ? null
+        : currentTransactions.map((data) => {
+            const metaData = JSON.parse(data.meta);
+            // Convert the createdAt date to the desired format
+            const createdAtDate = new Date(data.createdAt);
+            const formattedDate = `${createdAtDate.getDate()}/${
+              createdAtDate.getMonth() + 1
+            }/${createdAtDate.getFullYear()}`;
+            console.log("====================================");
+            console.log(metaData);
+            console.log("====================================");
+
+            const timestamp = data.createdAt;
+
+            // Parse the timestamp into a Date object
+            const date = new Date(timestamp);
+
+            // Get the hours and minutes
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+
+            // Format the time
+            const formattedTime = `${hours % 12}:${minutes
+              .toString()
+              .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
+
+            console.log(formattedTime);
+
+            return (
+              <>
+                {data.id === saleDetails ? (
+                  <div>
+                    <TableModal
+                      closeModal={ToggleSaleDetails}
+                      data={data}
+                      metaData={metaData}
+                      userName={userName}
+                      formattedDate={formattedDate}
+                      formattedTime={formattedTime}
+                    />
+                  </div>
+                ) : null}
+              </>
+            );
+          })}
     </div>
   );
 };
 
-export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
+export const Table = ({
+  TableData,
+  tableTitle,
+  contentLoading,
+  dummyData,
+  userName,
+}) => {
   const [smallMenu, setSmallMenu] = useState(false);
-
+  const [saleDetails, setSaleDetails] = useState("");
+  const ToggleSaleDetails = (product_id) => {
+    setSaleDetails(product_id);
+    console.log(product_id);
+  };
   const ToggleSmallMenu = () => {
     setSmallMenu(!smallMenu);
   };
+  const updatedTableData = TableData.map((transaction) => {
+    if (transaction.type === "DEPOSIT") {
+      transaction.type = "Credit";
+    } else if (
+      transaction.type === "CASHOUT" ||
+      transaction.type === "WITHDRAWAL"
+    ) {
+      transaction.type = "Debit";
+    }
+    return transaction;
+  });
   return (
     <div className="TableCompWithDiv">
       <div className="TableCompWithDiv_title">
@@ -290,7 +458,7 @@ export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
           </table>
         ) : (
           <>
-            {TableData.length <= 0 ? (
+            {updatedTableData.length <= 0 ? (
               <NodataComp />
             ) : (
               <table className="TableCompWithDiv_cont_table">
@@ -308,6 +476,9 @@ export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
                     <th className="TableCompWithDiv_cont_head_titles_div">
                       Date
                     </th>
+                    <th className="TableCompWithDiv_cont_head_titles_div">
+                      Time
+                    </th>
 
                     <th className="TableCompWithDiv_cont_head_titles_div  TableCompWithDiv_cont_head_titles_div_last">
                       Status
@@ -315,33 +486,101 @@ export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
                   </tr>
                 </thead>
                 <tbody className="stakingTable_body">
-                  {TableData.map((data) => {
+                  {updatedTableData.map((data) => {
                     const metaData = JSON.parse(data.meta);
                     // Convert the createdAt date to the desired format
                     const createdAtDate = new Date(data.createdAt);
                     const formattedDate = `${createdAtDate.getDate()}/${
                       createdAtDate.getMonth() + 1
                     }/${createdAtDate.getFullYear()}`;
+                    console.log("====================================");
+                    console.log(metaData);
+                    console.log("====================================");
 
-                    // Extract the part of the email before the "@" symbol
-                    const emailParts = data.email.split("@");
-                    const maskedEmail = `${emailParts[0].slice(0, 8)}...`;
+                    const timestamp = data.createdAt;
 
+                    // Parse the timestamp into a Date object
+                    const date = new Date(timestamp);
+
+                    // Get the hours and minutes
+                    const hours = date.getHours();
+                    const minutes = date.getMinutes();
+
+                    // Format the time
+                    const formattedTime = `${hours % 12}:${minutes
+                      .toString()
+                      .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
+
+                    console.log(formattedTime);
                     return (
-                      <tr className="stakingTable_body_row ">
-                        {data.type === "INTERNAL" &&
-                        metaData.to_username === "cyntax" ? (
+                      <tr
+                        className="stakingTable_body_row "
+                        id={data.id}
+                        onClick={() => {
+                          ToggleSaleDetails(data.id);
+                        }}
+                      >
+                        {metaData.to_username === userName &&
+                        data.type === "INTERNAL" ? (
                           <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
-                            <div className="credit">Internal Credit</div>
+                            <div className="credit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              Credit{" "}
+                              <SouthWestIcon className="stakingTable_body_row_data_icon" />{" "}
+                            </div>
                           </td>
-                        ) : data.type === "INTERNAL" &&
-                          metaData.to_username !== "cyntax" ? (
+                        ) : metaData.to_username !== userName &&
+                          data.type === "INTERNAL" ? (
                           <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
-                            <div className="debit">Internal Debit</div>
+                            <div className="debit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              Debit{" "}
+                              <NorthEastIcon className="stakingTable_body_row_data_icon" />
+                            </div>
+                          </td>
+                        ) : data.type === "Credit" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="credit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              {data.type}{" "}
+                              <SouthWestIcon className="stakingTable_body_row_data_icon" />{" "}
+                            </div>
+                          </td>
+                        ) : data.type === "Debit" ? (
+                          <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
+                            <div className="debit">
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              {data.type}
+                              <NorthEastIcon className="stakingTable_body_row_data_icon" />{" "}
+                            </div>
                           </td>
                         ) : (
                           <td className="stakingTable_body_row_data stakingTable_body_row_data_first ">
-                            <div className="normal">{data.type}</div>
+                            <div className="normal">
+                              {" "}
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="stakingTable_body_row_data_img"
+                              />
+                              {data.type}
+                            </div>
                           </td>
                         )}
 
@@ -350,14 +589,18 @@ export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
                           {numberWithCommas(parseFloat(data.amount).toFixed(2))}{" "}
                           {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
                         </td>
+
                         <td className="stakingTable_body_row_data">
                           <div className="stakingTable_body_row_email">
-                            {maskedEmail}
+                            @{`${data.to_email.slice(0, 8)}...`}
                           </div>
                         </td>
 
                         <td className="stakingTable_body_row_data">
                           {formattedDate}
+                        </td>
+                        <td className="stakingTable_body_row_data">
+                          {formattedTime}
                         </td>
                         <td className="stakingTable_body_row_data stakingTable_body_row_data_last">
                           <div className="stakingTable_body_row_data_last_div">
@@ -382,6 +625,53 @@ export const Table = ({ TableData, tableTitle, contentLoading, dummyData }) => {
             )}
           </>
         )}
+
+        {saleDetails === ""
+          ? null
+          : updatedTableData.map((data) => {
+              const metaData = JSON.parse(data.meta);
+              // Convert the createdAt date to the desired format
+              const createdAtDate = new Date(data.createdAt);
+              const formattedDate = `${createdAtDate.getDate()}/${
+                createdAtDate.getMonth() + 1
+              }/${createdAtDate.getFullYear()}`;
+              console.log("====================================");
+              console.log(metaData);
+              console.log("====================================");
+
+              const timestamp = data.createdAt;
+
+              // Parse the timestamp into a Date object
+              const date = new Date(timestamp);
+
+              // Get the hours and minutes
+              const hours = date.getHours();
+              const minutes = date.getMinutes();
+
+              // Format the time
+              const formattedTime = `${hours % 12}:${minutes
+                .toString()
+                .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
+
+              console.log(formattedTime);
+
+              return (
+                <>
+                  {data.id === saleDetails ? (
+                    <div>
+                      <TableModal
+                        closeModal={ToggleSaleDetails}
+                        data={data}
+                        metaData={metaData}
+                        userName={userName}
+                        formattedDate={formattedDate}
+                        formattedTime={formattedTime}
+                      />
+                    </div>
+                  ) : null}
+                </>
+              );
+            })}
       </div>
     </div>
   );

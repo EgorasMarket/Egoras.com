@@ -19,6 +19,7 @@ import Staticdata from "../../../assets/json/Static";
 import { useSelector } from "react-redux";
 
 const DashboardWallets = () => {
+  const { user } = useSelector((state) => state.auth);
   const { data, loading } = useSelector((state) => state.wallet);
   const [nairaBalance, setNairaBalance] = useState("0");
   const [egcBalance, setEgcBalance] = useState("0");
@@ -188,6 +189,7 @@ const DashboardWallets = () => {
               .slice(0, 8)}
             contentLoading={contentLoadingTable}
             dummyData={Staticdata.productsTableData.slice(0, 8)}
+            userName={user.username}
           />
         </div>
       </div>
