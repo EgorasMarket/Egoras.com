@@ -132,6 +132,7 @@ const Signup = () => {
     let newPhone = temp.replace(payload.countrycode, "0");
 
     const response = await VERIFY_OTP({
+      email: payload.email,
       code: otp,
       phone: newPhone,
     });
