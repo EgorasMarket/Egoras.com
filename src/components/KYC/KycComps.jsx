@@ -744,6 +744,11 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
                   setSuccess(true);
                   return;
                 }
+                if (!res.success) {
+                  setErrorModal(true);
+                  setErrorTxt(res?.data?.errorMessage);
+                  return;
+                }
 
                 if (typeof res?.data?.errorMessage === "object") {
                   // toast.error("Incorrect BVN Number Provided");

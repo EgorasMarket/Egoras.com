@@ -19,6 +19,7 @@ import Staticdata from "../../../assets/json/Static";
 import { useSelector } from "react-redux";
 
 const DashboardWallets = () => {
+  const { user } = useSelector((state) => state.auth);
   const { data, loading } = useSelector((state) => state.wallet);
   const [nairaBalance, setNairaBalance] = useState("0");
   const [egcBalance, setEgcBalance] = useState("0");
@@ -98,8 +99,23 @@ const DashboardWallets = () => {
     console.log(data);
     console.log(data[0]?.value);
     console.log(data[1]?.value);
-    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
-    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+
+    if (data[0].name === "Naira") {
+      setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
+      return;
+    }
+    if (data[1].name === "Naira") {
+      setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+      return;
+    }
+    if (data[0].name === "Egoras Credit") {
+      setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
+      return;
+    }
+    if (data[1].name === "Egoras Credit") {
+      setEgcBalance(data[1]?.value === null ? "0" : data[1]?.value);
+      return;
+    }
   }, []);
   const fetchWalletTransactions = async () => {
     setContentLoadingTable(true);
@@ -144,6 +160,17 @@ const DashboardWallets = () => {
           >
             EGC Wallet
           </div>
+          <div
+            id="usdt"
+            className={
+              activeTab === "usdt"
+                ? "DashboardWalletsDiv_area1_cont_tab1_active"
+                : "DashboardWalletsDiv_area1_cont_tab1"
+            }
+            onClick={ToggleActiveTab}
+          >
+            USDT Wallet
+          </div>
         </div>
       </div>
       <div className="DashboardWalletsDiv_body">
@@ -165,14 +192,24 @@ const DashboardWallets = () => {
             loading={loading}
           />
         ) : null}
+        {activeTab === "usdt" ? (
+          <WalletBalanceDisplay
+            walletBal={parseFloat(0).toFixed(2)}
+            walletsymbol={"usdt"}
+            depositFunc={ToggleDepositMoneyNairaModal}
+            withdrawFunc={ToggleWithdrawMoneyNairaModal}
+            loading={loading}
+          />
+        ) : null}
         <div className="DashboardWalletsDiv_area3">
           <Table
             tableTitle={"Wallet Transactions"}
             TableData={tableData
               .filter((data) => data.type !== "PURCHASE")
-              .slice(0, 8)}
+              .slice(0, 7)}
             contentLoading={contentLoadingTable}
             dummyData={Staticdata.productsTableData.slice(0, 8)}
+            userName={user.username}
           />
         </div>
       </div>

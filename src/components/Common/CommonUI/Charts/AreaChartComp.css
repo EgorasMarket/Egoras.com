@@ -38,9 +38,12 @@ text.recharts-text.recharts-cartesian-axis-tick-value {
 @media screen and (max-width: 767px) {
   .customAreaChart_div {
     padding: 1em;
-    height: 380px;
+    height: 325px;
   }
   .customAreaChart_div_Title {
     font-size: 24px;
+  }
+  .recharts-text {
+    font-size: 12px;
   }
 }

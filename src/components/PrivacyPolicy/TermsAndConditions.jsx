@@ -61,8 +61,8 @@ const TermsAndConditions = () => {
                   {" "}
                   https://egoras.com
                 </a>{" "}
-                is operated by fort Technologies Limited (“fort” “we” “our” or
-                “us”) a limited liability company incorporated under the
+                is operated by egoras Technologies Limited (“egoras” “we” “our”
+                or “us”) a limited liability company incorporated under the
                 Nigerian Companies and Allied Matters Act with registration
                 Number 1832671.
               </p>
@@ -88,7 +88,7 @@ const TermsAndConditions = () => {
               </div>
               <p className="AboutUsPara" data-aos="fade-right">
                 <span className="PrivacyTitle"> 4. </span>By accessing or using
-                www.fortbank.co or any other website operated by us where these
+                www.egoras.com or any other website operated by us where these
                 terms and conditions are posted, you acknowledge that you agree
                 to and are subject to the following terms and conditions, as
                 well as the Privacy Policy (collectively called
@@ -266,30 +266,31 @@ const TermsAndConditions = () => {
               </p>
               <p className="AboutUsPara" data-aos="fade-right">
                 <span className="PrivacyTitle"> 17. </span>You hereby agree and
-                authorise fort to verify information provided by you against the
-                information held by any third party (including official
+                authorise egoras to verify information provided by you against
+                the information held by any third party (including official
                 databases) such as, banks, Payment System Providers any other
-                information bank available to fort.
+                information bank available to egoras.
               </p>
               <p className="AboutUsPara" data-aos="fade-right">
                 <span className="PrivacyTitle"> 18. </span>The information that
-                fort may verify against the information which you have provided
-                to us include (without limitation): your name, phone number,
-                date of birth, address, age, Identification Number (“ID”) or
-                Passport Number and such other information that will enable fort
-                to identify you and comply with the regulatory “Know Your
-                Customer” requirements (together the “Personal Information”).
+                egoras may verify against the information which you have
+                provided to us include (without limitation): your name, phone
+                number, date of birth, address, age, Identification Number
+                (“ID”) or Passport Number and such other information that will
+                enable egoras to identify you and comply with the regulatory
+                “Know Your Customer” requirements (together the “Personal
+                Information”).
               </p>
               <p className="AboutUsPara" data-aos="fade-right">
                 <span className="PrivacyTitle"> 19. </span>You hereby consent to
-                fort verifying the Personal Information and the Relevant
+                egoras verifying the Personal Information and the Relevant
                 Information and using the Personal Information and the Relevant
-                Information to the extent necessary in fort’s opinion for the
+                Information to the extent necessary in egoras’s opinion for the
                 provision of its Services.
               </p>
               <p className="AboutUsPara" data-aos="fade-right">
                 <span className="PrivacyTitle"> 20. </span>You agree to
-                indentify and hold fort and the Third Party Partners harmless
+                indentify and hold egoras and the Third Party Partners harmless
                 with respect to any claims, losses, liabilities and expenses
                 (including legal fees and expenses) that may arise as a result
                 of the disclosure and reliance on such Personal Information
@@ -312,7 +313,7 @@ const TermsAndConditions = () => {
                 you use these Services, you consent to us and our affiliates'
                 and partners’ transmission, collection, retention, maintenance,
                 processing and use of your data to improve our Services and/or
-                your experience while using fort.
+                your experience while using egoras.
               </p>
             </div>
             <div className="privacyTxts">
@@ -344,8 +345,8 @@ const TermsAndConditions = () => {
               <p className="AboutUsPara" data-aos="fade-right">
                 <span className="PrivacyTitle"> 23. </span>This website is
                 subject to the laws and regulations of Nigeria. You irrevocably
-                agree that any dispute between you and fort will be governed by
-                the laws of Nigeria and any cause of action you may have
+                agree that any dispute between you and egoras will be governed
+                by the laws of Nigeria and any cause of action you may have
                 hereunder or with respect to your use of the website must be
                 commenced by resort to an arbitration in accordance with
                 Arbitration and Conciliation Act Cap A18 Laws of the Federation
@@ -359,8 +360,8 @@ const TermsAndConditions = () => {
                 or cause of action is based first occurred
               </p>
               <p className="AboutUsPara" data-aos="fade-right">
-                <span className="PrivacyTitle"> 25. </span>You and fort agree to
-                bring any Dispute in arbitration on an individual basis only,
+                <span className="PrivacyTitle"> 25. </span>You and egoras agree
+                to bring any Dispute in arbitration on an individual basis only,
                 and not as a class or collective action. There will be no right
                 or authority for any Dispute to be brought, heard or arbitrated
                 as a class or collective action ("Class Action Waiver").

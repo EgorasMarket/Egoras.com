@@ -189,3 +189,18 @@
     padding: 10px;
   }
 }
+@media screen and (max-width: 600px) {
+  .DashboardProdDiv_body_cont1_img {
+    max-width: 120px;
+  }
+  .DashboardProdDiv_body_cont1_details_txt_title {
+    font-size: 14px;
+  }
+  .DashboardProdDiv_body_cont1_details_txt_amount {
+    font-size: 18px;
+  }
+  .DashboardProdDiv_body_cont1_details_btn_div_btn {
+    padding: 7px;
+    font-size: 13px;
+  }
+}

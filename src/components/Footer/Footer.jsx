@@ -84,7 +84,7 @@ const Footer = () => {
 
           <hr className="footer_hr" />
           <div className="footer_lastDiv">
-            © {currentYear} Fort Technologies, ltd.
+            © {currentYear} Egoras Technologies, ltd.
           </div>
         </div>
       </div>

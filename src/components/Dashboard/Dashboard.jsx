@@ -13,12 +13,12 @@ const Dashboard = () => {
   const currentPathname = location.pathname;
 
   const { user, loading, error } = useSelector((state) => state.auth);
-  // useEffect(() => {
-  //   if (user === null || user === undefined) {
-  //     // navigate("/login");
-  //     window.location.href = "/login";
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user === null || (user === undefined && loading === false)) {
+      window.location.href = "/login";
+    }
+    console.log(user);
+  }, [user]);
   useEffect(() => {
     const currentRoute = routes.find(
       (data) => `${data.layout}/${data.path}` === currentPathname
@@ -61,9 +61,9 @@ const Dashboard = () => {
     );
   }
 
-  if (loading === false && user === null) {
-    return (window.location.href = "/login");
-  }
+  // if (loading === false && user === null) {
+  //   return (window.location.href = "/login");
+  // }
 };
 
 export default Dashboard;
