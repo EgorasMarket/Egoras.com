@@ -24,7 +24,7 @@ export const TablePagination = ({
   const [saleDetails, setSaleDetails] = useState("");
   const [smallMenu, setSmallMenu] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const PER_PAGE = 8;
+  const PER_PAGE = 7;
 
   function handlePageClick({ selected: selectedPage }) {
     setCurrentPage(selectedPage);

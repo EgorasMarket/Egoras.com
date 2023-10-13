@@ -26,6 +26,15 @@
   flex-direction: column;
   padding: 0em 1em;
   border-bottom: solid 1px #2f2f2f;
+  overflow-y: scroll;
+}
+.DashboardNav_body::-webkit-scrollbar {
+  background: #000000 !important;
+  width: 10px;
+}
+.DashboardNav_body::-webkit-scrollbar-thumb {
+  background: #2c2c2c !important;
+  border-radius: 50px;
 }
 .DashboardNav_body_1_active {
   background: #22ad624a;

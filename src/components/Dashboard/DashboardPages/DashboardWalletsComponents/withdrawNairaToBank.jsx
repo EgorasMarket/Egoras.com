@@ -305,7 +305,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
             isLoading={loading}
             btnFunc={handlePayout}
             pinTitle="Enter Pin to validate Transaction"
-            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            pinPara="Input your pin to complete this transaction."
             btnFuncTxt="Proceed"
             handleOnComplete={(e) => {
               const a = e.join("");

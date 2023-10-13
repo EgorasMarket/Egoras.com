@@ -53,6 +53,12 @@ const WalletBalanceDisplay = ({
           >
             Withdraw
           </div>
+          <div
+            className="DashboardWalletsDiv_area2_cont2_area2_cont2"
+            style={{ marginRight: "0" }}
+          >
+            Swap
+          </div>
         </div>
       </div>
 

@@ -58,7 +58,7 @@
 }
 .dashboardHome_area1_card1_content_amnt {
   display: flex;
-  align-items: flex-end;
+  align-items: baseline;
 }
 .dashboardHome_area1_card1_content_btn {
   font-size: 14px;

@@ -160,6 +160,17 @@ const DashboardWallets = () => {
           >
             EGC Wallet
           </div>
+          <div
+            id="usdt"
+            className={
+              activeTab === "usdt"
+                ? "DashboardWalletsDiv_area1_cont_tab1_active"
+                : "DashboardWalletsDiv_area1_cont_tab1"
+            }
+            onClick={ToggleActiveTab}
+          >
+            USDT Wallet
+          </div>
         </div>
       </div>
       <div className="DashboardWalletsDiv_body">
@@ -181,12 +192,21 @@ const DashboardWallets = () => {
             loading={loading}
           />
         ) : null}
+        {activeTab === "usdt" ? (
+          <WalletBalanceDisplay
+            walletBal={parseFloat(0).toFixed(2)}
+            walletsymbol={"usdt"}
+            depositFunc={ToggleDepositMoneyNairaModal}
+            withdrawFunc={ToggleWithdrawMoneyNairaModal}
+            loading={loading}
+          />
+        ) : null}
         <div className="DashboardWalletsDiv_area3">
           <Table
             tableTitle={"Wallet Transactions"}
             TableData={tableData
               .filter((data) => data.type !== "PURCHASE")
-              .slice(0, 8)}
+              .slice(0, 7)}
             contentLoading={contentLoadingTable}
             dummyData={Staticdata.productsTableData.slice(0, 8)}
             userName={user.username}

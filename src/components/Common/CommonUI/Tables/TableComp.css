@@ -317,4 +317,9 @@
     font-size: 24px;
     margin-bottom: 10px;
   }
+  .TableCompWithDiv_title_btn {
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 12px;
+  }
 }

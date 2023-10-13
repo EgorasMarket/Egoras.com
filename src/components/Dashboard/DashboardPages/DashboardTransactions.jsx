@@ -49,7 +49,7 @@ const DashboardTransactions = () => {
           tableTitle={"All Transactions"}
           TableData={tableData}
           contentLoading={contentLoadingTable}
-          dummyData={Staticdata.productsTableData.slice(0, 8)}
+          dummyData={Staticdata.productsTableData.slice(0, 7)}
           view={false}
           userName={user.username}
           email={user.email}

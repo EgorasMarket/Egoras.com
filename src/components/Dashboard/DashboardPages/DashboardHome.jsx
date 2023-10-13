@@ -698,7 +698,7 @@ const DashboardHome = () => {
       <div className="dashboardHome_area3">
         <Table
           tableTitle={"Transactions"}
-          TableData={tableData.slice(0, 8)}
+          TableData={tableData.slice(0, 7)}
           dummyData={Staticdata.productsTableData.slice(0, 8)}
           contentLoading={contentLoadingTable}
           userName={user.username}
