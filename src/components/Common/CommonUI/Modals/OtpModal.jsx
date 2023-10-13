@@ -16,8 +16,10 @@ const OtpModal = ({
       <div className="otp_modal_container">
         <div className="otp_modal_container_head">Verify your phone number</div>
         <div className="otp_modal_container_para">
-          Enter the otp code sent to your mobile number {"+" + payload.phone}.
-          Be careful not to share the code with anyone.
+          Enter the otp code sent to your mobile number.Be careful not to share
+          the
+          {/* {"+" + payload?.phone || "0xxxxxxxxxxxx"}. Be careful not to share the */}
+          code with anyone.
         </div>
         <div className="otp_modal_container_body">
           <OtpInput
@@ -36,11 +38,9 @@ const OtpModal = ({
             // onSubmit={console.log(otp)}
           />
         </div>
-        <div
-          className="otp_modal_container_body_button"
-          onClick={handleVerifyOtp}
-        >
+        <div className="otp_modal_container_body_button">
           <button
+            onClick={handleVerifyOtp}
             className="otp_modal_container_body_button_btn"
             disabled={otpDisable}
           >

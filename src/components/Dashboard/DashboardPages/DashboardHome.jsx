@@ -71,6 +71,7 @@ const DashboardHome = () => {
     await GENERATE_USER_WALLET_ADDRESS_MART_GPT({
       userAddress: response.data.address,
     });
+
     console.log(registerAddress, "responses");
   };
 
@@ -89,11 +90,14 @@ const DashboardHome = () => {
   const fetchWalletTransactions = async () => {
     setContentLoadingTable(true);
     const response = await FETCH_WALLET_TRANSACTIONS();
-    if (response.success === true) {
+    if (response.success === true && response.data.length > 0) {
+      console.log(response.data.length);
+
+      return;
       setChartLoading(false);
       setContentLoadingTable(false);
       setTableData(response.data);
-      const transformedData = response.data.map((data) => ({
+      const transformedData = response.data?.map((data) => ({
         value: parseFloat(data.amount),
         timestamp: new Date(data.createdAt).toLocaleDateString("en-US", {
           month: "long",
@@ -195,7 +199,6 @@ const DashboardHome = () => {
     setProductLoading(false);
 
     const ano = response.data.getAllUploadedProduct.filter((data) => {
-      console.log(data);
       return data.product_brand === "EGORAS";
     });
     setEgorasProducts(ano);

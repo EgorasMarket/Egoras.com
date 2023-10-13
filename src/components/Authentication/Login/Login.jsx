@@ -10,6 +10,8 @@ import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal
 import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import OtpModal from "../../Common/CommonUI/Modals/OtpModal";
+import { RESEND_SMS_OTP, VERIFY_OTP } from "../../../services/auth";
 // dummySelectData;
 const Login = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,10 @@ const Login = () => {
   const [errorModal, setErrorModal] = useState(false);
   const [errorTxt, setErrorTxt] = useState("");
   const [pinModal, setPinModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpDisable, setOtpDisable] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpModal, setOtpModal] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const handleLogin = async () => {
     setDisable(true);
@@ -47,12 +53,54 @@ const Login = () => {
     }
 
     if (res.payload?.data?.success === false) {
+      console.log(res);
+      if (res.payload?.data?.errorMessage === "VERIFICATION_REQUIRED") {
+        // call the resend API
+
+        const resendsms = await RESEND_SMS_OTP({
+          email: values.email,
+        });
+
+        console.log(resendsms);
+        setOtpModal(true);
+        return;
+      }
       setDisable(false);
       setErrorTxt(res.payload?.data?.errorMessage);
       setErrorModal(true);
     }
   };
 
+  const handleChange = (enteredOtp) => {
+    console.log(enteredOtp);
+    setOtp(enteredOtp);
+  };
+
+  const processOtp = async () => {
+    console.log("return");
+  };
+  const handleVerifyOtp = async () => {
+    setOtpDisable(true);
+
+    const response = await VERIFY_OTP({
+      code: otp,
+      email: values.email,
+    });
+
+    console.log(response);
+
+    if (response.success) {
+      window.location.reload();
+      // setSuccess(true);
+      // setOtpDisable(false);
+      // setOtpLoading(false);
+      return;
+    }
+    setErrorModal(true);
+    setErrorTxt(response.data.errorMessage || "Verification failed!!1");
+    setOtpDisable(false);
+    setOtpLoading(false);
+  };
   const handleOnChange = (e) => {
     const { value, id } = e.target;
 
@@ -74,6 +122,7 @@ const Login = () => {
       setDisable(true);
     }
   }, [values]);
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -190,6 +239,16 @@ const Login = () => {
           </div>
         </div>
       </section>
+      {otpModal ? (
+        <OtpModal
+          handleChange={handleChange}
+          otp={otp}
+          handleVerifyOtp={handleVerifyOtp}
+          otpDisable={otpDisable}
+          otpLoading={otpLoading}
+          payload={values}
+        />
+      ) : null}
       {pinModal ? (
         <WebPin
           isLoading={isLoading}
