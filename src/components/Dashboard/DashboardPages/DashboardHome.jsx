@@ -34,8 +34,8 @@ import useUserEligible from "../../../hooks/useUserEligible";
 const DashboardHome = () => {
   const isEligible = useUserEligible();
   const navigate = useNavigate();
-  const [nairaBalance, setNairaBalance] = useState("");
-  const [egcBalance, setEgcBalance] = useState(0);
+  const [nairaBalance, setNairaBalance] = useState("0");
+  const [egcBalance, setEgcBalance] = useState("0");
   const { data, loading } = useSelector((state) => state.wallet);
   const [contentLoadingTable, setContentLoadingTable] = useState(true);
   const { user } = useSelector((state) => state.auth);
@@ -71,7 +71,6 @@ const DashboardHome = () => {
     await GENERATE_USER_WALLET_ADDRESS_MART_GPT({
       userAddress: response.data.address,
     });
-
     console.log(registerAddress, "responses");
   };
 
@@ -90,14 +89,11 @@ const DashboardHome = () => {
   const fetchWalletTransactions = async () => {
     setContentLoadingTable(true);
     const response = await FETCH_WALLET_TRANSACTIONS();
-    if (response.success === true && response.data.length > 0) {
-      console.log(response.data.length);
-
-      return;
+    if (response.success === true) {
       setChartLoading(false);
       setContentLoadingTable(false);
       setTableData(response.data);
-      const transformedData = response.data?.map((data) => ({
+      const transformedData = response.data.map((data) => ({
         value: parseFloat(data.amount),
         timestamp: new Date(data.createdAt).toLocaleDateString("en-US", {
           month: "long",
@@ -110,14 +106,23 @@ const DashboardHome = () => {
           year: "numeric",
         }),
       }));
+      console.log(transformedData, "transformedData");
+      console.log(transformedData, "transformedData");
       setNewState(transformedData);
-      setlastIndex(transformedData.length - 1);
-      setLastArray(transformedData[transformedData.length - 1]);
-      setChartValue(() => transformedData[transformedData.length - 1].value);
-      setChartTime(() => transformedData[transformedData.length - 1].timestamp);
+      if (transformedData.length > 0) {
+        setlastIndex(transformedData.length - 1);
+        setLastArray(transformedData[transformedData.length - 1]);
+        setChartValue(() => transformedData[transformedData.length - 1].value);
+        setChartTime(
+          () => transformedData[transformedData.length - 1].timestamp
+        );
+        return;
+      }
     } else {
       setChartLoading(true);
       setContentLoadingTable(true);
+      // setNewState([]);
+
       // setTableData([]);
     }
     console.log(response.data);
@@ -136,12 +141,31 @@ const DashboardHome = () => {
     }
     return null;
   };
+
+  console.log("====================================");
+  console.log(user, "yyyyyyyyy");
+  console.log("====================================");
   useEffect(() => {
     console.log(data);
     console.log(data[0]?.value);
     console.log(data[1]?.value);
-    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
-    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+
+    if (data[0].name === "Naira") {
+      setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
+      return;
+    }
+    if (data[1].name === "Naira") {
+      setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+      return;
+    }
+    if (data[0].name === "Egoras Credit") {
+      setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
+      return;
+    }
+    if (data[1].name === "Egoras Credit") {
+      setEgcBalance(data[1]?.value === null ? "0" : data[1]?.value);
+      return;
+    }
   }, []);
 
   useEffect(() => {
@@ -199,6 +223,7 @@ const DashboardHome = () => {
     setProductLoading(false);
 
     const ano = response.data.getAllUploadedProduct.filter((data) => {
+      console.log(data);
       return data.product_brand === "EGORAS";
     });
     setEgorasProducts(ano);
@@ -530,7 +555,7 @@ const DashboardHome = () => {
                                   {data.product_name}
                                 </div>
                                 <div className="dash_home_products_div_body_brand">
-                                  Egoras
+                                  Brand: Egoras
                                 </div>
                                 <div className="dash_home_products_div_body_amount">
                                   ₦
@@ -600,10 +625,13 @@ const DashboardHome = () => {
                               {data.product_name}
                             </div>
                             <div className="dash_home_products_div_body_brand">
-                              Egoras
+                              Brand: Egoras
                             </div>
                             <div className="dash_home_products_div_body_amount">
-                              ₦{parseFloat(data.final_amount).toFixed(2)}
+                              ₦
+                              {numberWithCommas(
+                                parseFloat(data.final_amount).toFixed(2)
+                              )}
                             </div>
                             <div className="dash_home_products_div_body_btn_div">
                               <a
@@ -673,8 +701,8 @@ const DashboardHome = () => {
           TableData={tableData.slice(0, 8)}
           dummyData={Staticdata.productsTableData.slice(0, 8)}
           contentLoading={contentLoadingTable}
+          userName={user.username}
         />
-
         {/* <div className="dashboardHome_area3_btn_div">
           <a
             href="/dashboard/transaction"
