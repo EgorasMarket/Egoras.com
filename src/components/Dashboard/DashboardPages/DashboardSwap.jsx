@@ -29,7 +29,7 @@ const DashboardSwap = () => {
             }
             onClick={ToggleActiveTab}
           >
-            Liquididty
+            Liquidity
           </div>
         </div>
       </div>
