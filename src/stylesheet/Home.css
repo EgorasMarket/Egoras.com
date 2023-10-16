@@ -9,6 +9,8 @@
 .HomeDivSection1 {
   position: relative;
   height: 100svh;
+  overflow-y: scroll;
+  background: #000;
 }
 .HomeDivSection1_div {
   display: flex;
@@ -85,10 +87,15 @@
   max-width: 200px;
 }
 .tricycle_overview_div {
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  padding-bottom: 2em;
+  margin-bottom: 4em;
+  margin-top: 2em;
+}
+.HomeDivSection1_div_txts_div_cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .tricycle_overview_div1 {
   display: flex;
@@ -109,7 +116,7 @@
   justify-content: center;
   backdrop-filter: blur(25px);
   background: #0000002e;
-  padding: 2em;
+  padding: 1em;
 }
 .tricycle_overview_div1_cont2 {
   display: flex;
@@ -122,7 +129,7 @@
   justify-content: center;
   align-items: center;
   border-left: solid 1px #ffffff17;
-  padding: 2em;
+  padding: 1em;
 }
 .tricycle_overview_div1_cont2_head {
   font-size: 32px;
@@ -610,12 +617,6 @@
   }
 }
 @media screen and (max-width: 767px) {
-  .tricycle_overview_div {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding-bottom: 0em;
-  }
   .tricycle_overview_div1 {
     border-radius: 8px;
   }
@@ -750,9 +751,6 @@
     width: 80%;
   }
   .tricycle_overview_div {
-    bottom: 0;
-    padding-bottom: 3em;
-    position: absolute;
     width: 100%;
   }
   .tricycle_overview_div1_cont2_head {

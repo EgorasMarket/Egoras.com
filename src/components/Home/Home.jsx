@@ -12,8 +12,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/swiper-bundle.css";
-// import "swiper/swiper.min.css";
-// import "swiper/swiper-bundle.min.css";
 import {
   BgButtonNoBorder,
   NoBgButtonWithBorder,
@@ -48,86 +46,86 @@ const Home = () => {
 
           <div className="HomeDivSection1_div_txts_div">
             <div className="custom_container">
-              <div className="HomeDivSection1_div_txts">
-                <div className="HomeDivSection1_div_txts_1">
-                  <div className="HomeDivSection1_div_txts_1_head">
-                    Model EGC-80
+              <div className="HomeDivSection1_div_txts_div_cont">
+                <div className="HomeDivSection1_div_txts">
+                  <div className="HomeDivSection1_div_txts_1">
+                    <div className="HomeDivSection1_div_txts_1_head">
+                      Model EGC-80
+                    </div>
+                    <div className="HomeDivSection1_div_txts_1_para">
+                      The Egoras Dual-Fuel Tricycle(EGC-80) is a reliable and
+                      powerful vehicle with impressive technical specifications,
+                      including a 10 horsepower engine and a top speed of 60
+                      kmph.
+                    </div>
                   </div>
-                  <div className="HomeDivSection1_div_txts_1_para">
-                    The Egoras Dual-Fuel Tricycle(EGC-80) is a reliable and
-                    powerful vehicle with impressive technical specifications,
-                    including a 10 horsepower engine and a top speed of 60 kmph.
-                  </div>
-                </div>
-                <div className="HomeDivSection1_div_txts_2">
-                  <a
-                    href="#"
-                    // href={`/productdetail/${1}/${"Egoras dual fuel tricycle"}`}
-                    className="HomeDivSection1_div_txts_2_link1"
-                  >
-                    <BgButtonNoBorder
-                      btnTxt={
-                        <div
-                          className="HomeDivSection1_div_txts_2_div
+                  <div className="HomeDivSection1_div_txts_2">
+                    <a
+                      href="#"
+                      // href={`/productdetail/${1}/${"Egoras dual fuel tricycle"}`}
+                      className="HomeDivSection1_div_txts_2_link1"
+                    >
+                      <BgButtonNoBorder
+                        btnTxt={
+                          <div
+                            className="HomeDivSection1_div_txts_2_div
                       "
-                        >
-                          View Product{" "}
-                          {/* <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" /> */}
-                        </div>
-                      }
-                    />
-                  </a>
-                  <a
-                    href="/dashboard/products"
-                    className="HomeDivSection1_div_txts_2_member_link"
-                  >
-                    <NoBgButtonWithBorder btnTxt="View all products" />
-                  </a>
-                  {/* <a
+                          >
+                            View Product{" "}
+                            {/* <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" /> */}
+                          </div>
+                        }
+                      />
+                    </a>
+                    <a
+                      href="/dashboard/products"
+                      className="HomeDivSection1_div_txts_2_member_link"
+                    >
+                      <NoBgButtonWithBorder btnTxt="View all products" />
+                    </a>
+                    {/* <a
                     href="/membership/sub"
                     className="HomeDivSection1_div_txts_2_member_link"
                   >
                     <NoBgButtonWithBorder btnTxt="Become A merchant" />
                   </a> */}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="tricycle_overview_div">
-            <div className="custom_container">
-              <div className="tricycle_overview_div1">
-                <div className="tricycle_overview_div1_cont1">
-                  <div className="tricycle_overview_div1_cont2_head">
-                    {" "}
-                    Egoras Dual Fuel
-                  </div>
-                  <div className="tricycle_overview_div1_cont2_para">
-                    Tricycle
                   </div>
                 </div>
-                <div className="tricycle_overview_div1_cont2">
-                  <div className="tricycle_overview_div1_cont2_head">
-                    60 kmph
-                  </div>
-                  <div className="tricycle_overview_div1_cont2_para">
-                    Top speed
-                  </div>
-                </div>
-                <div className="tricycle_overview_div1_cont2">
-                  <div className="tricycle_overview_div1_cont2_head">
-                    Wet-Multiplate
-                  </div>
-                  <div className="tricycle_overview_div1_cont2_para">
-                    Clutch Type
-                  </div>
-                </div>
-                <div className="tricycle_overview_div1_cont2">
-                  <div className="tricycle_overview_div1_cont2_head">
-                    15.5 Nm
-                  </div>
-                  <div className="tricycle_overview_div1_cont2_para">
-                    Torque
+                <div className="tricycle_overview_div">
+                  <div className="tricycle_overview_div1">
+                    <div className="tricycle_overview_div1_cont1">
+                      <div className="tricycle_overview_div1_cont2_head">
+                        {" "}
+                        Egoras Dual Fuel
+                      </div>
+                      <div className="tricycle_overview_div1_cont2_para">
+                        Tricycle
+                      </div>
+                    </div>
+                    <div className="tricycle_overview_div1_cont2">
+                      <div className="tricycle_overview_div1_cont2_head">
+                        60 kmph
+                      </div>
+                      <div className="tricycle_overview_div1_cont2_para">
+                        Top speed
+                      </div>
+                    </div>
+                    <div className="tricycle_overview_div1_cont2">
+                      <div className="tricycle_overview_div1_cont2_head">
+                        Wet-Multiplate
+                      </div>
+                      <div className="tricycle_overview_div1_cont2_para">
+                        Clutch Type
+                      </div>
+                    </div>
+                    <div className="tricycle_overview_div1_cont2">
+                      <div className="tricycle_overview_div1_cont2_head">
+                        15.5 Nm
+                      </div>
+                      <div className="tricycle_overview_div1_cont2_para">
+                        Torque
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
