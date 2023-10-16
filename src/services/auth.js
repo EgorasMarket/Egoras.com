@@ -5,6 +5,7 @@ import {
   REGISTER_ROUTE,
   REGISTER_USER_WALLET_ADDRESS,
   REGISTER_WALLET_MARTGPT,
+  RESEND_PHONE_OTP,
   SET_USER_PIN_ROUTE,
   VERIFY_OTP_ROUTE,
   VERIFY_USER_ROUTE,
@@ -106,6 +107,15 @@ export const VERIFY_OTP = async (payload) => {
   try {
     setAuthToken(localStorage.getItem("x-token"));
     const response = await axios.post(VERIFY_OTP_ROUTE, payload);
+    return response.data;
+  } catch (error) {
+    return error.response || error.message;
+  }
+};
+export const RESEND_SMS_OTP = async (payload) => {
+  try {
+    setAuthToken(localStorage.getItem("x-token"));
+    const response = await axios.post(RESEND_PHONE_OTP, payload);
     return response.data;
   } catch (error) {
     return error.response || error.message;
