@@ -9,6 +9,7 @@ import setAuthToken from "../../utils/setAuthToken";
 
 const initialState = {
   user: null,
+  meta: "",
   loading: false,
   error: "",
   token: null,
@@ -36,9 +37,9 @@ const AuthSlice = createSlice({
       state.error = data.payload;
     },
     setPayload: (state, action) => {
-      //   console.log(action.payload);
+      //   //console.logog(action.payload);
 
-      const { fullName } = action.payload;
+      const { fullName, phone } = action.payload;
       state.payload = action.payload;
 
       if (fullName) {
@@ -63,10 +64,9 @@ const AuthSlice = createSlice({
     builder
 
       .addCase(verifyUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
-
-        state.user = action.payload.data.user;
+        state.user = action.payload.data?.user;
+        state.meta = action.payload.data?.meta;
       })
       .addCase(verifyUser.pending, (state, action) => {
         state.loading = true;

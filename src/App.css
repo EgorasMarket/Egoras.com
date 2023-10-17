@@ -3,10 +3,12 @@
   padding: 0;
   font-family: "Omnes", sans-serif;
   text-decoration: none !important;
+  -webkit-font-smoothing: antialiased;
 }
 body {
   font-family: "Omnes", sans-serif;
-  cursor: none;
+  /* cursor: none; */
+  -webkit-font-smoothing: antialiased;
 }
 body::-webkit-scrollbar {
   background: #000000 !important;
@@ -20,7 +22,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   max-width: 1600px;
   margin: auto;
-  padding: 0em 2em;
+  padding: 0em 1em;
   height: 100%;
 }
 html {
@@ -37,9 +39,19 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-box-shadow: 0 0 0 30px rgb(64, 64, 64) inset !important;
 }
-
+input:focus-visible {
+  outline: none;
+  border: solid;
+  border-color: #21583a;
+  border-width: 1px;
+  box-shadow: 0px 0px 1px 4px #21583a;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+input:-internal-autofill-selected {
+  background-color: #222035a8 !important;
+}
 ::selection {
   background-color: #21583a;
   color: #fff;
@@ -54,8 +66,8 @@ button:focus {
   position: relative;
 }
 .custom-cursor {
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background-color: #ffffff12;
   border: solid 1px #fff;
@@ -64,14 +76,42 @@ button:focus {
   z-index: 9999;
   backdrop-filter: blur(2px);
 }
-.loading_div_area {
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+/* .shimmer {
+  background: linear-gradient(
+    to right,
+    #29292f 8%,
+    #5e5e68 18%,
+    #29292f 33%
+  ) !important;
+  animation: shimmer 2.2s linear infinite forwards;
+} */
+.shimmerCustom {
+  background: linear-gradient(
+    to right,
+    #29292f 8%,
+    #5c5c68 18%,
+    #29292f 33%
+  ) !important;
+  background-size: 1000px 100% !important;
+  animation: shimmer 2.2s linear infinite forwards !important;
 }
-.loading_div_area_img {
-  width: 150px;
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+.shimmer {
+  background-image: linear-gradient(
+    to right,
+    #29292f 8%,
+    #5c5c68 18%,
+    #29292f 33%
+  ) !important;
+}
+.shimmer-button {
+  margin-bottom: 0px !important;
 }

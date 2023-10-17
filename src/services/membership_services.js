@@ -18,7 +18,7 @@ export const SUBSCRIBE_MEMBERSHIP = async (payload) => {
     // };
 
     const res = await axios.post(`${SUBSCRIBE_MEMBERSHIP_ROUTE}`, payload);
-    console.log(res);
+    //console.logog(res);
 
     return res.data;
   } catch (error) {

@@ -7,27 +7,77 @@ import Staticdata from "../../../assets/json/Static";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useDispatch, useSelector } from "react-redux";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 // import { setPayload } from "../../../features/user-registration/userRegistration";
 import { registerUser } from "../../../features/auth/authActions";
 import { setPayload } from "../../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { VERIFY_OTP } from "../../../services/auth";
+import OtpModal from "../../Common/CommonUI/Modals/OtpModal";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // dummySelectData;
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { payload, loading, error } = useSelector((state) => state.auth);
   const [defaultForm, setDefaultForm] = useState(true);
+  const [submitDisable, setSubmitDisable] = useState(true);
+  const [otpDisable, setOtpDisable] = useState(true);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [nextDisable, setNextDisable] = useState(true);
+  const [errorModal, setErrorModal] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errorTxt, setErrorTxt] = useState("");
+  const [otpModal, setOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible2, setPasswordVisible2] = useState(false);
+  useEffect(() => {
+    if (otp == "") {
+      setOtpDisable(true);
+    } else {
+      setOtpDisable(false);
+    }
+  }, [otp]);
+
+  useEffect(() => {
+    if (
+      payload.fullName == "" ||
+      payload.email == "" ||
+      payload.username == ""
+    ) {
+      setNextDisable(true);
+    } else {
+      setNextDisable(false);
+    }
+  }, [payload.fullName, payload.email, payload.username]);
+  useEffect(() => {
+    if (
+      payload.phone == "" ||
+      payload.password == "" ||
+      payload.confirm == ""
+    ) {
+      setSubmitDisable(true);
+    } else {
+      setSubmitDisable(false);
+    }
+  }, [payload.phone, payload.password, payload.confirm]);
+
   const ToggleDefaultForm = () => {
     setDefaultForm(!defaultForm);
   };
 
   const handleOnChange = (e) => {
-    console.log(e);
+    //console.logog(e);
     const { id, value } = e.target;
     dispatch(setPayload({ ...payload, [id]: value }));
   };
 
   const handleSignUp = async () => {
+    setSubmitDisable(true);
     const {
       email,
       password,
@@ -39,34 +89,77 @@ const Signup = () => {
       referral,
       countrycode,
     } = payload;
-    console.log(payload);
+    //console.logog(payload);
+
+    let temp = "+" + phone.toString();
+    let result = temp.replace(countrycode, "0");
+    // payload.phone = result;
 
     if (email === "" || password === "") return;
 
-    const res = await dispatch(registerUser(payload));
+    let newPayload = { ...payload, phone: result };
 
-    console.log(res);
+    const res = await dispatch(registerUser(newPayload));
+    setPayload(newPayload);
+
+    //console.logog(res);
     if (res.payload?.code === 200) {
-      alert("Registration Successful -- redirect to choice page");
-      navigate("/login");
-
+      setSubmitDisable(false);
+      setOtpModal(true);
       return;
     }
 
     if (res.payload?.data?.success === false) {
-      return alert(res.payload?.data?.errorMessage);
+      setSubmitDisable(false);
+      setErrorModal(true);
+      setErrorTxt(res.payload?.data?.errorMessage);
+      // return alert(res.payload?.data?.errorMessage);
     }
 
-    console.log("Failed");
+    //console.logog("Failed");
   };
-
-  if (loading) {
-    return <p>Loading ...</p>;
-  }
 
   if (error) {
     return <p>{error}</p>;
   }
+
+  const handleVerifyOtp = async () => {
+    setOtpDisable(true);
+    setOtpLoading(true);
+    //console.logog(payload);
+
+    let temp = "+" + payload.phone.toString();
+    let newPhone = temp.replace(payload.countrycode, "0");
+
+    const response = await VERIFY_OTP({
+      email: payload.email,
+      code: otp,
+      phone: newPhone,
+    });
+
+    //console.logog(response);
+
+    if (response.success) {
+      setSuccess(true);
+      setOtpDisable(false);
+      setOtpLoading(false);
+      return;
+    }
+    setErrorModal(true);
+    setErrorTxt(response.data.errorMessage || "Verification failed!!1");
+    setOtpDisable(false);
+    setOtpLoading(false);
+  };
+
+  const handleChange = (enteredOtp) => {
+    setOtp(enteredOtp);
+  };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+  const togglePasswordVisibility2 = () => {
+    setPasswordVisible2(!passwordVisible2);
+  };
   return (
     <div className="signup_div">
       <section
@@ -98,6 +191,7 @@ const Signup = () => {
                     name="fullName"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    // autoComplete="off"
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -117,6 +211,7 @@ const Signup = () => {
                     name="email"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    // autoComplete="off"
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -136,6 +231,7 @@ const Signup = () => {
                     name="userName"
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    // autoComplete="off"
                   />
                   {/* ============ */}
                   {/* ============ */}
@@ -188,6 +284,7 @@ const Signup = () => {
                   <button
                     className="signup_div_section_div_container_form_btn"
                     onClick={ToggleDefaultForm}
+                    disabled={nextDisable}
                   >
                     Next{" "}
                     <ChevronRightIcon className="signup_div_section_div_container_form_btn_icon" />
@@ -215,22 +312,94 @@ const Signup = () => {
                     enableSearch={true}
                     value={payload.phone}
                     onChange={(value, country, e, formattedValue) => {
+                      // let text = value;
+                      // let result = text.replace(country.dialCode, "0");
+                      // //console.logog(result);
                       dispatch(
                         setPayload({
                           ...payload,
-                          countrycode: country.dialCode,
+                          countrycode: "+" + country.dialCode,
                           phone: value,
                         })
                       );
-                      console.log(country, formattedValue);
+                      //console.logog(country, formattedValue, value);
                     }}
                     // onChange={(phone) => this.setState({ phone })}
                   />
+
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
+                  <label
+                    htmlFor="password"
+                    className="signup_div_section_div_container_form_label"
+                  >
+                    Password:
+                  </label>
+
+                  <div className="password_div">
+                    <input
+                      type={passwordVisible ? "text" : "password"}
+                      id="password"
+                      value={payload.password}
+                      name="password"
+                      className="signup_div_section_div_container_form_input_pasowrd"
+                      onChange={handleOnChange}
+                      autoComplete="off"
+                    />
+                    {passwordVisible ? (
+                      <VisibilityOffIcon
+                        onClick={togglePasswordVisibility}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    ) : (
+                      <VisibilityIcon
+                        onClick={togglePasswordVisibility}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    )}
+                  </div>
+                  {/* ============ */}
+                  {/* ============ */}
+                  {/* ============ */}
+                  {/* ============ */}
+                  {/* ============ */}
+                  <label
+                    htmlFor="password"
+                    className="signup_div_section_div_container_form_label"
+                  >
+                    Confirm Password:
+                  </label>
+                  <div className="password_div">
+                    <input
+                      type={passwordVisible2 ? "text" : "password"}
+                      id="confirm"
+                      value={payload.confirm}
+                      name="confirm"
+                      className="signup_div_section_div_container_form_input_pasowrd"
+                      onChange={handleOnChange}
+                      autoComplete="off"
+                    />
+                    {passwordVisible2 ? (
+                      <VisibilityOffIcon
+                        onClick={togglePasswordVisibility2}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    ) : (
+                      <VisibilityIcon
+                        onClick={togglePasswordVisibility2}
+                        className="otp_modal_container_body_icon2"
+                      />
+                    )}
+                  </div>
+
+                  {/* ============ */}
+                  {/* ============ */}
+                  {/* ============ */}
+                  {/* ============ */}
+
                   <label
                     htmlFor="ReferralCode"
                     className="signup_div_section_div_container_form_label"
@@ -244,45 +413,10 @@ const Signup = () => {
                     value={payload.referral}
                     className="signup_div_section_div_container_form_input"
                     onChange={handleOnChange}
+                    autoComplete="off"
+                    // aria-autocomplete="off"
                   />
                   {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  <label
-                    htmlFor="password"
-                    className="signup_div_section_div_container_form_label"
-                  >
-                    Password:
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={payload.password}
-                    name="password"
-                    className="signup_div_section_div_container_form_input"
-                    onChange={handleOnChange}
-                  />
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  {/* ============ */}
-                  <label
-                    htmlFor="password"
-                    className="signup_div_section_div_container_form_label"
-                  >
-                    Confirm Password:
-                  </label>
-                  <input
-                    type="password"
-                    id="confirm"
-                    value={payload.confirm}
-                    name="confirm"
-                    className="signup_div_section_div_container_form_input"
-                    onChange={handleOnChange}
-                  />
                   {/* ============ */}
                   {/* ============ */}
                   {/* ============ */}
@@ -291,25 +425,54 @@ const Signup = () => {
                   <button
                     className="signup_div_section_div_container_form_btn"
                     onClick={handleSignUp}
+                    disabled={submitDisable}
                   >
-                    Create Account
+                    {loading ? (
+                      <>
+                        <ScaleLoader color="#366e51" height={20} />
+                      </>
+                    ) : (
+                      " Create account"
+                    )}
                   </button>
                 </div>
               </div>
             ) : null}
             <div className="signup_div_section_div_para">
               Already have an acccount?{"   "}
-              <a
-                href="/login"
-                className="signup_div_section_div_para_link"
-                onClick={handleSignUp}
-              >
+              <a href="/login" className="signup_div_section_div_para_link">
                 Login
               </a>
             </div>
           </div>
         </div>
       </section>
+      {otpModal ? (
+        <OtpModal
+          handleChange={handleChange}
+          otp={otp}
+          handleVerifyOtp={handleVerifyOtp}
+          payload={payload}
+          otpDisable={otpDisable}
+          otpLoading={otpLoading}
+        />
+      ) : null}
+      {success ? (
+        <SuccessModal
+          SuccesTxt={"You have successfully verified your phone number "}
+          successFunc={() => {
+            window.location.href = "/login";
+          }}
+        />
+      ) : null}
+      {errorModal ? (
+        <ErrorModal
+          ErrorTxt={errorTxt}
+          errorFunc={() => {
+            setErrorModal(false);
+          }}
+        />
+      ) : null}
     </div>
   );
 };

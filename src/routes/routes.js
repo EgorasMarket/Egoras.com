@@ -7,20 +7,39 @@ import ProductDetailPage from "../components/Market/ProductDetailPage";
 import ProductCheckoutPage from "../components/Market/ProductCheckoutPage";
 import Signup from "../components/Authentication/Signup/Signup";
 import DashboardWallets from "../components/Dashboard/DashboardPages/DashboardWallets";
+import AppVerification from "../components/Verification/Appverification";
 import DasboardMember from "../components/Dashboard/DashboardPages/DasboardMember";
 import DashboardSwap from "../components/Dashboard/DashboardPages/DashboardSwap";
 import DashboardOrders from "../components/Dashboard/DashboardPages/DashboardOrders";
 import DashboardTransactions from "../components/Dashboard/DashboardPages/DashboardTransactions";
+import DashboardProducts from "../components/Dashboard/DashboardPages/DashboardProducts";
 import DashboardHome from "../components/Dashboard/DashboardPages/DashboardHome";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
+import KycPage from "../components/KYC/KycPage";
+import Privacy from "../components/PrivacyPolicy/Privacy";
+import TermsAndConditions from "../components/PrivacyPolicy/TermsAndConditions";
+// import
+import StoreIcon from "@mui/icons-material/Store";
 const routes = [
   { name: "Home", path: "", component: <Home />, layout: "/" },
   { name: "Signup", path: "signup", component: <Signup />, layout: "/" },
   { name: "Login", path: "login", component: <Login />, layout: "/" },
+  {
+    name: "Terms & Conditions",
+    path: "terms-conditions",
+    component: <TermsAndConditions />,
+    layout: "/",
+  },
+  {
+    name: "Terms & Conditions",
+    path: "privacy",
+    component: <Privacy />,
+    layout: "/",
+  },
   {
     name: "Membership",
     path: "membership/sub",
@@ -28,9 +47,21 @@ const routes = [
     layout: "/",
   },
   {
+    name: "verify",
+    path: "verify/email/address/:id",
+    component: <AppVerification />,
+    layout: "/",
+  },
+  {
     name: "Product Detail",
     path: "productdetail/:id/:name",
     component: <ProductDetail />,
+    layout: "/",
+  },
+  {
+    name: "Kyc",
+    path: "kyc/verify",
+    component: <KycPage />,
     layout: "/",
   },
   {
@@ -62,10 +93,10 @@ const routes = [
     layout: "/dashboard",
   },
   {
-    name: "Swap",
-    path: "swap",
-    icon: <SwapHorizOutlinedIcon className="DashboardNav_body_1_icon" />,
-    component: <DashboardSwap />,
+    name: "Products",
+    path: "products",
+    icon: <StoreIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardProducts />,
     layout: "/dashboard",
   },
   {
@@ -73,6 +104,13 @@ const routes = [
     path: "orders",
     icon: <BookmarkBorderOutlinedIcon className="DashboardNav_body_1_icon" />,
     component: <DashboardOrders />,
+    layout: "/dashboard",
+  },
+  {
+    name: "Swap",
+    path: "swap",
+    icon: <SwapHorizOutlinedIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardSwap />,
     layout: "/dashboard",
   },
 

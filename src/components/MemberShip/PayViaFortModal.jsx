@@ -24,7 +24,7 @@ const PayViaFortModal = ({
   const [successRoute, setSuccessRoute] = useState("");
   const [qr_dataObj, setQr_dataObj] = useState("");
   const fetchShortCode = async () => {
-    console.log(data);
+    //console.logog(data);
     // if (!data.account) {
     //   alert("Please connect wallet first");
     //   //handle uninitialized account
@@ -32,7 +32,7 @@ const PayViaFortModal = ({
     // }
 
     const res = await GENERATE_QR_CODE_LINK(data);
-    console.log(res, "nabb");
+    //console.logog(res, "nabb");
 
     if (res.success) {
       setQrLink(res.data);
@@ -44,12 +44,12 @@ const PayViaFortModal = ({
 
   useEffect(() => {
     socket.on(account, (data) => {
-      console.log(data);
+      //console.logog(data);
       alert(data);
     });
   }, [account]);
   useEffect(() => {
-    console.log(prodType);
+    //console.logog(prodType);
     if (prodType === "DIRECT") {
       setSuccessRoute("/app/user/p2p_sales");
       return;
@@ -67,19 +67,19 @@ const PayViaFortModal = ({
   useEffect(() => {
     socket.on(`${account}/${data.type}`, (data) => {
       // alert(data);
-      console.log(data);
+      //console.logog(data);
       if (data.response === 1) {
-        console.log("Payment made");
-        console.log(data);
+        //console.logog("Payment made");
+        //console.logog(data);
         // alert("Payment made");
         setStatus("Payment made");
         setSuccessModal(true);
         setSuccessMessage("Payment Successful");
         // setSuccessRoute("/app/user/p2p_sales");
       } else {
-        console.log(data);
+        //console.logog(data);
 
-        console.log("Payment incompletee");
+        //console.logog("Payment incompletee");
         // alert("Payment incompletee");
         setStatus("Payment failed couldn't complete payment");
         setErrorModal(true);
@@ -122,7 +122,7 @@ const PayViaFortModal = ({
     tooltip.innerHTML = "Copy to clipboard";
     tooltip.style.display = "none";
   }
-  // console.log(data, "data,data,data");
+  // //console.logog(data, "data,data,data");
   return (
     <>
       <div className="payViaFortDiv">

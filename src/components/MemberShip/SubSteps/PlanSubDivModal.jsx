@@ -34,7 +34,7 @@ const PlanSubDivModal = ({
       symbol: "EGC",
       quantity: "",
     });
-    console.log(res);
+    //console.logog(res);
 
     if (!res.data.success) {
       alert(res.data.errorMessage);

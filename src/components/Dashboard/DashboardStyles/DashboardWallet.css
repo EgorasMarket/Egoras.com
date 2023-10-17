@@ -10,7 +10,7 @@
 
 .DashboardWalletsDiv_area1_cont {
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   display: flex;
   align-items: center;
   background: black;
@@ -19,7 +19,7 @@
 
 .DashboardWalletsDiv_area1_cont_tab1_active {
   padding: 10px;
-  width: 150px;
+  width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +30,7 @@
   font-weight: 500;
 }
 .DashboardWalletsDiv_area1_cont_tab1 {
-  width: 150px;
+  width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,8 +39,13 @@
   color: #6e6e78;
   padding: 10px;
 }
-.DashboardWalletsDiv_area2 {
+.DashboardWalletsDiv_body {
+  display: flex;
+  flex-direction: column;
   margin-top: 2em;
+}
+.DashboardWalletsDiv_area2 {
+  margin-top: 0em;
   display: flex;
   flex-direction: column;
   background: #000;
@@ -68,6 +73,8 @@
   font-size: 62px;
   font-weight: 600;
   color: #fff;
+  display: flex;
+  align-items: baseline;
 }
 .DashboardWalletsDiv_area2_cont2_area1_profit {
   font-size: 24px;
@@ -130,13 +137,14 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background: #161619;
   background: #000000b5;
   left: 0;
   backdrop-filter: blur(3px);
   display: flex;
   justify-content: flex-end;
+  z-index: 1100;
 }
 .depositMoneyDiv_cont {
   background: #161619;
@@ -209,6 +217,10 @@
   right: 32px;
   font-size: 28px !important;
   cursor: pointer;
+  z-index: 100;
+  background: #000000b3;
+  border-radius: 5px;
+  padding: 4px;
 }
 .depositMoneyDiv_cont_2 {
   border-top: solid 1px #2b2b31;
@@ -243,7 +255,8 @@
   padding: 5px;
   display: flex;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 10px;
+  padding: 10px;
 }
 .depositMoneyDiv_cont_body_input_div_div_cont1 {
   display: flex;
@@ -372,4 +385,96 @@
 .depositMoneyDiv_cont_body_tips_div_1_txt {
   font-size: 14px;
   color: #808091;
+}
+.DashboardWalletsDiv_area3 {
+  margin-top: 2em;
+  margin-bottom: 6em;
+}
+.depositMoneyDiv_cont_body_wallet_addr_div_btn .tooltiptext {
+  display: none;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 106%;
+  left: -100%;
+  margin-left: -100px;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+@media screen and (max-width: 1000px) {
+  .DashboardWalletsDiv_area2_cont2 {
+    display: flex;
+    flex-direction: column;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2 {
+    width: 100%;
+    margin-top: 1em;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2_cont1 {
+    width: 100%;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2_cont2 {
+    width: 100%;
+  }
+  .DashboardWalletsDiv_area2 {
+    padding: 1em;
+  }
+}
+@media screen and (max-width: 767px) {
+  .DashboardWalletsDiv_area2_cont2_area1_bal {
+    font-size: 48px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_profit {
+    font-size: 18px;
+  }
+  .DashboardWalletsDiv_area3 {
+    margin-top: 1em;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_bal_txt {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media screen and (max-width: 600px) {
+  .DashboardWalletsDiv_area2_cont2_area1_bal {
+    font-size: 28px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_profit {
+    font-size: 14px;
+  }
+  .DashboardWalletsDiv_area2_cont1 {
+    font-size: 14px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area1_bal_span {
+    font-size: 14px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2_cont1 {
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 12px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2_cont2 {
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 12px;
+  }
 }

@@ -26,6 +26,15 @@
   flex-direction: column;
   padding: 0em 1em;
   border-bottom: solid 1px #2f2f2f;
+  overflow-y: scroll;
+}
+.DashboardNav_body::-webkit-scrollbar {
+  background: #000000 !important;
+  width: 10px;
+}
+.DashboardNav_body::-webkit-scrollbar-thumb {
+  background: #2c2c2c !important;
+  border-radius: 50px;
 }
 .DashboardNav_body_1_active {
   background: #22ad624a;
@@ -86,4 +95,77 @@
 .dashNavLogout_icon {
   font-size: 24px !important;
   margin-right: 10px;
+}
+.DashboardNav_body_mobile {
+  display: none;
+}
+@media screen and (max-width: 1000px) {
+  .Dashboard_body_area_1 {
+    width: 100%;
+    height: 65px;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+  }
+  .DashboardNav {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  .DashboardNav_head {
+    display: none;
+  }
+  .DashboardNav_body {
+    display: none;
+  }
+  .DashboardNav_body_mobile {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 0em 0.5em;
+    border-bottom: none;
+    align-items: center;
+    overflow: scroll;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .DashboardNav_body_1_active {
+    background: none;
+    color: #61d797;
+    padding: 0.5em 0.5em;
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0em;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .DashboardNav_body_1_active::before {
+    display: none;
+  }
+  .DashboardNav_body_1 {
+    color: #838383;
+    padding: 0.5em 0.5em;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 0em;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .dashNavLogout {
+    display: none;
+  }
+  .DashboardNav_body_1_icon {
+    font-size: 24px !important;
+    margin-right: 0px;
+  }
+  .DashboardNav_body_1_txt {
+    font-size: 12px;
+    margin-top: 3px;
+  }
 }

@@ -8,7 +8,7 @@
 }
 .HomeDivSection1 {
   position: relative;
-  height: 100vh;
+  height: 100svh;
 }
 .HomeDivSection1_div {
   display: flex;
@@ -72,6 +72,7 @@
   border: none;
   max-width: 200px;
   margin-right: 10px;
+  border: solid #22ad62;
 }
 .NoBgButtonWithBorder {
   width: 100%;
@@ -204,7 +205,7 @@
   width: 100vw;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 100svh;
   z-index: 100;
 }
 .genVideo_close {
@@ -231,9 +232,9 @@
 /* ======================================================================== */
 /* ======================================================================== */
 .HomeDivSection3 {
-  height: 100vh;
+  height: 100svh;
   position: relative;
-  padding: 6em 0em;
+  padding: 0em 0em;
   overflow: hidden;
 }
 .HomeDivSection3_bg {
@@ -267,18 +268,18 @@
   width: 70%;
 }
 .swiper-slide.swiper-slide-prev.HomeDivSection3_area_swiper_slide {
-  width: 50em !important;
-  margin-left: -25em !important;
-  margin-right: 16em !important;
+  width: 45% !important;
+  margin-left: -25% !important;
+  margin-right: 13% !important;
 }
 .swiper-slide.swiper-slide-active.HomeDivSection3_area_swiper_slide {
-  width: 50em !important;
-  margin-left: -5em !important;
+  width: 45% !important;
+  margin-left: -5% !important;
   padding: 0em 0em;
 }
 .swiper-slide.swiper-slide-next.HomeDivSection3_area_swiper_slide {
-  width: 50em !important;
-  margin-left: 8em !important;
+  width: 45% !important;
+  margin-left: 7% !important;
 }
 .HomeDivSection3_area_swiper_slide_div_txt {
   width: 100%;
@@ -370,6 +371,16 @@
   height: 10px;
   opacity: 1;
 }
+.HomeDivSection3_area_swiper_slide_div_txt_btn {
+  width: 125px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  background: #22ad62;
+  color: #fff;
+}
 /* ======================================================================== */
 /* ======================================================================== */
 /* ======================================================================== */
@@ -380,4 +391,383 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+.landingPageSectionlast {
+  position: relative;
+  background: #000;
+  padding: 6em 0em;
+  overflow: hidden;
+  padding-bottom: 0px;
+}
+
+.landingPageSectionlast_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.landingPageSectionlast_area_1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3em;
+}
+
+.landingPageSectionlast_area_1_title {
+  font-size: 68px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.landingPageSectionlast_area_1_btn_div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.landingPageSectionlast_area_2 {
+  width: 100%;
+  max-width: 25em;
+  margin: auto;
+  height: 330px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.landingPageSectionlast_area_2_img {
+  width: 100%;
+}
+
+.landingPageSectionlast_area_1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.landingPageSection1_img_lines {
+  position: absolute;
+  /* top: 0; */
+  width: 100%;
+  bottom: 0;
+  opacity: 0.5;
+}
+.landingPageSection1_area1_div3_btn1_link {
+  width: 100%;
+  max-width: 180px;
+  margin-right: 15px;
+  text-decoration: none;
+}
+.landingPageSection1_area1_div3_btn1 {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 49px;
+  background: #fff;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.landingPageSection1_area1_div3_btn1_cont1 {
+  width: 25px;
+  margin-right: 10px;
+}
+.landingPageSection1_area1_div3_btn1_cont1_img {
+  width: 100%;
+}
+.landingPageSection1_area1_div3_btn1_cont2 {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  color: #000;
+}
+.landingPageSection1_area1_div3_btn1_cont2_area1 {
+  font-size: 10px;
+}
+.landingPageSection1_area1_div3_btn1_join {
+  padding: 10px;
+  border-radius: 49px;
+  background: #22ad62;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 500;
+}
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+/* =========================== */
+@media screen and (max-width: 1023px) {
+  .HomeDivSection1_div_txts_1_head {
+    font-size: 62px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .HomeDivSection1_div_txts_1_para {
+    font-size: 18px;
+    color: #adadad;
+    width: 60%;
+  }
+
+  .tricycle_overview_div1_cont1 {
+    padding: 1em;
+  }
+  .tricycle_overview_div1_cont2_head {
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+  }
+  .tricycle_overview_div1_cont2_para {
+    font-size: 14px;
+  }
+  .HomeDivSection2 {
+    padding: 4em 0em;
+  }
+  .HomeDivSection3_area_swiper_slide_div_txt_title {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  .HomeDivSection3_area_swiper_slide_div_txt_amount {
+    font-size: 18px;
+    color: #8f8f8f;
+  }
+  .HomeDivSection3_area_swiper_slide_div_specs_div_1_title {
+    font-size: 16px;
+  }
+  .HomeDivSection3_area_swiper_slide_div_specs_div_1_para {
+    font-size: 12px;
+  }
+  .swiper-slide.swiper-slide-active.HomeDivSection3_area_swiper_slide {
+    width: 50% !important;
+    margin-left: -10% !important;
+  }
+
+  .swiper-slide.swiper-slide-next.HomeDivSection3_area_swiper_slide {
+    width: 50% !important;
+    margin-left: 2% !important;
+  }
+  .swiper-slide.swiper-slide-prev.HomeDivSection3_area_swiper_slide {
+    width: 50% !important;
+    margin-left: -25% !important;
+    margin-right: 8% !important;
+  }
+  .HomeDivSection2_area2 {
+    height: 400px;
+  }
+  .HomeDivSection2_area1_cont1 {
+    font-size: 48px;
+  }
+  .HomeDivSection2_area2_img {
+    width: 100%;
+    border-radius: 25px;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tricycle_overview_div1_cont1 {
+    display: none;
+  }
+  .HomeDivSection1_div_txts {
+    padding-top: 8em;
+  }
+}
+@media screen and (max-width: 767px) {
+  .tricycle_overview_div {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 0em;
+  }
+  .tricycle_overview_div1 {
+    border-radius: 8px;
+  }
+  .tricycle_overview_div1_cont1 {
+    display: none;
+  }
+  .tricycle_overview_div1_cont2 {
+    padding: 15px 10px;
+  }
+  .tricycle_overview_div1_cont2_head {
+    font-size: 18px;
+  }
+  .HomeDivSection1_div_txts {
+    padding-top: 8em;
+  }
+  .HomeDivSection2_area1_cont1 {
+    font-size: 42px;
+    line-height: 1;
+  }
+  .HomeDivSection2_area2 {
+    margin-top: 2em;
+  }
+  .HomeDivSection2_area2 {
+    height: 300px;
+  }
+  .swiper-slide.swiper-slide-next.HomeDivSection3_area_swiper_slide {
+    width: 100% !important;
+    margin-left: 0% !important;
+  }
+  .swiper-slide.swiper-slide-active.HomeDivSection3_area_swiper_slide {
+    width: 100% !important;
+    margin-left: -34% !important;
+  }
+  .swiper-slide.swiper-slide-prev.HomeDivSection3_area_swiper_slide {
+    width: 100% !important;
+    margin-left: -100% !important;
+    margin-right: 34% !important;
+  }
+  .landingPageSectionlast_area_2 {
+    height: 290px;
+  }
+
+  .landingPageSectionlast_area_1 {
+    margin-bottom: 2em;
+  }
+
+  .landingPageSectionlast {
+    padding: 2em 0em;
+    padding-bottom: 0px;
+  }
+  .landingPageSection1_area1_div3_btn1_link {
+    max-width: 200px;
+    width: 100%;
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+  .landingPageSection1_area1_div3_btn1 {
+    padding: 10px;
+    border-radius: 50px;
+    width: 100%;
+  }
+  .landingPageSection1_area1_div3_btn1_cont1 {
+    width: 20px;
+  }
+  .landingPageSection1_area1_div3_btn1_cont2 {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    font-size: 14px;
+  }
+  .landingPageSectionlast_area_1_btn_div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .landingPageSectionlast_area_1_title {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .HomeDivSection2_area2 {
+    height: 200px;
+  }
+  .HomeDivSection1_div_txts_1_para {
+    font-size: 16px;
+    color: #adadad;
+    width: 100%;
+  }
+  .tricycle_overview_div1_cont2 {
+    padding: 20px 10px;
+  }
+  .HomeDivSection1_div_txts_1_head {
+    font-size: 48px;
+  }
+  .HomeDivSection3_area {
+    padding: 0em 0;
+  }
+  .HomeDivSection3_area_swiper_slide_div_txt_title {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .HomeDivSection2_area1_cont1 {
+    font-size: 38px;
+    line-height: 1;
+  }
+  .swiper-button-next {
+    padding: 1em;
+    height: 10px;
+    width: 10px;
+  }
+  .swiper-button-prev {
+    padding: 1em;
+    height: 10px;
+    width: 10px;
+  }
+  .swiper-button-next:after {
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .swiper-button-prev:after {
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .HomeDivSection3_area_swiper_slide_div_specs_div_1 {
+    margin: 0em 5px;
+  }
+  .HomeDivSection3_area_swiper_slide_div_img {
+    width: 80%;
+  }
+  .tricycle_overview_div {
+    bottom: 0;
+    padding-bottom: 3em;
+    position: absolute;
+    width: 100%;
+  }
+  .tricycle_overview_div1_cont2_head {
+    font-size: 16px;
+  }
+  .HomeDivSection1_div_txts {
+    padding-top: 6em;
+  }
+  .HomeDivSection3 {
+    padding: 3em 0em;
+  }
+  .BgButtonNoBorder {
+    font-size: 14px;
+  }
+  .NoBgButtonWithBorder {
+    font-size: 14px;
+  }
 }

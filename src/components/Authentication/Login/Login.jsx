@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "../../../stylesheet/signupLogin.css";
-import Staticdata from "../../../assets/json/Static";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../features/auth/authActions";
 import { useNavigate } from "react-router-dom";
+import ComponentLoading from "../../Common/CommonUI/Modals/ComponentLoading";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import WebPin from "../../Common/CommonUI/Modals/WebPin";
+import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import OtpModal from "../../Common/CommonUI/Modals/OtpModal";
+import { RESEND_SMS_OTP, VERIFY_OTP } from "../../../services/auth";
 // dummySelectData;
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,25 +22,85 @@ const Login = () => {
     email: "",
     password: "",
   });
-
+  const [userPin, setUserPin] = useState(!null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorTxt, setErrorTxt] = useState("");
+  const [pinModal, setPinModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpDisable, setOtpDisable] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpModal, setOtpModal] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const handleLogin = async () => {
+    setDisable(true);
     const { email, password } = values;
 
     if (email === "" || password === "") return;
 
     const res = await dispatch(loginUser(values));
-    console.log(res);
+    // //console.logog(res);
     if (res.payload.code === 200) {
-      alert("Login successful");
-
+      setDisable(false);
+      if (userPin === null) {
+        setPinModal(true);
+        return;
+      }
+      setSuccess(true);
       return;
     }
 
     if (res.payload?.data?.success === false) {
-      alert(res.payload?.data?.errorMessage);
+      // //console.logog(res);
+      if (res.payload?.data?.errorMessage === "VERIFICATION_REQUIRED") {
+        // call the resend API
+
+        const resendsms = await RESEND_SMS_OTP({
+          email: values.email,
+        });
+
+        // //console.logog(resendsms);
+        setOtpModal(true);
+        return;
+      }
+      setDisable(false);
+      setErrorTxt(res.payload?.data?.errorMessage);
+      setErrorModal(true);
     }
   };
 
+  const handleChange = (enteredOtp) => {
+    //console.logog(enteredOtp);
+    setOtp(enteredOtp);
+  };
+
+  const processOtp = async () => {
+    //console.logog("return");
+  };
+  const handleVerifyOtp = async () => {
+    setOtpDisable(true);
+
+    const response = await VERIFY_OTP({
+      code: otp,
+      email: values.email,
+    });
+
+    //console.logog(response);
+
+    if (response.success) {
+      window.location.reload();
+      // setSuccess(true);
+      // setOtpDisable(false);
+      // setOtpLoading(false);
+      return;
+    }
+    setErrorModal(true);
+    setErrorTxt(response.data.errorMessage || "Verification failed!!1");
+    setOtpDisable(false);
+    setOtpLoading(false);
+  };
   const handleOnChange = (e) => {
     const { value, id } = e.target;
 
@@ -43,13 +111,21 @@ const Login = () => {
     });
   };
 
-  if (loading) {
-    return <p>Loading ...</p>;
-  }
+  const createPin = () => {
+    setIsLoading(true);
+  };
 
-  if (error) {
-    return <p>{error}</p>;
-  }
+  useEffect(() => {
+    if (values.email && values.password !== "") {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [values]);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   return (
     <div className="signup_div">
       <section
@@ -73,6 +149,7 @@ const Login = () => {
                 onChange={handleOnChange}
                 name="email"
                 className="signup_div_section_div_container_form_input"
+                autoComplete="off"
               />
               {/* ============ */}
               {/* ============ */}
@@ -85,13 +162,28 @@ const Login = () => {
               >
                 Password:
               </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                onChange={handleOnChange}
-                className="signup_div_section_div_container_form_input"
-              />
+              <div className="password_div">
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  onChange={handleOnChange}
+                  className="signup_div_section_div_container_form_input_pasowrd"
+                  autoComplete="off"
+                />
+                {passwordVisible ? (
+                  <VisibilityOffIcon
+                    onClick={togglePasswordVisibility}
+                    className="otp_modal_container_body_icon2"
+                  />
+                ) : (
+                  <VisibilityIcon
+                    onClick={togglePasswordVisibility}
+                    className="otp_modal_container_body_icon2"
+                  />
+                )}
+              </div>
+
               {/* ============ */}
               {/* ============ */}
               {/* ============ */}
@@ -126,8 +218,15 @@ const Login = () => {
               <button
                 className="signup_div_section_div_container_form_btn"
                 onClick={handleLogin}
+                disabled={disable}
               >
-                Login
+                {loading ? (
+                  <>
+                    <ScaleLoader color="#366e51" height={20} />
+                  </>
+                ) : (
+                  " Login"
+                )}
               </button>
             </div>
 
@@ -140,6 +239,41 @@ const Login = () => {
           </div>
         </div>
       </section>
+      {otpModal ? (
+        <OtpModal
+          handleChange={handleChange}
+          otp={otp}
+          handleVerifyOtp={handleVerifyOtp}
+          otpDisable={otpDisable}
+          otpLoading={otpLoading}
+          payload={values}
+        />
+      ) : null}
+      {pinModal ? (
+        <WebPin
+          isLoading={isLoading}
+          btnFunc={createPin}
+          pinTitle="Create a transaction pin"
+          pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+          btnFuncTxt="Create Pin"
+        />
+      ) : null}
+      {success ? (
+        <SuccessModal
+          SuccesTxt={"You have successfully logged in "}
+          successFunc={() => {
+            window.location.href = "/dashboard";
+          }}
+        />
+      ) : null}
+      {errorModal ? (
+        <ErrorModal
+          ErrorTxt={errorTxt}
+          errorFunc={() => {
+            setErrorModal(false);
+          }}
+        />
+      ) : null}
     </div>
   );
 };
