@@ -37,7 +37,7 @@ const userRegistrationSlice = createSlice({
       state.error = data.payload;
     },
     setPayload: (state, action) => {
-      //   console.log(action.payload);
+      //   //console.logog(action.payload);
 
       const { fullName } = action.payload;
       if (fullName) {

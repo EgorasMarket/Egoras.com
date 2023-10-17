@@ -42,7 +42,7 @@ export const TablePagination = ({
   });
   const ToggleSaleDetails = (product_id) => {
     setSaleDetails(product_id);
-    console.log(product_id);
+    //console.logog(product_id);
   };
   const offset = currentPage * PER_PAGE;
   const pageCount = Math.ceil(updatedTransactions.length / PER_PAGE);
@@ -50,7 +50,7 @@ export const TablePagination = ({
     offset,
     offset + PER_PAGE
   );
-  console.log(currentTransactions);
+  //console.logog(currentTransactions);
 
   const ToggleSmallMenu = () => {
     setSmallMenu(!smallMenu);
@@ -168,9 +168,9 @@ export const TablePagination = ({
                     const formattedDate = `${createdAtDate.getDate()}/${
                       createdAtDate.getMonth() + 1
                     }/${createdAtDate.getFullYear()}`;
-                    console.log("====================================");
-                    console.log(metaData);
-                    console.log("====================================");
+                    //console.logog("====================================");
+                    //console.logog(metaData);
+                    //console.logog("====================================");
 
                     const timestamp = data.createdAt;
 
@@ -186,7 +186,7 @@ export const TablePagination = ({
                       .toString()
                       .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
 
-                    console.log(formattedTime);
+                    //console.logog(formattedTime);
                     return (
                       <tr
                         className="stakingTable_body_row "
@@ -314,9 +314,9 @@ export const TablePagination = ({
             const formattedDate = `${createdAtDate.getDate()}/${
               createdAtDate.getMonth() + 1
             }/${createdAtDate.getFullYear()}`;
-            console.log("====================================");
-            console.log(metaData);
-            console.log("====================================");
+            //console.logog("====================================");
+            //console.logog(metaData);
+            //console.logog("====================================");
 
             const timestamp = data.createdAt;
 
@@ -332,7 +332,7 @@ export const TablePagination = ({
               .toString()
               .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
 
-            console.log(formattedTime);
+            //console.logog(formattedTime);
 
             return (
               <>
@@ -366,7 +366,7 @@ export const Table = ({
   const [saleDetails, setSaleDetails] = useState("");
   const ToggleSaleDetails = (product_id) => {
     setSaleDetails(product_id);
-    console.log(product_id);
+    //console.logog(product_id);
   };
   const ToggleSmallMenu = () => {
     setSmallMenu(!smallMenu);
@@ -493,9 +493,9 @@ export const Table = ({
                     const formattedDate = `${createdAtDate.getDate()}/${
                       createdAtDate.getMonth() + 1
                     }/${createdAtDate.getFullYear()}`;
-                    console.log("====================================");
-                    console.log(metaData);
-                    console.log("====================================");
+                    //console.logog("====================================");
+                    //console.logog(metaData);
+                    //console.logog("====================================");
 
                     const timestamp = data.createdAt;
 
@@ -511,7 +511,7 @@ export const Table = ({
                       .toString()
                       .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
 
-                    console.log(formattedTime);
+                    //console.logog(formattedTime);
                     return (
                       <tr
                         className="stakingTable_body_row "
@@ -635,9 +635,9 @@ export const Table = ({
               const formattedDate = `${createdAtDate.getDate()}/${
                 createdAtDate.getMonth() + 1
               }/${createdAtDate.getFullYear()}`;
-              console.log("====================================");
-              console.log(metaData);
-              console.log("====================================");
+              //console.logog("====================================");
+              //console.logog(metaData);
+              //console.logog("====================================");
 
               const timestamp = data.createdAt;
 
@@ -653,7 +653,7 @@ export const Table = ({
                 .toString()
                 .padStart(2, "0")}${hours < 12 ? "am" : "pm"}`;
 
-              console.log(formattedTime);
+              //console.logog(formattedTime);
 
               return (
                 <>
@@ -683,7 +683,7 @@ export const Table = ({
 //     .padStart(2, "0");
 //   const year = date.getUTCFullYear();
 //   const formattedDate = `${day}/${month}/${year}`;
-//   console.log(formattedDate);
+//   //console.logog(formattedDate);
 //   const dateString = formattedDate;
 //   const date2 = new Date(dateString);
 //   const formattedDated = date.toLocaleDateString("en-US", {

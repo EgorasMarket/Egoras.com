@@ -21,13 +21,11 @@ function App() {
   const verify_user = async () => {
     // const response = await VERIFY_USER();
     const response = dispatch(verifyUser());
-    console.log(response);
   };
 
   const fetch_walllet = async () => {
     // const response = await VERIFY_USER();
     const response = dispatch(fetchWalletBalance());
-    console.log(response);
   };
   useEffect(() => {
     verify_user();

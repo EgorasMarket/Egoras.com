@@ -8,7 +8,7 @@ const useUserEligible = () => {
 
   const fetchKyCStatus = async () => {
     const res = await GET_KYC_STATUS();
-    console.log(res);
+    //console.logog(res);
 
     if (
       (res.data.data.level === levels.level2 &&

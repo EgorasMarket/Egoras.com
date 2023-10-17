@@ -88,7 +88,7 @@ const Header = () => {
     },
   ];
   useEffect(() => {
-    console.log(user);
+    //console.logog(user);
     if (user === null) {
       setUserData(null);
     } else {

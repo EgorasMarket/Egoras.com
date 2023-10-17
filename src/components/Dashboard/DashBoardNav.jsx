@@ -14,7 +14,7 @@ const DashBoardNav = ({ routes, activeRoute }) => {
     if (activeRoute) {
       setActiveLink(activeRoute);
     }
-    console.log(activeLink, activeRoute);
+    //console.logog(activeLink, activeRoute);
   }, [activeRoute]);
 
   return (

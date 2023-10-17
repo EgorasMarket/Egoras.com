@@ -33,7 +33,7 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
       ...payload,
       pin_code: pin,
     });
-    console.log(response);
+    //console.logog(response);
     setLoading(false);
 
     if (!response.data.success) {

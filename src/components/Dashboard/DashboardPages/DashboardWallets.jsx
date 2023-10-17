@@ -96,9 +96,9 @@ const DashboardWallets = () => {
     setWithdrawMoneyNaira(!withdrawMoneyNaira);
   };
   useEffect(() => {
-    console.log(data);
-    console.log(data[0]?.value);
-    console.log(data[1]?.value);
+    //console.logog(data);
+    //console.logog(data[0]?.value);
+    //console.logog(data[1]?.value);
 
     if (data[0].name === "Naira") {
       setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
@@ -127,8 +127,8 @@ const DashboardWallets = () => {
       setContentLoadingTable(true);
       //  setTableData([]);
     }
-    console.log(response.data);
-    console.log(response);
+    //console.logog(response.data);
+    //console.logog(response);
   };
   useEffect(() => {
     fetchWalletTransactions();

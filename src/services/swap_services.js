@@ -16,26 +16,26 @@ export const GET_SWAP_PRICE = async ({ tokenA = "", tokenB = "" }) => {
 };
 
 export const SWAP = async (payload) => {
-  console.log(payload);
+  //console.logog(payload);
   setAuthToken(localStorage.getItem("x-token"));
   try {
     const res = await axios.post(`${TOKEN_SWAP}`, payload);
-    console.log(res.data.message);
+    //console.logog(res.data.message);
     return res.data;
   } catch (error) {
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response || error.message;
   }
 };
 export const LIQUIDITY = async (payload) => {
-  console.log(payload);
+  //console.logog(payload);
   setAuthToken(localStorage.getItem("x-token"));
   try {
     const res = await axios.post(`${TOKEN_LIQUIDITY}`, payload);
-    console.log(res.data.message);
+    //console.logog(res.data.message);
     return res.data;
   } catch (error) {
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response || error.message;
   }
 };

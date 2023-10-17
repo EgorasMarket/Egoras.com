@@ -18,21 +18,21 @@ const DashboardProducts = () => {
   const fechAllProducts = async () => {
     setProductLoading(true);
     const response = await ALL_PRODUCTS();
-    console.log(response);
+    //console.logog(response);
     setProductLoading(false);
     if (response?.status === false) {
-      console.log("cnnnnnnnn");
+      //console.logog("cnnnnnnnn");
       toast.warn("Cannont retrieve all products");
       return;
     }
-    console.log("no near");
+    //console.logog("no near");
     setProducts(response.data.getAllUploadedProduct);
     const ano = response.data.getAllUploadedProduct.filter((data) => {
-      console.log(data);
+      //console.logog(data);
       return data.product_brand === "EGORAS";
     });
     const ano2 = response.data.getAllUploadedProduct.filter((data) => {
-      console.log(data);
+      //console.logog(data);
       return data.product_brand !== "EGORAS";
     });
     setEgorasProducts(ano);

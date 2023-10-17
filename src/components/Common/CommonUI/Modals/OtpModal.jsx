@@ -35,7 +35,7 @@ const OtpModal = ({
             separateAfter={1}
             shouldAutoFocus
             className="otp_modal_container_body_otp_input"
-            // onSubmit={console.log(otp)}
+            // onSubmit={//console.logog(otp)}
           />
         </div>
         <div className="otp_modal_container_body_button">

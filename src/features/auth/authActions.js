@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk(
     try {
       return await LOGIN_USER(payload);
     } catch (err) {
-      console.log("Error : " + err.response.message);
+      //console.logog("Error : " + err.response.message);
       return thunkAPI.rejectWithValue(err.message);
     }
   }
@@ -18,7 +18,7 @@ export const registerUser = createAsyncThunk(
     try {
       return await REGISTER_USER(payload);
     } catch (err) {
-      console.log("Error : " + err.response.message);
+      //console.logog("Error : " + err.response.message);
       return thunkAPI.rejectWithValue(err.message);
     }
   }
@@ -30,7 +30,7 @@ export const verifyUser = createAsyncThunk(
     try {
       return await VERIFY_USER();
     } catch (error) {
-      console.log("Error : " + error.response.message);
+      //console.logog("Error : " + error.response.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

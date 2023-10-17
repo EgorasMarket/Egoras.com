@@ -63,7 +63,7 @@ const DashboardHome = () => {
       return;
     }
 
-    console.log(response.data.address, "generating wallet");
+    //console.logog(response.data.address, "generating wallet");
     const registerAddress = await GENERATE_USER_WALLET_ADDRESS({
       wallet: response.data.address,
       email: user.email,
@@ -71,14 +71,14 @@ const DashboardHome = () => {
     await GENERATE_USER_WALLET_ADDRESS_MART_GPT({
       userAddress: response.data.address,
     });
-    console.log(registerAddress, "responses");
+    //console.logog(registerAddress, "responses");
   };
 
   const setPin = async () => {
     setPinModal(true);
   };
   useEffect(() => {
-    // console.log("i am running here");
+    // //console.logog("i am running here");
     setTimeout(() => {
       if (user?.wallet_address === "n/a" || user?.wallet_address === "") {
         generateWallet();
@@ -106,8 +106,8 @@ const DashboardHome = () => {
           year: "numeric",
         }),
       }));
-      console.log(transformedData, "transformedData");
-      console.log(transformedData, "transformedData");
+      //console.logog(transformedData, "transformedData");
+      //console.logog(transformedData, "transformedData");
       setNewState(transformedData);
       if (transformedData.length > 0) {
         setlastIndex(transformedData.length - 1);
@@ -125,8 +125,8 @@ const DashboardHome = () => {
 
       // setTableData([]);
     }
-    console.log(response.data);
-    console.log(response);
+    //console.logog(response.data);
+    //console.logog(response);
   };
   useEffect(() => {
     fetchWalletTransactions();
@@ -142,13 +142,13 @@ const DashboardHome = () => {
     return null;
   };
 
-  console.log("====================================");
-  console.log(user, "yyyyyyyyy");
-  console.log("====================================");
+  //console.logog("====================================");
+  //console.logog(user, "yyyyyyyyy");
+  //console.logog("====================================");
   useEffect(() => {
-    console.log(data);
-    console.log(data[0]?.value);
-    console.log(data[1]?.value);
+    //console.logog(data);
+    //console.logog(data[0]?.value);
+    //console.logog(data[1]?.value);
 
     if (data[0].name === "Naira") {
       setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
@@ -186,7 +186,7 @@ const DashboardHome = () => {
   const processPinRequest = async () => {
     if (pin !== confirmPin) {
       toast.warn("Pin does not match");
-      console.log("pin does not match");
+      //console.logog("pin does not match");
       return;
     }
 
@@ -196,7 +196,7 @@ const DashboardHome = () => {
       type: "set",
     });
 
-    console.log(response);
+    //console.logog(response);
 
     if (response.success) {
       toast.success("Pin is set Successfully");
@@ -219,11 +219,11 @@ const DashboardHome = () => {
   const fechAllProducts = async () => {
     setProductLoading(true);
     const response = await ALL_PRODUCTS();
-    console.log(response);
+    //console.logog(response);
     setProductLoading(false);
 
     const ano = response.data.getAllUploadedProduct.filter((data) => {
-      console.log(data);
+      //console.logog(data);
       return data.product_brand === "EGORAS";
     });
     setEgorasProducts(ano);
@@ -233,7 +233,7 @@ const DashboardHome = () => {
   }, []);
   const showPurchasedProduct = async () => {
     const response = await SHOW_ALL_PURCHASED_PRODUCT(user?.wallet_address);
-    console.log(response);
+    //console.logog(response);
 
     setOrders(response.data);
   };

@@ -36,7 +36,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
     data = { ...data, pin_code: pin };
 
     const response = await SEND_CRYPTO_FUNDS_INTERNAL(data);
-    console.log(response);
+    //console.logog(response);
     setLoading(false);
 
     if (response.data.success === false) {

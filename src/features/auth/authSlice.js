@@ -37,7 +37,7 @@ const AuthSlice = createSlice({
       state.error = data.payload;
     },
     setPayload: (state, action) => {
-      //   console.log(action.payload);
+      //   //console.logog(action.payload);
 
       const { fullName, phone } = action.payload;
       state.payload = action.payload;

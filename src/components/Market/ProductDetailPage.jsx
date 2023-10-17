@@ -34,19 +34,19 @@ const ProductDetailPage = () => {
   };
   const countChange = (e) => {
     setCount(parseFloat(e.target.value));
-    console.log(e.target.value);
+    //console.logog(e.target.value);
     if (e.target.value === "") {
       setCount(1);
       return;
     }
     if (parseFloat(e.target.value) >= product.quantity) {
       setCount(product.quantity);
-      console.log("ive reached");
+      //console.logog("ive reached");
       return;
     }
     if (parseFloat(e.target.value) <= 1) {
       setCount(1);
-      console.log("ive reached");
+      //console.logog("ive reached");
       return;
     }
   };
@@ -58,7 +58,7 @@ const ProductDetailPage = () => {
       return;
     }
     setProduct(response.data);
-    console.log(response);
+    //console.logog(response);
   };
 
   useEffect(() => {
@@ -82,8 +82,8 @@ const ProductDetailPage = () => {
       setAddDisable(true);
       setSubDisable(true);
     }
-    console.log(count);
-    console.log(ProdQuantity);
+    //console.logog(count);
+    //console.logog(ProdQuantity);
   }, [count, ProdQuantity, product]);
 
   if (loading) {
@@ -237,7 +237,7 @@ const ProductDetailPage = () => {
   const images = JSON.parse(product.product_images);
 
   const specifications = product.product_specifications.split(",");
-  console.log(specifications);
+  //console.logog(specifications);
   // const images = [
   //   "/img/egr_gen1_detail_img.png",
   //   "/img/egr_gen1_detail_img.png",

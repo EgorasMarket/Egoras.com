@@ -22,6 +22,7 @@ import axios from "axios";
 import { dataUrlToFile } from "../../utils/Base64ToFile";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { RESEND_EMAIL_VERIFICATION_LINK } from "../../services/auth";
 const customCountries = {
   NG: "Nigeria",
 };
@@ -37,10 +38,13 @@ export const status = Object.freeze({
 });
 
 const KycEmailComp = ({ toggleEmailCont }) => {
+  const { user } = useSelector((state) => state.auth);
   const [response, setResponse] = useState({});
+  const [processing, setProcessing] = useState(false);
+  const [success, setSuccess] = useState(false);
   const fetchKycStatus = async () => {
     const response = await GET_KYC_STATUS();
-    console.log(response);
+    //console.logog(response);
 
     if (response?.code === null || !response?.code === 200) {
       return;
@@ -66,12 +70,26 @@ const KycEmailComp = ({ toggleEmailCont }) => {
       toggleEmailCont();
     }
     setResponse(response?.data?.data);
-    console.log(response);
+    //console.logog(response);
   };
 
   useEffect(() => {
     fetchKycStatus();
   }, []);
+
+  const handleResend = async () => {
+    setProcessing(true);
+    const response = await RESEND_EMAIL_VERIFICATION_LINK({
+      email: user?.email,
+    });
+    setProcessing(false);
+    if (!response.code === 200) {
+      toast.error("Operation failed please try Again!!");
+      return;
+    }
+    setSuccess(true);
+    //console.logog(response, "banaya");
+  };
 
   return (
     <div className="kypageDiv_cont_div">
@@ -97,15 +115,53 @@ const KycEmailComp = ({ toggleEmailCont }) => {
             <div className="kypageDiv_cont_body_email_input_div">
               <input
                 type="text"
-                value={"samuelify225@gmail.com"}
+                value={user?.email}
                 className="kypageDiv_cont_body_email_input"
               />
-              <button className="kypageDiv_cont_body_email_input_btn">
+
+              <button
+                className="kypageDiv_cont_body_email_input_btn"
+                onClick={handleResend}
+                disabled={processing}
+              >
                 Resend
               </button>
             </div>
           </div>
         </div>
+
+        {success && (
+          <div className="not_eligible_div">
+            <div className="kyc_review_message_div_cont">
+              <div className="kyc_review_message_div_cont_1">
+                <img
+                  src="/img/verification_svg1.svg"
+                  alt=""
+                  className="kypageDiv_cont_img"
+                />
+              </div>
+              <div className="kyc_review_message_div_cont_2">
+                <div className="kyc_review_message_div_cont_2_title">
+                  Email Verification
+                </div>
+                <div className="kyc_review_message_div_cont_2_para">
+                  Check your email for the verification link
+                </div>
+                <a
+                  href="/kyc/verify"
+                  className="kyc_review_message_div_cont_2_btn_link"
+                >
+                  <button
+                    className="kyc_review_message_div_cont_2_btn"
+                    onClick={() => setSuccess(false)}
+                  >
+                    Dismiss
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
         {/* {!response?.level === levels.level1 && (
           <div className="kypageDiv_cont_button_div">
             <button
@@ -117,6 +173,8 @@ const KycEmailComp = ({ toggleEmailCont }) => {
           </div>
         )} */}
       </div>
+
+      <ToastContainer />
     </div>
   );
 };
@@ -125,7 +183,7 @@ const KycStartComp = ({ startVerify, prev }) => {
   const [response, setResponse] = useState({});
   const fetchKycStatus = async () => {
     const response = await GET_KYC_STATUS();
-    console.log(response);
+    //console.logog(response);
 
     if (response?.code === null || !response?.code === 200) {
       return;
@@ -333,7 +391,7 @@ const KycBvnComp = ({ nextStep1, prevStep }) => {
   //   } else {
   //     setDisable(false);
   //   }
-  //   console.log(payload.bvnNumber);
+  //   //console.logog(payload.bvnNumber);
   // }, [payload.bvnNumber]);
   return (
     <div className="kypageDiv_cont_div">
@@ -453,7 +511,7 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
 
   useEffect(() => {
     let states = State.getStatesOfCountry("NG");
-    console.log(states);
+    //console.logog(states);
     //intercept the state object
     let tempState = states;
     tempState.forEach((state) => {
@@ -464,7 +522,7 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
   }, []);
 
   const handleStateOnChange = (e) => {
-    console.log(e);
+    //console.logog(e);
     setSelectedState(e.label);
     const city = City.getCitiesOfState("NG", e.isoCode.toString());
     let tempCity = city;
@@ -485,7 +543,7 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
     } else {
       setDisable(false);
     }
-    console.log(state, city, address);
+    //console.logog(state, city, address);
   }, [state, city, address]);
   return (
     <div className="kypageDiv_cont_div">
@@ -585,7 +643,7 @@ const KycAddressComp = ({ nextStep2, prevStep }) => {
             // onClick={nextStep2}
             disabled={disable}
             onClick={async () => {
-              console.log(state, city, address);
+              //console.logog(state, city, address);
               await dispatch(
                 setPayload({
                   ...payload,
@@ -633,7 +691,7 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
     } else {
       setDisable(false);
     }
-    console.log(capturedImage);
+    //console.logog(capturedImage);
   }, [capturedImage]);
 
   return (
@@ -721,7 +779,7 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
                 let data = new FormData();
                 data.append("image_file", file);
                 const response = await UPLOAD_IMAGE(data);
-                console.log(response);
+                //console.logog(response);
 
                 if (!response.success || response?.success === false) {
                   return;
@@ -732,9 +790,9 @@ const KycFacialComp = ({ submitVerify, prevStep }) => {
                   ...new_payload,
                   image: response.data.image_name,
                 };
-                console.log(new_payload);
+                //console.logog(new_payload);
                 const res = await UPLOAD_LEVEL_2_KYC(new_payload);
-                console.log(res);
+                //console.logog(res);
                 setProcessing(false);
                 if (res.success) {
                   // toast.success("Information Submitted Successfully");

@@ -18,7 +18,7 @@ const DepositEgc = ({ ToggleEgcBlockchainDepositModal }) => {
       symbol: "EGC",
     });
 
-    console.log(response);
+    //console.logog(response);
 
     if (!response.success) {
       setLoading(false);

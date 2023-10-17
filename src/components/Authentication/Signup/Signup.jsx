@@ -71,7 +71,7 @@ const Signup = () => {
   };
 
   const handleOnChange = (e) => {
-    console.log(e);
+    //console.logog(e);
     const { id, value } = e.target;
     dispatch(setPayload({ ...payload, [id]: value }));
   };
@@ -89,7 +89,7 @@ const Signup = () => {
       referral,
       countrycode,
     } = payload;
-    console.log(payload);
+    //console.logog(payload);
 
     let temp = "+" + phone.toString();
     let result = temp.replace(countrycode, "0");
@@ -102,7 +102,7 @@ const Signup = () => {
     const res = await dispatch(registerUser(newPayload));
     setPayload(newPayload);
 
-    console.log(res);
+    //console.logog(res);
     if (res.payload?.code === 200) {
       setSubmitDisable(false);
       setOtpModal(true);
@@ -116,7 +116,7 @@ const Signup = () => {
       // return alert(res.payload?.data?.errorMessage);
     }
 
-    console.log("Failed");
+    //console.logog("Failed");
   };
 
   if (error) {
@@ -126,7 +126,7 @@ const Signup = () => {
   const handleVerifyOtp = async () => {
     setOtpDisable(true);
     setOtpLoading(true);
-    console.log(payload);
+    //console.logog(payload);
 
     let temp = "+" + payload.phone.toString();
     let newPhone = temp.replace(payload.countrycode, "0");
@@ -137,7 +137,7 @@ const Signup = () => {
       phone: newPhone,
     });
 
-    console.log(response);
+    //console.logog(response);
 
     if (response.success) {
       setSuccess(true);
@@ -314,7 +314,7 @@ const Signup = () => {
                     onChange={(value, country, e, formattedValue) => {
                       // let text = value;
                       // let result = text.replace(country.dialCode, "0");
-                      // console.log(result);
+                      // //console.logog(result);
                       dispatch(
                         setPayload({
                           ...payload,
@@ -322,7 +322,7 @@ const Signup = () => {
                           phone: value,
                         })
                       );
-                      console.log(country, formattedValue, value);
+                      //console.logog(country, formattedValue, value);
                     }}
                     // onChange={(phone) => this.setState({ phone })}
                   />

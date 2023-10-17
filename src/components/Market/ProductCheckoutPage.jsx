@@ -64,10 +64,10 @@ const ProductCheckoutPage = () => {
     symbol: "NGN",
     user: user?.wallet_address,
   });
-  console.log(id);
+  //console.logog(id);
   useEffect(() => {
     let states = State.getStatesOfCountry("NG");
-    console.log(states);
+    //console.logog(states);
     //intercept the state object
     let tempState = states;
     tempState.forEach((state) => {
@@ -75,7 +75,7 @@ const ProductCheckoutPage = () => {
       state.label = state.name;
     });
     setStates(tempState);
-    console.log(tempState);
+    //console.logog(tempState);
   }, []);
 
   const fetchProductDetail = async () => {
@@ -91,7 +91,7 @@ const ProductCheckoutPage = () => {
       index_id: response.data.index_id,
       amount: response.data.final_amount,
     });
-    console.log(response);
+    //console.logog(response);
   };
 
   const createPin = async () => {
@@ -101,11 +101,11 @@ const ProductCheckoutPage = () => {
     temp = { ...payload, pin_code: pin };
     // setPinModal(false);
     const response = await MAKE_PAYMENT_FOR_PRODUCT(temp);
-    console.log(response);
+    //console.logog(response);
 
     if (response.success === true) {
       // toast.success("Product Purchase Successful");
-      console.log(response);
+      //console.logog(response);
       setSuccess(true);
       setPinLoading(false);
       setProcessing(false);
@@ -117,7 +117,7 @@ const ProductCheckoutPage = () => {
       setProcessing(false);
       setErrorTxt(response.data.errorMessage);
       setPinModal(false);
-      console.log(response);
+      //console.logog(response);
       // toast.warn(response.data.errorMessage);
       return;
     }
@@ -134,9 +134,9 @@ const ProductCheckoutPage = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log(data);
-    console.log(data[0]?.value);
-    console.log(data[1]?.value);
+    //console.logog(data);
+    //console.logog(data[0]?.value);
+    //console.logog(data[1]?.value);
     setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
     setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
   }, []);
@@ -156,7 +156,7 @@ const ProductCheckoutPage = () => {
   }, [deliveryVal]);
 
   const handleStateOnChange = (e) => {
-    console.log(e);
+    //console.logog(e);
     setSelectedState(e.label);
     const city = City.getCitiesOfState("NG", e.isoCode.toString());
     let tempCity = city;
@@ -166,8 +166,8 @@ const ProductCheckoutPage = () => {
     });
   };
 
-  console.log(selectedState);
-  console.log(deliveryVal);
+  //console.logog(selectedState);
+  //console.logog(deliveryVal);
   const checkedPickupStore = () => {
     setDeliveryVal("PICKUP");
   };
@@ -183,23 +183,23 @@ const ProductCheckoutPage = () => {
       state: selectedState,
       item: name,
     };
-    console.log(values);
+    //console.logog(values);
     const response = await SUBMIT_USER_DELIEVRY(id, values);
-    console.log(response);
+    //console.logog(response);
     if (response.success === true) {
       setIsDeliverLoading(false);
       setSuccessModal(true);
       setSuccessTxt(
         "You have selcted to pick up your product on delivery, our customer service will reach out to you soon."
       );
-      console.log(response);
+      //console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
       setIsDeliverLoading(false);
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      console.log(response);
+      //console.logog(response);
       return;
     }
   };
@@ -210,9 +210,9 @@ const ProductCheckoutPage = () => {
       delivery_type: deliveryVal,
       item: name,
     };
-    console.log(values);
+    //console.logog(values);
     const response = await SUBMIT_USER_DELIEVRY(id, values);
-    console.log(response);
+    //console.logog(response);
     if (response.success === true) {
       setIsDeliverLoading(false);
 
@@ -233,7 +233,7 @@ const ProductCheckoutPage = () => {
           </div>
         </div>
       );
-      console.log(response);
+      //console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
@@ -241,7 +241,7 @@ const ProductCheckoutPage = () => {
 
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      console.log(response);
+      //console.logog(response);
       return;
     }
   };
