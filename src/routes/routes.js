@@ -22,7 +22,9 @@ import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOu
 import KycPage from "../components/KYC/KycPage";
 import Privacy from "../components/PrivacyPolicy/Privacy";
 import TermsAndConditions from "../components/PrivacyPolicy/TermsAndConditions";
+import DashboardReferral from "../components/Dashboard/DashboardPages/Referral/DashboardReferral";
 // import
+import Groups2Icon from "@mui/icons-material/Groups2";
 import StoreIcon from "@mui/icons-material/Store";
 const routes = [
   { name: "Home", path: "", component: <Home />, layout: "/" },
@@ -115,9 +117,17 @@ const routes = [
   },
 
   {
+    name: "Referral",
+    path: "referral",
+    icon: <Groups2Icon className="DashboardNav_body_1_icon" />,
+    component: <DashboardReferral />,
+    layout: "/dashboard",
+  },
+  {
     name: "Transactions",
     path: "transaction",
     icon: <ReceiptOutlinedIcon className="DashboardNav_body_1_icon" />,
+
     component: <DashboardTransactions />,
     layout: "/dashboard",
   },
