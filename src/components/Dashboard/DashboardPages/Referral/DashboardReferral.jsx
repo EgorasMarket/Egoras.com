@@ -127,7 +127,7 @@ const DashboardReferral = () => {
                 Rank
               </div>
               <div className="dashBoard_ref_area2_cont1_body_div_head_cont1 ">
-                User
+                Username
               </div>
               <div className="dashBoard_ref_area2_cont1_body_div_head_cont1 ">
                 Total Referrals
@@ -180,7 +180,7 @@ const DashboardReferral = () => {
                         {index + 1}
                       </div>
                       <div className="dashBoard_ref_area2_cont1_body_div1_cont1 ">
-                        {data.userName}
+                        @{data.userName}
                       </div>
                       <div className="dashBoard_ref_area2_cont1_body_div1_cont1 ">
                         {data.refCount}
