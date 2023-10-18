@@ -43,28 +43,19 @@ const MemberShipPage = () => {
   return (
     <section className="joinCooperativeDiv">
       <img
-        src="/img/contourLinesLight.svg"
+        src="/img/scrolling_images.webp"
         alt=""
-        className="joinCooperativeDiv_lines"
+        className="HomeDivSection3_bg"
       />
-      <div className="container">
-        <div className="joinCooperativeModalDiv_area">
-          <div
-            className={`joinCooperativeModalDiv_area1 ${step1 ? "show2" : ""}`}
-          >
-            <Step1Div toggleSteps={toggleSteps} />
-          </div>
-          <div
-            className={`joinCooperativeModalDiv_area1 ${step2 ? "show2" : ""}`}
-          >
-            <Step2Div2
-              toggleSteps={toggleSteps}
-              checkAgree={checkAgree}
-              toggleCheckAgree={toggleCheckAgree}
-            />
-          </div>
-        </div>
-      </div>
+
+      {step1 ? <Step1Div toggleSteps={toggleSteps} /> : null}
+      {step2 ? (
+        <Step2Div2
+          toggleSteps={toggleSteps}
+          checkAgree={checkAgree}
+          toggleCheckAgree={toggleCheckAgree}
+        />
+      ) : null}
     </section>
   );
 };

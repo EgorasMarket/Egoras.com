@@ -24,7 +24,7 @@ body::-webkit-scrollbar-thumb {
 .custom_container {
   width: 100%;
   max-width: 1600px;
-  margin: auto;
+  margin: 0 auto;
   padding: 0em 1em;
   height: 100%;
 }

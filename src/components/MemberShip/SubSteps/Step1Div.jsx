@@ -7,49 +7,30 @@ import { useSelector } from "react-redux";
 export const Step1Div = ({ toggleSteps }) => {
   const { error, loading } = useSelector((state) => state.auth);
   return (
-    <>
-      <div className="joinCooperativeModalDiv_area_head">
-        Egoras Merchant Plans
-        <p> {error === "" ? "is loading" : error}</p>
-      </div>
-      <div className="joinCooperativeModalDiv_area_sub_head">
-        Choose a plan and get amazing value for your money.
-      </div>
-
-      <div className="joinCooperativeModalDiv_area_body">
-        <div className="joinCooperativeModalDiv_area_body1">
-          {/* <div className="joinCooperativeModalDiv_area_body1_area"> */}
-          <div className="joinCooperativeModalDiv_area_body1_div1">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon" />
-            <div className="joinCooperativeModalDiv_area_body1_div1_text">
-              Discounted pNFTs/Products
+    <div className="membership_landing_div">
+      <div className="custom_container">
+        <div className="membership_landing_div_1">
+          <div className="membership_landing_div_1_txt">
+            <div className="membership_landing_div_1_txt_title">
+              Get up to 50% discount
+              <br /> on all our products.
             </div>
-          </div>
-          <div className="joinCooperativeModalDiv_area_body1_div1">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon" />
-            <div className="joinCooperativeModalDiv_area_body1_div1_text">
-              Referral Commission
-            </div>
-          </div>
-          <div className="joinCooperativeModalDiv_area_body1_div1">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon" />
-            <div className="joinCooperativeModalDiv_area_body1_div1_text">
-              Staking Rewards
-            </div>
-          </div>
-          <div className="joinCooperativeModalDiv_area_body1_div1">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon" />
-            <div className="joinCooperativeModalDiv_area_body1_div1_text">
-              NFT mining
+            <div className="membership_landing_div_1_txt_para">
+              Get up to 50% discount on all our products,
+              <br /> once you become a member and enjoy referral bonuses.
             </div>
           </div>
           <button className="SubContinueButton" onClick={toggleSteps}>
-            Next
-            <ArrowRightIcon />
+            Become a member
           </button>
-          {/* </div> */}
         </div>
       </div>
-    </>
+
+      <img
+        src="/img/member_gen_bg.png"
+        alt=""
+        className="membership_landing_div_2_img"
+      />
+    </div>
   );
 };

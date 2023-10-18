@@ -61,16 +61,6 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
           <ArrowBackIosIcon className="selectPlanDiv_backButton_icon" />
           Back
         </div>
-        <div className="selectPlanDiv1">
-          <div className="selectPlanDiv1_head">
-            Choose the plan that's right for you.
-          </div>
-          <div className="selectPlanDiv1_sub_head">
-            Create Physically backed NFTs using powerful AI tools Stake your
-            tokens to get over 12% APY staking rewards Get 40% referral rewards
-            Purchase pNFTs/Products at over 10% discounted rate
-          </div>
-        </div>
       </div>
 
       <div className="Step2Div2_member_div2">
