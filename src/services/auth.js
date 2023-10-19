@@ -31,12 +31,10 @@ export const LOGIN_USER = async (payload) => {
   try {
     const response = await axios.post(`${LOGIN}`, payload);
 
-    console.log(response.data.message);
-    console.log(response);
+    //console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    console.log(response);
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
