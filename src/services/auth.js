@@ -35,9 +35,9 @@ export const LOGIN_USER = async (payload) => {
     console.log(response);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log(response);
     console.log(error.response || error.response.data.message);
-    return error.response.data;
+    return error.response;
   }
 };
 export const REGISTER_USER = async (payload) => {
