@@ -15,6 +15,9 @@ import { CustomResponse } from "../utils/CustomResponse";
 import setAuthToken from "../utils/setAuthToken";
 
 export const LOGIN_USER = async (payload) => {
+  console.log("====================================");
+  console.log(LOGIN);
+  console.log("====================================");
   /**
      * 
      *      Map<String, String> data = {
@@ -28,11 +31,13 @@ export const LOGIN_USER = async (payload) => {
   try {
     const response = await axios.post(`${LOGIN}`, payload);
 
-    //console.logog(response.data.message);
+    console.log(response.data.message);
+    console.log(response);
     return response.data;
   } catch (error) {
-    //console.logog(error.response || error.response.data.message);
-    return error.response;
+    console.log(error);
+    console.log(error.response || error.response.data.message);
+    return error.response.data;
   }
 };
 export const REGISTER_USER = async (payload) => {
