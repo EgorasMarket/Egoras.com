@@ -27,7 +27,7 @@ const Home = () => {
     setGenVideo(!genVideo);
   };
   const handleSlideChange = (swiper) => {
-    console.log("Active Slide Index:", swiper.realIndex);
+    //console.logog("Active Slide Index:", swiper.realIndex);
     setSwiperIndex(swiper.realIndex);
   };
   return (

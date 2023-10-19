@@ -8,6 +8,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
   SEND_CRYPTO_FUNDS_EXTERNAL,
   SEND_CRYPTO_FUNDS_INTERNAL,
+  USERNAME_EMAIL_IS_VALID,
 } from "../../../../services/finance_services";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,6 +19,9 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
   const [pinModal, setPinModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [fetchingUser, setFetchingUser] = useState(false);
+  const [hasUser, setHasUser] = useState(false);
+  const [beneficiaryData, setBeneficiaryData] = useState({});
 
   const [payload, setPayload] = useState({
     symbol: "EGC",
@@ -33,7 +37,7 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
       ...payload,
       pin_code: pin,
     });
-    console.log(response);
+    //console.logog(response);
     setLoading(false);
 
     if (!response.data.success) {
@@ -55,10 +59,30 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
     }
     setPinModal(true);
   };
-  const handleOnChange = (e) => {
+  const handleOnChange = async (e) => {
     const { id, value } = e.target;
-
+    setBeneficiaryData("");
+    setHasUser(false);
     setPayload({ ...payload, [id]: value });
+
+    setFetchingUser(true);
+    const data = {
+      username_email: value,
+      type: "username_email",
+    };
+
+    const resp = await USERNAME_EMAIL_IS_VALID(data);
+    setFetchingUser(false);
+    console.log(resp);
+
+    if (resp.data.success === false) {
+      setHasUser(false);
+      setBeneficiaryData("");
+      return;
+    }
+
+    setHasUser(true);
+    setBeneficiaryData(resp.data);
   };
 
   return (
@@ -109,6 +133,13 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
                 // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
                 className="depositMoneyDiv_cont_body_wallet_addr_div_input"
               />
+              {hasUser === true ? (
+                <div>
+                  <p>fullname: {beneficiaryData?.firstName}</p>
+                  <p>Email: {beneficiaryData?.email}</p>
+                  <p>Phone Number: {beneficiaryData?.phone}</p>
+                </div>
+              ) : null}
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
               <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">

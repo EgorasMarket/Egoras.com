@@ -36,12 +36,15 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const handleLogin = async () => {
     setDisable(true);
+
     const { email, password } = values;
 
     if (email === "" || password === "") return;
 
+    setIsLoading(true);
     const res = await dispatch(loginUser(values));
-    console.log(res);
+    setIsLoading(false);
+    // //console.logog(res);
     if (res.payload.code === 200) {
       setDisable(false);
       if (userPin === null) {
@@ -53,7 +56,7 @@ const Login = () => {
     }
 
     if (res.payload?.data?.success === false) {
-      console.log(res);
+      // //console.logog(res);
       if (res.payload?.data?.errorMessage === "VERIFICATION_REQUIRED") {
         // call the resend API
 
@@ -61,7 +64,7 @@ const Login = () => {
           email: values.email,
         });
 
-        console.log(resendsms);
+        // //console.logog(resendsms);
         setOtpModal(true);
         return;
       }
@@ -72,12 +75,12 @@ const Login = () => {
   };
 
   const handleChange = (enteredOtp) => {
-    console.log(enteredOtp);
+    //console.logog(enteredOtp);
     setOtp(enteredOtp);
   };
 
   const processOtp = async () => {
-    console.log("return");
+    //console.logog("return");
   };
   const handleVerifyOtp = async () => {
     setOtpDisable(true);
@@ -87,7 +90,7 @@ const Login = () => {
       email: values.email,
     });
 
-    console.log(response);
+    //console.logog(response);
 
     if (response.success) {
       window.location.reload();
@@ -220,7 +223,7 @@ const Login = () => {
                 onClick={handleLogin}
                 disabled={disable}
               >
-                {loading ? (
+                {isLoading ? (
                   <>
                     <ScaleLoader color="#366e51" height={20} />
                   </>

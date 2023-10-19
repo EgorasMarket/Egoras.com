@@ -19,8 +19,8 @@ const DashboardTransactions = () => {
     } else {
       setContentLoadingTable(true);
     }
-    console.log(response.data);
-    console.log(response);
+    //console.logog(response.data);
+    //console.logog(response);
   };
   useEffect(() => {
     fetchWalletTransactions();

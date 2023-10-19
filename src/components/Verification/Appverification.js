@@ -24,7 +24,7 @@ const AppVerification = () => {
   const [loadingState, setLoadingState] = useState(true);
   const [successState, setSuccessState] = useState(null);
   const [toke, setToke] = useState({ email: "", password: "" });
-  console.log(id);
+  //console.logog(id);
 
   const verifyEgorasAppEmail = async () => {
     const config = {
@@ -39,7 +39,7 @@ const AppVerification = () => {
       code: id,
     });
 
-    console.log(body);
+    //console.logog(body);
 
     try {
       const res = await axios.post(
@@ -47,33 +47,33 @@ const AppVerification = () => {
         body,
         config
       );
-      console.log(res);
+      //console.logog(res);
       if (res.data.success == true) {
         setLoadingState(false);
         setSuccessState(true);
-        console.log("success");
+        //console.logog("success");
       } else {
         setLoadingState(false);
         setSuccessState(false);
-        console.log("error");
+        //console.logog("error");
       }
     } catch (err) {
-      console.log(err.response);
+      //console.logog(err.response);
       setLoadingState(false);
       setSuccessState(false);
     }
   };
   useEffect(() => {
     verifyEgorasAppEmail();
-    // console.log(res3);
+    // //console.logog(res3);
     // if (res3.success == true) {
     //   setLoadingState(false);
     //   setSuccessState(true);
-    //   console.log("success");
+    //   //console.logog("success");
     // } else {
     //   setLoadingState(false);
     //   setSuccessState(false);
-    //   console.log("error");
+    //   //console.logog("error");
     // }
   }, [id]);
 

@@ -9,6 +9,7 @@ import {
   VERIFY_ACCOUNT_NUMBER_ROUTE,
   GET_WALLET_BALANCES,
   GET_WALLET_TRANSACTIONS,
+  VERIFY_SENDOUT_EMAIL_USERNAME,
 } from "../core/ApiRoutes";
 import setAuthToken from "../utils/setAuthToken";
 export const GET_WALLET = async (payload) => {
@@ -24,6 +25,15 @@ export const SEND_CRYPTO_FUNDS_EXTERNAL = async (payload) => {
   setAuthToken(localStorage.getItem("x-token"));
   try {
     const res = await axios.post(`${SEND_CRYPTO_EXTERNAL_ROUTE}`, payload);
+    return res.data;
+  } catch (error) {
+    return error.response || error.message;
+  }
+};
+export const USERNAME_EMAIL_IS_VALID = async (payload) => {
+  setAuthToken(localStorage.getItem("x-token"));
+  try {
+    const res = await axios.post(VERIFY_SENDOUT_EMAIL_USERNAME, payload);
     return res.data;
   } catch (error) {
     return error.response || error.message;

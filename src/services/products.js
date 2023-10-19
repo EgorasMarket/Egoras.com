@@ -27,17 +27,17 @@ export const FETCH_USER_PRODUCT_ORDERS = async (walletAddress) => {
   }
 };
 export const SUBMIT_USER_DELIEVRY = async (prodId, payload) => {
-  console.log(prodId, payload);
+  //console.logog(prodId, payload);
   setAuthToken(localStorage.getItem("x-token"));
   try {
     const res = await axios.put(
       `${SUBMIT_DELIVERY_TYPE}/${prodId}/delivery`,
       payload
     );
-    console.log(res.data.message);
+    //console.logog(res.data.message);
     return res.data;
   } catch (error) {
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response || error.message;
   }
 };

@@ -58,7 +58,7 @@ const UpdatedSwap = () => {
       tokenA: "NGN",
       tokenB: "EGC",
     });
-    console.log(response);
+    //console.logog(response);
     if (!response.success) return;
     if (baseTokenObject.symbol === "NGN") {
       setMarketPrice(1 / response.data.price);
@@ -90,9 +90,9 @@ const UpdatedSwap = () => {
   };
 
   useEffect(() => {
-    console.log(data);
-    console.log(data[0]?.value === null ? "0" : data[0]?.value);
-    console.log(data[1]?.value === null ? "0" : data[1]?.value);
+    //console.logog(data);
+    //console.logog(data[0]?.value === null ? "0" : data[0]?.value);
+    //console.logog(data[1]?.value === null ? "0" : data[1]?.value);
     const newBaseTokenObject = {
       ...baseTokenObject,
       balance: data[0]?.value === null ? "0" : data[0]?.value,
@@ -131,9 +131,9 @@ const UpdatedSwap = () => {
   // =================
 
   useEffect(() => {
-    console.log("====================================");
-    console.log(SwapAmount, baseTokenObject.balance, parseFloat(SwapAmount));
-    console.log("====================================");
+    //console.logog("====================================");
+    //console.logog(SwapAmount, baseTokenObject.balance, parseFloat(SwapAmount));
+    //console.logog("====================================");
     if (SwapAmount === "" || parseFloat(SwapAmount) > baseTokenObject.balance) {
       setSwapDisable(true);
     } else {
@@ -160,9 +160,9 @@ const UpdatedSwap = () => {
       amountOut: AmountOut,
       swapWithMarketPrice: false,
     };
-    console.log(payload);
+    //console.logog(payload);
     const response = await SWAP(payload);
-    console.log(response);
+    //console.logog(response);
     if (response.success === true) {
       setLoading(false);
       setSuccessModal(true);
@@ -170,7 +170,7 @@ const UpdatedSwap = () => {
       setSuccessTxt(
         ` You have successfully swapped ${SwapAmount} ${baseTokenObject.symbol} for ${AmountOut} ${assetTokenObject.symbol}`
       );
-      console.log(response);
+      //console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
@@ -178,7 +178,7 @@ const UpdatedSwap = () => {
       setPinModal(false);
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      console.log(response);
+      //console.logog(response);
       return;
     }
   };
@@ -197,7 +197,7 @@ const UpdatedSwap = () => {
     let parseNumber = parseFloat(e.target.value);
     setSwapAmount(parseNumber);
     setAmountOut(parseNumber * marketPrice);
-    console.log(e.target.value);
+    //console.logog(e.target.value);
   };
   const ToggleSwapInputs = () => {
     setBaseTokenObject(assetTokenObject);
@@ -232,9 +232,9 @@ const UpdatedSwap = () => {
   //   setShareSwap(!shareSwap);
   // };
 
-  console.log("====================================");
-  console.log(AmountOut);
-  console.log("====================================");
+  //console.logog("====================================");
+  //console.logog(AmountOut);
+  //console.logog("====================================");
   return (
     <div className="liquidity_area">
       <div className="liquidity_area1">

@@ -4,14 +4,16 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import HomeRoutes from "./routes/HomeRoutes";
-import Dashboard from "./components/Dashboard/Dashboard";
-import DefaultComponentLoading from "./components/Common/CommonUI/Modals/DefaultComponentLoading/DefaultComponentLoading";
-import ProtectedRoute from "./Router/ProtectedRoute";
-import ProductDetail from "./components/Market/ProductDetail";
+
 import { VERIFY_USER } from "./services/auth";
 import { verifyUser } from "./features/auth/authActions";
 import { useDispatch } from "react-redux";
+import Dashboard from "./components/Dashboard/Dashboard";
+import RouteInit from "./routes/HomeRoutes";
+import HomeRoutes from "./routes/HomeRoutes";
+import DefaultComponentLoading from "./components/Common/CommonUI/Modals/DefaultComponentLoading/DefaultComponentLoading";
+import ProtectedRoute from "./Router/ProtectedRoute";
+import ProductDetail from "./components/Market/ProductDetail";
 import { fetchWalletBalance } from "./features/walletServices/walletActions";
 function App() {
   const dispatch = useDispatch();
@@ -21,13 +23,11 @@ function App() {
   const verify_user = async () => {
     // const response = await VERIFY_USER();
     const response = dispatch(verifyUser());
-    console.log(response);
   };
 
   const fetch_walllet = async () => {
     // const response = await VERIFY_USER();
     const response = dispatch(fetchWalletBalance());
-    console.log(response);
   };
   useEffect(() => {
     verify_user();
@@ -42,7 +42,7 @@ function App() {
 
   // const handleMouseMove = (e) => {
   //   setCursorPosition({ x: e.pageX, y: e.pageY });
-  // };
+  // };uth
   useEffect(() => {
     setLoadingDiv(true);
     const timer = setTimeout(() => {
@@ -65,17 +65,24 @@ function App() {
       {loadingDiv === true ? (
         <DefaultComponentLoading />
       ) : (
-        <div className="dark App">
-          {myArr[1] === "dashboard" ? null : <Header />}
-          <Routes>
-            <Route
-              path="/dashboard"
-              element={<Navigate to="/dashboard/home" replace />}
-            />
-          </Routes>
-          {myArr[1] === "dashboard" ? <Dashboard /> : <HomeRoutes />}
+        <div className="App">
+          <div
+            className="custom-cursor"
+            style={{ left: cursorPosition.x, top: cursorPosition.y }}
+          ></div>
+          <div className="dark App">
+            {myArr[1] === "dashboard" ? null : <Header />}
+            <Routes>
+              <Route
+                path="/dashboard"
+                element={<Navigate to="/dashboard/home" replace />}
+              />
+            </Routes>
 
-          {myArr[1] === "dashboard" ? null : <Footer />}
+            {myArr[1] === "dashboard" ? <Dashboard /> : <RouteInit />}
+
+            {myArr[1] === "dashboard" ? null : <Footer />}
+          </div>
         </div>
       )}
     </>

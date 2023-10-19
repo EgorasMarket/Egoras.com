@@ -5,6 +5,7 @@ import {
   REGISTER_ROUTE,
   REGISTER_USER_WALLET_ADDRESS,
   REGISTER_WALLET_MARTGPT,
+  RESEND_EMAIL_VERIFICATION,
   RESEND_PHONE_OTP,
   SET_USER_PIN_ROUTE,
   VERIFY_OTP_ROUTE,
@@ -27,10 +28,10 @@ export const LOGIN_USER = async (payload) => {
   try {
     const response = await axios.post(`${LOGIN}`, payload);
 
-    console.log(response.data.message);
+    //console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -48,10 +49,10 @@ export const REGISTER_USER = async (payload) => {
   try {
     const response = await axios.post(`${REGISTER_ROUTE}`, payload);
 
-    console.log(response.data.message);
+    //console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -69,10 +70,10 @@ export const GENERATE_USER_WALLET_ADDRESS = async (payload) => {
       payload
     );
 
-    console.log(response.data.message);
+    //console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -86,10 +87,10 @@ export const GENERATE_USER_WALLET_ADDRESS_MART_GPT = async (payload) => {
   try {
     const response = await axios.post(`${REGISTER_WALLET_MARTGPT}`, payload);
 
-    console.log(response.data.message);
+    //console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    console.log(error.response || error.response.data.message);
+    //console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -116,6 +117,15 @@ export const RESEND_SMS_OTP = async (payload) => {
   try {
     setAuthToken(localStorage.getItem("x-token"));
     const response = await axios.post(RESEND_PHONE_OTP, payload);
+    return response.data;
+  } catch (error) {
+    return error.response || error.message;
+  }
+};
+export const RESEND_EMAIL_VERIFICATION_LINK = async (payload) => {
+  try {
+    setAuthToken(localStorage.getItem("x-token"));
+    const response = await axios.post(RESEND_EMAIL_VERIFICATION, payload);
     return response.data;
   } catch (error) {
     return error.response || error.message;

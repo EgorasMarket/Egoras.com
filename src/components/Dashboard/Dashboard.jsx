@@ -17,14 +17,14 @@ const Dashboard = () => {
     if (user === null || (user === undefined && loading === false)) {
       window.location.href = "/login";
     }
-    console.log(user);
+    //console.logog(user);
   }, [user]);
   useEffect(() => {
     const currentRoute = routes.find(
       (data) => `${data.layout}/${data.path}` === currentPathname
     );
     if (currentRoute) {
-      console.log(currentRoute.name);
+      //console.logog(currentRoute.name);
       setCurrentRoute(currentRoute.name);
     }
   }, [currentPathname]);

@@ -16,11 +16,11 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
   const fetchVirtualAccount = async () => {
     setLoading(true);
     const response = await FETCH_VIRTUAL_ACCOUNT();
-    console.log(response, "");
+    //console.logog(response, "");
 
     setLoading(false);
     if (response.data.success === false) {
-      console.log("help!!!!");
+      //console.logog("help!!!!");
       setError(response.data.errorMessage);
 
       return;

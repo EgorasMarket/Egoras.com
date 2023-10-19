@@ -13,7 +13,7 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
   const [priseDiv, setPriseDiv] = useState(false);
   const toggleActivePlan = (e) => {
     setActivePlan(e.currentTarget.id);
-    console.log(e.currentTarget.id);
+    //console.logog(e.currentTarget.id);
   };
   // Plan="Lite"
   // PlanAmount="16.0"
