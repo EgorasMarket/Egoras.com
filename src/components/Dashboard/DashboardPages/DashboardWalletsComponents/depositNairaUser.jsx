@@ -7,6 +7,7 @@ import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+
 const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
   const { user } = useSelector((state) => state.auth);
   const copyText = () => {

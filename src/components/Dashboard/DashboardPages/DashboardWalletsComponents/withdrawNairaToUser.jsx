@@ -7,7 +7,10 @@ import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { SEND_CRYPTO_FUNDS_INTERNAL } from "../../../../services/finance_services";
+import {
+  SEND_CRYPTO_FUNDS_INTERNAL,
+  USERNAME_EMAIL_IS_VALID,
+} from "../../../../services/finance_services";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
@@ -16,6 +19,10 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
+  const [hasUser, setHasUser] = useState(false);
+  const [beneficiaryData, setBeneficiaryData] = useState({});
+  const [fetchingUser, setFetchingUser] = useState(false);
+
   const [successMsg, setSuccessMsg] = useState("");
   const [payload, setPayload] = useState({
     pin_code: "",
@@ -25,9 +32,30 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
     type: "internal_send",
   });
 
-  const handleOnChange = (e) => {
+  const handleOnChange = async (e) => {
+    setBeneficiaryData("");
+    setHasUser(false);
     const { value, id } = e.target;
     setPayload({ ...payload, [id]: value });
+
+    setFetchingUser(true);
+    const data = {
+      username_email: value,
+      type: "username_email",
+    };
+
+    const resp = await USERNAME_EMAIL_IS_VALID(data);
+    setFetchingUser(false);
+    console.log(resp);
+
+    if (resp.data.success === false) {
+      setHasUser(false);
+      setBeneficiaryData("");
+      return;
+    }
+
+    setHasUser(true);
+    setBeneficiaryData(resp.data);
   };
   const initiatePayout = async () => {
     setLoading(true);
@@ -108,7 +136,16 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
                 onChange={handleOnChange}
                 className="depositMoneyDiv_cont_body_wallet_addr_div_input"
               />
+
+              {hasUser === true ? (
+                <div>
+                  <p>fullname: {beneficiaryData?.firstName}</p>
+                  <p>Email: {beneficiaryData?.email}</p>
+                  <p>Phone Number: {beneficiaryData?.phone}</p>
+                </div>
+              ) : null}
             </div>
+
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
               <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
                 Withdrawal Amount:

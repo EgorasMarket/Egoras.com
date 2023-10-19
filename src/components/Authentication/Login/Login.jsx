@@ -36,11 +36,14 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const handleLogin = async () => {
     setDisable(true);
+
     const { email, password } = values;
 
     if (email === "" || password === "") return;
 
+    setIsLoading(true);
     const res = await dispatch(loginUser(values));
+    setIsLoading(false);
     // //console.logog(res);
     if (res.payload.code === 200) {
       setDisable(false);
@@ -220,7 +223,7 @@ const Login = () => {
                 onClick={handleLogin}
                 disabled={disable}
               >
-                {loading ? (
+                {isLoading ? (
                   <>
                     <ScaleLoader color="#366e51" height={20} />
                   </>
