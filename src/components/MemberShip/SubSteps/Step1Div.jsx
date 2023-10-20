@@ -21,7 +21,7 @@ export const Step1Div = ({ toggleSteps }) => {
             </div>
           </div>
           <button className="SubContinueButton" onClick={toggleSteps}>
-            Become a member
+            Join Egoras Corp
           </button>
         </div>
       </div>

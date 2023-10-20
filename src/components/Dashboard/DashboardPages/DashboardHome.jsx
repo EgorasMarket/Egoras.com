@@ -89,6 +89,9 @@ const DashboardHome = () => {
   const fetchWalletTransactions = async () => {
     setContentLoadingTable(true);
     const response = await FETCH_WALLET_TRANSACTIONS();
+    console.log("====================================");
+    console.log(response);
+    console.log("====================================");
     if (response.success === true) {
       setChartLoading(false);
       setContentLoadingTable(false);

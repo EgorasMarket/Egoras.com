@@ -61,8 +61,7 @@ const Home = () => {
                   </div>
                   <div className="HomeDivSection1_div_txts_2">
                     <a
-                      href="#"
-                      // href={`/productdetail/${1}/${"Egoras dual fuel tricycle"}`}
+                      href="/membership/sub"
                       className="HomeDivSection1_div_txts_2_link1"
                     >
                       <BgButtonNoBorder
@@ -71,8 +70,7 @@ const Home = () => {
                             className="HomeDivSection1_div_txts_2_div
                       "
                           >
-                            View Product{" "}
-                            {/* <ArrowOutwardOutlinedIcon className="HomeDivSection1_div_txts_2_icon" /> */}
+                            Join Egoras Corp
                           </div>
                         }
                       />
@@ -83,12 +81,6 @@ const Home = () => {
                     >
                       <NoBgButtonWithBorder btnTxt="View all products" />
                     </a>
-                    {/* <a
-                    href="/membership/sub"
-                    className="HomeDivSection1_div_txts_2_member_link"
-                  >
-                    <NoBgButtonWithBorder btnTxt="Become A merchant" />
-                  </a> */}
                   </div>
                 </div>
                 <div className="tricycle_overview_div">
@@ -329,12 +321,12 @@ const Home = () => {
                   </button>
                 </a>
                 <a
-                  href="/login"
+                  href="/membership/sub"
                   rel="noopener noreferrer"
                   className="landingPageSection1_area1_div3_btn1_link"
                 >
                   <button className="landingPageSection1_area1_div3_btn1_join">
-                    Join Egoras
+                    Join Egoras Corp
                   </button>
                 </a>
               </div>

@@ -17,7 +17,7 @@ import ProductDetail from "./components/Market/ProductDetail";
 import { fetchWalletBalance } from "./features/walletServices/walletActions";
 function App() {
   const dispatch = useDispatch();
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
   const [loadingDiv, setLoadingDiv] = useState(true);
 
   const verify_user = async () => {
@@ -33,16 +33,7 @@ function App() {
     verify_user();
     fetch_walllet();
   }, []);
-  // useEffect(() => {
-  //   document.addEventListener("mousemove", handleMouseMove);
-  //   return () => {
-  //     document.removeEventListener("mousemove", handleMouseMove);
-  //   };
-  // }, []);
 
-  // const handleMouseMove = (e) => {
-  //   setCursorPosition({ x: e.pageX, y: e.pageY });
-  // };uth
   useEffect(() => {
     setLoadingDiv(true);
     const timer = setTimeout(() => {
@@ -53,23 +44,10 @@ function App() {
   const myArr = currentPage.split("/");
   return (
     <>
-      {/* <div
-        className="custom-cursor"
-        style={{ left: cursorPosition.x, top: cursorPosition.y }}
-      ></div> */}
-      {/* <Route
-        exact
-        path="/verify/email/address/:id"
-        component={Appverification}
-      /> */}
       {loadingDiv === true ? (
         <DefaultComponentLoading />
       ) : (
         <div className="App">
-          <div
-            className="custom-cursor"
-            style={{ left: cursorPosition.x, top: cursorPosition.y }}
-          ></div>
           <div className="dark App">
             {myArr[1] === "dashboard" ? null : <Header />}
             <Routes>
