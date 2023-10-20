@@ -3,6 +3,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { SUBSCRIBE_MEMBERSHIP } from "../../../services/membership_services";
 import WebPin from "../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
+import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 const PlanSubDivModal = ({
   toggleDiv,
   Plan,
@@ -18,6 +20,8 @@ const PlanSubDivModal = ({
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(-1);
+  const [message, setMessage] = useState("");
 
   const process = () => {
     setPinModal(true);
@@ -34,11 +38,14 @@ const PlanSubDivModal = ({
     setPinModal(false);
 
     if (!res.data.success) {
-      toast.error(res.data.errorMessage);
+      // toast.error(res.data.errorMessage);
+      setMessage(res.data.errorMessage);
+      setSuccess(0);
       return;
     }
+    setSuccess(1);
 
-    toast.success("Subscription is successful");
+    // toast.success("Subscription is successful");
   };
   return (
     <div className=" planSubDiv" hidden={visibility}>
@@ -123,6 +130,10 @@ const PlanSubDivModal = ({
             }}
           />
         ) : null}
+
+        {success === 0 && <ErrorModal ErrorTxt={message} />}
+
+        {success === 1 && <SuccessModal SuccesTxt={"Success"} />}
       </div>
       <ToastContainer />
     </div>
