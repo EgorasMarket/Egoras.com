@@ -1762,14 +1762,10 @@ x .benefits_section1_area2_body1_cont2 {
 }
 
 .joinCooperativeDiv {
-  /* padding: 6em 0em; */
+  padding: 4em 0em;
   position: relative;
   background: #141414;
   color: #fff;
-  padding-top: 6em;
-  height: 100%;
-  min-height: 100svh;
-  padding-top: 0em;
 }
 
 .dark .joinCooperativeDiv {
@@ -1783,19 +1779,20 @@ x .benefits_section1_area2_body1_cont2 {
   justify-content: space-between;
   position: relative;
   flex-direction: column;
-  height: 100%;
-  min-height: 100svh;
-  padding-top: 15em;
-  padding-bottom: 10em;
 }
-.membership_landing_div_1 {
-  height: 100%;
+.membership_landing_div_area {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.membership_landing_div_1 {
+  display: flex;
+  align-items: flex-start;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
   position: relative;
   z-index: 1;
+  width: 80%;
 }
 .membership_landing_div_2_img {
   width: 100%;
@@ -1807,17 +1804,27 @@ x .benefits_section1_area2_body1_cont2 {
 .membership_landing_div_1_txt {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 2em;
 }
 .membership_landing_div_1_txt_title {
-  font-size: 78px;
+  font-size: 72px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 10px;
 }
 .membership_landing_div_1_txt_para {
   font-size: 24px;
+}
+.membership_landing_div_2 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* height: 100%; */
+}
+.membership_landing_div_2_iocn {
+  width: 100%;
 }
 .joinCooperativeModalDiv_area_head {
   font-size: 48px;

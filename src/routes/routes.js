@@ -23,6 +23,7 @@ import KycPage from "../components/KYC/KycPage";
 import Privacy from "../components/PrivacyPolicy/Privacy";
 import TermsAndConditions from "../components/PrivacyPolicy/TermsAndConditions";
 import DashboardReferral from "../components/Dashboard/DashboardPages/Referral/DashboardReferral";
+import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 // import
 import Groups2Icon from "@mui/icons-material/Groups2";
 import StoreIcon from "@mui/icons-material/Store";
@@ -117,9 +118,9 @@ const routes = [
   },
 
   {
-    name: "Referral",
-    path: "referral",
-    icon: <Groups2Icon className="DashboardNav_body_1_icon" />,
+    name: "EgoCorp",
+    path: "egocorp",
+    icon: <CorporateFareIcon className="DashboardNav_body_1_icon" />,
     component: <DashboardReferral />,
     layout: "/dashboard",
   },
