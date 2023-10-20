@@ -1,5 +1,8 @@
 import axios from "axios";
-import { SUBSCRIBE_MEMBERSHIP_ROUTE } from "../core/ApiRoutes";
+import {
+  GET_ALL_SUBSCRIPTION,
+  SUBSCRIBE_MEMBERSHIP_ROUTE,
+} from "../core/ApiRoutes";
 import setAuthToken from "../utils/setAuthToken";
 export const SUBSCRIBE_MEMBERSHIP = async (payload) => {
   setAuthToken(localStorage.getItem("x-token"));
@@ -18,6 +21,17 @@ export const SUBSCRIBE_MEMBERSHIP = async (payload) => {
     // };
 
     const res = await axios.post(`${SUBSCRIBE_MEMBERSHIP_ROUTE}`, payload);
+    //console.logog(res);
+
+    return res.data;
+  } catch (error) {
+    return error.response || error.message;
+  }
+};
+export const FETCH_SUBSCRIPTION = async (payload) => {
+  setAuthToken(localStorage.getItem("x-token"));
+  try {
+    const res = await axios.get(`${GET_ALL_SUBSCRIPTION}`, payload);
     //console.logog(res);
 
     return res.data;

@@ -1,3 +1,3 @@
 # Bug Fixes made on this build  by Goodluck Kingsley
 
-1. THis commit contains the fix for validating beneficiary information,  by displaying the beneficiary firstname,email and phone number while sending out EGC or Naira to Internal Accounts
+1. Modified the membership section, Called API to manage and handle the new membership structure 
