@@ -10,10 +10,11 @@ const PlanSubDivs = ({
   PlanAmountLocal,
   id,
 }) => {
+  console.log(id, activePlan);
   return (
     <div
       className={
-        activePlan === id
+        activePlan == id
           ? "Step2Div2_member_div2_body_1_active"
           : "Step2Div2_member_div2_body_1"
       }
@@ -34,7 +35,7 @@ const PlanSubDivs = ({
           </span>
         </div>
         <div className="Step2Div2_member_div2_body_1_amount_title_naira">
-          ₦{PlanAmountLocal}{" "}
+          ${PlanAmountLocal}{" "}
         </div>
         <div className="Step2Div2_member_div2_body_1_amount_title_slashed">
           <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount_save">
@@ -46,8 +47,9 @@ const PlanSubDivs = ({
         </div>
       </div>
       <div className="Step2Div2_member_div2_body_1_sub_button">
-        {activePlan === id ? (
+        {activePlan == id ? (
           <button
+            id={id}
             className="Step2Div2_member_div2_body_1_sub_button_btn_active"
             onClick={toggleDiv}
           >
