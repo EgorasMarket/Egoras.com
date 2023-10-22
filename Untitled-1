@@ -1,0 +1,5 @@
+
+status: success / failure
+message: a descriptive information 
+call_type: enum eg. REGISTER
+user_id: 

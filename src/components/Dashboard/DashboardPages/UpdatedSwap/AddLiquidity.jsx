@@ -41,6 +41,7 @@ const AddLiquidity = () => {
   const [errorTxt, setErrorTxt] = useState("");
   const [successTxt, setSuccessTxt] = useState("");
   const [tokenDrop, setTokenDrop] = useState(false);
+  const [showLiquidPool, setShowLiquidPool] = useState(false);
   const [baseTokenObject, setBaseTokenObject] = useState({
     id: "1",
     name: "Egoras Credit",
@@ -48,13 +49,7 @@ const AddLiquidity = () => {
     img: "/img/egc_icon2.svg",
     balance: 0.0,
   });
-  const [assetTokenObject, setAssetTokenObject] = useState({
-    id: "1",
-    name: "Naira",
-    symbol: "NGN",
-    img: "https://i.imgur.com/JXm7zwC.png",
-    balance: 0.0,
-  });
+
   const [assetTokenObject2, setAssetTokenObject2] = useState([
     {
       id: "1",
@@ -71,7 +66,7 @@ const AddLiquidity = () => {
     //   balance: 0.0,
     // },
   ]);
-  const [selectedToken, setSelectedToken] = useState(assetTokenObject);
+  const [selectedToken, setSelectedToken] = useState("");
   // started here
   const [marketPrice, setMarketPrice] = useState(0.0);
   //variables for the new swap
@@ -91,10 +86,13 @@ const AddLiquidity = () => {
   useEffect(() => {
     getSwapPrice();
   }, [baseTokenObject]);
-
+  console.log("====================================");
+  console.log(selectedToken);
+  console.log("====================================");
   const handleTokenClick = (token) => {
     setSelectedToken(token);
     ToggleTokenDrop(); // Close the dropdown if needed
+    setShowLiquidPool(true);
   };
 
   const ToggleTokenDrop = () => {
@@ -111,22 +109,14 @@ const AddLiquidity = () => {
     setPinModal(true);
   };
 
-  useEffect(() => {
-    //console.logog(data);
+  const getTokenBalances = () => {
+    console.log(data);
     const newBaseTokenObject = {
       ...baseTokenObject,
       balance: data[0]?.value === null ? "0" : data[0]?.value,
     };
     const newBaseTokenObject2 = {
       ...baseTokenObject,
-      balance: data[1]?.value === null ? "0" : data[1]?.value,
-    };
-    const newAssetTokenObject = {
-      ...assetTokenObject,
-      balance: data[0]?.value === null ? "0" : data[0]?.value,
-    };
-    const newAssetTokenObject2 = {
-      ...assetTokenObject,
       balance: data[1]?.value === null ? "0" : data[1]?.value,
     };
     const newAssetTokenObjectb = {
@@ -144,11 +134,12 @@ const AddLiquidity = () => {
       setBaseTokenObject(newBaseTokenObject2);
     }
 
-    if (data[0].name === "Naira") {
-      setAssetTokenObject(newAssetTokenObject);
-    } else {
-      setAssetTokenObject(newAssetTokenObject2);
-    }
+    // if (data[0].name === "Naira") {
+    //   setAssetTokenObject(newAssetTokenObject);
+    // } else {
+    //   setAssetTokenObject(newAssetTokenObject2);
+    // }
+
     if (data[0].name === "Naira") {
       setSelectedToken(newAssetTokenObjectb);
     } else {
@@ -164,6 +155,9 @@ const AddLiquidity = () => {
     });
 
     setAssetTokenObject2(newAssetTokenObject2a);
+  };
+  useEffect(() => {
+    getTokenBalances();
   }, []);
   // =================
   // =================
@@ -197,10 +191,10 @@ const AddLiquidity = () => {
     const payload = {
       pin_code: pin,
       ticker: selectedToken.symbol + "/EGC",
-      token_a_symbol: baseTokenObject.symbol,
-      token_b_symbol: assetTokenObject.symbol,
-      token_a_amount: SwapAmount,
-      token_b_amount: AmountOut,
+      token_a_symbol: selectedToken.symbol,
+      token_b_symbol: baseTokenObject.symbol,
+      token_a_amount: AmountOut,
+      token_b_amount: SwapAmount,
     };
     //console.logog(payload);
     const response = await LIQUIDITY(payload);
@@ -210,7 +204,7 @@ const AddLiquidity = () => {
       setSuccessModal(true);
       setPinModal(false);
       setSuccessTxt(
-        ` You have successfully added ${SwapAmount} ${baseTokenObject.symbol} with ${AmountOut} ${assetTokenObject.symbol} liquidity`
+        ` You have successfully added ${SwapAmount} ${baseTokenObject.symbol} with ${AmountOut} ${selectedToken.symbol} liquidity`
       );
       //console.logog(response);
       return;
@@ -315,14 +309,19 @@ const AddLiquidity = () => {
                     className="liquidity_select_div_btn1"
                     onClick={ToggleTokenDrop}
                   >
-                    <div className="liquidity_select_div_btn1_div1">
-                      <img
-                        src={selectedToken.img}
-                        alt=""
-                        className="display_tokens_drop_img"
-                      />
-                      {selectedToken.symbol}
-                    </div>
+                    {!showLiquidPool ? (
+                      <>Select Currency</>
+                    ) : (
+                      <div className="liquidity_select_div_btn1_div1">
+                        <img
+                          src={selectedToken.img}
+                          alt=""
+                          className="display_tokens_drop_img"
+                        />
+                        {selectedToken.symbol}
+                      </div>
+                    )}
+
                     <ArrowDropDownIcon className="liquidity_select_div_btn1_icon" />
                   </button>
                   {tokenDrop ? (
@@ -350,161 +349,142 @@ const AddLiquidity = () => {
             {/* ===== */}
             {/* ===== */}
             {/* ===== */}
-            <div className="liquidity_cont_body_conts">
-              <div className="liquidity_cont_body_conts_cont1">
-                <div className="input_amnt_layer">
-                  <div className="amnt_input">
-                    <div className="amnt_input_layer1">
-                      <div className="amnt_input_layer1_input_div">
-                        <div className="amnt_input_layer1_input_div_span">
-                          Deposit Amount
-                        </div>
-                        <input
-                          type="number"
-                          name="number"
-                          id="number"
-                          placeholder="0.00"
-                          className="amnt_input_field"
-                          autocomplete="off"
-                          onChange={onChangeSwapAmount}
-                          value={SwapAmount}
-                        />
-                      </div>
 
-                      <div className="Swap_icondropDownDiv">
-                        <span className="token_balances_span">
-                          Balance:
-                          {numberWithCommas(
-                            parseFloat(baseTokenObject.balance).toFixed(2)
-                          )}
-                        </span>
-
-                        <button className="display_tokens_drop">
-                          <img
-                            src={baseTokenObject.img}
-                            alt=""
-                            className="display_tokens_drop_img"
+            {!showLiquidPool ? null : (
+              <div className="liquidity_cont_body_conts">
+                <div className="liquidity_cont_body_conts_cont1">
+                  <div className="input_amnt_layer">
+                    <div className="amnt_input">
+                      <div className="amnt_input_layer1">
+                        <div className="amnt_input_layer1_input_div">
+                          <div className="amnt_input_layer1_input_div_span">
+                            Deposit Amount
+                          </div>
+                          <input
+                            type="number"
+                            name="number"
+                            id="number"
+                            placeholder="0.00"
+                            className="amnt_input_field"
+                            autocomplete="off"
+                            onChange={onChangeSwapAmount}
+                            value={SwapAmount}
                           />
-                          {baseTokenObject.symbol}
+                        </div>
+
+                        <div className="Swap_icondropDownDiv">
+                          <span className="token_balances_span">
+                            Balance:
+                            {numberWithCommas(
+                              parseFloat(baseTokenObject.balance).toFixed(2)
+                            )}
+                          </span>
+
+                          <button className="display_tokens_drop">
+                            <img
+                              src={baseTokenObject.img}
+                              alt=""
+                              className="display_tokens_drop_img"
+                            />
+                            {baseTokenObject.symbol}
+                          </button>
+                        </div>
+                      </div>
+                      <div className="amnt_input_layer2">
+                        <button
+                          className="amnt_input_layer2_cont1"
+                          onClick={() => add25Per()}
+                        >
+                          25%
                         </button>
-                      </div>
-                    </div>
-                    <div className="amnt_input_layer2">
-                      <button
-                        className="amnt_input_layer2_cont1"
-                        onClick={() => add25Per()}
-                      >
-                        25%
-                      </button>
-                      <button
-                        className="amnt_input_layer2_cont1"
-                        onClick={() => add50Per()}
-                      >
-                        50%
-                      </button>
-                      <button
-                        className="amnt_input_layer2_cont1"
-                        onClick={() => add75Per()}
-                      >
-                        75%
-                      </button>
-                      <button
-                        className="amnt_input_layer2_cont1_last"
-                        onClick={() => add100Per()}
-                      >
-                        100%
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="input_amnt_layer">
-                  <div className="amnt_input">
-                    <div className="amnt_input_layer1">
-                      <div className="amnt_input_layer1_input_div">
-                        <div className="amnt_input_layer1_input_div_span">
-                          Deposit Amount
-                        </div>
-                        <input
-                          type="number"
-                          name="number"
-                          id="number"
-                          placeholder="0.00"
-                          className="amnt_input_field"
-                          autocomplete="off"
-                          value={SwapAmount == "" ? " " : AmountOut}
-                        />
-                      </div>
-                      <div className="Swap_icondropDownDiv">
-                        <span className="token_balances_span">
-                          Balance:{" "}
-                          {numberWithCommas(
-                            parseFloat(selectedToken.balance).toFixed(2)
-                          )}
-                        </span>
-
-                        <button className="display_tokens_drop">
-                          {" "}
-                          <img
-                            src={selectedToken.img}
-                            alt=""
-                            className="display_tokens_drop_img"
-                          />
-                          {selectedToken.symbol}
+                        <button
+                          className="amnt_input_layer2_cont1"
+                          onClick={() => add50Per()}
+                        >
+                          50%
+                        </button>
+                        <button
+                          className="amnt_input_layer2_cont1"
+                          onClick={() => add75Per()}
+                        >
+                          75%
+                        </button>
+                        <button
+                          className="amnt_input_layer2_cont1_last"
+                          onClick={() => add100Per()}
+                        >
+                          100%
                         </button>
                       </div>
                     </div>
                   </div>
-                </div>
+                  <div className="input_amnt_layer">
+                    <div className="amnt_input">
+                      <div className="amnt_input_layer1">
+                        <div className="amnt_input_layer1_input_div">
+                          <div className="amnt_input_layer1_input_div_span">
+                            Deposit Amount
+                          </div>
+                          <input
+                            type="number"
+                            name="number"
+                            id="number"
+                            placeholder="0.00"
+                            className="amnt_input_field"
+                            autocomplete="off"
+                            value={SwapAmount == "" ? " " : AmountOut}
+                          />
+                        </div>
+                        <div className="Swap_icondropDownDiv">
+                          <span className="token_balances_span">
+                            Balance:{" "}
+                            {numberWithCommas(
+                              parseFloat(selectedToken.balance).toFixed(2)
+                            )}
+                          </span>
 
-                {/* </div> */}
-              </div>
-
-              <div className="swap_price_rate_div">
-                <span className="swap_price_rate_div_span">
-                  Current Price:{" "}
-                </span>
-                <div className="swap_price_rate_div1">
-                  {" "}
-                  {numberWithCommas(parseFloat(marketPrice).toFixed(2))}{" "}
-                  {assetTokenObject.symbol}
-                </div>
-                <div className="swap_price_rate_div1">
-                  per {baseTokenObject.symbol}
-                </div>
-              </div>
-              <button
-                id="generate"
-                class="updatedSwapSwapBtn"
-                disabled={swapDisable}
-                onClick={process}
-              >
-                {parseFloat(SwapAmount) > baseTokenObject.balance
-                  ? "Insufficient Balance"
-                  : "Add Liquidity"}
-              </button>
-              {/* <div className="moreSwapInfoDiv">
-                <div className="moreSwapInfoDiv_div1">More Information</div>
-                <div className="moreSwapInfoDiv_div2">
-                  <div className="moreSwapInfoDiv_div2_area1">
-                    <div className="moreSwapInfoDiv_div2_area1_cont1">
-                      Minimum Received
-                    </div>
-                    <div className="moreSwapInfoDiv_div2_area1_cont2">
-                      {SwapAmount === "" ? <>0</> : AmountOut}
-                      <span>{assetTokenObject.symbol}</span>
+                          <button className="display_tokens_drop">
+                            {" "}
+                            <img
+                              src={selectedToken.img}
+                              alt=""
+                              className="display_tokens_drop_img"
+                            />
+                            {selectedToken.symbol}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="moreSwapInfoDiv_div2_area1">
-                    <div className="moreSwapInfoDiv_div2_area1_cont1">
-                      Gas Fee
-                    </div>
-                    <div className="moreSwapInfoDiv_div2_area1_cont2">
-                      $7.75
-                    </div>
+
+                  {/* </div> */}
+                </div>
+
+                <div className="swap_price_rate_div">
+                  <span className="swap_price_rate_div_span">
+                    Current Price:{" "}
+                  </span>
+                  <div className="swap_price_rate_div1">
+                    {" "}
+                    {numberWithCommas(parseFloat(marketPrice).toFixed(2))}{" "}
+                    {selectedToken.symbol}
+                  </div>
+                  <div className="swap_price_rate_div1">
+                    per {baseTokenObject.symbol}
                   </div>
                 </div>
-              </div> */}
-            </div>
+                <button
+                  id="generate"
+                  class="updatedSwapSwapBtn"
+                  disabled={swapDisable}
+                  onClick={process}
+                >
+                  {parseFloat(SwapAmount) > baseTokenObject.balance
+                    ? "Insufficient Balance"
+                    : "Add Liquidity"}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

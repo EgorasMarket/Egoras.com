@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { SUBSCRIBE_MEMBERSHIP } from "../../../services/membership_services";
+import WebPin from "../../Common/CommonUI/Modals/WebPin";
+import { ToastContainer, toast } from "react-toastify";
+import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
+import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 const PlanSubDivModal = ({
   toggleDiv,
   Plan,
+  planId,
   PlanAmount,
   PlanAmountLocal,
   discount,
@@ -12,33 +17,35 @@ const PlanSubDivModal = ({
   subMembership,
   visibility,
 }) => {
-  const subscribe_membership = async () => {
-    // Map<String, String> body = {
-    // "email": "${email}",
-    //   "type": "membership",
-    //   "referral_code": "${referral_code}",
-    //   "userWallet": "${wallet}",
-    //   "quantity": "1",
-    //   "pin_code": "${pin}",
-    //   "amount": "${selectedValue}",
-    //   "symbol": "EGC",
-    //   "user": "${wallet}",
-    // };
+  const [pin, setPin] = useState("");
+  const [pinModal, setPinModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(-1);
+  const [message, setMessage] = useState("");
 
-    let pin = prompt("Enter Your device Pin");
+  const process = () => {
+    setPinModal(true);
+  };
+
+  const subscribe_membership = async () => {
+    setLoading(true);
+
     const res = await SUBSCRIBE_MEMBERSHIP({
-      pin_code: pin,
-      type: "membership",
-      amount: PlanAmount,
-      amountInNaira: PlanAmountLocal,
+      planID: planId,
       symbol: "EGC",
-      quantity: "",
     });
-    //console.logog(res);
+    setLoading(false);
+    setPinModal(false);
 
     if (!res.data.success) {
-      alert(res.data.errorMessage);
+      // toast.error(res.data.errorMessage);
+      setMessage(res.data.errorMessage);
+      setSuccess(0);
+      return;
     }
+    setSuccess(1);
+
+    // toast.success("Subscription is successful");
   };
   return (
     <div className=" planSubDiv" hidden={visibility}>
@@ -54,13 +61,13 @@ const PlanSubDivModal = ({
           <div className="planSubDiv_area_body_area">
             <div className="planSubDiv_area_body_area_amount">
               <div className="Step2Div2_member_div2_body_1_amount_title2">
-                {PlanAmount}
+                {parseFloat(PlanAmount).toFixed(2)}
                 <span className="Step2Div2_member_div2_body_1_amount_title_span">
-                  egc / yr
+                  USD / yr
                 </span>
               </div>
               <div className="Step2Div2_member_div2_body_1_amount_title2_naira">
-                ₦{PlanAmountLocal}{" "}
+                ${parseFloat(PlanAmountLocal).toFixed(2)}
               </div>
               <div className="Step2Div2_member_div2_body_1_amount_title_slashed2">
                 <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount_save">
@@ -95,10 +102,7 @@ const PlanSubDivModal = ({
             </div>
             {checkAgree ? (
               <div className="subscribe_btn">
-                <button
-                  className="subscribe_btn_btn"
-                  onClick={subscribe_membership}
-                >
+                <button className="subscribe_btn_btn" onClick={process}>
                   Pay Membership
                 </button>
               </div>
@@ -111,7 +115,27 @@ const PlanSubDivModal = ({
             )}
           </div>
         </div>
+
+        {pinModal ? (
+          <WebPin
+            isLoading={loading}
+            btnFunc={subscribe_membership}
+            pinTitle="Enter Pin to validate Transaction"
+            pinPara="Input your pin to complete this transaction."
+            btnFuncTxt="Proceed"
+            handleOnComplete={(e) => {
+              const a = e.join("");
+              setPin(a);
+              return;
+            }}
+          />
+        ) : null}
+
+        {success === 0 && <ErrorModal ErrorTxt={message} />}
+
+        {success === 1 && <SuccessModal SuccesTxt={"Success"} />}
       </div>
+      <ToastContainer />
     </div>
   );
 };

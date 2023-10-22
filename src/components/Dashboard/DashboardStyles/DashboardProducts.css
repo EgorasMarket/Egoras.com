@@ -81,6 +81,11 @@
 .DashboardProdDiv_body_cont1_details_txt_title {
   font-size: 24px;
   color: #747483;
+  width: 100%;
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .DashboardProdDiv_body_cont1_details_txt_amount {

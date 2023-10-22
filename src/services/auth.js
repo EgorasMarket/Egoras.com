@@ -15,6 +15,9 @@ import { CustomResponse } from "../utils/CustomResponse";
 import setAuthToken from "../utils/setAuthToken";
 
 export const LOGIN_USER = async (payload) => {
+  console.log("====================================");
+  console.log(LOGIN);
+  console.log("====================================");
   /**
      * 
      *      Map<String, String> data = {
