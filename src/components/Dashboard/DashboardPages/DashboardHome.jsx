@@ -153,11 +153,11 @@ const DashboardHome = () => {
     //console.logog(data[0]?.value);
     //console.logog(data[1]?.value);
 
-    if (data[0].name === "Naira") {
+    if (data[0]?.name === "Naira") {
       setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
       return;
     }
-    if (data[1].name === "Naira") {
+    if (data[1]?.name === "Naira") {
       setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
       return;
     }
