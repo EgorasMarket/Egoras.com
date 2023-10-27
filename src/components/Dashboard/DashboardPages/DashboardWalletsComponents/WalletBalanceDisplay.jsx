@@ -2,6 +2,7 @@ import React from "react";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 import { ShimmerButton } from "react-shimmer-effects-18";
 import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
+import { Link } from "react-router-dom";
 const WalletBalanceDisplay = ({
   walletBal,
   walletsymbol,
@@ -53,12 +54,13 @@ const WalletBalanceDisplay = ({
           >
             Withdraw
           </div>
-          <div
+          <Link
+            to="/dashboard/swap"
             className="DashboardWalletsDiv_area2_cont2_area2_cont2"
             style={{ marginRight: "0" }}
           >
             Swap
-          </div>
+          </Link>
         </div>
       </div>
 

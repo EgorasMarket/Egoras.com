@@ -28,6 +28,10 @@ body::-webkit-scrollbar-thumb {
   padding: 0em 1em;
   height: 100%;
 }
+button:hover {
+  transform: translate3d(0, -5px, 0);
+  transition: 0.3s ease-in-out;
+}
 html {
   scroll-behavior: smooth;
   transition: 2s ease-in;
@@ -117,4 +121,7 @@ button:focus {
 }
 .shimmer-button {
   margin-bottom: 0px !important;
+}
+.swiper-wrapper {
+  align-items: center !important;
 }

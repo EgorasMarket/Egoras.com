@@ -37,15 +37,15 @@
   border-radius: 50px;
 }
 .DashboardNav_body_1_active {
-  background: #22ad624a;
-  color: #bce1cd;
+  background: #22ad6230;
+  color: #4ac985;
   padding: 1em 1em;
   cursor: pointer;
   position: relative;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   margin-bottom: 1em;
-  border-radius: 10px;
+  border-radius: 7px;
   display: flex;
   align-items: center;
 }
@@ -60,12 +60,12 @@
   border-radius: 50px;
 }
 .DashboardNav_body_1 {
-  color: #838383;
+  color: #5c5c65;
   padding: 1em 1em;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 1em;
-  border-radius: 10px;
+  border-radius: 7px;
   display: flex;
   align-items: center;
 }
@@ -147,12 +147,12 @@
     display: none;
   }
   .DashboardNav_body_1 {
-    color: #838383;
+    color: #5c5c65;
     padding: 0.5em 0.5em;
     cursor: pointer;
     font-size: 14px;
     margin-bottom: 0em;
-    border-radius: 10px;
+    border-radius: 7px;
     display: flex;
     align-items: center;
     flex-direction: column;

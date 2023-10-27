@@ -134,6 +134,9 @@ const Header = () => {
               >
                 All Products
               </a>
+              <a href="/membership/sub" className="header_section_3_link_2_prd">
+                Join EgoCoop
+              </a>
             </div>
             <div className="header_section_2">
               <a href="/">

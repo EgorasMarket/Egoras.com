@@ -37,6 +37,8 @@ const DashboardWallets = () => {
   const [nairaBankWithdrawal, setNairaBankWithdrawal] = useState(false);
   const [nairaUserWithdrawal, setNairaUserWithdrawal] = useState(false);
   const [contentLoadingTable, setContentLoadingTable] = useState(true);
+  const [usdtBalance, setUsdtBalance] = useState("0");
+
   const [tableData, setTableData] = useState([]);
   const ToggleActiveTab = (e) => [setActiveTab(e.currentTarget.id)];
 
@@ -96,25 +98,18 @@ const DashboardWallets = () => {
     setWithdrawMoneyNaira(!withdrawMoneyNaira);
   };
   useEffect(() => {
-    //console.logog(data);
-    //console.logog(data[0]?.value);
-    //console.logog(data[1]?.value);
-
-    if (data[0].name === "Naira") {
-      setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
-      return;
-    }
-    if (data[1].name === "Naira") {
-      setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
-      return;
-    }
-    if (data[0].name === "Egoras Credit") {
-      setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
-      return;
-    }
-    if (data[1].name === "Egoras Credit") {
-      setEgcBalance(data[1]?.value === null ? "0" : data[1]?.value);
-      return;
+    for (let i = 0; i < data.length; i++) {
+      switch (data[i].name) {
+        case "Naira":
+          setNairaBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+        case "Egoras Credit":
+          setEgcBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+        case "Tether USD":
+          setUsdtBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+      }
     }
   }, []);
   const fetchWalletTransactions = async () => {
@@ -194,7 +189,7 @@ const DashboardWallets = () => {
         ) : null}
         {activeTab === "usdt" ? (
           <WalletBalanceDisplay
-            walletBal={parseFloat(0).toFixed(2)}
+            walletBal={parseFloat(usdtBalance).toFixed(2)}
             walletsymbol={"usdt"}
             depositFunc={ToggleDepositMoneyNairaModal}
             withdrawFunc={ToggleWithdrawMoneyNairaModal}

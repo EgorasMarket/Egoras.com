@@ -28,17 +28,19 @@ import {
   GENERATE_USER_WALLET_ADDRESS_MART_GPT,
   SET_USER_PIN,
 } from "../../../services/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import WebPin from "../../Common/CommonUI/Modals/WebPin";
 import useUserEligible from "../../../hooks/useUserEligible";
 const DashboardHome = () => {
   const isEligible = useUserEligible();
   const navigate = useNavigate();
   const [nairaBalance, setNairaBalance] = useState("0");
+  const [usdtBalance, setUsdtBalance] = useState("0");
   const [egcBalance, setEgcBalance] = useState("0");
   const { data, loading } = useSelector((state) => state.wallet);
   const [contentLoadingTable, setContentLoadingTable] = useState(true);
-  const { user } = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
   const [pin, setPinVal] = useState("");
   const [confirmPin, setConfirmPinVal] = useState("");
   const [confirmPinModal, setConfirmPinModal] = useState(false);
@@ -58,15 +60,16 @@ const DashboardHome = () => {
     const response = await GET_WALLET({
       symbol: "EGC",
     });
+    console.log(response, "shalli");
 
     if (response.success === undefined || !response.success) {
       return;
     }
 
     //console.logog(response.data.address, "generating wallet");
-    const registerAddress = await GENERATE_USER_WALLET_ADDRESS({
+    await GENERATE_USER_WALLET_ADDRESS({
       wallet: response.data.address,
-      email: user.email,
+      email: auth.user.email,
     });
     await GENERATE_USER_WALLET_ADDRESS_MART_GPT({
       userAddress: response.data.address,
@@ -78,9 +81,12 @@ const DashboardHome = () => {
     setPinModal(true);
   };
   useEffect(() => {
-    // //console.logog("i am running here");
     setTimeout(() => {
-      if (user?.wallet_address === "n/a" || user?.wallet_address === "") {
+      if (
+        auth.user?.wallet_address === "n/a" ||
+        auth.user?.wallet_address === ""
+      ) {
+        console.log("entered block");
         generateWallet();
       }
     }, 5000);
@@ -145,38 +151,30 @@ const DashboardHome = () => {
     return null;
   };
 
-  //console.logog("====================================");
-  //console.logog(user, "yyyyyyyyy");
-  //console.logog("====================================");
+  console.log(data);
   useEffect(() => {
-    //console.logog(data);
-    //console.logog(data[0]?.value);
-    //console.logog(data[1]?.value);
-
-    if (data[0].name === "Naira") {
-      setNairaBalance(data[0]?.value === null ? "0" : data[0]?.value);
-      return;
-    }
-    if (data[1].name === "Naira") {
-      setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
-      return;
-    }
-    if (data[0].name === "Egoras Credit") {
-      setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
-      return;
-    }
-    if (data[1].name === "Egoras Credit") {
-      setEgcBalance(data[1]?.value === null ? "0" : data[1]?.value);
-      return;
+    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+      switch (data[i].name) {
+        case "Naira":
+          setNairaBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+        case "Egoras Credit":
+          setEgcBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+        case "Tether USD":
+          setUsdtBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+      }
     }
   }, []);
 
   useEffect(() => {
     //check if the pin is empty
     if (
-      user?.user_pin === null ||
-      user?.user_pin === "" ||
-      user?.user_pin === undefined
+      auth.user?.user_pin === null ||
+      auth.user?.user_pin === "" ||
+      auth.user?.user_pin === undefined
     ) {
       setPin();
     }
@@ -235,9 +233,11 @@ const DashboardHome = () => {
     fechAllProducts();
   }, []);
   const showPurchasedProduct = async () => {
-    const response = await SHOW_ALL_PURCHASED_PRODUCT(user?.wallet_address);
+    const response = await SHOW_ALL_PURCHASED_PRODUCT(
+      auth.user?.wallet_address
+    );
+    console.log(response);
     //console.logog(response);
-
     setOrders(response.data);
   };
 
@@ -247,6 +247,41 @@ const DashboardHome = () => {
   return (
     <div className="dashboardHome">
       <div className="dashboardHome_area1">
+        <div className="dashboardHome_area1_card1">
+          <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
+          <div className="dashboardHome_area1_card1_icon">
+            <AccountBalanceWalletOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
+          </div>
+          <div className="dashboardHome_area1_card1_title_div">
+            <div className="dashboardHome_area1_card1_title">
+              Total Naira Balance
+            </div>
+            <div className="dashboardHome_area1_card1_content">
+              <div className="dashboardHome_area1_card1_content_amnt">
+                {loading ? (
+                  <ShimmerButton size="md" className="custom_shimmer" />
+                ) : (
+                  <>
+                    <div className="dashboardHome_area1_card1_content_symbol">
+                      ₦
+                    </div>
+                    <div className="dashboardHome_area1_card1_content_amnt_txt">
+                      {numberWithCommas(parseFloat(nairaBalance).toFixed(2))}
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="dashboardHome_area1_card1_content_btn_div">
+                <Link to="/dashboard/wallet">
+                  <button className="dashboardHome_area1_card1_content_btn">
+                    Fund
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="dashboardHome_area1_card1">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
@@ -273,15 +308,16 @@ const DashboardHome = () => {
                 )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
-                <a href="/dashboard/wallet">
+                <Link to="/dashboard/wallet">
                   <button className="dashboardHome_area1_card1_content_btn">
                     Fund
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
+
         <div className="dashboardHome_area1_card1">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
@@ -289,7 +325,7 @@ const DashboardHome = () => {
           </div>
           <div className="dashboardHome_area1_card1_title_div">
             <div className="dashboardHome_area1_card1_title">
-              Total Naira Balance
+              Total Usdt Balance
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
@@ -298,24 +334,25 @@ const DashboardHome = () => {
                 ) : (
                   <>
                     <div className="dashboardHome_area1_card1_content_symbol">
-                      ₦
+                      $
                     </div>
                     <div className="dashboardHome_area1_card1_content_amnt_txt">
-                      {numberWithCommas(parseFloat(nairaBalance).toFixed(2))}
+                      {numberWithCommas(parseFloat(usdtBalance).toFixed(2))}
                     </div>
                   </>
                 )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
-                <a href="/dashboard/wallet">
+                <Link to="/dashboard/wallet">
                   <button className="dashboardHome_area1_card1_content_btn">
                     Fund
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
+
         <div className="dashboardHome_area1_card1">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
@@ -331,7 +368,7 @@ const DashboardHome = () => {
                   <ShimmerButton size="md" className="custom_shimmer" />
                 ) : (
                   <>
-                    {orders.length}
+                    {orders.length <= 0 ? "0" : orders.length}
                     <div className="dashboardHome_area1_card1_content_symbol">
                       itms
                     </div>
@@ -704,7 +741,7 @@ const DashboardHome = () => {
           TableData={tableData.slice(0, 7)}
           dummyData={Staticdata.productsTableData.slice(0, 8)}
           contentLoading={contentLoadingTable}
-          userName={user.username}
+          userName={auth.user.username}
         />
         {/* <div className="dashboardHome_area3_btn_div">
           <a

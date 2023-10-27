@@ -10,8 +10,6 @@ const PlanSubDivModal = ({
   Plan,
   planId,
   PlanAmount,
-  PlanAmountLocal,
-  discount,
   checkAgree,
   toggleCheckAgree,
   subMembership,
@@ -20,7 +18,8 @@ const PlanSubDivModal = ({
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(-1);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
 
   const process = () => {
@@ -29,21 +28,28 @@ const PlanSubDivModal = ({
 
   const subscribe_membership = async () => {
     setLoading(true);
-
+    console.log(planId);
     const res = await SUBSCRIBE_MEMBERSHIP({
       planID: planId,
-      symbol: "EGC",
+      symbol: "USDT",
+      pin_code: pin,
     });
+    console.log(res);
     setLoading(false);
     setPinModal(false);
-
-    if (!res.data.success) {
-      // toast.error(res.data.errorMessage);
-      setMessage(res.data.errorMessage);
-      setSuccess(0);
+    if (res.success || res.data.success) {
+      setSuccess(true);
+      console.log(res.data.errorMessage);
+      console.log(res);
       return;
     }
-    setSuccess(1);
+    if (!res.success || !res.data.success) {
+      setMessage(res.data.errorMessage);
+      setError(true);
+      console.log(res.data.errorMessage);
+      console.log(res);
+      return;
+    }
 
     // toast.success("Subscription is successful");
   };
@@ -61,21 +67,10 @@ const PlanSubDivModal = ({
           <div className="planSubDiv_area_body_area">
             <div className="planSubDiv_area_body_area_amount">
               <div className="Step2Div2_member_div2_body_1_amount_title2">
-                {parseFloat(PlanAmount).toFixed(2)}
                 <span className="Step2Div2_member_div2_body_1_amount_title_span">
-                  USD / yr
-                </span>
-              </div>
-              <div className="Step2Div2_member_div2_body_1_amount_title2_naira">
-                ${parseFloat(PlanAmountLocal).toFixed(2)}
-              </div>
-              <div className="Step2Div2_member_div2_body_1_amount_title_slashed2">
-                <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount_save">
-                  {discount}% discount
-                </div>
-                <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount">
-                  on all purchased products
-                </div>
+                  $
+                </span>{" "}
+                {parseFloat(PlanAmount).toFixed(2)}
               </div>
             </div>
 
@@ -131,9 +126,23 @@ const PlanSubDivModal = ({
           />
         ) : null}
 
-        {success === 0 && <ErrorModal ErrorTxt={message} />}
+        {error && (
+          <ErrorModal
+            ErrorTxt={message}
+            errorFunc={() => {
+              setError(false);
+            }}
+          />
+        )}
 
-        {success === 1 && <SuccessModal SuccesTxt={"Success"} />}
+        {success && (
+          <SuccessModal
+            SuccesTxt={"You have suseccfully joined the EGORAS COOPERATIVE"}
+            successFunc={() => {
+              window.location.href = "/dashboard/egocoop";
+            }}
+          />
+        )}
       </div>
       <ToastContainer />
     </div>

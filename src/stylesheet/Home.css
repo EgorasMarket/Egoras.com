@@ -57,14 +57,15 @@
 }
 
 .HomeDivSection1_div_txts_1_head {
-  font-size: 82px;
+  font-size: 98px;
   color: #fff;
   font-weight: 600;
 }
 .HomeDivSection1_div_txts_1_para {
-  font-size: 20px;
-  color: #adadad;
+  font-size: 24px;
+  color: #d3d3d3;
   width: 60%;
+  font-weight: 400;
 }
 .HomeDivSection1_div_txts_2 {
   display: flex;
@@ -168,11 +169,12 @@
 }
 .HomeDivSection2_area1_cont1 {
   width: 100%;
-  font-size: 68px;
+  font-size: 98px;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1;
   color: #fff;
   text-align: center;
+  text-transform: uppercase;
 }
 .HomeDivSection2_area1_cont2 {
   width: 100%;
@@ -356,24 +358,26 @@
   font-size: 24px;
 }
 .swiper-button-prev {
-  background: #ffffff;
-  color: #22ad62;
+  background: #00000047;
+  color: #ffffff;
   padding: 2em;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px #ffffff;
+  border: solid 1px #6b6b6b;
+  backdrop-filter: blur(4px);
 }
 .swiper-button-next {
-  background: #ffffff;
-  color: #22ad62;
+  background: #00000047;
+  color: #ffffff;
   padding: 2em;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px #ffffff;
+  border: solid 1px #6b6b6b;
+  backdrop-filter: blur(4px);
 }
 .swiper-pagination-bullet-active {
   background: #22ad62 !important;
@@ -445,12 +449,13 @@
 }
 
 .landingPageSectionlast_area_1_title {
-  font-size: 68px;
+  font-size: 98px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
   text-align: center;
   margin-bottom: 15px;
+  text-transform: uppercase;
 }
 
 .landingPageSectionlast_area_1_btn_div {
@@ -558,9 +563,10 @@
     font-weight: 600;
   }
   .HomeDivSection1_div_txts_1_para {
-    font-size: 18px;
-    color: #adadad;
+    font-size: 20px;
+    color: #bababa;
     width: 60%;
+    font-weight: 500;
   }
 
   .tricycle_overview_div1_cont1 {

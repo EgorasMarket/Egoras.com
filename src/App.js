@@ -17,17 +17,15 @@ import ProductDetail from "./components/Market/ProductDetail";
 import { fetchWalletBalance } from "./features/walletServices/walletActions";
 function App() {
   const dispatch = useDispatch();
-
   const [loadingDiv, setLoadingDiv] = useState(true);
-
   const verify_user = async () => {
     // const response = await VERIFY_USER();
     const response = dispatch(verifyUser());
   };
-
   const fetch_walllet = async () => {
     // const response = await VERIFY_USER();
-    const response = dispatch(fetchWalletBalance());
+    const response = await dispatch(fetchWalletBalance());
+    console.log(response);
   };
   useEffect(() => {
     verify_user();

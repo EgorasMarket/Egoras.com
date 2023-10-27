@@ -114,7 +114,6 @@ const UpdatedSwap = () => {
     } else {
       setBaseTokenObject(newBaseTokenObject2);
     }
-
     if (data[0].name === "Naira") {
       setAssetTokenObject(newAssetTokenObject);
       return;

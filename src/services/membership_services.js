@@ -29,7 +29,7 @@ export const SUBSCRIBE_MEMBERSHIP = async (payload) => {
   }
 };
 export const FETCH_SUBSCRIPTION = async (payload) => {
-  setAuthToken(localStorage.getItem("x-token"));
+  // setAuthToken(localStorage.getItem("x-token"));
   try {
     const res = await axios.get(`${GET_ALL_SUBSCRIPTION}`, payload);
     //console.logog(res);

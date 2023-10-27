@@ -5,7 +5,7 @@ const PlanSubDivs = ({
   toggleActivePlan,
   toggleDiv,
   Plan,
-  PlanAmount,
+  PlanTitle,
   discount,
   PlanAmountLocal,
   id,
@@ -19,28 +19,20 @@ const PlanSubDivs = ({
           : "Step2Div2_member_div2_body_1"
       }
       id={id}
-      onClick={toggleActivePlan}
+      onMouseEnter={toggleActivePlan}
     >
       <div className="Step2Div2_member_div2_body_1_txts">
-        <div className="Step2Div2_member_div2_body_1_title">{Plan}</div>
+        <div className="Step2Div2_member_div2_body_1_title">{PlanTitle}</div>
         <div className="Step2Div2_member_div2_body_1_para">
           For mission-critical analysis work
         </div>
       </div>
       <div className="Step2Div2_member_div2_body_1_amount">
-        <div className="Step2Div2_member_div2_body_1_amount_title">
-          {PlanAmount}
-          <span className="Step2Div2_member_div2_body_1_amount_title_span">
-            egc / yr
-          </span>
-        </div>
+        <div className="Step2Div2_member_div2_body_1_amount_title">{Plan}</div>
         <div className="Step2Div2_member_div2_body_1_amount_title_naira">
           ${PlanAmountLocal}{" "}
         </div>
         <div className="Step2Div2_member_div2_body_1_amount_title_slashed">
-          <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount_save">
-            {discount}% discount
-          </div>
           <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount">
             on all purchased products
           </div>

@@ -424,9 +424,15 @@ input[type="radio"]:checked + .selectPlanDiv2_area1_cont1_label:before {
   align-items: center;
   cursor: pointer;
   margin-bottom: 1em;
-  width: 100%;
+  width: 120px;
   align-items: center;
   justify-content: center;
+  background: #22ad62;
+  padding: 10px;
+  border-radius: 50px;
+  font-weight: 500;
+  color: #fff;
+  border: none;
 }
 
 .selectPlanDiv1_head {
@@ -1762,14 +1768,14 @@ x .benefits_section1_area2_body1_cont2 {
 }
 
 .joinCooperativeDiv {
-  padding: 4em 0em;
+  padding: 6em 0em;
   position: relative;
   background: #141414;
   color: #fff;
 }
 
 .dark .joinCooperativeDiv {
-  background: #0d0c14;
+  background: #000000;
   color: #fff;
 }
 .membership_landing_div {
@@ -1779,6 +1785,8 @@ x .benefits_section1_area2_body1_cont2 {
   justify-content: space-between;
   position: relative;
   flex-direction: column;
+  background: #000;
+  color: #fff;
 }
 .membership_landing_div_area {
   display: flex;
@@ -1791,7 +1799,7 @@ x .benefits_section1_area2_body1_cont2 {
   flex-direction: column;
   text-align: left;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 80%;
 }
 .membership_landing_div_2_img {
@@ -1812,16 +1820,20 @@ x .benefits_section1_area2_body1_cont2 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 10px;
+  text-transform: uppercase;
 }
 .membership_landing_div_1_txt_para {
   font-size: 24px;
+  color: #b4b6ba;
 }
 .membership_landing_div_2 {
-  width: 100%;
+  width: 75%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  /* height: 100%; */
+  height: 500px;
+  position: relative;
+  z-index: 1;
 }
 .membership_landing_div_2_iocn {
   width: 100%;
@@ -1832,7 +1844,15 @@ x .benefits_section1_area2_body1_cont2 {
   /* margin-top: 1em; */
   line-height: 1.2;
 }
-
+.membership_landing_div_section {
+  position: relative;
+  padding: 4em 0em;
+  padding-top: 8em;
+}
+.membership_landing_div_section2 {
+  position: relative;
+  padding: 4em 0em;
+}
 .joinCooperativeModalDiv_area_tab {
   padding: 8px;
   background: #f2f2f2;
@@ -2220,8 +2240,40 @@ x .benefits_section1_area2_body1_cont2 {
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding-top: 13em;
+  padding: 6em 1em;
+  background: #000;
+  color: #fff;
+  padding-top: 8em;
 }
+.Step2Div2_member_div_content_txt {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1em;
+}
+.Step2Div2_member_div_content_txt_title {
+  font-size: 52px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.Step2Div2_member_div_content_txt_para {
+  width: 50%;
+  font-size: 24px;
+  color: #82828d;
+  line-height: 1.2;
+}
+.HomeDivSection3_bgb {
+  position: absolute;
+  top: 0;
+  border: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
 .Step2Div2_member_div1 {
   display: flex;
   flex-direction: column;
@@ -2237,11 +2289,12 @@ x .benefits_section1_area2_body1_cont2 {
   font-size: 14px;
 }
 .Step2Div2_member_div2_body {
-  width: 100%;
   margin-top: 1em;
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-content: flex-start;
 }
 .Step2Div2_member_div2_body_1 {
   padding: 1.5em;
@@ -2251,14 +2304,12 @@ x .benefits_section1_area2_body1_cont2 {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-right: 20px;
-  max-width: 300px;
   box-shadow: 0px 11px 17px #000000bd;
   cursor: pointer;
   text-align: center;
 }
 .dark .Step2Div2_member_div2_body_1 {
-  background: #29292f;
+  background: #1c1c20;
   box-shadow: -5px 10px 18px #000000;
   border: solid 1px #5b5b65;
 }
@@ -2270,7 +2321,6 @@ x .benefits_section1_area2_body1_cont2 {
   flex-direction: column;
   width: 100%;
   margin-right: 20px;
-  max-width: 300px;
   box-shadow: 0px 11px 17px #000000b5;
   cursor: pointer;
   border: solid #22ad62 1px;
@@ -2300,7 +2350,7 @@ x .benefits_section1_area2_body1_cont2 {
   margin-bottom: 1em;
 }
 .Step2Div2_member_div2_body_1_amount_title {
-  font-size: 48px;
+  font-size: 24px;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -2308,8 +2358,9 @@ x .benefits_section1_area2_body1_cont2 {
   line-height: 1;
 }
 .Step2Div2_member_div2_body_1_amount_title_naira {
-  font-size: 24px;
-  color: #97c3ab;
+  font-size: 52px;
+  font-weight: 600;
+  color: #73cf9d;
 }
 .Step2Div2_member_div2_body_1_amount_title2_naira {
   font-size: 24px;
@@ -2317,18 +2368,19 @@ x .benefits_section1_area2_body1_cont2 {
   display: flex;
 }
 .Step2Div2_member_div2_body_1_amount_title2 {
-  font-size: 48px;
+  font-size: 62px;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   line-height: 1;
 }
-span.Step2Div2_member_div2_body_1_amount_title_span {
+.Step2Div2_member_div2_body_1_amount_title_span {
   font-weight: 400;
-  font-size: 18px;
-  margin-left: 5px;
-  color: grey;
+  font-size: 38px;
+  margin-left: 0px;
+  margin-right: 5px;
+  color: #9a9aa5;
 }
 .Step2Div2_member_div2_body_1_amount_title_slashed {
   font-size: 12px;
@@ -2427,7 +2479,7 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
   border-left: solid 1px #4c4c56;
 }
 .dark .planSubDiv_area {
-  background: #29292f;
+  background: #1c1c20;
   box-shadow: -5px 10px 18px #000000;
 }
 .planSubDiv_area_1 {
@@ -2453,15 +2505,11 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
   flex-direction: column;
   align-items: baseline;
   line-height: 1.2;
-  border-bottom: solid 1px #dadada;
-  margin-bottom: 1em;
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
 }
-.dark .planSubDiv_area_body_head {
-  border-bottom: solid 1px #44444d;
-}
+
 .planSubDiv_area_body_head_1_plan {
-  font-size: 42px;
+  font-size: 28px;
   font-weight: 600;
   color: #22ad62;
 }
@@ -2517,10 +2565,179 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
 .dark .planSubDiv_area_body_area_amount {
   border-bottom: solid 1px #44444d;
 }
+
 /* ===================================step2div2 ===================================*/
 /* ===================================step2div2 ===================================*/
 /* ===================================step2div2 ===================================*/
 /* ===================================step2div2 ===================================*/
+.how_it_works_update_new_area_1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5em;
+}
+
+.how_it_works_update_new_area_1_title {
+  color: #fff;
+  font-size: 72px;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.how_it_works_update_new_area_1_tab {
+  width: 100%;
+  border: solid #3d3d3d;
+  padding: 5px;
+  border-radius: 50px;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.how_it_works_update_new_area_1_tab_1_active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background: #22ad62;
+  border-radius: 50px;
+  width: 100%;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.how_it_works_update_new_area_1_tab_1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  /* background: #22ad62; */
+  border-radius: 50px;
+  width: 100%;
+  color: #8a889e;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.how_it_works_update_new_area_2 {
+  display: flex;
+  justify-content: space-between;
+  animation: revealTab 0.5s ease-in-out;
+}
+
+@keyframes revealTab {
+  0% {
+    transform: translateY(25%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.how_it_works_update_new_area_2_cont1_border {
+  margin-right: 30px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+  padding: 1px;
+  width: 100%;
+}
+.real_life {
+  color: #22ad62;
+}
+.how_it_works_update_new_area_2_cont1_border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 5px solid transparent;
+  border-image: linear-gradient(128deg, #569e77, #04100a) 1;
+  border-radius: 10px;
+  background-image: linear-gradient(128deg, #569e77, #04100a);
+}
+
+.how_it_works_update_new_area_2_cont1_border_div {
+  padding: 3em 2em;
+  display: flex;
+  flex-direction: column;
+  /* background: #171522; */
+  background: #151515;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  border-radius: 24px;
+  /* background-image: radial-gradient(
+      at 83% 67%,
+      rgb(12 18 15) 0,
+      transparent 58%
+    ),
+    radial-gradient(at 67% 20%, hsl(147.63deg 29.67% 14%) 0, transparent 59%),
+    radial-gradient(at 88% 35%, hsl(0deg 0% 0%) 0, transparent 50%),
+    radial-gradient(at 31% 91%, hsl(147.63deg 26.4% 9.53%) 0, #050806 52%),
+    radial-gradient(at 27% 71%, hsl(147.63deg 19.54% 8.95%) 0, transparent 49%),
+    radial-gradient(at 74% 89%, hsl(147.63deg 22.04% 54.39%) 0, transparent 51%),
+    radial-gradient(at 53% 75%, hsl(258.95deg 18.78% 4.72%) 0, transparent 45%); */
+}
+
+.how_it_works_update_new_area_2_cont1_icon {
+  margin-bottom: 2.5em;
+}
+
+.how_it_works_update_new_area_2_cont1_icon_img {
+  width: 120px;
+}
+
+.how_it_works_update_new_area_2_cont1_title {
+  font-size: 32px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.how_it_works_update_new_area_2_cont1_paragraph {
+  color: #adadad;
+}
+.how_it_works_update_new_area {
+  display: flex;
+  flex-direction: column;
+}
+.how_it_works_update_new_area_btn {
+  width: 100%;
+  max-width: 200px;
+  margin: auto;
+  margin-top: 2em;
+  border-radius: 50px;
+  padding: 10px;
+  font-weight: 500;
+  color: #fff;
+  background: #22ad62;
+  border: none;
+}
+/* ===================================step2div2 ===================================*/
+/* ===================================step2div2 ===================================*/
+/* ===================================step2div2 ===================================*/
+/* ===================================step2div2 ===================================*/
+/* ===================================step2div2 ===================================*/
+/* ===================================step2div2 ===================================*/
+/* ===================================step2div2 ===================================*/
+/* ===================================step2div2 ===================================*/
+@media screen and (max-width: 1100px) {
+  .membership_landing_div_1_txt_title {
+    font-size: 58px;
+  }
+  .how_it_works_update_new_area_1_title {
+    font-size: 58px;
+  }
+}
 @media screen and (max-width: 1024px) {
   .egorasCooperativeHeroArea1_cont1 {
     font-size: 70px;
@@ -2544,6 +2761,25 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
 }
 
 @media screen and (max-width: 999px) {
+  .membership_landing_div_area {
+    display: flex;
+    flex-direction: column;
+  }
+  .membership_landing_div_1 {
+    width: 100%;
+  }
+  .membership_landing_div_2 {
+    width: 100%;
+  }
+  .how_it_works_update_new_area_2 {
+    display: flex;
+    flex-direction: column;
+  }
+  .how_it_works_update_new_area_2_cont1_border {
+    margin-right: 0px;
+    margin-bottom: 2em;
+    width: 100%;
+  }
   .egorasCooperativeHeroArea1_cont1 {
     font-size: 78px;
   }
@@ -2705,6 +2941,15 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
     align-items: center;
     cursor: pointer;
     margin-bottom: 1em;
+    width: 120px;
+    align-items: center;
+    justify-content: center;
+    background: #22ad62;
+    padding: 10px;
+    border-radius: 50px;
+    font-weight: 500;
+    color: #fff;
+    border: none;
   }
 
   .selectPlanDiv1 {
@@ -2762,9 +3007,26 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
     font-weight: 700;
     line-height: 1;
   }
+  .Step2Div2_member_div2_body {
+    margin-top: 1em;
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: flex-start;
+  }
 }
 
 @media screen and (max-width: 767px) {
+  .membership_landing_div_2 {
+    height: 300px;
+  }
+  .membership_landing_div_1_txt_title {
+    font-size: 42px;
+  }
+  .how_it_works_update_new_area_1_title {
+    font-size: 42px;
+  }
   .egorasVideoArea_body_div {
     display: flex;
     align-items: center;
@@ -3057,9 +3319,51 @@ span.Step2Div2_member_div2_body_1_amount_title_span {
     /* background-image: linear-gradient(7deg, black, #080c0a, #21382a); */
     overflow: hidden;
   }
+  .Step2Div2_member_div2_body {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .Step2Div2_member_div_content_txt_para {
+    width: 100%;
+  }
+  .Step2Div2_member_div_content_txt_title {
+    font-size: 32px;
+  }
 }
 
 @media screen and (max-width: 510px) {
+  .membership_landing_div_1_txt_title {
+    font-size: 34px;
+  }
+  .membership_landing_div_1_txt_para {
+    font-size: 18px;
+  }
+  .SubContinueButton {
+    max-width: 100%;
+  }
+  .membership_landing_div_section {
+    padding: 0em 0em;
+    padding-top: 8em;
+  }
+  .how_it_works_update_new_area_1_title {
+    font-size: 34px;
+  }
+  .how_it_works_update_new_area_1 {
+    margin-bottom: 1em;
+  }
+  .how_it_works_update_new_area_2_cont1_icon {
+    margin-bottom: 1em;
+  }
+  .how_it_works_update_new_area_btn {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0em;
+  }
+  .how_it_works_update_new_area_2_cont1_icon_img {
+    width: 70px;
+  }
+  .how_it_works_update_new_area_2_cont1_title {
+    font-size: 24px;
+  }
   .updatedCooperativeSection1 {
     position: relative;
     height: 80vh;

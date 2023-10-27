@@ -103,12 +103,13 @@ const routes = [
     layout: "/dashboard",
   },
   {
-    name: "Orders",
-    path: "orders",
-    icon: <BookmarkBorderOutlinedIcon className="DashboardNav_body_1_icon" />,
-    component: <DashboardOrders />,
+    name: "EgoCoop",
+    path: "egocoop",
+    icon: <CorporateFareIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardReferral />,
     layout: "/dashboard",
   },
+
   {
     name: "Swap",
     path: "swap",
@@ -118,10 +119,17 @@ const routes = [
   },
 
   {
-    name: "EgoCorp",
-    path: "egocorp",
-    icon: <CorporateFareIcon className="DashboardNav_body_1_icon" />,
-    component: <DashboardReferral />,
+    name: "Subsrciption",
+    path: "membership",
+    icon: <WorkspacePremiumOutlinedIcon className="DashboardNav_body_1_icon" />,
+    component: <DasboardMember />,
+    layout: "/dashboard",
+  },
+  {
+    name: "Orders",
+    path: "orders",
+    icon: <BookmarkBorderOutlinedIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardOrders />,
     layout: "/dashboard",
   },
   {
@@ -130,13 +138,6 @@ const routes = [
     icon: <ReceiptOutlinedIcon className="DashboardNav_body_1_icon" />,
 
     component: <DashboardTransactions />,
-    layout: "/dashboard",
-  },
-  {
-    name: "Membership",
-    path: "membership",
-    icon: <WorkspacePremiumOutlinedIcon className="DashboardNav_body_1_icon" />,
-    component: <DasboardMember />,
     layout: "/dashboard",
   },
 ];
