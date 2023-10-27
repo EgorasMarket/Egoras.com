@@ -16,6 +16,7 @@ import DefaultComponentLoading from "./components/Common/CommonUI/Modals/Default
 import ProtectedRoute from "./Router/ProtectedRoute";
 import ProductDetail from "./components/Market/ProductDetail";
 import { fetchWalletBalance } from "./features/walletServices/walletActions";
+import NotFoundComponent from "./components/Home/NotFoundComponent";
 function App() {
   const dispatch = useDispatch();
   const [loadingDiv, setLoadingDiv] = useState(true);

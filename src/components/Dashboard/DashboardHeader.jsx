@@ -60,14 +60,6 @@ const DashboardHeader = ({ currentPathName }) => {
             {/* </div> */}
             <div className="DashHeaderMenuDiv_conts_body">
               <Link
-                to="/dashboard/membership"
-                className="DashHeaderMenuDiv_1"
-                onClick={() => setHeaderMenu(false)}
-              >
-                <div className="DashHeaderMenuDiv_1_txt">Subscription</div>
-                <KeyboardArrowRightIcon className="DashHeaderMenuDiv_1_icon" />
-              </Link>
-              <Link
                 to="/dashboard/orders"
                 className="DashHeaderMenuDiv_1"
                 onClick={() => setHeaderMenu(false)}

@@ -101,9 +101,8 @@
 }
 @media screen and (max-width: 1000px) {
   .DashboardNav_body_1_active .DashboardNav_body_1_icon {
-    /* background: grey; */
-    animation: bounceInUp;
-    animation-duration: 0.5s;
+    animation: rubberBand;
+    animation-duration: 1s;
   }
   .Dashboard_body_area_1 {
     width: 100%;
@@ -147,6 +146,8 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    animation: pulse;
+    animation-duration: 0.5s;
   }
   .DashboardNav_body_1_active::before {
     display: none;

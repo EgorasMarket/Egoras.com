@@ -1,0 +1,43 @@
+.notFound404Div {
+  position: relative;
+  height: 100svh;
+  width: 100vw;
+  padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4em;
+}
+.notFound404Div_area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  align-items: center;
+}
+.notFound404Div_area_img_div {
+  width: 100%;
+}
+.notFound404Div_area_img {
+  width: 100%;
+}
+.notFound404Div_area_btn_div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+}
+.notFound404Div_area_btn_link {
+  width: 100%;
+  max-width: 200px;
+}
+.notFound404Div_area_btn {
+  width: 100%;
+  /* max-width: 300px; */
+  padding: 10px;
+  border-radius: 10px;
+  border: solid #fff;
+  color: #fff;
+  background: no-repeat;
+}

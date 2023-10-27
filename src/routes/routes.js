@@ -27,6 +27,8 @@ import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 // import
 import Groups2Icon from "@mui/icons-material/Groups2";
 import StoreIcon from "@mui/icons-material/Store";
+import NotFoundComponent from "../components/Home/NotFoundComponent";
+
 const routes = [
   { name: "Home", path: "", component: <Home />, layout: "/" },
   { name: "Signup", path: "signup", component: <Signup />, layout: "/" },
@@ -59,6 +61,12 @@ const routes = [
     name: "Product Detail",
     path: "productdetail/:id/:name",
     component: <ProductDetail />,
+    layout: "/",
+  },
+  {
+    name: "404 Not Found",
+    path: "*",
+    component: <NotFoundComponent />,
     layout: "/",
   },
   {
