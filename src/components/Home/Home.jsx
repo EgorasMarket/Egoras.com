@@ -3,7 +3,7 @@ import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import Staticdata from "../../assets/json/Static";
 import { useDispatch, useSelector } from "react-redux";
 import { numberWithCommas } from "../../assets/js/numberWithCommas";
@@ -50,7 +50,7 @@ const Home = () => {
                 <div className="HomeDivSection1_div_txts">
                   <div className="HomeDivSection1_div_txts_1">
                     <div className="HomeDivSection1_div_txts_1_head">
-                      MODEL EGC-80
+                      Model EGC-80
                     </div>
                     <div className="HomeDivSection1_div_txts_1_para">
                       The Egoras Dual-Fuel Tricycle(EGC-80) is a reliable and
@@ -70,7 +70,7 @@ const Home = () => {
                             className="HomeDivSection1_div_txts_2_div
                       "
                           >
-                            Join Egoras Coop
+                            Join Egoras Corp
                           </div>
                         }
                       />
@@ -173,19 +173,15 @@ const Home = () => {
         />
         <div className="HomeDivSection3_area">
           <Swiper
+            // ref={swiperRef}
             slidesPerView={3}
             spaceBetween={10}
             centeredSlides={true}
-            loop={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
             pagination={{
               clickable: true,
             }}
-            modules={[Autoplay, Pagination, Navigation]}
+            // modules={[Pagination]}
+            modules={[Pagination, Navigation]}
             navigation={true}
             className="HomeDivSection3_area_swiper"
             onSlideChange={handleSlideChange}
@@ -273,27 +269,6 @@ const Home = () => {
       {/* ====================== */}
       {/* ====================== */}
       {/* ====================== */}
-      {/* <section className="ProductDetailDiv_last_section">
-        <div className="custom_container">
-          <div className="ProductDetailDiv_last_section_area">
-            <img
-              src="/img/dummyDetailPageImages/Big Gen.png"
-              alt=""
-              className="ProductDetailDiv_last_section_area_img"
-            />
-            <div className="ProductDetailDiv_last_section_area_txt">
-              <div className="ProductDetailDiv_last_section_area_txt_area1">
-                Experience Egoras
-              </div>
-              <div className="ProductDetailDiv_last_section_area_txt_area2">
-                <button className="ProductDetailDiv_last_section_area_txt_area2_btn">
-                  Join Now
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
       <section className="landingPageSectionlast">
         <div className="container">
           <div className="landingPageSectionlast_area">
@@ -330,7 +305,7 @@ const Home = () => {
                   className="landingPageSection1_area1_div3_btn1_link"
                 >
                   <button className="landingPageSection1_area1_div3_btn1_join">
-                    Join Egoras Coop
+                    Join Egoras Corp
                   </button>
                 </a>
               </div>
