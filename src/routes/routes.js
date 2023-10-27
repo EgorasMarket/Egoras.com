@@ -118,13 +118,13 @@ const routes = [
     layout: "/dashboard",
   },
 
-  {
-    name: "Subsrciption",
-    path: "membership",
-    icon: <WorkspacePremiumOutlinedIcon className="DashboardNav_body_1_icon" />,
-    component: <DasboardMember />,
-    layout: "/dashboard",
-  },
+  // {
+  //   name: "Subsrciption",
+  //   path: "membership",
+  //   icon: <WorkspacePremiumOutlinedIcon className="DashboardNav_body_1_icon" />,
+  //   component: <DasboardMember />,
+  //   layout: "/dashboard",
+  // },
   {
     name: "Orders",
     path: "orders",

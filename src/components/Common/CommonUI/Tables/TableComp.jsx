@@ -9,6 +9,7 @@ import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SouthWestIcon from "@mui/icons-material/SouthWest";
 import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
 import TableModal from "./TableModal";
+import { Link } from "react-router-dom";
 // ======
 // ======
 // ======
@@ -386,12 +387,12 @@ export const Table = ({
     <div className="TableCompWithDiv">
       <div className="TableCompWithDiv_title">
         {tableTitle}{" "}
-        <a
-          href="/dashboard/transaction"
+        <Link
+          to="/dashboard/transaction"
           className="TableCompWithDiv_title_link"
         >
           <button className="TableCompWithDiv_title_btn">View All</button>
-        </a>
+        </Link>
         {/* <div
           className="TableCompWithDiv_title_drop_down"
           onClick={ToggleSmallMenu}

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../DashboardStyles/dashboardMember.css";
 import { Line, Circle } from "rc-progress";
-import { Table } from "../../Common/CommonUI/Tables/TableComp";
-import Staticdata from "../../../assets/json/Static";
 import { useSelector } from "react-redux";
 import { GET_MY_SUBSCRIPTION } from "../../../services/referral_services";
 import { numberWithCommas } from "../../../assets/js/numberWithCommas";
 import { ShimmerButton } from "react-shimmer-effects-18";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 
-const DasboardMember = () => {
-  const { user } = useSelector((state) => state.auth);
+const DasboardMember = ({ refCode }) => {
   const [componentLoading, setComponentLoading] = useState(true);
   const [progressColor, setProgressColor] = useState("#22ad62");
   const [progressPercent, setProgressPercent] = useState(0);
@@ -76,92 +74,115 @@ const DasboardMember = () => {
       return;
     }
   }, [progressPercent]);
+  const copyText = () => {
+    var copyText = document.getElementById("myInput");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
 
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copied code ";
+    tooltip.style.display = "block";
+  };
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+    tooltip.style.display = "none";
+  }
   return (
-    <div className="dash_member_sub_div">
-      <div className="dash_member_sub_div_1">
-        <div className="dash_member_sub_div_1_head1">Current Plan</div>
-        <div className="dash_member_sub_div_1_txt_conts">
-          <div className="dash_member_sub_div_1_txt_conts_1">
-            {componentLoading ? (
-              <ShimmerButton size="lg" className="custom_shimmer" />
-            ) : (
-              currentPlan
-            )}
-          </div>
+    <div className="dash_member_sub_div_1">
+      <div className="dash_member_sub_div_1_head1">Current Plan</div>
+      <div className="dash_member_sub_div_1_txt_conts">
+        <div className="dash_member_sub_div_1_txt_conts_1">
+          {componentLoading ? (
+            <ShimmerButton size="lg" className="custom_shimmer" />
+          ) : (
+            currentPlan
+          )}
+        </div>
 
-          <div className="dash_member_sub_div_1_txt_conts_2">
-            {componentLoading ? (
+        <div className="dash_member_sub_div_1_txt_conts_2">
+          {componentLoading ? (
+            <ShimmerButton size="sm" className="custom_shimmer" />
+          ) : (
+            <>${numberWithCommas(parseFloat(planAmount).toFixed(2))}</>
+          )}
+        </div>
+        <div className="dash_member_sub_div_1_txt_conts_3">
+          {componentLoading ? (
+            <>
+              <ShimmerButton size="sm" className="custom_shimmer" /> -
               <ShimmerButton size="sm" className="custom_shimmer" />
-            ) : (
-              <>${numberWithCommas(parseFloat(planAmount).toFixed(2))}</>
-            )}
-          </div>
-          <div className="dash_member_sub_div_1_txt_conts_3">
-            {componentLoading ? (
-              <>
-                <ShimmerButton size="sm" className="custom_shimmer" /> -
-                <ShimmerButton size="sm" className="custom_shimmer" />
-              </>
-            ) : (
-              <>
-                {" "}
-                Start: {StartDate.toDateString()} - End:{" "}
-                {EndDate.toDateString()}
-              </>
-            )}
-          </div>
+            </>
+          ) : (
+            <>
+              {" "}
+              Start: {StartDate.toDateString()} - End: {EndDate.toDateString()}
+            </>
+          )}
         </div>
-        <div className="dash_member_sub_div_1_progress_conts">
-          <div className="dash_member_sub_div_1_progress_conts_1">
-            {" "}
-            <Line
-              strokeWidth={0.5}
-              percent={progressPercent}
-              strokeColor={progressColor}
-            />
-          </div>
-          <div className="dash_member_sub_div_1_progress_conts_2">
-            {componentLoading ? (
-              <>
-                {" "}
-                <ShimmerButton size="sm" className="custom_shimmer" />
-              </>
-            ) : (
-              <> {daysRemaining} day(s) left</>
-            )}
-          </div>
-        </div>
-        {noPlan && (
-          <div className="noPlanDiv">
-            <div className="noPlanDiv_cont">
-              <div className="noPlanDiv_title">
-                You don't have an active plan
-              </div>
-              <div className="noPlanDiv_para">
-                please subscribe to a plan to access this feature .
-              </div>
-              <button
-                className="noPlanDiv_btn"
-                onClick={() => {
-                  window.location.href = "/membership/sub";
-                }}
-              >
-                Join EgoCorp
-              </button>
-            </div>
-          </div>
-        )}
       </div>
-      <div className="dash_member_sub_div_transactions">
-        {" "}
-        <Table
-          tableTitle={"Transactions"}
-          TableData={Staticdata.TransactionsDummy.slice(0, 7)}
-          dummyData={Staticdata.productsTableData.slice(0, 8)}
-          contentLoading={false}
-          userName={user.username}
-        />
+      <div className="dash_member_sub_div_1_progress_conts">
+        <div className="dash_member_sub_div_1_progress_conts_1">
+          {" "}
+          <Line
+            strokeWidth={0.5}
+            percent={progressPercent}
+            strokeColor={progressColor}
+          />
+        </div>
+        <div className="dash_member_sub_div_1_progress_conts_2">
+          {componentLoading ? (
+            <>
+              {" "}
+              <ShimmerButton size="sm" className="custom_shimmer" />
+            </>
+          ) : (
+            <> {daysRemaining} day(s) left</>
+          )}
+        </div>
+      </div>
+      {noPlan && (
+        <div className="noPlanDiv">
+          <div className="noPlanDiv_cont">
+            <div className="noPlanDiv_title">You don't have an active plan</div>
+            <div className="noPlanDiv_para">
+              please subscribe to a plan to access this feature .
+            </div>
+            <button
+              className="noPlanDiv_btn"
+              onClick={() => {
+                window.location.href = "/membership/sub";
+              }}
+            >
+              Join EgoCorp
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="memberRefCode_div">
+        <div className="memberRefCode_div_title">Referral Code</div>
+        <div className="memberRefCode_div_input_div">
+          <input
+            type="text"
+            value={refCode}
+            className="memberRefCode_div_input"
+            id="myInput"
+          />
+          <button
+            className="memberRefCode_div_input_btn"
+            onClick={copyText}
+            onMouseOut={outFunc}
+          >
+            <ContentCopyOutlinedIcon
+              className="memberRefCode_div_input_btn_icon"
+              onClick={copyText}
+              onMouseOut={outFunc}
+            />
+            <span className=" tooltiptext tooltiptext2" id="myTooltip"></span>
+          </button>
+        </div>
       </div>
     </div>
   );

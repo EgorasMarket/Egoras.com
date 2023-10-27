@@ -13,8 +13,9 @@ import { ShimmerButton } from "react-shimmer-effects-18";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import ErrorModal from "../../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-// import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
-// import ScaleLoader from "react-spinners/ScaleLoader";
+import { Table } from "../../../Common/CommonUI/Tables/TableComp";
+import { FETCH_WALLET_TRANSACTIONS } from "../../../../services/finance_services";
+import { useSelector } from "react-redux";
 import {
   GET_MY_SUBSCRIPTION,
   GET_MY_REWARD_BALANCE,
@@ -22,8 +23,10 @@ import {
   GET_REFERRAL_LEADERBOARD,
   WITHDRAW_REFERRAL_EARNINGS,
 } from "../../../../services/referral_services";
+import DasboardMember from "../DasboardMember";
 
 const DashboardReferral = () => {
+  const auth = useSelector((state) => state.auth);
   const [componentLoading, setComponentLoading] = useState(true);
   const [refEarnings, setRefEarnings] = useState(0.0);
   const [refEarnings2, setRefEarnings2] = useState(0.0);
@@ -43,6 +46,8 @@ const DashboardReferral = () => {
   const [pinModalsales, setPinModalsales] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
+  const [tableData, setTableData] = useState([]);
+  const [contentLoadingTable, setContentLoadingTable] = useState(true);
 
   const containerRef = useRef(null);
   const copyText = () => {
@@ -59,6 +64,24 @@ const DashboardReferral = () => {
     tooltip.innerHTML = "Copy to clipboard";
     tooltip.style.display = "none";
   }
+
+  const fetchWalletTransactions = async () => {
+    setContentLoadingTable(true);
+    const response = await FETCH_WALLET_TRANSACTIONS();
+    console.log("====================================");
+    console.log(response);
+    console.log("====================================");
+    if (response.success === true) {
+      setContentLoadingTable(false);
+      setTableData(response.data);
+    } else {
+      setContentLoadingTable(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchWalletTransactions();
+  }, []);
 
   const scrollToBottom = () => {
     if (containerRef.current) {
@@ -229,6 +252,9 @@ const DashboardReferral = () => {
           alt=""
           className="referral_banner_bg_img"
         />
+      </div>
+      <div className="pool_deatail_area_member_div">
+        <DasboardMember refCode={refLink} />
       </div>
       <div className="dashBoard_ref_area1">
         <div className="dashBoard_ref_area1_cont1">
@@ -614,6 +640,15 @@ const DashboardReferral = () => {
             )}
           </div>
         </div>
+      </div>
+      <div className="dashboardHome_area3">
+        <Table
+          tableTitle={"Transactions"}
+          TableData={tableData.slice(0, 7)}
+          dummyData={Staticdata.productsTableData.slice(0, 8)}
+          contentLoading={contentLoadingTable}
+          userName={auth.user.username}
+        />
       </div>
       {pinModalref ? (
         <WebPin

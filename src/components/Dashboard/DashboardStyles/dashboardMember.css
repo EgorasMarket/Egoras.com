@@ -1,6 +1,8 @@
 .dash_member_sub_div {
   display: flex;
   flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
 }
 .dash_member_sub_div_1 {
   margin-top: 0em;
@@ -8,7 +10,7 @@
   flex-direction: column;
   background: #000;
   padding: 2em;
-  border-radius: 20px;
+  border-radius: 10px;
   position: relative;
 }
 .dash_member_sub_div_1_head1 {
@@ -19,8 +21,71 @@
 .dash_member_sub_div_1_txt_conts {
   display: flex;
   flex-direction: column;
-  margin: 2em 0;
+  margin: 1em 0;
   margin-top: 0;
+}
+.memberRefCode_div {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  align-items: end;
+}
+.memberRefCode_div_title {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.memberRefCode_div_input_div {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 150px;
+}
+.tooltiptext2 {
+  position: absolute;
+  width: 100px;
+  right: 0%;
+  top: -60%;
+  background: #4a4a55;
+  border-radius: 6px;
+  color: #fff;
+}
+.memberRefCode_div_input {
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: none;
+  background: #1c1c20;
+  color: #a6a6b0;
+  padding-right: 0em;
+  width: 100%;
+  font-size: 24px;
+}
+.memberRefCode_div_input_btn {
+  position: absolute;
+  right: 5px;
+  bottom: 0%;
+  top: 0%;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: auto;
+  border-radius: 7px;
+  border: 0;
+  padding: 7px 5px;
+  width: fit-content;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  background: #161619;
+  color: #c4c4d1;
+}
+.memberRefCode_div_input_btn_icon {
+  font-size: 18px !important;
+  margin-left: 0px;
 }
 .dash_member_sub_div_1_txt_conts_1 {
   font-size: 62px;
@@ -102,5 +167,14 @@ svg.rc-progress-line {
 @media screen and (max-width: 767px) {
   .dash_member_sub_div_1_txt_conts_1 {
     font-size: 32px;
+  }
+  .dash_member_sub_div_1 {
+    padding: 1em;
+    border-radius: 10px;
+  }
+  .memberRefCode_div {
+    position: revert;
+    width: 100%;
+    align-items: flex-start;
   }
 }

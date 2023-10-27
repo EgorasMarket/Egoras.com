@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-// import CheckIcon from "@mui/icons-material/Check";
-// import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import PlanSubDivModal from "./PlanSubDivModal";
-import PlanSubDivs from "./PlanSubDivs";
+import { PlanSubDivs, PlanSubDivsLoading } from "./PlanSubDivs";
 import {
   FETCH_SUBSCRIPTION,
   SUBSCRIBE_MEMBERSHIP,
 } from "../../../services/membership_services";
 import { numberWithCommas } from "../../../assets/js/numberWithCommas";
-// import CloseIcon from "@mui/icons-material/Close";
 const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
   const [activePlan, setActivePlan] = useState("");
   const [planDiv, setPlanDiv] = useState("");
-  // const [proDiv, setProDiv] = useState(false);
-  // const [priseDiv, setPriseDiv] = useState(false);
   const [loading, setLoading] = useState(true);
   const [plans, setPlans] = useState([]);
   const toggleActivePlan = (e) => {
@@ -62,47 +57,61 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
             {/* ================== */}
             {/* ================== */}
             {/* ================== */}
-            {/* ================== */}
-            {/* ================== */}
-            {/* ================== */}
 
-            {plans && plans.length >= 1 ? (
-              plans
-                .sort((a, b) => a.amount - b.amount)
-                .map((plan, index) => {
-                  return (
-                    <PlanSubDivs
-                      id={plan.id}
-                      Plan={plan.type}
-                      PlanAmountLocal={numberWithCommas(
-                        parseFloat(plan.amount).toFixed(2).toString()
-                      )}
-                      PlanTitle={
-                        plan.type === "MONTHLY"
-                          ? "Standard"
-                          : plan.type === "ANNUALLY"
-                          ? "Ultra"
-                          : plan.type === "SEMI-ANNUALLY"
-                          ? "Premium"
-                          : plan.type === "QUARTERLY"
-                          ? "Plus"
-                          : ""
-                      }
-                      // PlanAmountLocal="--"
-                      activePlan={activePlan}
-                      discount="5"
-                      toggleActivePlan={toggleActivePlan}
-                      toggleDiv={togglePlanDivs}
-                    />
-                  );
-                })
+            {/* ================== */}
+            {/* ================== */}
+            {/* ================== */}
+            {loading ? (
+              <>
+                {" "}
+                <PlanSubDivsLoading />
+                <PlanSubDivsLoading />
+                <PlanSubDivsLoading />
+                <PlanSubDivsLoading />
+              </>
             ) : (
-              <div>
-                <p>No Subscription plan </p>
-
-                <button>retry</button>
-              </div>
+              <>
+                {plans && plans.length >= 1 ? (
+                  plans
+                    .sort((a, b) => a.amount - b.amount)
+                    .map((plan, index) => {
+                      return (
+                        <PlanSubDivs
+                          id={plan.id}
+                          Plan={plan.type}
+                          PlanAmountLocal={numberWithCommas(
+                            parseFloat(plan.amount).toFixed(2).toString()
+                          )}
+                          PlanTitle={
+                            plan.type === "MONTHLY"
+                              ? "Standard"
+                              : plan.type === "ANNUALLY"
+                              ? "Ultra"
+                              : plan.type === "SEMI-ANNUALLY"
+                              ? "Premium"
+                              : plan.type === "QUARTERLY"
+                              ? "Plus"
+                              : ""
+                          }
+                          // PlanAmountLocal="--"
+                          activePlan={activePlan}
+                          discount="5"
+                          toggleActivePlan={toggleActivePlan}
+                          toggleDiv={togglePlanDivs}
+                        />
+                      );
+                    })
+                ) : (
+                  <>
+                    <PlanSubDivsLoading />
+                    <PlanSubDivsLoading />
+                    <PlanSubDivsLoading />
+                    <PlanSubDivsLoading />
+                  </>
+                )}
+              </>
             )}
+
             {/* ================== */}
             {/* ================== */}
             {/* ================== */}

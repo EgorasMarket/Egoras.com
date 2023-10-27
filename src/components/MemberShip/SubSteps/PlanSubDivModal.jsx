@@ -39,7 +39,6 @@ const PlanSubDivModal = ({
     setPinModal(false);
     if (res.success || res.data.success) {
       setSuccess(true);
-      console.log(res.data.errorMessage);
       console.log(res);
       return;
     }

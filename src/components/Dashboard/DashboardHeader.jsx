@@ -7,6 +7,7 @@ import { Avatar } from "modern-react-avatar";
 import "modern-react-avatar/dist/index.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const DashboardHeader = ({ currentPathName }) => {
   const { user } = useSelector((state) => state.auth);
   const [headerMenu, setHeaderMenu] = useState(false);
@@ -58,14 +59,31 @@ const DashboardHeader = ({ currentPathName }) => {
             />
             {/* </div> */}
             <div className="DashHeaderMenuDiv_conts_body">
-              <a href="/dashboard/transaction" className="DashHeaderMenuDiv_1">
+              <Link
+                to="/dashboard/membership"
+                className="DashHeaderMenuDiv_1"
+                onClick={() => setHeaderMenu(false)}
+              >
+                <div className="DashHeaderMenuDiv_1_txt">Subscription</div>
+                <KeyboardArrowRightIcon className="DashHeaderMenuDiv_1_icon" />
+              </Link>
+              <Link
+                to="/dashboard/orders"
+                className="DashHeaderMenuDiv_1"
+                onClick={() => setHeaderMenu(false)}
+              >
+                <div className="DashHeaderMenuDiv_1_txt">Orders</div>
+                <KeyboardArrowRightIcon className="DashHeaderMenuDiv_1_icon" />
+              </Link>
+              <Link
+                to="/dashboard/transaction"
+                className="DashHeaderMenuDiv_1"
+                onClick={() => setHeaderMenu(false)}
+              >
                 <div className="DashHeaderMenuDiv_1_txt">Transactions</div>
                 <KeyboardArrowRightIcon className="DashHeaderMenuDiv_1_icon" />
-              </a>
-              <a href="/dashboard/membership" className="DashHeaderMenuDiv_1">
-                <div className="DashHeaderMenuDiv_1_txt">Membership</div>
-                <KeyboardArrowRightIcon className="DashHeaderMenuDiv_1_icon" />
-              </a>
+              </Link>
+
               <div className="dash_head_logout_btn_div">
                 <button
                   className="dash_head_logout_btn"

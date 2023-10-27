@@ -24,6 +24,8 @@
   border: solid 1px #444444;
   box-shadow: 0px 0px 15px #000;
   padding: 1em;
+  animation: zoomIn;
+  animation-duration: 0.5s;
 }
 .successModalDiv_cont_animation {
   width: 100%;

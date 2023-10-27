@@ -3,6 +3,8 @@
   flex-direction: column;
   position: relative;
   height: 100%;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
 }
 .DashboardWalletsDiv_area1 {
   display: flex;
@@ -157,6 +159,8 @@
   flex-direction: column;
   justify-content: space-between;
   overflow-y: scroll;
+  animation: fadeInRight;
+  animation-duration: 0.5s;
 }
 .depositMoneyDiv_cont_1 {
   display: flex;

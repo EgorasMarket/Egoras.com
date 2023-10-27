@@ -1,3 +1,10 @@
+.swap_liquidity_divs {
+  display: flex;
+  flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
+}
+
 .Swap_icondropDownDiv {
   display: flex;
   flex-direction: column;

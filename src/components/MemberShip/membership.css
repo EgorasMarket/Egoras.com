@@ -2295,6 +2295,8 @@ x .benefits_section1_area2_body1_cont2 {
   width: 100%;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   justify-content: flex-start;
+  animation: bounceInUp;
+  animation-duration: 0.5s;
 }
 .Step2Div2_member_div2_body_1 {
   padding: 1.5em;
@@ -2335,6 +2337,7 @@ x .benefits_section1_area2_body1_cont2 {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
+  align-items: center;
 }
 .Step2Div2_member_div2_body_1_title {
   font-size: 24px;
@@ -2343,11 +2346,18 @@ x .benefits_section1_area2_body1_cont2 {
 .Step2Div2_member_div2_body_1_para {
   font-size: 14px;
   color: grey;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 }
+
 .Step2Div2_member_div2_body_1_amount {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
+  align-items: center;
 }
 .Step2Div2_member_div2_body_1_amount_title {
   font-size: 24px;
@@ -2361,6 +2371,9 @@ x .benefits_section1_area2_body1_cont2 {
   font-size: 52px;
   font-weight: 600;
   color: #73cf9d;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .Step2Div2_member_div2_body_1_amount_title2_naira {
   font-size: 24px;
@@ -2477,6 +2490,8 @@ x .benefits_section1_area2_body1_cont2 {
   position: relative;
   box-shadow: -9px 1px 20px #0000004d;
   border-left: solid 1px #4c4c56;
+  animation: fadeInRight;
+  animation-duration: 0.5s;
 }
 .dark .planSubDiv_area {
   background: #1c1c20;
@@ -2566,6 +2581,32 @@ x .benefits_section1_area2_body1_cont2 {
   border-bottom: solid 1px #44444d;
 }
 
+/* ======== */
+/* ======== */
+/* ======== */
+/* ======== */
+.Step2Div2_member_div2_body_1_title .shimmer-button--md {
+  margin-bottom: 10px !important;
+}
+.Step2Div2_member_div2_body_1_amount_title .shimmer-button--md {
+  margin-bottom: 10px !important;
+}
+.Step2Div2_member_div2_body_1_amount_title_naira .shimmer-button--lg {
+  margin-bottom: 10px !important;
+  width: 100% !important;
+  height: 70px !important;
+}
+.Step2Div2_member_div2_body_1_sub_button .shimmer-button--lg {
+  width: 100% !important;
+}
+.Step2Div2_member_div2_body_1_para .shimmer-button--sm {
+  width: 100% !important;
+  max-width: 200px !important;
+}
+/* ======== */
+/* ======== */
+/* ======== */
+/* ======== */
 /* ===================================step2div2 ===================================*/
 /* ===================================step2div2 ===================================*/
 /* ===================================step2div2 ===================================*/

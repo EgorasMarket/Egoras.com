@@ -122,9 +122,11 @@
     width: 100%;
     max-width: 300px;
     height: 100%;
-    background: #29292f;
+    background: #161619;
     box-shadow: 7px 0px 13px 5px #00000070;
     padding: 1em;
+    animation: fadeInLeft;
+    animation-duration: 0.5s;
   }
   .DashHeaderMenuDiv_conts_body {
     margin-top: 1em;

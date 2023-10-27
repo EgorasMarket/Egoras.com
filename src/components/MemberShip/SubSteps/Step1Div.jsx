@@ -27,7 +27,7 @@ export const HowItWorksArea1 = () => {
           <div className="how_it_works_update_new_area_2_cont1_icon">
             {" "}
             <img
-              src="/img/swap_icon.svg"
+              src="/img/refer_icon.svg"
               alt=""
               className="how_it_works_update_new_area_2_cont1_icon_img"
             />

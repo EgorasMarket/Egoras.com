@@ -1,6 +1,8 @@
 .DashboardTransactions_div {
   display: flex;
   flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
 }
 .DashboardTransactions_div_1 {
   padding: 2em;

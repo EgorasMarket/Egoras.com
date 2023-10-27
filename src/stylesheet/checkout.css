@@ -375,6 +375,8 @@
   height: fit-content;
   min-height: inherit;
   margin: 4em 0;
+  animation: zoomIn;
+  animation-duration: 0.5s;
 }
 .successCheckoutDiv_cont_body {
   display: flex;

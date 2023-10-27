@@ -100,6 +100,11 @@
   display: none;
 }
 @media screen and (max-width: 1000px) {
+  .DashboardNav_body_1_active .DashboardNav_body_1_icon {
+    /* background: grey; */
+    animation: bounceInUp;
+    animation-duration: 0.5s;
+  }
   .Dashboard_body_area_1 {
     width: 100%;
     height: 65px;

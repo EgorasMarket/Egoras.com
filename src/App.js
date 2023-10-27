@@ -4,6 +4,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import { ScrollerMotion } from "scroller-motion";
 
 import { VERIFY_USER } from "./services/auth";
 import { verifyUser } from "./features/auth/authActions";
@@ -56,7 +57,6 @@ function App() {
             </Routes>
 
             {myArr[1] === "dashboard" ? <Dashboard /> : <RouteInit />}
-
             {myArr[1] === "dashboard" ? null : <Footer />}
           </div>
         </div>

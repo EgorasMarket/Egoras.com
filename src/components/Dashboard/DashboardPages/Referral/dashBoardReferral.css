@@ -6,13 +6,18 @@
 .pool_deatail_area {
   display: flex;
   flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
+}
+.pool_deatail_area_member_div {
+  margin-bottom: 1em;
 }
 .referral_banner_bg_div {
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 2em;
-  height: 200px;
+  margin-bottom: 1em;
+  height: 180px;
 }
 
 .referral_banner_bg_img {

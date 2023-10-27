@@ -6,12 +6,9 @@
   -webkit-font-smoothing: antialiased;
 }
 body {
-  font-family: "Omnes", sans-serif;
+  font-family: "Omnes", sans-serif !important;
   /* cursor: none; */
-  -webkit-font-smoothing: antialiased;
-}
-body {
-  background: #000;
+  -webkit-font-smoothing: antialiased !important;
 }
 body::-webkit-scrollbar {
   background: #000000 !important;

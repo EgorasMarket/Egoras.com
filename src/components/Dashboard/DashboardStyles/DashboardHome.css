@@ -1,6 +1,8 @@
 .dashboardHome {
   display: flex;
   flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
   /* height: 100%; */
 }
 

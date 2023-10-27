@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../DashboardStyles/DashboardHome.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import AreaChartComp from "../../Common/CommonUI/Charts/AreaChartComp";
-import { TablePagination } from "../../Common/CommonUI/Tables/TableComp";
 import Staticdata from "../../../assets/json/Static";
 import { Table } from "../../Common/CommonUI/Tables/TableComp";
 import { useSelector } from "react-redux";
@@ -31,6 +28,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import WebPin from "../../Common/CommonUI/Modals/WebPin";
 import useUserEligible from "../../../hooks/useUserEligible";
+
 const DashboardHome = () => {
   const isEligible = useUserEligible();
   const navigate = useNavigate();
@@ -376,11 +374,11 @@ const DashboardHome = () => {
                 )}
               </div>
               <div className="dashboardHome_area1_card1_content_btn_div">
-                <a href="/dashboard/orders">
+                <Link to="/dashboard/orders">
                   <button className="dashboardHome_area1_card1_content_btn">
                     View
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -743,14 +741,6 @@ const DashboardHome = () => {
           contentLoading={contentLoadingTable}
           userName={auth.user.username}
         />
-        {/* <div className="dashboardHome_area3_btn_div">
-          <a
-            href="/dashboard/transaction"
-            className="dashboardHome_area3_btn_link"
-          >
-            <button className="dashboardHome_area3_btn">View more</button>
-          </a>
-        </div> */}
       </div>
 
       {pinModal && (
