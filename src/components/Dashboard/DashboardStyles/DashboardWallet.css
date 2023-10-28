@@ -9,7 +9,36 @@
 .DashboardWalletsDiv_area1 {
   display: flex;
 }
-
+.depositMoneyDiv_cont_body_wallet_addr_divb_input_div {
+  position: relative;
+}
+.userNameLoaded_div {
+  border: solid 1px #47474f;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.userNameLoaded_div_para {
+  border-bottom: solid 1px #47474f;
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+  color: #acacbd;
+}
+.userNameLoader {
+  position: absolute;
+  right: 10px;
+  bottom: 1px;
+}
+.userNameLoader2 {
+  position: absolute;
+  right: 2%;
+  bottom: 10px;
+}
+.userNameLoader_img {
+  width: 20px;
+}
 .DashboardWalletsDiv_area1_cont {
   width: 100%;
   max-width: 400px;
