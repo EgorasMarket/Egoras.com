@@ -74,18 +74,17 @@ const DasboardMember = ({ refCode }) => {
       return;
     }
   }, [progressPercent]);
-  const copyText = () => {
-    var copyText = document.getElementById("myInput");
+  const copyText2 = () => {
+    var copyText = document.getElementById("myInput2");
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
-
-    var tooltip = document.getElementById("myTooltip");
+    var tooltip = document.getElementById("myTooltip2");
     tooltip.innerHTML = "Copied code ";
     tooltip.style.display = "block";
   };
-  function outFunc() {
-    var tooltip = document.getElementById("myTooltip");
+  function outFunc2() {
+    var tooltip = document.getElementById("myTooltip2");
     tooltip.innerHTML = "Copy to clipboard";
     tooltip.style.display = "none";
   }
@@ -168,19 +167,19 @@ const DasboardMember = ({ refCode }) => {
             type="text"
             value={refCode}
             className="memberRefCode_div_input"
-            id="myInput"
+            id="myInput2"
           />
           <button
             className="memberRefCode_div_input_btn"
-            onClick={copyText}
-            onMouseOut={outFunc}
+            onClick={copyText2}
+            onMouseOut={outFunc2}
           >
             <ContentCopyOutlinedIcon
               className="memberRefCode_div_input_btn_icon"
-              onClick={copyText}
-              onMouseOut={outFunc}
+              onClick={copyText2}
+              onMouseOut={outFunc2}
             />
-            <span className=" tooltiptext tooltiptext2" id="myTooltip"></span>
+            <span className=" tooltiptext tooltiptext2" id="myTooltip2"></span>
           </button>
         </div>
       </div>
