@@ -41,3 +41,21 @@
   color: #fff;
   background: no-repeat;
 }
+.notFound404Div_area_txt_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  margin-top: 10px;
+  /* margin: 10px 0em; */
+}
+.notFound404Div_area_txt_area_head {
+  font-size: 38px;
+  font-weight: 600;
+}
+.notFound404Div_area_txt_area_para {
+  font-size: 20px;
+  line-height: 1.2;
+  color: #a5a5a5;
+}

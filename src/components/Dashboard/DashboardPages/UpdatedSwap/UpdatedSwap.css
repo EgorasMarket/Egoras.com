@@ -40,9 +40,18 @@
 .amnt_input_layer1_input_div {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-right: 10px;
+}
+.amnt_input_layer1_input_div .shimmer-button--lg {
+  width: 100%;
+  margin-top: 10px;
 }
 .amnt_input_layer1 {
   display: flex;
+  width: 100%;
+  align-items: center;
 }
 .amnt_input_layer2 {
   display: flex;
@@ -116,6 +125,8 @@
 }
 .swap_price_rate_div1 {
   margin-right: 5px;
+  display: flex;
+  align-items: center;
 }
 .swap_price_rate_div2 {
   margin-left: 5px;
@@ -158,6 +169,8 @@
 }
 .moreSwapInfoDiv_div2_area1_cont2 {
   color: #fff;
+  display: flex;
+  align-items: center;
 }
 .tradeViewAreaCont {
   width: 100%;

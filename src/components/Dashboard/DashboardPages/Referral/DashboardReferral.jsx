@@ -633,7 +633,7 @@ const DashboardReferral = () => {
                       window.location.href = "/membership/sub";
                     }}
                   >
-                    Join EgoCorp
+                    Join Ego Sales-Pro
                   </button>
                 </div>
               </div>

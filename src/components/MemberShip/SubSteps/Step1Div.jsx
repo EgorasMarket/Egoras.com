@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import LottieRefIcon from "../../../assets/icons/LottieRefIcon.json";
+import SalesTiers from "../../../assets/icons/SalesTiers.json";
+import CustomerDash from "../../../assets/icons/CustomerDash.json";
 import Lottie from "lottie-react";
+import ScrollAnimation from "react-animate-on-scroll";
+
 export const HowItWorksArea1 = () => {
   return (
     <div className="how_it_works_update_new_area_2">
@@ -14,11 +18,32 @@ export const HowItWorksArea1 = () => {
             />
           </div>
           <div className="how_it_works_update_new_area_2_cont1_title">
-            Become a member
+            Subscription Fee
           </div>
           <div className="how_it_works_update_new_area_2_cont1_paragraph">
-            Subscribe to a membership plan and gain access to our inventory of
-            products and services.
+            To access a world of opportunities and benefits, members are
+            required to pay a monthly subscription fee. The fee varies based on
+            the selected subscription duration.
+          </div>
+        </div>
+      </div>
+      <div className="how_it_works_update_new_area_2_cont1_border">
+        <div className="how_it_works_update_new_area_2_cont1_border_div">
+          <div className="how_it_works_update_new_area_2_cont1_icon">
+            {" "}
+            <img
+              src="/img/swap_icon.svg"
+              alt=""
+              className="how_it_works_update_new_area_2_cont1_icon_img"
+            />
+          </div>
+          <div className="how_it_works_update_new_area_2_cont1_title">
+            Currency Swap
+          </div>
+          <div className="how_it_works_update_new_area_2_cont1_paragraph">
+            Convert your Naira to USDT at a fixed subscription price, aligning
+            with the current market rate of NGN/USD. This prepares you for the
+            transformation.
           </div>
         </div>
       </div>
@@ -33,11 +58,14 @@ export const HowItWorksArea1 = () => {
             />
           </div>
           <div className="how_it_works_update_new_area_2_cont1_title">
-            Refer
+            Sales Code
           </div>
           <div className="how_it_works_update_new_area_2_cont1_paragraph">
-            Exchange your funds for USDm, a stablecoin that is pegged to the US
-            dollar.
+            Upon successful payment, you will receive your unique sales code.
+            This code is your gateway to unlocking a world of opportunities.
+            It's crucial when onboarding prospective customers or referrals;
+            ensure you enter it in the designated "sales code" field during
+            signup.
           </div>
         </div>
       </div>
@@ -52,71 +80,14 @@ export const HowItWorksArea1 = () => {
             />
           </div>
           <div className="how_it_works_update_new_area_2_cont1_title">
-            Earn Rewards
+            Sales & Cashbacks Earnings
           </div>
           <div className="how_it_works_update_new_area_2_cont1_paragraph">
-            Purchase manufactured products at a discounted price using USDm and
-            generate up to a 65% profit margin.
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-export const HowItWorksArea2 = () => {
-  return (
-    <div className="how_it_works_update_new_area_2">
-      <div className="how_it_works_update_new_area_2_cont1_border">
-        <div className="how_it_works_update_new_area_2_cont1_border_div">
-          <div className="how_it_works_update_new_area_2_cont1_icon">
-            <img
-              src="/img/stake_home_icon.svg"
-              alt=""
-              className="how_it_works_update_new_area_2_cont1_icon_img"
-            />
-          </div>
-          <div className="how_it_works_update_new_area_2_cont1_title">
-            Stake
-          </div>
-          <div className="how_it_works_update_new_area_2_cont1_paragraph">
-            Become a member and provide liquidity to the protocol by locking
-            your MARTGPT tokens for a specified period of time.
-          </div>
-        </div>
-      </div>
-      <div className="how_it_works_update_new_area_2_cont1_border">
-        <div className="how_it_works_update_new_area_2_cont1_border_div">
-          <div className="how_it_works_update_new_area_2_cont1_icon">
-            {" "}
-            <img
-              src="/img/reward_icon.svg"
-              alt=""
-              className="how_it_works_update_new_area_2_cont1_icon_img"
-            />
-          </div>
-          <div className="how_it_works_update_new_area_2_cont1_title">
-            Claim your Reward
-          </div>
-          <div className="how_it_works_update_new_area_2_cont1_paragraph">
-            Earn up to 12% annual percentage yield (APY) on your staked MARTGPT
-            tokens.
-          </div>
-        </div>
-      </div>
-      <div className="how_it_works_update_new_area_2_cont1_border">
-        <div className="how_it_works_update_new_area_2_cont1_border_div">
-          <div className="how_it_works_update_new_area_2_cont1_icon">
-            {" "}
-            <img
-              src="/img/swap_icon.svg"
-              alt=""
-              className="how_it_works_update_new_area_2_cont1_icon_img"
-            />
-          </div>
-          <div className="how_it_works_update_new_area_2_cont1_title">Swap</div>
-          <div className="how_it_works_update_new_area_2_cont1_paragraph">
-            Convert your rewards to Binance Coin (BNB) or other cryptocurrencies
-            with ease.
+            Referring customers using your sales code leads to substantial
+            earnings, including up to 10% in sales commission on products
+            purchased and a 25% cashback on subscriptions from referred
+            customers. The more customers you refer who make purchases, the
+            higher your earnings.
           </div>
         </div>
       </div>
@@ -137,16 +108,46 @@ export const Step1Div = ({ toggleSteps }) => {
             <div className="membership_landing_div_1">
               <div className="membership_landing_div_1_txt">
                 <div className="membership_landing_div_1_txt_title">
-                  Digital Cooperative Re-imagined to get you more.
-                  {/* <br /> on all our products. */}
+                  Welcome to the Egoras Sales{" "}
+                  <span className="real_life">Pro.</span>
                 </div>
                 <div className="membership_landing_div_1_txt_para">
-                  Get up to 50% discount on all our products,
-                  <br /> once you become a member and enjoy referral bonuses.
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  Access to a world of sustainable energy,
+                </div>
+                <div className="membership_landing_div_1_txt_para">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  Environmental stewardship, through promoting our gas and
+                  electric vehicles.
+                </div>
+                <div className="membership_landing_div_1_txt_para">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  Seamless online shopping and delivery,
+                </div>
+                <div className="membership_landing_div_1_txt_para">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  Instant remote earnings through referral purchases and
+                  subscription cashbacks as high as 25%.
                 </div>
               </div>
               <button className="SubContinueButton" onClick={toggleSteps}>
-                Join Egoras Coop
+                Join Sales-Pro
               </button>
             </div>
             <div className="membership_landing_div_2">
@@ -173,17 +174,157 @@ export const Step1Div = ({ toggleSteps }) => {
               <div className="how_it_works_update_new_area_1_title">
                 How it <span className="real_life">works</span>
               </div>
+              <div className="how_it_works_update_new_area_1_para">
+                Embark on a journey towards financial empowerment and
+                sustainability with our sales program.
+              </div>
             </div>
             {/* {activeTab === "distribute" ? <HowItWorksArea1 /> : null} */}
-            <HowItWorksArea1 />
+            <ScrollAnimation
+              animateIn="bounceInUp"
+              delay={300}
+              // duration={2}
+              animatePreScroll={false}
+            >
+              <HowItWorksArea1 />
+            </ScrollAnimation>
+
             {/* {activeTab === "defi" ? <HowItWorksArea2 /> : null} */}
-            <button
+            {/* <button
               className="how_it_works_update_new_area_btn"
               onClick={toggleSteps}
             >
               Get started
-            </button>
+            </button> */}
           </div>
+        </div>
+      </section>
+      <section className="membership_landing_div_section3">
+        <div className="custom_container">
+          <div className="membership_landing_div_section3_area">
+            <div className="membership_landing_div_section3_area1">
+              <ScrollAnimation
+                animateIn="fadeInLeft"
+                delay={100}
+                animatePreScroll={false}
+                className="membership_landing_div_section3_area1_txt"
+              >
+                <div
+                  className="membership_landing_div_section3_area1_txt"
+                  style={{ marginTop: "0" }}
+                >
+                  <div className="membership_landing_div_section3_area1_txt_title">
+                    Sales Earnings Tiers
+                  </div>
+                  <div className="membership_landing_div_section3_area1_txt_para">
+                    <div className="membership_landing_div_section3_area1_txt_para_sub">
+                      Referral purchases of products fall into the following
+                      categories:
+                    </div>{" "}
+                    <div className="membership_landing_div_section3_area1_txt_para_sub_para">
+                      Products under 500,000 Naira yield a 10% sales commission.
+                    </div>{" "}
+                    <div className="membership_landing_div_section3_area1_txt_para_sub_para">
+                      Products priced between 500,000 and 1,000,000 Naira earn a
+                      5% sales commission.
+                    </div>{" "}
+                    <div className="membership_landing_div_section3_area1_txt_para_sub_para">
+                      Products above 1,000,000 Naira also result in a 5% sales
+                      commission.
+                    </div>{" "}
+                  </div>
+                </div>
+              </ScrollAnimation>
+              <ScrollAnimation
+                animateIn="zoomIn"
+                delay={300}
+                animatePreScroll={false}
+                className="membership_landing_div_section3_area1_img"
+              >
+                <div className="membership_landing_div_section3_area1_img">
+                  <Lottie
+                    animationData={SalesTiers}
+                    loop={true}
+                    autoPlay={true}
+                    className="membership_landing_div_2_iocn"
+                    preserveAspectRatio="xMidYMid meet"
+                  />
+                </div>
+              </ScrollAnimation>
+            </div>
+            <div className="membership_landing_div_section3_area1b">
+              <ScrollAnimation
+                animateIn="zoomIn"
+                delay={300}
+                animatePreScroll={false}
+                className="membership_landing_div_section3_area1_img"
+              >
+                <div className="membership_landing_div_section3_area1_img">
+                  <Lottie
+                    animationData={CustomerDash}
+                    loop={true}
+                    autoPlay={true}
+                    className="membership_landing_div_2_iocn"
+                    preserveAspectRatio="xMidYMid meet"
+                  />
+                </div>
+              </ScrollAnimation>
+              <ScrollAnimation
+                animateIn="fadeInRight"
+                delay={100}
+                animatePreScroll={false}
+                className="membership_landing_div_section3_area1_txt2"
+              >
+                <div className="membership_landing_div_section3_area1_txt2">
+                  <div className="membership_landing_div_section3_area1_txt_title">
+                    Customer Leaderboard
+                  </div>
+                  <div className="membership_landing_div_section3_area1_txt_para">
+                    <div className="membership_landing_div_section3_area1_txt_para_sub_para">
+                      The application provides customers with a dynamic
+                      leaderboard and a detailed dashboard.
+                    </div>{" "}
+                    <div className="membership_landing_div_section3_area1_txt_para_sub_para">
+                      This essential tool showcases crucial metrics including
+                      referrals, purchases made by referrals, sales earnings,
+                      subscription earnings, and earnings missed due to inactive
+                      subscriptions.
+                    </div>{" "}
+                  </div>
+                </div>
+              </ScrollAnimation>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="membership_landing_div_section4">
+        <div className="custom_container">
+          <ScrollAnimation
+            animateIn="fadeInUp"
+            delay={300}
+            animatePreScroll={false}
+          >
+            <div className="how_it_works_update_new_area_2_cont1_border2">
+              <div className="membership_landing_div_section4_area">
+                <div className="membership_landing_div_section4_area_txt">
+                  <div className="membership_landing_div_section4_area_txt_head">
+                    Embrace this opportunity!
+                  </div>
+                  <div className="membership_landing_div_section4_area_txt_para">
+                    Become part of a community dedicated to financial success
+                    and sustainability.
+                  </div>
+                </div>
+                <button
+                  className="membership_landing_div_section4_area_btn"
+                  onClick={toggleSteps}
+                >
+                  Join Sales-Pro
+                </button>
+              </div>
+            </div>
+          </ScrollAnimation>
         </div>
       </section>
     </div>

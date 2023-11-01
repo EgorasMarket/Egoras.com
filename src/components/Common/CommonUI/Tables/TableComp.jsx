@@ -495,7 +495,7 @@ export const Table = ({
                       createdAtDate.getMonth() + 1
                     }/${createdAtDate.getFullYear()}`;
                     //console.logog("====================================");
-                    //console.logog(metaData);
+                    console.log(metaData);
                     //console.logog("====================================");
 
                     const timestamp = data.createdAt;
@@ -588,7 +588,8 @@ export const Table = ({
                         <td className="stakingTable_body_row_data">
                           {metaData.symbol === "NGN" ? "₦" : null}{" "}
                           {numberWithCommas(parseFloat(data.amount).toFixed(2))}{" "}
-                          {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
+                          {metaData.symbol === "USDT" ? "usd" : null}{" "}
+                          {metaData.symbol === "EGC" ? "egc" : null}{" "}
                         </td>
 
                         <td className="stakingTable_body_row_data">

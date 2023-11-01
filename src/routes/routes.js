@@ -111,7 +111,7 @@ const routes = [
     layout: "/dashboard",
   },
   {
-    name: "EgoCoop",
+    name: "Ego SalesPro",
     path: "egocoop",
     icon: <CorporateFareIcon className="DashboardNav_body_1_icon" />,
     component: <DashboardReferral />,

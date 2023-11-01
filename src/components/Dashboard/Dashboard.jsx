@@ -15,6 +15,8 @@ const Dashboard = () => {
   const { user, loading, error } = useSelector((state) => state.auth);
   useEffect(() => {
     if (user === null || (user === undefined && loading === false)) {
+      console.log(window.location.href);
+      localStorage.setItem("RedirectRoute", window.location.href);
       window.location.href = "/login";
     }
     //console.logog(user);

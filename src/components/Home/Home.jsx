@@ -71,7 +71,7 @@ const Home = () => {
                             className="HomeDivSection1_div_txts_2_div
                       "
                           >
-                            Join Egoras Coop
+                            Join Sales-Pro
                           </div>
                         }
                       />
@@ -321,7 +321,7 @@ const Home = () => {
                   className="landingPageSection1_area1_div3_btn1_link"
                 >
                   <button className="landingPageSection1_area1_div3_btn1_join">
-                    Join Egoras Corp
+                    Join Sales-Pro
                   </button>
                 </a>
               </div>

@@ -106,7 +106,7 @@ const DashboardWallets = () => {
         case "Egoras Credit":
           setEgcBalance(data[i]?.value === null ? "0" : data[i]?.value);
           break;
-        case "Tether USD":
+        case "Dollar":
           setUsdtBalance(data[i]?.value === null ? "0" : data[i]?.value);
           break;
       }
@@ -156,15 +156,15 @@ const DashboardWallets = () => {
             EGC Wallet
           </div>
           <div
-            id="usdt"
+            id="usd"
             className={
-              activeTab === "usdt"
+              activeTab === "usd"
                 ? "DashboardWalletsDiv_area1_cont_tab1_active"
                 : "DashboardWalletsDiv_area1_cont_tab1"
             }
             onClick={ToggleActiveTab}
           >
-            USDT Wallet
+            USD Wallet
           </div>
         </div>
       </div>
@@ -176,6 +176,7 @@ const DashboardWallets = () => {
             depositFunc={ToggleDepositMoneyModal}
             withdrawFunc={ToggleWithdrawMoneyModal}
             loading={loading}
+            img="/img/egc_icon2.svg"
           />
         ) : null}
         {activeTab === "naira" ? (
@@ -185,15 +186,17 @@ const DashboardWallets = () => {
             depositFunc={ToggleDepositMoneyNairaModal}
             withdrawFunc={ToggleWithdrawMoneyNairaModal}
             loading={loading}
+            img="https://i.imgur.com/JXm7zwC.png"
           />
         ) : null}
-        {activeTab === "usdt" ? (
+        {activeTab === "usd" ? (
           <WalletBalanceDisplay
             walletBal={parseFloat(usdtBalance).toFixed(2)}
-            walletsymbol={"usdt"}
+            walletsymbol={"usd"}
             depositFunc={ToggleDepositMoneyNairaModal}
             withdrawFunc={ToggleWithdrawMoneyNairaModal}
             loading={loading}
+            img="/img/usd_icon.webp"
           />
         ) : null}
         <div className="DashboardWalletsDiv_area3">

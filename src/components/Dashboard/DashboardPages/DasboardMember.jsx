@@ -154,7 +154,7 @@ const DasboardMember = ({ refCode }) => {
                 window.location.href = "/membership/sub";
               }}
             >
-              Join EgoCorp
+              Join Sales-Pro
             </button>
           </div>
         </div>

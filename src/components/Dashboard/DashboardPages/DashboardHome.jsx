@@ -160,7 +160,7 @@ const DashboardHome = () => {
         case "Egoras Credit":
           setEgcBalance(data[i]?.value === null ? "0" : data[i]?.value);
           break;
-        case "Tether USD":
+        case "Dollar":
           setUsdtBalance(data[i]?.value === null ? "0" : data[i]?.value);
           break;
       }
@@ -218,9 +218,12 @@ const DashboardHome = () => {
   const fechAllProducts = async () => {
     setProductLoading(true);
     const response = await ALL_PRODUCTS();
-    //console.logog(response);
+    console.log(response);
     setProductLoading(false);
-
+    if (response?.status === false) {
+      toast.error("Cannont retrieve all products");
+      return;
+    }
     const ano = response.data.getAllUploadedProduct.filter((data) => {
       //console.logog(data);
       return data.product_brand === "EGORAS";
@@ -235,7 +238,11 @@ const DashboardHome = () => {
       auth.user?.wallet_address
     );
     console.log(response);
-    //console.logog(response);
+    console.log(response);
+    if (response?.status === false) {
+      toast.error("Cannont retrieve orders");
+      return;
+    }
     setOrders(response.data);
   };
 
@@ -248,7 +255,11 @@ const DashboardHome = () => {
         <div className="dashboardHome_area1_card1">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
-            <AccountBalanceWalletOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
+            <img
+              src="https://i.imgur.com/JXm7zwC.png"
+              alt=""
+              className="dashboardHome_area1_card1_icon_img"
+            />
           </div>
           <div className="dashboardHome_area1_card1_title_div">
             <div className="dashboardHome_area1_card1_title">
@@ -278,12 +289,24 @@ const DashboardHome = () => {
               </div>
             </div>
           </div>
+          <img
+            src="/img/cards_bg_line.svg"
+            alt=""
+            class="ProductCheckoutPage_div_section_area_1_area3_body_card1_bg"
+            style={{
+              filter: "contrast(0.5)",
+            }}
+          />
         </div>
 
         <div className="dashboardHome_area1_card1">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
-            <AccountBalanceWalletOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
+            <img
+              src="/img/egc_icon2.svg"
+              alt=""
+              className="dashboardHome_area1_card1_icon_img"
+            />
           </div>
           <div className="dashboardHome_area1_card1_title_div">
             <div className="dashboardHome_area1_card1_title">
@@ -314,16 +337,28 @@ const DashboardHome = () => {
               </div>
             </div>
           </div>
+          <img
+            src="/img/cards_bg_line.svg"
+            alt=""
+            class="ProductCheckoutPage_div_section_area_1_area3_body_card1_bg"
+            style={{
+              filter: "contrast(0.5)",
+            }}
+          />
         </div>
 
         <div className="dashboardHome_area1_card1">
           <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
           <div className="dashboardHome_area1_card1_icon">
-            <AccountBalanceWalletOutlinedIcon className="dashboardHome_area1_card1_icon_icon" />
+            <img
+              src="/img/usd_icon.webp"
+              alt=""
+              className="dashboardHome_area1_card1_icon_img"
+            />
           </div>
           <div className="dashboardHome_area1_card1_title_div">
             <div className="dashboardHome_area1_card1_title">
-              Total Usdt Balance
+              Total Usd Balance
             </div>
             <div className="dashboardHome_area1_card1_content">
               <div className="dashboardHome_area1_card1_content_amnt">
@@ -349,6 +384,14 @@ const DashboardHome = () => {
               </div>
             </div>
           </div>
+          <img
+            src="/img/cards_bg_line.svg"
+            alt=""
+            class="ProductCheckoutPage_div_section_area_1_area3_body_card1_bg"
+            style={{
+              filter: "contrast(0.5)",
+            }}
+          />
         </div>
 
         <div className="dashboardHome_area1_card1">
@@ -382,6 +425,14 @@ const DashboardHome = () => {
               </div>
             </div>
           </div>
+          <img
+            src="/img/cards_bg_line.svg"
+            alt=""
+            class="ProductCheckoutPage_div_section_area_1_area3_body_card1_bg"
+            style={{
+              filter: "contrast(0.5)",
+            }}
+          />
         </div>
       </div>
       {/* ================== */}

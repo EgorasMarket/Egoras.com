@@ -135,7 +135,7 @@ const Header = () => {
                 All Products
               </a>
               <a href="/membership/sub" className="header_section_3_link_2_prd">
-                Join EgoCoop
+                Join Sales-Pro
               </a>
             </div>
             <div className="header_section_2">
@@ -232,6 +232,12 @@ const Header = () => {
                   <div className="headerMenuDiv_cont_cont1_title">Models</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
                 </div>
+                <a href="/membership/sub" className="headerMenuDiv_cont_cont1">
+                  <div className="headerMenuDiv_cont_cont1_title">
+                    Join Sales-Pro
+                  </div>
+                  <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
+                </a>
                 <a
                   href="/dashboard/products"
                   className="headerMenuDiv_cont_cont1"

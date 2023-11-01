@@ -16,6 +16,15 @@ const NotFoundComponent = () => {
             preserveAspectRatio="xMidYMid meet"
           />
         </div>
+        <div className="notFound404Div_area_txt_area">
+          <div className="notFound404Div_area_txt_area_head">
+            Page Not Found
+          </div>
+          <div className="notFound404Div_area_txt_area_para">
+            It seems you're lost, please return to the home page to get back on
+            track.{" "}
+          </div>
+        </div>
         <div
           className="notFound404Div_area_btn_div
         "

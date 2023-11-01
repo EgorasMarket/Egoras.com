@@ -49,6 +49,12 @@
   display: flex;
   align-items: center;
 }
+.DashboardNav_body_1_txt {
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .DashboardNav_body_1_active::before {
   content: "";
   height: 100%;

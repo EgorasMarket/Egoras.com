@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { SUBSCRIBE_MEMBERSHIP } from "../../../services/membership_services";
 import WebPin from "../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
+import { useSelector } from "react-redux";
+
 const PlanSubDivModal = ({
   toggleDiv,
   Plan,
@@ -15,12 +17,14 @@ const PlanSubDivModal = ({
   subMembership,
   visibility,
 }) => {
+  const { user } = useSelector((state) => state.auth);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const process = () => {
     setPinModal(true);
@@ -52,6 +56,22 @@ const PlanSubDivModal = ({
 
     // toast.success("Subscription is successful");
   };
+
+  useEffect(() => {
+    console.log(user);
+    if (user === undefined) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
+
+  const UserLogin = () => {
+    console.log(window.location.href);
+    localStorage.setItem("RedirectRoute", window.location.href);
+    window.location.href = "/login"; // Redirect to the login page
+  };
+
   return (
     <div className=" planSubDiv" hidden={visibility}>
       <div className="planSubDiv_area">
@@ -70,6 +90,48 @@ const PlanSubDivModal = ({
                   $
                 </span>{" "}
                 {parseFloat(PlanAmount).toFixed(2)}
+              </div>
+            </div>
+
+            <div className="plan_sub_modal_eligible_div">
+              <div className="plan_sub_modal_eligible_div_title">
+                Eligibility for earning
+              </div>
+              <div className="plan_sub_modal_eligible_div_para_div">
+                <div className="membership_landing_div_1_txt_para2">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  <div className="membership_landing_div_1_txt_para2_txt">
+                    Earnings from sales and subscription cashbacks will only be
+                    credited to your sales earnings wallet if their subscription
+                    is active at the time of purchase by a referral.
+                  </div>
+                </div>
+                <div className="membership_landing_div_1_txt_para2">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  <div className="membership_landing_div_1_txt_para2_txt">
+                    Inactive subscriptions will result in and be displayed as
+                    "missed earnings" on the sales pro dashboard.
+                  </div>
+                </div>
+                <div className="membership_landing_div_1_txt_para2">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  <div className="membership_landing_div_1_txt_para2_txt">
+                    This means inactive subscriptions will result in and be
+                    displayed as "missed earnings" on the sales pro dashboard.
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -94,18 +156,29 @@ const PlanSubDivModal = ({
                 </label>
               </div>
             </div>
-            {checkAgree ? (
+            {isLoggedIn === false ? (
               <div className="subscribe_btn">
-                <button className="subscribe_btn_btn" onClick={process}>
+                <button className="subscribe_btn_btn" onClick={UserLogin}>
                   Pay Membership
                 </button>
               </div>
             ) : (
-              <div className="subscribe_btn">
-                <button className="subscribe_btn_btn" disabled>
-                  Agree to Terms
-                </button>
-              </div>
+              <>
+                {" "}
+                {checkAgree ? (
+                  <div className="subscribe_btn">
+                    <button className="subscribe_btn_btn" onClick={process}>
+                      Pay Membership
+                    </button>
+                  </div>
+                ) : (
+                  <div className="subscribe_btn">
+                    <button className="subscribe_btn_btn" disabled>
+                      Agree to Terms
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

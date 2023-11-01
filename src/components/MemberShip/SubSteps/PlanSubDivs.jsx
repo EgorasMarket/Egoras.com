@@ -10,6 +10,8 @@ const PlanSubDivs = ({
   PlanTitle,
   discount,
   PlanAmountLocal,
+  slashedAmount,
+  planTxt,
   id,
 }) => {
   console.log(id, activePlan);
@@ -23,20 +25,20 @@ const PlanSubDivs = ({
       id={id}
       onMouseEnter={toggleActivePlan}
     >
-      <div className="Step2Div2_member_div2_body_1_txts">
-        <div className="Step2Div2_member_div2_body_1_title">{PlanTitle}</div>
-        <div className="Step2Div2_member_div2_body_1_para">
-          For mission-critical analysis work
-        </div>
-      </div>
+      <div className="Step2Div2_member_div2_body_1_txts"></div>
       <div className="Step2Div2_member_div2_body_1_amount">
         <div className="Step2Div2_member_div2_body_1_amount_title">{Plan}</div>
         <div className="Step2Div2_member_div2_body_1_amount_title_naira">
-          ${PlanAmountLocal}{" "}
+          <div className="Step2Div2_member_div2_body_1_amount_title_naira_slashed">
+            {slashedAmount}
+          </div>
+          <div className="Step2Div2_member_div2_body_1_amount_title_naira_amaount">
+            ${PlanAmountLocal}{" "}
+          </div>
         </div>
         <div className="Step2Div2_member_div2_body_1_amount_title_slashed">
           <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount">
-            on all purchased products
+            {planTxt}
           </div>
         </div>
       </div>
@@ -58,7 +60,17 @@ const PlanSubDivs = ({
       <div className="Step2Div2_member_div2_body_1_features_div">
         <div className="Step2Div2_member_div2_body_1_features_div_1">
           <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Discounted Products Up to {discount}%
+            Access to a world of sustainable energy.
+          </div>
+          <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
+            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
+            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
+          </div>
+        </div>
+
+        <div className="Step2Div2_member_div2_body_1_features_div_1">
+          <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
+            Seamless online shopping and delivery,
           </div>
           <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
             <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
@@ -67,7 +79,8 @@ const PlanSubDivs = ({
         </div>
         <div className="Step2Div2_member_div2_body_1_features_div_1">
           <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Referral Commission
+            Environmental stewardship, through promoting our gas and electric
+            vehicles.
           </div>
           <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
             <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
@@ -76,25 +89,8 @@ const PlanSubDivs = ({
         </div>
         <div className="Step2Div2_member_div2_body_1_features_div_1">
           <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Staking Rewards
-          </div>
-          <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-          </div>
-        </div>
-        <div className="Step2Div2_member_div2_body_1_features_div_1">
-          <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            NFT mining
-          </div>
-          <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-          </div>
-        </div>
-        <div className="Step2Div2_member_div2_body_1_features_div_1">
-          <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Dex
+            Instant remote earnings through referral purchases and subscription
+            cashbacks as high as 25%.
           </div>
           <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
             <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />

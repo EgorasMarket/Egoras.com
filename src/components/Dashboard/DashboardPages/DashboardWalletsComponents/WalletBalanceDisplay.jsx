@@ -9,10 +9,14 @@ const WalletBalanceDisplay = ({
   depositFunc,
   withdrawFunc,
   loading,
+  img,
 }) => {
   return (
     <div className="DashboardWalletsDiv_area2">
-      <div className="DashboardWalletsDiv_area2_cont1">Portfolio Balance</div>
+      <div className="DashboardWalletsDiv_area2_cont1">
+        <img src={img} alt="" className="DashboardWalletsDiv_area2_cont1_img" />
+        Portfolio Balance
+      </div>
       <div className="DashboardWalletsDiv_area2_cont2">
         <div className="DashboardWalletsDiv_area2_cont2_area1">
           {loading ? (
@@ -65,6 +69,14 @@ const WalletBalanceDisplay = ({
       </div>
 
       <SwapHorizOutlinedIcon className="walletSwapIcon" />
+      <img
+        src="/img/cards_bg_line.svg"
+        alt=""
+        class="ProductCheckoutPage_div_section_area_1_area3_body_card1_bg"
+        style={{
+          filter: "contrast(0.3)",
+        }}
+      />
     </div>
   );
 };

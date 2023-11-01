@@ -69,6 +69,7 @@
 .DashboardHeader_area_cont {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .DashHeaderMenuDiv {
