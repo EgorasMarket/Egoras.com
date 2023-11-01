@@ -251,14 +251,6 @@ const Header = () => {
                   <div className="headerMenuDiv_cont_cont1_title">Privacy</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
                 </a>
-                <a
-                  href="https://www.martgpt.org/"
-                  target="_blank"
-                  className="headerMenuDiv_cont_cont1"
-                >
-                  <div className="headerMenuDiv_cont_cont1_title">Martgpt</div>
-                  <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
-                </a>
               </div>
             )}
           </div>
