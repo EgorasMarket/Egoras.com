@@ -193,8 +193,8 @@ const DashboardWallets = () => {
           <WalletBalanceDisplay
             walletBal={parseFloat(usdtBalance).toFixed(2)}
             walletsymbol={"usd"}
-            depositFunc={ToggleDepositMoneyNairaModal}
-            withdrawFunc={ToggleWithdrawMoneyNairaModal}
+            // depositFunc={ToggleDepositMoneyNairaModal}
+            // withdrawFunc={ToggleWithdrawMoneyNairaModal}
             loading={loading}
             img="/img/usd_icon.webp"
           />

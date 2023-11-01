@@ -142,6 +142,7 @@ const ProductCheckoutPage = () => {
       }
     }
   }, []);
+  console.log(nairaBalance, egcBalance, data);
   useEffect(() => {
     if (selectedState == "" || deliveryVal == "") {
       setDeliverBtnDisable(true);

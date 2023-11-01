@@ -6,7 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
 import { useSelector } from "react-redux";
-
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import { ShimmerButton } from "react-shimmer-effects-18";
+import { numberWithCommas } from "../../../assets/js/numberWithCommas";
+import SwapModal from "../../Dashboard/DashboardPages/UpdatedSwap/SwapModal";
 const PlanSubDivModal = ({
   toggleDiv,
   Plan,
@@ -18,20 +21,34 @@ const PlanSubDivModal = ({
   visibility,
 }) => {
   const { user } = useSelector((state) => state.auth);
+  const { data, loading } = useSelector((state) => state.wallet);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isloading, setisLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [usdtBalance, setUsdtBalance] = useState("0");
+  const [swapModal, setSwapModal] = useState(false);
+
+  useEffect(() => {
+    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+      switch (data[i].name) {
+        case "Dollar":
+          setUsdtBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+      }
+    }
+  }, []);
 
   const process = () => {
     setPinModal(true);
   };
 
   const subscribe_membership = async () => {
-    setLoading(true);
+    setisLoading(true);
     console.log(planId);
     const res = await SUBSCRIBE_MEMBERSHIP({
       planID: planId,
@@ -39,7 +56,7 @@ const PlanSubDivModal = ({
       pin_code: pin,
     });
     console.log(res);
-    setLoading(false);
+    setisLoading(false);
     setPinModal(false);
     if (res.success || res.data.success) {
       setSuccess(true);
@@ -47,7 +64,13 @@ const PlanSubDivModal = ({
       return;
     }
     if (!res.success || !res.data.success) {
-      setMessage(res.data.errorMessage);
+      if (res.data.errorMessage == "insufficient funds.") {
+        setMessage(
+          "You have insufficient USD to carry out this transaction please convert/swap your NAIRA or EGC to USD on this page or fund your USD wallet from your dashboard."
+        );
+      } else {
+        setMessage(res.data.errorMessage);
+      }
       setError(true);
       console.log(res.data.errorMessage);
       console.log(res);
@@ -70,6 +93,10 @@ const PlanSubDivModal = ({
     console.log(window.location.href);
     localStorage.setItem("RedirectRoute", window.location.href);
     window.location.href = "/login"; // Redirect to the login page
+  };
+
+  const toggleSwapModal = () => {
+    setSwapModal(!swapModal);
   };
 
   return (
@@ -135,10 +162,86 @@ const PlanSubDivModal = ({
               </div>
             </div>
 
+            <div className="planSubDiv_area_body_wallet">
+              <div className="dashboardHome_area1_card1b">
+                <MoreVertOutlinedIcon className="dashboardHome_area1_card1_more_icon" />
+                <div className="dashboardHome_area1_card1_icon">
+                  <img
+                    src="/img/usd_icon.webp"
+                    alt=""
+                    className="dashboardHome_area1_card1_icon_img"
+                  />
+                </div>
+                <div className="dashboardHome_area1_card1_title_div">
+                  <div className="dashboardHome_area1_card1_title">
+                    Total Usd Balance
+                  </div>
+                  <div className="dashboardHome_area1_card1_content">
+                    <div className="dashboardHome_area1_card1_content_amnt">
+                      {isloading ? (
+                        <ShimmerButton size="md" className="custom_shimmer" />
+                      ) : (
+                        <>
+                          <div className="dashboardHome_area1_card1_content_symbol">
+                            $
+                          </div>
+                          <div className="dashboardHome_area1_card1_content_amnt_txt">
+                            {numberWithCommas(
+                              parseFloat(usdtBalance).toFixed(2)
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    {isLoggedIn === false ? (
+                      <div className="dashboardHome_area1_card1_content_btn_div">
+                        <button
+                          className="dashboardHome_area1_card1_content_btnb"
+                          onClick={UserLogin}
+                        >
+                          Swap
+                        </button>
+
+                        <button
+                          className="dashboardHome_area1_card1_content_btnba"
+                          onClick={UserLogin}
+                        >
+                          Fund
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="dashboardHome_area1_card1_content_btn_div">
+                        <button
+                          className="dashboardHome_area1_card1_content_btnb"
+                          onClick={toggleSwapModal}
+                        >
+                          Swap
+                        </button>
+
+                        <a href="/dashboard/wallet">
+                          <button className="dashboardHome_area1_card1_content_btnba">
+                            Fund
+                          </button>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <img
+                  src="/img/cards_bg_line.svg"
+                  alt=""
+                  class="ProductCheckoutPage_div_section_area_1_area3_body_card1_bg"
+                  style={{
+                    filter: "contrast(0.5)",
+                  }}
+                />
+              </div>
+            </div>
+
             <div className="checkBox_agree_div">
               <div className="checkBox_agree_div_txt">
                 By checking the checkbox below, you agree to our{" "}
-                <a href="#">Terms of Use, Privacy Statement.</a>
+                <a href="/terms-conditions">Terms of Use, Privacy Statement.</a>
               </div>
               <div className="checkBox_agree_div_body">
                 <input
@@ -182,10 +285,9 @@ const PlanSubDivModal = ({
             )}
           </div>
         </div>
-
         {pinModal ? (
           <WebPin
-            isLoading={loading}
+            isLoading={isloading}
             btnFunc={subscribe_membership}
             pinTitle="Enter Pin to validate Transaction"
             pinPara="Input your pin to complete this transaction."
@@ -197,7 +299,6 @@ const PlanSubDivModal = ({
             }}
           />
         ) : null}
-
         {error && (
           <ErrorModal
             ErrorTxt={message}
@@ -206,7 +307,6 @@ const PlanSubDivModal = ({
             }}
           />
         )}
-
         {success && (
           <SuccessModal
             SuccesTxt={"You have suseccfully joined the EGORAS COOPERATIVE"}
@@ -215,6 +315,22 @@ const PlanSubDivModal = ({
             }}
           />
         )}
+
+        {swapModal ? (
+          <div className="plan_swap_modal_div">
+            <div
+              className="plan_swap_modal_div_outDiv"
+              onClick={toggleSwapModal}
+            ></div>
+            <CloseIcon
+              className="plan_swap_modal_div_icon"
+              onClick={toggleSwapModal}
+            />
+            <div className="plan_swap_modal_div_cont">
+              <SwapModal />
+            </div>
+          </div>
+        ) : null}
       </div>
       <ToastContainer />
     </div>
