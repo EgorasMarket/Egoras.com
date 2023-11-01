@@ -27,6 +27,18 @@ export const SWAP = async (payload) => {
     return error.response || error.message;
   }
 };
+export const FETCH_SWAP = async () => {
+  //console.logog(payload);
+  setAuthToken(localStorage.getItem("x-token"));
+  try {
+    const res = await axios.get(`${TOKEN_SWAP}`);
+    //console.logog(res.data.message);
+    return res.data;
+  } catch (error) {
+    //console.logog(error.response || error.response.data.message);
+    return error.response || error.message;
+  }
+};
 export const LIQUIDITY = async (payload) => {
   //console.logog(payload);
   setAuthToken(localStorage.getItem("x-token"));

@@ -9,6 +9,7 @@ import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SouthWestIcon from "@mui/icons-material/SouthWest";
 import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
 import TableModal from "./TableModal";
+import { Link } from "react-router-dom";
 // ======
 // ======
 // ======
@@ -386,12 +387,12 @@ export const Table = ({
     <div className="TableCompWithDiv">
       <div className="TableCompWithDiv_title">
         {tableTitle}{" "}
-        <a
-          href="/dashboard/transaction"
+        <Link
+          to="/dashboard/transaction"
           className="TableCompWithDiv_title_link"
         >
           <button className="TableCompWithDiv_title_btn">View All</button>
-        </a>
+        </Link>
         {/* <div
           className="TableCompWithDiv_title_drop_down"
           onClick={ToggleSmallMenu}
@@ -494,7 +495,7 @@ export const Table = ({
                       createdAtDate.getMonth() + 1
                     }/${createdAtDate.getFullYear()}`;
                     //console.logog("====================================");
-                    //console.logog(metaData);
+                    console.log(metaData);
                     //console.logog("====================================");
 
                     const timestamp = data.createdAt;
@@ -587,7 +588,8 @@ export const Table = ({
                         <td className="stakingTable_body_row_data">
                           {metaData.symbol === "NGN" ? "₦" : null}{" "}
                           {numberWithCommas(parseFloat(data.amount).toFixed(2))}{" "}
-                          {metaData.symbol !== "NGN" ? "EGC" : null}{" "}
+                          {metaData.symbol === "USDT" ? "usd" : null}{" "}
+                          {metaData.symbol === "EGC" ? "egc" : null}{" "}
                         </td>
 
                         <td className="stakingTable_body_row_data">

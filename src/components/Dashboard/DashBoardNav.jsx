@@ -6,9 +6,19 @@ import { Link, useNavigate } from "react-router-dom";
 const DashBoardNav = ({ routes, activeRoute }) => {
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState("Dashboard");
+  const [isVibrationSupported, setIsVibrationSupported] = useState(
+    "vibrate" in navigator
+  );
+
+  function handleButtonClick() {
+    if (isVibrationSupported) {
+      navigator.vibrate(100);
+    }
+  }
   const ToglleActiveLink = (e) => {
     let id = e.currentTarget.id;
     setActiveLink(id);
+    handleButtonClick();
   };
   useEffect(() => {
     if (activeRoute) {

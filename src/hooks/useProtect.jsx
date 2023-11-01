@@ -6,7 +6,8 @@ const useProtect = () => {
 
   useEffect(() => {
     if (user === null || user === undefined) {
-      // navigate("/login");
+      console.log(window.location.href);
+      localStorage.setItem("RedirectRoute", window.location.href);
       window.location.href = "/login";
     }
   }, [user]);

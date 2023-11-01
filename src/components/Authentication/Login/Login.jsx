@@ -129,6 +129,16 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  function redirectToSavedRoute() {
+    const savedRoute = localStorage.getItem("RedirectRoute");
+    if (savedRoute) {
+      localStorage.removeItem("RedirectRoute"); // Remove the stored route
+      window.location.href = savedRoute; // Redirect to the intended checkout page
+    } else {
+      window.location.href = "/dashboard"; // Replace with your default checkout
+    }
+  }
   return (
     <div className="signup_div">
       <section
@@ -264,9 +274,7 @@ const Login = () => {
       {success ? (
         <SuccessModal
           SuccesTxt={"You have successfully logged in "}
-          successFunc={() => {
-            window.location.href = "/dashboard";
-          }}
+          successFunc={redirectToSavedRoute}
         />
       ) : null}
       {errorModal ? (

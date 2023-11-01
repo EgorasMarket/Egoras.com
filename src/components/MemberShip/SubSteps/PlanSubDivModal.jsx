@@ -1,27 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { SUBSCRIBE_MEMBERSHIP } from "../../../services/membership_services";
 import WebPin from "../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
+import { useSelector } from "react-redux";
+
 const PlanSubDivModal = ({
   toggleDiv,
   Plan,
   planId,
   PlanAmount,
-  PlanAmountLocal,
-  discount,
   checkAgree,
   toggleCheckAgree,
   subMembership,
   visibility,
 }) => {
+  const { user } = useSelector((state) => state.auth);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(-1);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const process = () => {
     setPinModal(true);
@@ -29,24 +32,46 @@ const PlanSubDivModal = ({
 
   const subscribe_membership = async () => {
     setLoading(true);
-
+    console.log(planId);
     const res = await SUBSCRIBE_MEMBERSHIP({
       planID: planId,
-      symbol: "EGC",
+      symbol: "USDT",
+      pin_code: pin,
     });
+    console.log(res);
     setLoading(false);
     setPinModal(false);
-
-    if (!res.data.success) {
-      // toast.error(res.data.errorMessage);
-      setMessage(res.data.errorMessage);
-      setSuccess(0);
+    if (res.success || res.data.success) {
+      setSuccess(true);
+      console.log(res);
       return;
     }
-    setSuccess(1);
+    if (!res.success || !res.data.success) {
+      setMessage(res.data.errorMessage);
+      setError(true);
+      console.log(res.data.errorMessage);
+      console.log(res);
+      return;
+    }
 
     // toast.success("Subscription is successful");
   };
+
+  useEffect(() => {
+    console.log(user);
+    if (user === undefined) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
+
+  const UserLogin = () => {
+    console.log(window.location.href);
+    localStorage.setItem("RedirectRoute", window.location.href);
+    window.location.href = "/login"; // Redirect to the login page
+  };
+
   return (
     <div className=" planSubDiv" hidden={visibility}>
       <div className="planSubDiv_area">
@@ -61,20 +86,51 @@ const PlanSubDivModal = ({
           <div className="planSubDiv_area_body_area">
             <div className="planSubDiv_area_body_area_amount">
               <div className="Step2Div2_member_div2_body_1_amount_title2">
-                {parseFloat(PlanAmount).toFixed(2)}
                 <span className="Step2Div2_member_div2_body_1_amount_title_span">
-                  USD / yr
-                </span>
+                  $
+                </span>{" "}
+                {parseFloat(PlanAmount).toFixed(2)}
               </div>
-              <div className="Step2Div2_member_div2_body_1_amount_title2_naira">
-                ${parseFloat(PlanAmountLocal).toFixed(2)}
+            </div>
+
+            <div className="plan_sub_modal_eligible_div">
+              <div className="plan_sub_modal_eligible_div_title">
+                Eligibility for earning
               </div>
-              <div className="Step2Div2_member_div2_body_1_amount_title_slashed2">
-                <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount_save">
-                  {discount}% discount
+              <div className="plan_sub_modal_eligible_div_para_div">
+                <div className="membership_landing_div_1_txt_para2">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  <div className="membership_landing_div_1_txt_para2_txt">
+                    Earnings from sales and subscription cashbacks will only be
+                    credited to your sales earnings wallet if their subscription
+                    is active at the time of purchase by a referral.
+                  </div>
                 </div>
-                <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount">
-                  on all purchased products
+                <div className="membership_landing_div_1_txt_para2">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  <div className="membership_landing_div_1_txt_para2_txt">
+                    Inactive subscriptions will result in and be displayed as
+                    "missed earnings" on the sales pro dashboard.
+                  </div>
+                </div>
+                <div className="membership_landing_div_1_txt_para2">
+                  <img
+                    src="/img/checked_icon.png"
+                    alt=""
+                    class="membership_landing_div_1_txt_para_img"
+                  />{" "}
+                  <div className="membership_landing_div_1_txt_para2_txt">
+                    This means inactive subscriptions will result in and be
+                    displayed as "missed earnings" on the sales pro dashboard.
+                  </div>
                 </div>
               </div>
             </div>
@@ -100,18 +156,29 @@ const PlanSubDivModal = ({
                 </label>
               </div>
             </div>
-            {checkAgree ? (
+            {isLoggedIn === false ? (
               <div className="subscribe_btn">
-                <button className="subscribe_btn_btn" onClick={process}>
+                <button className="subscribe_btn_btn" onClick={UserLogin}>
                   Pay Membership
                 </button>
               </div>
             ) : (
-              <div className="subscribe_btn">
-                <button className="subscribe_btn_btn" disabled>
-                  Agree to Terms
-                </button>
-              </div>
+              <>
+                {" "}
+                {checkAgree ? (
+                  <div className="subscribe_btn">
+                    <button className="subscribe_btn_btn" onClick={process}>
+                      Pay Membership
+                    </button>
+                  </div>
+                ) : (
+                  <div className="subscribe_btn">
+                    <button className="subscribe_btn_btn" disabled>
+                      Agree to Terms
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -131,9 +198,23 @@ const PlanSubDivModal = ({
           />
         ) : null}
 
-        {success === 0 && <ErrorModal ErrorTxt={message} />}
+        {error && (
+          <ErrorModal
+            ErrorTxt={message}
+            errorFunc={() => {
+              setError(false);
+            }}
+          />
+        )}
 
-        {success === 1 && <SuccessModal SuccesTxt={"Success"} />}
+        {success && (
+          <SuccessModal
+            SuccesTxt={"You have suseccfully joined the EGORAS COOPERATIVE"}
+            successFunc={() => {
+              window.location.href = "/dashboard/egocoop";
+            }}
+          />
+        )}
       </div>
       <ToastContainer />
     </div>
