@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { QRCode } from "react-qrcode-logo";
-import { useSelector } from "react-redux";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
 import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
@@ -8,36 +6,68 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
+  SEND_CRYPTO_FUNDS_EXTERNAL,
   SEND_CRYPTO_FUNDS_INTERNAL,
   USERNAME_EMAIL_IS_VALID,
 } from "../../../../services/finance_services";
-import ScaleLoader from "react-spinners/ScaleLoader";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-
-const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
+const SendUsdInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
-  const [hasUser, setHasUser] = useState(false);
-  const [beneficiaryData, setBeneficiaryData] = useState({});
+  const [successMsg, setSuccessMsg] = useState("");
   const [fetchingUser, setFetchingUser] = useState(false);
+  const [hasUser, setHasUser] = useState(false);
   const [hasUserSuccess, setHasUserSuccess] = useState(false);
   const [hasUserError, setHasUserError] = useState(false);
-  const [successMsg, setSuccessMsg] = useState("");
+  const [beneficiaryData, setBeneficiaryData] = useState({});
+
   const [payload, setPayload] = useState({
-    pin_code: "",
-    symbol: "NGN",
-    amount: "",
+    symbol: "USD",
     username_email: "",
+    amount: "",
     type: "internal_send",
   });
 
+  const sendFunds = async () => {
+    setLoading(true);
+
+    const response = await SEND_CRYPTO_FUNDS_INTERNAL({
+      ...payload,
+      pin_code: pin,
+    });
+    console.log(response);
+    setLoading(false);
+
+    if (response.success) {
+      setSuccessMsg("Transaction succesful");
+      setPinModal(false);
+      setSuccessModal(true);
+      return;
+    }
+    if (!response.data.success) {
+      setPinModal(false);
+      toast.error(response.data.errorMessage);
+      return;
+    }
+  };
+
+  const processSend = () => {
+    const { username_email, amount } = payload;
+    ///do basic validation
+    if (username_email === "" || amount === "") {
+      toast.warn("Some fields are empty");
+      return;
+    }
+    setPinModal(true);
+  };
   const handleOnChange = async (e) => {
     const { id, value } = e.target;
-
     setPayload({ ...payload, [id]: value });
     if (id === "amount") {
       return;
@@ -74,72 +104,39 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
       setBeneficiaryData(resp.data);
     }
   };
-  const initiatePayout = async () => {
-    setLoading(true);
-    let data = payload;
 
-    data = { ...data, pin_code: pin };
-
-    const response = await SEND_CRYPTO_FUNDS_INTERNAL(data);
-    //console.logog(response);
-    setLoading(false);
-
-    if (response.success) {
-      setSuccessMsg("Transaction succesful");
-      setPinModal(false);
-      setSuccessModal(true);
-      return;
-    }
-    if (!response.data.success) {
-      setPinModal(false);
-      toast.error(response.data.errorMessage);
-      return;
-    }
-    // window.location.href = "/dashboard/transaction";
-  };
-
-  const prepare = () => {
-    const { username_email, amount } = payload;
-    ///do simple validation
-
-    if (username_email === "" || amount === "") {
-      toast.warn("Some fields are empty");
-      return;
-    }
-    setPinModal(true);
-  };
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
         <ArrowBackOutlinedIcon
           className="depositMoneyDiv_icon"
-          onClick={ToggleNairaUserWithdrawtModal}
+          onClick={ToggleEgcUserWithdrawtModal}
         />
         <div className="depositMoneyDiv_cont_1">
           <div className="depositMoneyDiv_cont_title_cont">
             <div className="depositMoneyDiv_cont_title_cont_title">
-              Send Naira
+              Send USD
             </div>
             <div className="depositMoneyDiv_cont_title_cont_para">
-              Send Naira directly to an Egoras user
+              Send funds directly to an egoras user
             </div>
           </div>
           <div className="depositMoneyDiv_cont_body">
             <div className="depositMoneyDiv_cont_body_input_div">
               <div className="depositMoneyDiv_cont_body_input_div_title">
-                Currency:
+                Coin:
               </div>
               <div className="depositMoneyDiv_cont_body_input_div_div">
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
-                    src="https://i.imgur.com/JXm7zwC.png"
+                    src="/img/tether_icon.png"
                     alt=""
                     className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                   />
-                  Nigerian Naira
+                  Tether Usd
                 </div>
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
-                  NGN
+                  {payload.symbol}
                 </div>
               </div>
             </div>
@@ -150,13 +147,13 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
               <div className="depositMoneyDiv_cont_body_wallet_addr_divb_input_div">
                 <input
                   type="text"
-                  value={payload.username_email}
                   id="username_email"
-                  placeholder="@John Doe"
+                  value={payload.username_email}
                   onChange={handleOnChange}
+                  placeholder="@John Doe"
+                  // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
-
                 {fetchingUser && (
                   <div className="userNameLoader">
                     <ScaleLoader color="#366e51" height={20} />
@@ -196,7 +193,6 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
                 </div>
               ) : null}
             </div>
-
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
               <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
                 Withdrawal Amount:
@@ -206,17 +202,18 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
                   type="number"
                   placeholder="0.00"
                   id="amount"
+                  // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
                   value={payload.amount}
                   onChange={handleOnChange}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
                 <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
-                  Max
+                  Maxs
                 </button>
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">{balance}NGN</div>
+                <div className="availegc_bal_div_amount">{balance} USD</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
@@ -225,6 +222,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
               </div>
               <input
                 type="text"
+                // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
                 className="depositMoneyDiv_cont_body_wallet_addr_div_input"
               />
             </div>
@@ -233,28 +231,35 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
               <div className="depositMoneyDiv_cont_body_tips_div_1">
                 <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
                 <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                  Minimum single withdrawal amount: ₦2,000.00
+                  Minimum single withdrawal amount: 10 usd
                 </div>
               </div>
               <div className="depositMoneyDiv_cont_body_tips_div_1">
                 <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
                 <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                  Maximum single withdrawal amount: ₦100,000,000.00
+                  Maximum single withdrawal amount: 1,000,000 usd
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="depositMoneyDiv_cont_2">
-          <button className="depositMoneyDiv_cont_2_btn" onClick={prepare}>
-            Send funds
-          </button>
+          {loading ? (
+            <p>Loading ...</p>
+          ) : (
+            <button
+              className="depositMoneyDiv_cont_2_btn"
+              onClick={processSend}
+            >
+              Send funds
+            </button>
+          )}
         </div>
 
         {pinModal ? (
           <WebPin
             isLoading={loading}
-            btnFunc={initiatePayout}
+            btnFunc={sendFunds}
             pinTitle="Enter Pin to validate Transaction"
             pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
             btnFuncTxt="Proceed"
@@ -275,9 +280,10 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
           />
         ) : null}
       </div>
+
       <ToastContainer />
     </div>
   );
 };
 
-export default WithdrawNairaToUser;
+export default SendUsdInternal;

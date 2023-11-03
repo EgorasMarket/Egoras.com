@@ -8,7 +8,7 @@ import {
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
+const SendUsdExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pinModal, setPinModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
@@ -16,7 +16,7 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
   const [pin, setPin] = useState("");
 
   const [payload, setPayload] = useState({
-    symbol: "EGC",
+    symbol: "USDT",
     username_email: "",
     amount: "",
     type: "external_send",
@@ -71,7 +71,7 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
         <div className="depositMoneyDiv_cont_1">
           <div className="depositMoneyDiv_cont_title_cont">
             <div className="depositMoneyDiv_cont_title_cont_title">
-              Send Egc
+              Send USDT
             </div>
             <div className="depositMoneyDiv_cont_title_cont_para">
               Send funds directly to a blockchain account
@@ -130,7 +130,7 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">{balance} EGC</div>
+                <div className="availegc_bal_div_amount">{balance} USD</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
@@ -148,13 +148,13 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
               <div className="depositMoneyDiv_cont_body_tips_div_1">
                 <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
                 <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                  Minimum single withdrawal amount: 0.5egc
+                  Minimum single withdrawal amount: 10 usd
                 </div>
               </div>
               <div className="depositMoneyDiv_cont_body_tips_div_1">
                 <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
                 <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                  Maximum single withdrawal amount: 2,000egc
+                  Maximum single withdrawal amount: 2,000,000 usd
                 </div>
               </div>
               <div className="depositMoneyDiv_cont_body_tips_div_1">
@@ -209,4 +209,4 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
   );
 };
 
-export default SendEgcExternal;
+export default SendUsdExternal;

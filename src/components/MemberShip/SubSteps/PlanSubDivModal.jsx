@@ -309,7 +309,7 @@ const PlanSubDivModal = ({
         )}
         {success && (
           <SuccessModal
-            SuccesTxt={"You have suseccfully joined the EGORAS COOPERATIVE"}
+            SuccesTxt={"You have suseccfully joined the EGORAS SALES-PRO"}
             successFunc={() => {
               window.location.href = "/dashboard/egocoop";
             }}

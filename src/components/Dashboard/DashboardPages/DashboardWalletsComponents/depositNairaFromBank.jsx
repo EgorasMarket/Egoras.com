@@ -156,7 +156,7 @@ const DepositNairaFromBank = ({ ToggleDepositMoneyNairaBankModal }) => {
                   <div className="depositMoneyDiv_cont_body_input_div_div">
                     <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                       <img
-                        src="/img/egc_icon2.svg"
+                        src="/img/providus_icon.jpeg"
                         alt=""
                         className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                       />
