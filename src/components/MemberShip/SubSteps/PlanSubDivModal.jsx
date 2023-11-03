@@ -52,7 +52,7 @@ const PlanSubDivModal = ({
     console.log(planId);
     const res = await SUBSCRIBE_MEMBERSHIP({
       planID: planId,
-      symbol: "USDT",
+      symbol: "USD",
       pin_code: pin,
     });
     console.log(res);
