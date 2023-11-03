@@ -13,6 +13,10 @@ import DepositNairaUser from "./DashboardWalletsComponents/depositNairaUser";
 import DepositNairaFromBank from "./DashboardWalletsComponents/depositNairaFromBank";
 import WithdrawNairaToBank from "./DashboardWalletsComponents/withdrawNairaToBank";
 import WithdrawNairaToUser from "./DashboardWalletsComponents/withdrawNairaToUser";
+import DepositUsd from "./DashboardWalletsComponents/depositUsd";
+import DepositUsdFromUser from "./DashboardWalletsComponents/depositUsdFromUser";
+import SendUsdInternal from "./DashboardWalletsComponents/sendUsdInternal";
+import SendUsdExternal from "./DashboardWalletsComponents/sendUsdExternal";
 import { TablePagination, Table } from "../../Common/CommonUI/Tables/TableComp";
 import { FETCH_WALLET_TRANSACTIONS } from "../../../services/finance_services";
 import Staticdata from "../../../assets/json/Static";
@@ -30,10 +34,16 @@ const DashboardWallets = () => {
   const [egcBlockchainWithdrawal, setEgcBlockchainWithdrawal] = useState(false);
   const [egcUserWithdrawal, setEgcUserWithdrawal] = useState(false);
   const [egcUserDeposit, setEgcUserDeposit] = useState(false);
+  const [usdBlockchainDeposit, setUsdBlockchainDeposit] = useState(false);
+  const [usdBlockchainWithdrawal, setUsdBlockchainWithdrawal] = useState(false);
+  const [usdUserWithdrawal, setUsdUserWithdrawal] = useState(false);
+  const [usdUserDeposit, setUsdUserDeposit] = useState(false);
   const [depositMoneyNaira, setDepositMoneyNaira] = useState(false);
+  const [depositMoneyUSD, setDepositMoneyUSD] = useState(false);
   const [depositMoneyNairaBank, setDepositMoneyNairaBank] = useState(false);
   const [depositMoneyNairaUser, setDepositMoneyNairaUser] = useState(false);
   const [withdrawMoneyNaira, setWithdrawMoneyNaira] = useState(false);
+  const [withdrawMoneyUSD, setWithdrawMoneyUSD] = useState(false);
   const [nairaBankWithdrawal, setNairaBankWithdrawal] = useState(false);
   const [nairaUserWithdrawal, setNairaUserWithdrawal] = useState(false);
   const [contentLoadingTable, setContentLoadingTable] = useState(true);
@@ -78,6 +88,14 @@ const DashboardWallets = () => {
     setWithdrawMoneyNaira(!withdrawMoneyNaira);
   };
 
+  const ToggleDepositMoneyUSDModal = () => {
+    setDepositMoneyUSD(!depositMoneyUSD);
+  };
+
+  const ToggleWithdrawMoneyUSDModal = () => {
+    setWithdrawMoneyUSD(!withdrawMoneyUSD);
+  };
+
   const ToggleDepositMoneyNairaBankModal = () => {
     setDepositMoneyNairaBank(!depositMoneyNairaBank);
     setDepositMoneyNaira(!depositMoneyNaira);
@@ -96,6 +114,26 @@ const DashboardWallets = () => {
   const ToggleNairaUserWithdrawtModal = () => {
     setNairaUserWithdrawal(!nairaUserWithdrawal);
     setWithdrawMoneyNaira(!withdrawMoneyNaira);
+  };
+
+  const ToggleUSDBlockchainDepositModal = () => {
+    setUsdBlockchainDeposit(!usdBlockchainDeposit);
+    setDepositMoney(!depositMoney);
+  };
+
+  const ToggleUSDBlockchainWithdrawModal = () => {
+    setUsdBlockchainWithdrawal(!usdBlockchainWithdrawal);
+    setWithdrawMoney(!withdrawMoney);
+  };
+
+  const ToggleUSDUserDepositModal = () => {
+    setUsdUserDeposit(!usdUserDeposit);
+    setDepositMoney(!depositMoney);
+  };
+
+  const ToggleUSDUserWithdrawtModal = () => {
+    setUsdUserWithdrawal(!usdUserWithdrawal);
+    setWithdrawMoney(!withdrawMoney);
   };
   useEffect(() => {
     for (let i = 0; i < data.length; i++) {
@@ -193,8 +231,8 @@ const DashboardWallets = () => {
           <WalletBalanceDisplay
             walletBal={parseFloat(usdtBalance).toFixed(2)}
             walletsymbol={"usd"}
-            // depositFunc={ToggleDepositMoneyNairaModal}
-            // withdrawFunc={ToggleWithdrawMoneyNairaModal}
+            depositFunc={ToggleDepositMoneyUSDModal}
+            withdrawFunc={ToggleWithdrawMoneyUSDModal}
             loading={loading}
             img="/img/usd_icon.webp"
           />
@@ -239,6 +277,17 @@ const DashboardWallets = () => {
           DepositModaldiv={"Naira"}
         />
       ) : null}
+      {depositMoneyUSD ? (
+        <DepositModalComp
+          symbol={"USD"}
+          DynamicFunc1={ToggleUSDBlockchainDepositModal}
+          DynamicFunc2={ToggleUSDUserDepositModal}
+          DynamicPara1={"Add funds directly from a blockachain account "}
+          DynamicTitle1={"Deposit via blockchain "}
+          closeModal={ToggleDepositMoneyUSDModal}
+          DepositModaldiv={"USD"}
+        />
+      ) : null}
       {withdrawMoney ? (
         <WithdrawModalComp
           symbol={"EGC"}
@@ -263,6 +312,19 @@ const DashboardWallets = () => {
           WithdrawModaldiv={"Naira"}
         />
       ) : null}
+      {withdrawMoneyUSD ? (
+        <WithdrawModalComp
+          symbol={"USD"}
+          DynamicFunc1={ToggleUSDBlockchainWithdrawModal}
+          DynamicFunc2={ToggleUSDUserWithdrawtModal}
+          DynamicPara1={
+            "Transfer your USD funds with an array of swift and efficient transfer options!"
+          }
+          DynamicTitle1={"USD Wallet Withdrawal "}
+          closeModal={ToggleWithdrawMoneyUSDModal}
+          WithdrawModaldiv={"USD"}
+        />
+      ) : null}
       {egcBlockchainDeposit ? (
         <DepositEgc
           ToggleEgcBlockchainDepositModal={ToggleEgcBlockchainDepositModal}
@@ -271,6 +333,7 @@ const DashboardWallets = () => {
       {egcBlockchainWithdrawal ? (
         <SendEgcExternal
           ToggleEgcBlockchainWithdrawModal={ToggleEgcBlockchainWithdrawModal}
+          balance={parseFloat(egcBalance).toFixed(4)}
         />
       ) : null}
       {egcUserDeposit ? (
@@ -281,6 +344,29 @@ const DashboardWallets = () => {
       {egcUserWithdrawal ? (
         <SendEgcInternal
           ToggleEgcUserWithdrawtModal={ToggleEgcUserWithdrawtModal}
+          balance={parseFloat(egcBalance).toFixed(4)}
+        />
+      ) : null}
+      {usdBlockchainDeposit ? (
+        <DepositUsd
+          ToggleEgcBlockchainDepositModal={ToggleUSDBlockchainDepositModal}
+        />
+      ) : null}
+      {usdBlockchainWithdrawal ? (
+        <SendUsdExternal
+          ToggleEgcBlockchainWithdrawModal={ToggleUSDBlockchainWithdrawModal}
+          balance={parseFloat(usdtBalance).toFixed(4)}
+        />
+      ) : null}
+      {usdUserDeposit ? (
+        <DepositUsdFromUser
+          ToggleEgcUserDepositModal={ToggleUSDUserDepositModal}
+        />
+      ) : null}
+      {usdUserWithdrawal ? (
+        <SendUsdInternal
+          ToggleEgcUserWithdrawtModal={ToggleUSDUserWithdrawtModal}
+          balance={parseFloat(usdtBalance).toFixed(4)}
         />
       ) : null}
       {depositMoneyNairaBank ? (
@@ -296,11 +382,13 @@ const DashboardWallets = () => {
       {nairaBankWithdrawal ? (
         <WithdrawNairaToBank
           ToggleWithdrawNairaBankModal={ToggleWithdrawNairaBankModal}
+          balance={parseFloat(nairaBalance).toFixed(4)}
         />
       ) : null}
       {nairaUserWithdrawal ? (
         <WithdrawNairaToUser
           ToggleNairaUserWithdrawtModal={ToggleNairaUserWithdrawtModal}
+          balance={parseFloat(nairaBalance).toFixed(4)}
         />
       ) : null}
     </div>

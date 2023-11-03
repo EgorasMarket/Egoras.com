@@ -15,7 +15,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
+const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
@@ -44,14 +44,17 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
     //console.logog(response);
     setLoading(false);
 
+    if (response.success) {
+      setSuccessMsg("Transaction succesful");
+      setPinModal(false);
+      setSuccessModal(true);
+      return;
+    }
     if (!response.data.success) {
       setPinModal(false);
       toast.error(response.data.errorMessage);
       return;
     }
-    setSuccessMsg("Transaction succesful");
-    setPinModal(false);
-    setSuccessModal(true);
   };
 
   const processSend = () => {
@@ -65,9 +68,13 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
   };
   const handleOnChange = async (e) => {
     const { id, value } = e.target;
+
+    setPayload({ ...payload, [id]: value });
+    if (id === "amount") {
+      return;
+    }
     setBeneficiaryData("");
     setHasUser(false);
-    setPayload({ ...payload, [id]: value });
     if (e.target.value === "") {
       setFetchingUser(false);
       setHasUserError(false);
@@ -207,7 +214,7 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">240.5 EGC</div>
+                <div className="availegc_bal_div_amount">{balance} EGC</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">

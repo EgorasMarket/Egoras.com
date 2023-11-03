@@ -321,6 +321,7 @@
 .depositMoneyDiv_cont_body_input_div_div_cont1_img {
   width: 20px;
   margin-right: 5px;
+  border-radius: 50%;
 }
 .depositMoneyDiv_cont_body_qr_div_txt {
   margin-top: 10px;
@@ -370,7 +371,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #55555d;
+  color: #91919c;
   margin-top: 0.5em;
   font-size: 14px;
 }

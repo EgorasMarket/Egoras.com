@@ -1,15 +1,47 @@
-import React, { useState } from "react";
-import { QRCode } from "react-qrcode-logo";
-import { useSelector } from "react-redux";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
-import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
+import React, { useEffect, useState } from "react";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { QRCode } from "react-qrcode-logo";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { GET_WALLET } from "../../../../services/finance_services";
+import { useSelector } from "react-redux";
+import SmallCompLoader from "../../../Common/CommonUI/Modals/SmallCompLoader";
+const DepositUsd = ({ ToggleEgcBlockchainDepositModal }) => {
+  const [loading, setLoading] = useState(true);
+  const [payload, setPayload] = useState({
+    address: "",
+    message: "",
+  });
 
-const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
-  const { user } = useSelector((state) => state.auth);
+  const fetchWallet = async () => {
+    const response = await GET_WALLET({
+      symbol: "USD",
+    });
+
+    console.log(response);
+
+    if (!response.success) {
+      setLoading(false);
+      return;
+    }
+
+    setPayload(response.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchWallet();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="depositMoneyDiv">
+        <div className="depositMoneyDiv_cont">
+          <SmallCompLoader loadingTxt={"Loading please wait"} />
+        </div>
+      </div>
+    );
+  }
   const copyText = () => {
     var copyText = document.getElementById("myInput");
     copyText.select();
@@ -17,7 +49,7 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
     navigator.clipboard.writeText(copyText.value);
 
     var tooltip = document.getElementById("myTooltip");
-    tooltip.innerHTML = "Copied username ";
+    tooltip.innerHTML = "Copied address ";
     tooltip.style.display = "block";
   };
   function outFunc() {
@@ -30,44 +62,62 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
       <div className="depositMoneyDiv_cont">
         <ArrowBackOutlinedIcon
           className="depositMoneyDiv_icon"
-          onClick={ToggleDepositMoneyNairaUserModal}
+          onClick={ToggleEgcBlockchainDepositModal}
         />
         <div className="depositMoneyDiv_cont_1">
           <div className="depositMoneyDiv_cont_title_cont">
             <div className="depositMoneyDiv_cont_title_cont_title">
-              Deposit Naira
+              Deposit USDT
             </div>
             <div className="depositMoneyDiv_cont_title_cont_para">
-              Add funds directly from an egoras user
+              Add funds directly from a blockchain account
             </div>
           </div>
           <div className="depositMoneyDiv_cont_body">
             <div className="depositMoneyDiv_cont_body_input_div">
               <div className="depositMoneyDiv_cont_body_input_div_title">
-                Currency:
+                Coin:
               </div>
               <div className="depositMoneyDiv_cont_body_input_div_div">
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
-                    src="https://i.imgur.com/JXm7zwC.png"
+                    src="/img/tether_icon.png"
                     alt=""
                     className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                   />
-                  Nigerian Naira
+                  Tether Usd
                 </div>
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
-                  NGN
+                  USDT
+                </div>
+              </div>
+            </div>
+            <div className="depositMoneyDiv_cont_body_input_div2">
+              <div className="depositMoneyDiv_cont_body_input_div_title">
+                Network:
+              </div>
+              <div className="depositMoneyDiv_cont_body_input_div_div">
+                <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
+                  <img
+                    src="/img/bsc_icon.png"
+                    alt=""
+                    className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
+                  />
+                  Binance Smart Chain
+                </div>
+                <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
+                  BEP20
                 </div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_qr_div">
               <QRCode
-                value={user?.username}
+                value={payload?.address}
                 quietZone={5}
                 eyeColor="#fff"
                 bgColor="#161619"
                 fgColor="#fff"
-                logoImage="https://i.imgur.com/JXm7zwC.png"
+                logoImage="/img/tether_icon.png"
                 eyeRadius={[
                   [5, 5, 0, 5],
                   [5, 5, 5, 0],
@@ -80,18 +130,19 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
                 className="depositMoneyDiv_cont_body_qr_div_qr"
               />
               <div className="depositMoneyDiv_cont_body_qr_div_txt">
-                Scan Qrcode or copy and send username to an egoras user to add
-                funds
+                {payload.message ||
+                  "     Scan Qrcode or copy wallet address to make payment"}
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_div">
               <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
-                Username:
+                WalletAddress:
               </div>
+
               <div className="depositMoneyDiv_cont_body_wallet_addr_div_input_div">
                 <input
                   type="text"
-                  value={user.username}
+                  value={payload.address}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                   id="myInput"
                 />
@@ -111,13 +162,19 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
               <div className="depositMoneyDiv_cont_body_tips_div_1">
                 <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
                 <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                  Send only NGN to this username
+                  Send only USDT to this deposit address
                 </div>
               </div>
               <div className="depositMoneyDiv_cont_body_tips_div_1">
                 <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
                 <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                  Only Internal Deposit/Receive
+                  Ensure the network is BNB Smart-Chain (BEP20)
+                </div>
+              </div>
+              <div className="depositMoneyDiv_cont_body_tips_div_1">
+                <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
+                <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
+                  Do not send Nfts to this address
                 </div>
               </div>
             </div>
@@ -126,7 +183,7 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
         <div className="depositMoneyDiv_cont_2">
           <button
             className="depositMoneyDiv_cont_2_btn"
-            onClick={ToggleDepositMoneyNairaUserModal}
+            onClick={ToggleEgcBlockchainDepositModal}
           >
             Cancel
           </button>
@@ -136,4 +193,4 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
   );
 };
 
-export default DepositNairaUser;
+export default DepositUsd;

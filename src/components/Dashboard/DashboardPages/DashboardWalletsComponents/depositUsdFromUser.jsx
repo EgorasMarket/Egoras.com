@@ -1,15 +1,23 @@
-import React, { useState } from "react";
-import { QRCode } from "react-qrcode-logo";
-import { useSelector } from "react-redux";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
-import AppShortcutOutlinedIcon from "@mui/icons-material/AppShortcutOutlined";
+import React, { useEffect, useState } from "react";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { QRCode } from "react-qrcode-logo";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
-const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
+import { GET_WALLET } from "../../../../services/finance_services";
+import { useSelector } from "react-redux";
+const DepositUsdFromUser = ({ ToggleEgcUserDepositModal }) => {
   const { user } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+
+  if (loading) {
+    return (
+      <div className="depositMoneyDiv">
+        <div className="depositMoneyDiv_cont">
+          <p>Loading ...</p>
+        </div>
+      </div>
+    );
+  }
   const copyText = () => {
     var copyText = document.getElementById("myInput");
     copyText.select();
@@ -30,12 +38,12 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
       <div className="depositMoneyDiv_cont">
         <ArrowBackOutlinedIcon
           className="depositMoneyDiv_icon"
-          onClick={ToggleDepositMoneyNairaUserModal}
+          onClick={ToggleEgcUserDepositModal}
         />
         <div className="depositMoneyDiv_cont_1">
           <div className="depositMoneyDiv_cont_title_cont">
             <div className="depositMoneyDiv_cont_title_cont_title">
-              Deposit Naira
+              Deposit Usd
             </div>
             <div className="depositMoneyDiv_cont_title_cont_para">
               Add funds directly from an egoras user
@@ -44,30 +52,30 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
           <div className="depositMoneyDiv_cont_body">
             <div className="depositMoneyDiv_cont_body_input_div">
               <div className="depositMoneyDiv_cont_body_input_div_title">
-                Currency:
+                Coin:
               </div>
               <div className="depositMoneyDiv_cont_body_input_div_div">
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
-                    src="https://i.imgur.com/JXm7zwC.png"
+                    src="/img/tether_icon.png"
                     alt=""
                     className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                   />
-                  Nigerian Naira
+                  Tetehr Usd
                 </div>
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont2">
-                  NGN
+                  USDT
                 </div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_qr_div">
               <QRCode
-                value={user?.username}
+                value={user.username}
                 quietZone={5}
                 eyeColor="#fff"
                 bgColor="#161619"
                 fgColor="#fff"
-                logoImage="https://i.imgur.com/JXm7zwC.png"
+                logoImage="/img/tether_icon.png"
                 eyeRadius={[
                   [5, 5, 0, 5],
                   [5, 5, 5, 0],
@@ -111,7 +119,7 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
               <div className="depositMoneyDiv_cont_body_tips_div_1">
                 <InfoOutlinedIcon className="depositMoneyDiv_cont_body_tips_div_1_icon" />
                 <div className="depositMoneyDiv_cont_body_tips_div_1_txt">
-                  Send only NGN to this username
+                  Send only USD to this deposit address
                 </div>
               </div>
               <div className="depositMoneyDiv_cont_body_tips_div_1">
@@ -126,7 +134,7 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
         <div className="depositMoneyDiv_cont_2">
           <button
             className="depositMoneyDiv_cont_2_btn"
-            onClick={ToggleDepositMoneyNairaUserModal}
+            onClick={ToggleEgcUserDepositModal}
           >
             Cancel
           </button>
@@ -136,4 +144,4 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
   );
 };
 
-export default DepositNairaUser;
+export default DepositUsdFromUser;
