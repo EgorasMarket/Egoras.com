@@ -29,13 +29,12 @@ const DashboardOrders = () => {
     setProductLoading(true);
 
     const response = await SHOW_ALL_PURCHASED_PRODUCT(user?.wallet_address);
-    //console.logog(response);
+    console.log(response);
     if (response.success === true) {
       setProductLoading(false);
     } else {
       setProductLoading(true);
     }
-
     setOrders(response.data);
   };
 
@@ -129,6 +128,7 @@ const DashboardOrders = () => {
                           {data.product_name}
                         </div>
                         <div className="DashboardProdDiv_body_cont1_details_txt_amount">
+                          ₦
                           {numberWithCommas(parseFloat(data.amount).toFixed(2))}
                         </div>
                       </div>

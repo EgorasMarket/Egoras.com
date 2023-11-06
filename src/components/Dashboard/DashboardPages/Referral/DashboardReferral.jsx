@@ -662,6 +662,9 @@ const DashboardReferral = () => {
             setPin(a);
             return;
           }}
+          toggleWebpin={() => {
+            setPinModalref(false);
+          }}
         />
       ) : null}
       {pinModalsales ? (
@@ -675,6 +678,9 @@ const DashboardReferral = () => {
             const a = e.join("");
             setPin(a);
             return;
+          }}
+          toggleWebpin={() => {
+            setPinModalsales(false);
           }}
         />
       ) : null}

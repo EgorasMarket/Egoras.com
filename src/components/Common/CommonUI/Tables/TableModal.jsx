@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SouthWestIcon from "@mui/icons-material/SouthWest";
 import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
+import DownloadIcon from "@mui/icons-material/Download";
+import html2canvas from "html2canvas";
 const TableModal = ({
   closeModal,
   data,
@@ -11,14 +13,30 @@ const TableModal = ({
   formattedDate,
   formattedTime,
 }) => {
+  const divRef = useRef(null);
+
+  const saveDivAsImage = () => {
+    const divElement = divRef.current;
+
+    // Use html2canvas to capture the content of the div and convert it to an image
+    html2canvas(divElement).then(function (canvas) {
+      // Create a temporary link to download the image
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "transaction_details.png"; // The filename for the downloaded image
+
+      // Trigger a click event on the link to download the image
+      link.click();
+    });
+  };
   return (
     <div className="depositMoneyDiv">
-      <div className="depositMoneyDiv_cont">
+      <div className="depositMoneyDiv_contb">
         <CloseOutlinedIcon
           className="depositMoneyDiv_icon"
           onClick={closeModal}
         />
-        <div className="depositMoneyDiv_table_body">
+        <div className="depositMoneyDiv_table_body" ref={divRef}>
           <div className="depositMoneyDiv_table_body_title">
             Transaction Details
           </div>
@@ -143,6 +161,19 @@ const TableModal = ({
               </div>
             </div>
           </div>
+          <div className="depositMoneyDiv_table_body_title_img_div">
+            <img
+              src="/img/egoras-logo.png"
+              alt=""
+              className="depositMoneyDiv_table_body_title_img"
+            />
+          </div>
+        </div>
+        <div className="SaveReceipt_btn_div">
+          <button className="SaveReceipt_btn" onClick={saveDivAsImage}>
+            <DownloadIcon />
+            Save Receipt
+          </button>
         </div>
       </div>
     </div>

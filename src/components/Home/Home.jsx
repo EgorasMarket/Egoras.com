@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Staticdata from "../../assets/json/Static";
 import { useDispatch, useSelector } from "react-redux";
+import { GET_MY_SUBSCRIPTION } from "../../services/referral_services";
 import { numberWithCommas } from "../../assets/js/numberWithCommas";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -21,8 +22,11 @@ import ScrollAnimation from "react-animate-on-scroll";
 import { ScrollerMotion } from "scroller-motion";
 
 const Home = () => {
+  const { user, loading, error } = useSelector((state) => state.auth);
   const [genVideo, setGenVideo] = useState(false);
   const [swiperIndex, setSwiperIndex] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [memberStatus, setMemberStatus] = useState(false);
   const TogglegenVideoDiv = () => {
     setGenVideo(!genVideo);
   };
@@ -30,6 +34,32 @@ const Home = () => {
     setSwiperIndex(swiper.realIndex);
   };
 
+  const getMySubscriptions = async () => {
+    const response = await GET_MY_SUBSCRIPTION();
+    console.log(response);
+    console.log(response.data.subcribers);
+    if (response.success === true) {
+      if (response.data.subcribers === null) {
+        setMemberStatus(false);
+      } else {
+        setMemberStatus(true);
+      }
+      return;
+    }
+  };
+  useEffect(() => {
+    getMySubscriptions();
+  }, []);
+  useEffect(() => {
+    if (user === null || (user === undefined && loading === false)) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
+  console.log("====================================");
+  console.log(isLoggedIn);
+  console.log("====================================");
   return (
     <div className="HomeDiv">
       <section className="HomeDivSection1">
@@ -61,21 +91,60 @@ const Home = () => {
                   </div>
 
                   <div className="HomeDivSection1_div_txts_2">
-                    <a
-                      href="/membership/sub"
-                      className="HomeDivSection1_div_txts_2_link1"
-                    >
-                      <BgButtonNoBorder
-                        btnTxt={
-                          <div
-                            className="HomeDivSection1_div_txts_2_div
+                    {isLoggedIn === false ? (
+                      <a
+                        href="/membership/sub"
+                        className="HomeDivSection1_div_txts_2_link1"
+                      >
+                        <BgButtonNoBorder
+                          btnTxt={
+                            <div
+                              className="HomeDivSection1_div_txts_2_div
                       "
+                            >
+                              Join Sales-Pro
+                            </div>
+                          }
+                        />
+                      </a>
+                    ) : (
+                      <>
+                        {memberStatus === false ? (
+                          <a
+                            href="/membership/sub"
+                            className="HomeDivSection1_div_txts_2_link1"
                           >
-                            Join Sales-Pro
-                          </div>
-                        }
-                      />
-                    </a>
+                            <BgButtonNoBorder
+                              btnTxt={
+                                <div
+                                  className="HomeDivSection1_div_txts_2_div
+                      "
+                                >
+                                  Join Sales-Pro
+                                </div>
+                              }
+                            />
+                          </a>
+                        ) : (
+                          <a
+                            href="/dashboard/egocoop"
+                            className="HomeDivSection1_div_txts_2_link1"
+                          >
+                            <BgButtonNoBorder
+                              btnTxt={
+                                <div
+                                  className="HomeDivSection1_div_txts_2_div
+                      "
+                                >
+                                  Ego Sales-Pro
+                                </div>
+                              }
+                            />
+                          </a>
+                        )}
+                      </>
+                    )}
+
                     <a
                       href="/dashboard/products"
                       className="HomeDivSection1_div_txts_2_member_link"

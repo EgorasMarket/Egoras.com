@@ -105,7 +105,9 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
       setBeneficiaryData(resp.data);
     }
   };
-
+  const AddMax = () => {
+    setPayload({ amount: balance });
+  };
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
@@ -208,8 +210,11 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
                   onChange={handleOnChange}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
-                <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
-                  Maxs
+                <button
+                  className="depositMoneyDiv_cont_body_wallet_addr_div_btn"
+                  onClick={AddMax}
+                >
+                  Max
                 </button>
               </div>
               <div className="availegc_bal_div">
@@ -262,12 +267,15 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
             isLoading={loading}
             btnFunc={sendFunds}
             pinTitle="Enter Pin to validate Transaction"
-            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            pinPara="Input your transaction pin to complete this transaction"
             btnFuncTxt="Proceed"
             handleOnComplete={(e) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+            toggleWebpin={() => {
+              setPinModal(false);
             }}
           />
         ) : null}

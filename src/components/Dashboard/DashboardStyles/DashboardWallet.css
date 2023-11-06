@@ -150,7 +150,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: no-repeat;
+  background: none;
   margin-right: 10px;
   padding: 10px;
   border-radius: 10px;
@@ -159,6 +159,21 @@
   cursor: pointer;
   font-size: 14px;
   border: solid 1px;
+}
+.DashboardWalletsDiv_area2_cont2_area2_cont2b {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  color: #000000;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  border: none;
 }
 .DashboardWalletsDiv_area2_cont2_area1_bal_span {
   font-size: 32px;
@@ -480,6 +495,9 @@
   .DashboardWalletsDiv_area2_cont2_area2_cont2 {
     width: 100%;
   }
+  .DashboardWalletsDiv_area2_cont2_area2_cont2b {
+    width: 100%;
+  }
   .DashboardWalletsDiv_area2 {
     padding: 1em;
   }
@@ -520,6 +538,11 @@
     font-size: 12px;
   }
   .DashboardWalletsDiv_area2_cont2_area2_cont2 {
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 12px;
+  }
+  .DashboardWalletsDiv_area2_cont2_area2_cont2b {
     padding: 8px;
     border-radius: 7px;
     font-size: 12px;

@@ -4,6 +4,8 @@ import SalesTiers from "../../../assets/icons/SalesTiers.json";
 import CustomerDash from "../../../assets/icons/CustomerDash.json";
 import Lottie from "lottie-react";
 import ScrollAnimation from "react-animate-on-scroll";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_MY_SUBSCRIPTION } from "../../../services/referral_services";
 
 export const HowItWorksArea1 = () => {
   return (
@@ -96,7 +98,33 @@ export const HowItWorksArea1 = () => {
 };
 
 export const Step1Div = ({ toggleSteps }) => {
+  const { user, loading, error } = useSelector((state) => state.auth);
   const [activeTab, setActiveTab] = useState("distribute");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [memberStatus, setMemberStatus] = useState(false);
+  const getMySubscriptions = async () => {
+    const response = await GET_MY_SUBSCRIPTION();
+    console.log(response);
+    console.log(response.data.subcribers);
+    if (response.success === true) {
+      if (response.data.subcribers === null) {
+        setMemberStatus(false);
+      } else {
+        setMemberStatus(true);
+      }
+      return;
+    }
+  };
+  useEffect(() => {
+    getMySubscriptions();
+  }, []);
+  useEffect(() => {
+    if (user === null || (user === undefined && loading === false)) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
   const ToggleActiveTab = (e) => {
     setActiveTab(e.currentTarget.id);
   };
@@ -146,9 +174,29 @@ export const Step1Div = ({ toggleSteps }) => {
                   subscription cashbacks as high as 25%.
                 </div>
               </div>
-              <button className="SubContinueButton" onClick={toggleSteps}>
-                Join Sales-Pro
-              </button>
+
+              {isLoggedIn === false ? (
+                <button className="SubContinueButton" onClick={toggleSteps}>
+                  Join Sales-Pro
+                </button>
+              ) : (
+                <>
+                  {memberStatus === false ? (
+                    <button className="SubContinueButton" onClick={toggleSteps}>
+                      Join Sales-Pro
+                    </button>
+                  ) : (
+                    <a
+                      href="/dashboard/egocoop"
+                      className="HomeDivSection1_div_txts_2_link1"
+                    >
+                      <button className="SubContinueButton">
+                        Ego Sales-Pro
+                      </button>
+                    </a>
+                  )}
+                </>
+              )}
             </div>
             <div className="membership_landing_div_2">
               <Lottie

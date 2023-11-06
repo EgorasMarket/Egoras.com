@@ -50,7 +50,8 @@
   align-items: center;
 }
 .DashboardNav_body_1_txt {
-  max-width: 160px;
+  width: 100%;
+  /* min-width: 75px; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -105,6 +106,65 @@
 .DashboardNav_body_mobile {
   display: none;
 }
+.DashboardNav_body_1_txt_div {
+  position: relative;
+  width: 100%;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Ping,
+.Ping .c-basePart {
+  position: absolute;
+  height: 0.45rem;
+  width: 0.45rem;
+  right: 0%;
+  left: 100%;
+  top: 3%;
+}
+
+.Ping .c-basePart,
+.Ping .c-flashingPart {
+  border-radius: 9999px;
+  background-color: #ffffff;
+}
+
+.Ping .c-flashingPart {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  position: absolute;
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  left: 100%;
+  top: 4%;
+  opacity: 0.75;
+}
+
+.animate-ping {
+  -webkit-animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@-webkit-keyframes ping {
+  75%,
+  to {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes ping {
+  75%,
+  to {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .DashboardNav_body_1_active .DashboardNav_body_1_icon {
     animation: rubberBand;
@@ -179,5 +239,17 @@
   .DashboardNav_body_1_txt {
     font-size: 12px;
     margin-top: 3px;
+  }
+  .Ping .c-flashingPart {
+    left: 70%;
+    top: -90%;
+  }
+  .Ping,
+  .Ping .c-basePart {
+    left: 70%;
+    top: -90%;
+  }
+  .DashboardNav_body_1_txt_div {
+    text-align: center;
   }
 }

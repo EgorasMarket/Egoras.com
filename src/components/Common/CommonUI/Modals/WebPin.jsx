@@ -3,6 +3,8 @@ import "./webPin.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { PinInput, StatefulPinInput } from "react-input-pin-code";
 const WebPin = ({
   btnFunc,
@@ -11,6 +13,8 @@ const WebPin = ({
   btnFuncTxt,
   isLoading,
   handleOnComplete,
+  toggleWebpin,
+  newUser,
 }) => {
   //   const [values, setValues] = React.useState(["", "", "", " "]);
   const [pinHidden, setPinHidden] = useState(true);
@@ -19,6 +23,13 @@ const WebPin = ({
   };
   return (
     <div className="otp_modal">
+      {newUser ? null : (
+        <CloseIcon
+          className="plan_swap_modal_div_icon"
+          onClick={toggleWebpin}
+        />
+      )}
+
       <div className="otp_modal_container">
         <div className="otp_modal_container_head">{pinTitle}</div>
         <div className="otp_modal_container_para">{pinPara}</div>

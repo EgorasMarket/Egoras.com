@@ -53,7 +53,7 @@ const WalletBalanceDisplay = ({
             Deposit
           </div>
           <div
-            className="DashboardWalletsDiv_area2_cont2_area2_cont2"
+            className="DashboardWalletsDiv_area2_cont2_area2_cont2b"
             onClick={withdrawFunc}
           >
             Withdraw

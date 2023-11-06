@@ -503,25 +503,19 @@ const ProductCheckoutPage = () => {
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_2_area1_body">
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={`${user.firstName} ${user.lastName}`}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      {`${user.firstName} ${user.lastName}`}
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="email"
-                      value={user.email}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      {user.email}
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="number"
-                      value={user.phone}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      {user.phone}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -531,39 +525,29 @@ const ProductCheckoutPage = () => {
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_2_area1_body">
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"Address"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      Address
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"City"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      City
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"State"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      State
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"Zip Code"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      Zip Code
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"Country"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      Country
+                    </div>
                   </div>
                 </div>
               </div>
@@ -600,14 +584,18 @@ const ProductCheckoutPage = () => {
                                 <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
                                   ₦
                                 </span>
-                                {parseFloat(nairaBalance).toFixed(2)}
+                                {numberWithCommas(
+                                  parseFloat(nairaBalance).toFixed(2)
+                                )}
                               </div>
                             )}
                           </div>
-                          <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2">
-                            Swap Funds{" "}
-                            <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
-                          </div>
+                          <a href="/dashboard/wallet" style={{ color: "#fff" }}>
+                            <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2">
+                              Add Funds{" "}
+                              <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
+                            </div>
+                          </a>
                         </div>
                         <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2">
                           <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2_add">
@@ -636,17 +624,21 @@ const ProductCheckoutPage = () => {
                               />
                             ) : (
                               <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal">
-                                {parseFloat(egcBalance).toFixed(2)}
+                                {numberWithCommas(
+                                  parseFloat(egcBalance).toFixed(2)
+                                )}
                                 <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
                                   egc
                                 </span>{" "}
                               </div>
                             )}
                           </div>
-                          <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2 egc_card">
-                            Swap Funds{" "}
-                            <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
-                          </div>
+                          <a href="/dashboard/wallet" style={{ color: "#fff" }}>
+                            <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2 egc_card">
+                              Add Funds{" "}
+                              <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
+                            </div>
+                          </a>
                         </div>
                         <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2">
                           <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2_add egc_card">
@@ -735,6 +727,9 @@ const ProductCheckoutPage = () => {
             setPin(a);
             // setPayload({ ...payload, pin_code: a });
             return;
+          }}
+          toggleWebpin={() => {
+            setPinModal(false);
           }}
         />
       ) : null}

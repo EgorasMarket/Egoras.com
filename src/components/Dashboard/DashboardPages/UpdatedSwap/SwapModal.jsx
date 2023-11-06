@@ -864,6 +864,9 @@ const SwapModal = () => {
             setPin(a);
             return;
           }}
+          toggleWebpin={() => {
+            setPinModal(false);
+          }}
         />
       ) : null}
       {successModal ? (

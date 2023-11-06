@@ -297,6 +297,9 @@ const PlanSubDivModal = ({
               setPin(a);
               return;
             }}
+            toggleWebpin={() => {
+              setPinModal(false);
+            }}
           />
         ) : null}
         {error && (

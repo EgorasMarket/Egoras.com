@@ -11,9 +11,7 @@ const DashBoardNav = ({ routes, activeRoute }) => {
   );
 
   function handleButtonClick() {
-    if (isVibrationSupported) {
-      navigator.vibrate(100);
-    }
+    navigator.vibrate(100);
   }
   const ToglleActiveLink = (e) => {
     let id = e.currentTarget.id;
@@ -53,7 +51,15 @@ const DashBoardNav = ({ routes, activeRoute }) => {
                 onClick={ToglleActiveLink}
               >
                 {data.icon}
-                <div className="DashboardNav_body_1_txt">{data.name}</div>
+                <div className="DashboardNav_body_1_txt_div">
+                  <div className="DashboardNav_body_1_txt">{data.name}</div>
+                  {data.name == "Ego SalesPro" ? (
+                    <span class="Ping -top-1">
+                      <span class="c-flashingPart"></span>
+                      <span class="c-basePart"></span>
+                    </span>
+                  ) : null}
+                </div>
               </div>
             </Link>
           ))}
@@ -74,7 +80,15 @@ const DashBoardNav = ({ routes, activeRoute }) => {
                 onClick={ToglleActiveLink}
               >
                 {data.icon}
-                <div className="DashboardNav_body_1_txt">{data.name}</div>
+                <div className="DashboardNav_body_1_txt_div">
+                  <div className="DashboardNav_body_1_txt">{data.name}</div>
+                  {data.name == "Ego SalesPro" ? (
+                    <span class="Ping -top-1">
+                      <span class="c-flashingPart"></span>
+                      <span class="c-basePart"></span>
+                    </span>
+                  ) : null}
+                </div>
               </div>
             </Link>
           ))}

@@ -1069,6 +1069,9 @@ const UpdatedSwap = () => {
             setPin(a);
             return;
           }}
+          toggleWebpin={() => {
+            setPinModal(false);
+          }}
         />
       ) : null}
       {successModal ? (

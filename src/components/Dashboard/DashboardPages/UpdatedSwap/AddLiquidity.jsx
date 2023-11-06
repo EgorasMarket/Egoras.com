@@ -500,6 +500,9 @@ const AddLiquidity = () => {
             setPin(a);
             return;
           }}
+          toggleWebpin={() => {
+            setPinModal(false);
+          }}
         />
       ) : null}
       {successModal ? (

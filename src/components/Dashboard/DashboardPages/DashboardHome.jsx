@@ -803,6 +803,7 @@ const DashboardHome = () => {
           pinPara={
             "You'll need to create a pin to be able to make transactions"
           }
+          newUser={true}
         />
       )}
       {confirmPinModal && (
@@ -813,6 +814,7 @@ const DashboardHome = () => {
           handleOnComplete={handleOnComplete2}
           pinTitle={"Please Confirm Your Pin"}
           pinPara={"Just to be sure, we'll want you to confirm your pin "}
+          newUser={true}
         />
       )}
       <ToastContainer />
