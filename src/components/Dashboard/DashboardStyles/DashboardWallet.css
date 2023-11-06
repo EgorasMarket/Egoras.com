@@ -274,14 +274,16 @@
 }
 
 .depositMoneyDiv_icon {
-  position: absolute;
-  right: 32px;
-  font-size: 28px !important;
-  cursor: pointer;
-  z-index: 100;
   background: #000000b3;
   border-radius: 5px;
+  cursor: pointer;
+  font-size: 28px !important;
   padding: 4px;
+  position: absolute !important;
+  right: 32px;
+  z-index: 100 !important;
+  display: block !important;
+  /* display: block !important; */
 }
 .depositMoneyDiv_cont_2 {
   border-top: solid 1px #2b2b31;

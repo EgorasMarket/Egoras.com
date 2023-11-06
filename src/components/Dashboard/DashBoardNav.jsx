@@ -11,7 +11,9 @@ const DashBoardNav = ({ routes, activeRoute }) => {
   );
 
   function handleButtonClick() {
-    navigator.vibrate(100);
+    if (isVibrationSupported) {
+      navigator.vibrate(100);
+    }
   }
   const ToglleActiveLink = (e) => {
     let id = e.currentTarget.id;
