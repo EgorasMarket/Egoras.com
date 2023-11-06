@@ -1,6 +1,8 @@
 .dashboardHome {
   display: flex;
   flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
   /* height: 100%; */
 }
 
@@ -25,6 +27,7 @@
   margin-right: 10px;
   color: #80be9b;
   position: relative;
+  overflow: hidden;
 }
 .dashboardHome_area1_card1_last {
   width: 100%;
@@ -45,6 +48,13 @@
   margin-top: 2em;
   line-height: 1.2;
   color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboardHome_area1_card1_icon {
+  position: relative;
+  z-index: 1;
 }
 .dashboardHome_area1_card1_title {
   margin-bottom: 0.5em;
@@ -87,7 +97,10 @@
   cursor: pointer;
   /* border: solid; */
 }
-
+.dashboardHome_area1_card1_icon_img {
+  width: 30px;
+  border-radius: 50%;
+}
 .dashboardHome_area1_card1_more_icon {
   position: absolute;
   right: 10px;

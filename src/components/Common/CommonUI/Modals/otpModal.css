@@ -23,6 +23,8 @@
   text-align: center;
   border: solid 1px #2d2d2d;
   box-shadow: 0px 0px 20px 8px #000000a6;
+  animation: zoomIn;
+  animation-duration: 0.5s;
 }
 .otp_modal_container_head {
   font-size: 24px;

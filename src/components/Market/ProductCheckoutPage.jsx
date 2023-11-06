@@ -67,15 +67,12 @@ const ProductCheckoutPage = () => {
   //console.logog(id);
   useEffect(() => {
     let states = State.getStatesOfCountry("NG");
-    //console.logog(states);
-    //intercept the state object
     let tempState = states;
     tempState.forEach((state) => {
       state.value = state.name;
       state.label = state.name;
     });
     setStates(tempState);
-    //console.logog(tempState);
   }, []);
 
   const fetchProductDetail = async () => {
@@ -134,12 +131,18 @@ const ProductCheckoutPage = () => {
   }, [id]);
 
   useEffect(() => {
-    //console.logog(data);
-    //console.logog(data[0]?.value);
-    //console.logog(data[1]?.value);
-    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
-    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+    for (let i = 0; i < data.length; i++) {
+      switch (data[i].name) {
+        case "Naira":
+          setNairaBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+        case "Egoras Credit":
+          setEgcBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+      }
+    }
   }, []);
+  console.log(nairaBalance, egcBalance, data);
   useEffect(() => {
     if (selectedState == "" || deliveryVal == "") {
       setDeliverBtnDisable(true);

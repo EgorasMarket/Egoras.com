@@ -6,13 +6,18 @@
 .pool_deatail_area {
   display: flex;
   flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
+}
+.pool_deatail_area_member_div {
+  margin-bottom: 1em;
 }
 .referral_banner_bg_div {
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 2em;
-  height: 200px;
+  margin-bottom: 1em;
+  height: 180px;
 }
 
 .referral_banner_bg_img {
@@ -32,7 +37,7 @@
   background: #fff;
   padding: 1em;
   border-radius: 8px;
-  gap: 25px;
+  gap: 0px;
   border: solid 1px #dddddd;
   overflow: auto;
   align-items: center;
@@ -47,6 +52,7 @@
   border: none;
   background: #22ad62;
   color: #fff;
+  margin-right: 1em;
 }
 
 .dashBoard_ref_area1_cont1_div1_cont1_withdraw_btn:disabled {
@@ -56,33 +62,39 @@
 }
 
 .dark .dashBoard_ref_area1_cont1_div1_cont1_withdraw_btn:disabled {
-  background: #3b3959;
-  color: #676588;
+  background: #28513b;
+  color: #508367;
 }
-
+.dashBoard_ref_area1_cont1_div1_cont2_span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #9494a4;
+}
 .dashBoard_ref_area1_cont2 {
   display: flex;
-  width: 50%;
+  width: 20%;
   padding: 1em;
   background: #fff;
   border-radius: 10px;
-  grid-gap: 25px;
-  gap: 20px;
   align-items: center;
   justify-content: flex-start;
   border: solid 1px #dddddd;
 }
 
 .dashBoard_ref_area1_cont1_icon_div {
-  padding: 10px;
+  padding: 8px;
   background: #3f3f47;
   border-radius: 50%;
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stackedCoin_icon {
   background: white;
-  padding: 6px;
-  font-size: 38px !important;
+  padding: 3px;
+  font-size: 24px !important;
   border-radius: 50%;
   color: #22ad62;
 }
@@ -90,21 +102,28 @@
 .dashBoard_ref_area1_cont1_div1 {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   text-align: center;
+  margin-left: 10px;
+  justify-content: space-between;
+}
+.dashBoard_ref_area1_cont1_div1_b {
+  border-right: solid 1px #3e3e45;
+  margin-right: 1em;
 }
 
 .dashBoard_ref_area1_cont1_div1_cont1 {
   color: #8e8e8e;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .dashBoard_ref_area1_cont1_div1_cont2 {
   font-weight: 600;
   font-size: 30px;
   white-space: nowrap;
+  display: flex;
+  align-items: baseline;
 }
 
 .engn_symbol_sign {
@@ -165,7 +184,7 @@
 }
 
 .dashBoard_ref_area2_cont2 {
-  width: 50%;
+  width: 80%;
   /* padding: 1em; */
   display: flex;
   flex-direction: column;
@@ -174,7 +193,7 @@
 .dashBoard_ref_area2_cont1_body {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0px;
   padding: 1em;
   /* align-items: center; */
 }
@@ -187,6 +206,7 @@
   padding: 1em 1em;
   background: #f3f3f3;
   border-radius: 7px;
+  margin-bottom: 1em;
 }
 
 .dashBoard_ref_area2_cont1_body_div1 {
@@ -196,6 +216,7 @@
   border-radius: 6px;
   padding: 1em;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .dashBoard_ref_area2_cont1_body_div1_cont1 {
@@ -254,7 +275,8 @@
 .dashBoard_ref_area2_cont1_body_cont {
   display: flex;
   flex-direction: column;
-  height: 435px;
+  height: 100%;
+  max-height: 435px;
   overflow: auto;
   scroll-behavior: auto;
 }
@@ -326,6 +348,7 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 1em;
+  position: relative;
 }
 
 .dashboard_user_refferals_cont {
@@ -411,7 +434,10 @@
 .ref_btn {
   width: 100%;
 }
-
+.ref_btn:disabled {
+  background: #28513b;
+  color: #508367;
+}
 .refferal_copy_btns {
   display: flex;
   width: 100%;
@@ -576,8 +602,25 @@
 .dark .dashBoard_ref_area1_cont1_div1_cont1 {
   color: #787690;
 }
+.dashBoard_ref_area1_cont1_cont1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.dashBoard_ref_area1_cont1__cont1_div1 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashBoard_ref_area1_cont1_div1_1 {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1100px) {
   .dashBoard_ref_area1 {
     flex-direction: column;
   }
@@ -593,6 +636,52 @@
 
   .dashBoard_ref_area1_cont2 {
     width: 100%;
+  }
+  .dashBoard_ref_area2_cont1 {
+    margin-right: 0;
+    margin-bottom: 1em;
+  }
+  .dashBoard_ref_area1_cont1 {
+    margin-right: 0em;
+    margin-bottom: 1em;
+    flex-direction: column;
+  }
+  .dashBoard_ref_area1_cont1_div1_cont1_withdraw_btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .referral_banner_bg_div {
+    height: 110px;
+  }
+  .dashBoard_ref_area1_cont1__cont1_div1 {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .dashBoard_ref_area1_cont1_cont1 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 1em;
+  }
+  .dashBoard_ref_area1_cont1_div1_b {
+    border-right: 0;
+    margin-right: 0;
+  }
+  .dashBoard_ref_area1_cont1_div1 {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin-left: 0px;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .dashBoard_ref_area1_cont2 {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
@@ -612,7 +701,7 @@
   }
 
   .stackedCoin_icon {
-    font-size: 24px !important;
+    font-size: 18px !important;
   }
 
   .dashBoard_ref_area2_cont1_head {
@@ -636,10 +725,5 @@
 
   .dashBoard_ref_area2_cont1_body_div1 {
     font-size: 12px;
-    gap: 10px;
-  }
-
-  .dashBoard_ref_area1_cont2 {
-    gap: 10px;
   }
 }

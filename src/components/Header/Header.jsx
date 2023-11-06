@@ -134,6 +134,9 @@ const Header = () => {
               >
                 All Products
               </a>
+              <a href="/membership/sub" className="header_section_3_link_2_prd">
+                Join Sales-Pro
+              </a>
             </div>
             <div className="header_section_2">
               <a href="/">
@@ -229,6 +232,12 @@ const Header = () => {
                   <div className="headerMenuDiv_cont_cont1_title">Models</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
                 </div>
+                <a href="/membership/sub" className="headerMenuDiv_cont_cont1">
+                  <div className="headerMenuDiv_cont_cont1_title">
+                    Join Sales-Pro
+                  </div>
+                  <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
+                </a>
                 <a
                   href="/dashboard/products"
                   className="headerMenuDiv_cont_cont1"
@@ -240,14 +249,6 @@ const Header = () => {
                 </a>
                 <a href="/privacy" className="headerMenuDiv_cont_cont1">
                   <div className="headerMenuDiv_cont_cont1_title">Privacy</div>
-                  <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
-                </a>
-                <a
-                  href="https://www.martgpt.org/"
-                  target="_blank"
-                  className="headerMenuDiv_cont_cont1"
-                >
-                  <div className="headerMenuDiv_cont_cont1_title">Martgpt</div>
                   <ArrowForwardIosIcon className="headerMenuDiv_cont_cont1_icon" />
                 </a>
               </div>

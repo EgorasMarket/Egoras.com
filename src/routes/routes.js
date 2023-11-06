@@ -23,9 +23,12 @@ import KycPage from "../components/KYC/KycPage";
 import Privacy from "../components/PrivacyPolicy/Privacy";
 import TermsAndConditions from "../components/PrivacyPolicy/TermsAndConditions";
 import DashboardReferral from "../components/Dashboard/DashboardPages/Referral/DashboardReferral";
+import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 // import
 import Groups2Icon from "@mui/icons-material/Groups2";
 import StoreIcon from "@mui/icons-material/Store";
+import NotFoundComponent from "../components/Home/NotFoundComponent";
+
 const routes = [
   { name: "Home", path: "", component: <Home />, layout: "/" },
   { name: "Signup", path: "signup", component: <Signup />, layout: "/" },
@@ -58,6 +61,12 @@ const routes = [
     name: "Product Detail",
     path: "productdetail/:id/:name",
     component: <ProductDetail />,
+    layout: "/",
+  },
+  {
+    name: "404 Not Found",
+    path: "*",
+    component: <NotFoundComponent />,
     layout: "/",
   },
   {
@@ -102,12 +111,13 @@ const routes = [
     layout: "/dashboard",
   },
   {
-    name: "Orders",
-    path: "orders",
-    icon: <BookmarkBorderOutlinedIcon className="DashboardNav_body_1_icon" />,
-    component: <DashboardOrders />,
+    name: "Ego SalesPro",
+    path: "egocoop",
+    icon: <CorporateFareIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardReferral />,
     layout: "/dashboard",
   },
+
   {
     name: "Swap",
     path: "swap",
@@ -116,11 +126,18 @@ const routes = [
     layout: "/dashboard",
   },
 
+  // {
+  //   name: "Subsrciption",
+  //   path: "membership",
+  //   icon: <WorkspacePremiumOutlinedIcon className="DashboardNav_body_1_icon" />,
+  //   component: <DasboardMember />,
+  //   layout: "/dashboard",
+  // },
   {
-    name: "Referral",
-    path: "referral",
-    icon: <Groups2Icon className="DashboardNav_body_1_icon" />,
-    component: <DashboardReferral />,
+    name: "Orders",
+    path: "orders",
+    icon: <BookmarkBorderOutlinedIcon className="DashboardNav_body_1_icon" />,
+    component: <DashboardOrders />,
     layout: "/dashboard",
   },
   {
@@ -129,13 +146,6 @@ const routes = [
     icon: <ReceiptOutlinedIcon className="DashboardNav_body_1_icon" />,
 
     component: <DashboardTransactions />,
-    layout: "/dashboard",
-  },
-  {
-    name: "Membership",
-    path: "membership",
-    icon: <WorkspacePremiumOutlinedIcon className="DashboardNav_body_1_icon" />,
-    component: <DasboardMember />,
     layout: "/dashboard",
   },
 ];

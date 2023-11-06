@@ -3,11 +3,42 @@
   flex-direction: column;
   position: relative;
   height: 100%;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
 }
 .DashboardWalletsDiv_area1 {
   display: flex;
 }
-
+.depositMoneyDiv_cont_body_wallet_addr_divb_input_div {
+  position: relative;
+}
+.userNameLoaded_div {
+  border: solid 1px #47474f;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.userNameLoaded_div_para {
+  border-bottom: solid 1px #47474f;
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+  color: #acacbd;
+}
+.userNameLoader {
+  position: absolute;
+  right: 10px;
+  bottom: 1px;
+}
+.userNameLoader2 {
+  position: absolute;
+  right: 2%;
+  bottom: 10px;
+}
+.userNameLoader_img {
+  width: 20px;
+}
 .DashboardWalletsDiv_area1_cont {
   width: 100%;
   max-width: 400px;
@@ -52,16 +83,29 @@
   padding: 2em;
   border-radius: 15px;
   position: relative;
+  overflow: hidden;
 }
 .DashboardWalletsDiv_area2_cont1 {
   color: #8a8a95;
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  position: relative;
+  z-index: 1;
+}
+.DashboardWalletsDiv_area2_cont1_img {
+  width: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
 }
 .DashboardWalletsDiv_area2_cont2 {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   margin-top: 0px;
+  position: relative;
+  z-index: 1;
 }
 .DashboardWalletsDiv_area2_cont2_area1 {
   width: 100%;
@@ -157,6 +201,8 @@
   flex-direction: column;
   justify-content: space-between;
   overflow-y: scroll;
+  animation: fadeInRight;
+  animation-duration: 0.5s;
 }
 .depositMoneyDiv_cont_1 {
   display: flex;

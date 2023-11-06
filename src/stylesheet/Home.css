@@ -28,6 +28,25 @@
   width: 100%;
   height: auto;
   object-fit: cover;
+  background: #000;
+  animation: zoomOutCustom;
+  animation-duration: 1s;
+}
+@keyframes zoomOutCustom {
+  0% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes zoomOutCustom2 {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .HomeDivSection1_div_txts_div {
   position: absolute;
@@ -36,6 +55,7 @@
   left: 0;
   margin: auto;
   height: 100%;
+  z-index: 1;
 }
 .HomeDivSection1_div_txts {
   display: flex;
@@ -48,23 +68,28 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(#00000045, black);
+  background-image: radial-gradient(#00000070, black);
+  z-index: 1;
 }
 .HomeDivSection1_div_txts_1 {
   display: flex;
   flex-direction: column;
   margin-bottom: 2em;
+  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 1s; /* don't forget to set a duration! */
 }
 
 .HomeDivSection1_div_txts_1_head {
-  font-size: 82px;
+  font-size: 98px;
   color: #fff;
   font-weight: 600;
+  text-transform: uppercase;
 }
 .HomeDivSection1_div_txts_1_para {
-  font-size: 20px;
-  color: #adadad;
+  font-size: 24px;
+  color: #d3d3d3;
   width: 60%;
+  font-weight: 400;
 }
 .HomeDivSection1_div_txts_2 {
   display: flex;
@@ -96,6 +121,8 @@
   width: 100%;
   margin-bottom: 4em;
   margin-top: 2em;
+  animation: bounceInUp; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 1s; /* don't forget to set a duration! */
 }
 .HomeDivSection1_div_txts_div_cont {
   display: flex;
@@ -168,11 +195,12 @@
 }
 .HomeDivSection2_area1_cont1 {
   width: 100%;
-  font-size: 68px;
+  font-size: 98px;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1;
   color: #fff;
   text-align: center;
+  text-transform: uppercase;
 }
 .HomeDivSection2_area1_cont2 {
   width: 100%;
@@ -356,24 +384,26 @@
   font-size: 24px;
 }
 .swiper-button-prev {
-  background: #ffffff;
-  color: #22ad62;
+  background: #00000047;
+  color: #ffffff;
   padding: 2em;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px #ffffff;
+  border: solid 1px #6b6b6b;
+  backdrop-filter: blur(4px);
 }
 .swiper-button-next {
-  background: #ffffff;
-  color: #22ad62;
+  background: #00000047;
+  color: #ffffff;
   padding: 2em;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px #ffffff;
+  border: solid 1px #6b6b6b;
+  backdrop-filter: blur(4px);
 }
 .swiper-pagination-bullet-active {
   background: #22ad62 !important;
@@ -445,12 +475,13 @@
 }
 
 .landingPageSectionlast_area_1_title {
-  font-size: 68px;
+  font-size: 98px;
   font-weight: 600;
   color: #fff;
   line-height: 1;
   text-align: center;
   margin-bottom: 15px;
+  text-transform: uppercase;
 }
 
 .landingPageSectionlast_area_1_btn_div {
@@ -558,9 +589,10 @@
     font-weight: 600;
   }
   .HomeDivSection1_div_txts_1_para {
-    font-size: 18px;
-    color: #adadad;
+    font-size: 20px;
+    color: #bababa;
     width: 60%;
+    font-weight: 500;
   }
 
   .tricycle_overview_div1_cont1 {
@@ -775,5 +807,9 @@
   }
   .NoBgButtonWithBorder {
     font-size: 14px;
+  }
+  .landingPageSectionlast_area_1_title {
+    font-size: 38px;
+    margin-bottom: 20px;
   }
 }

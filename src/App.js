@@ -4,6 +4,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import { ScrollerMotion } from "scroller-motion";
 
 import { VERIFY_USER } from "./services/auth";
 import { verifyUser } from "./features/auth/authActions";
@@ -15,19 +16,18 @@ import DefaultComponentLoading from "./components/Common/CommonUI/Modals/Default
 import ProtectedRoute from "./Router/ProtectedRoute";
 import ProductDetail from "./components/Market/ProductDetail";
 import { fetchWalletBalance } from "./features/walletServices/walletActions";
+import NotFoundComponent from "./components/Home/NotFoundComponent";
 function App() {
   const dispatch = useDispatch();
-
   const [loadingDiv, setLoadingDiv] = useState(true);
-
   const verify_user = async () => {
     // const response = await VERIFY_USER();
     const response = dispatch(verifyUser());
   };
-
   const fetch_walllet = async () => {
     // const response = await VERIFY_USER();
-    const response = dispatch(fetchWalletBalance());
+    const response = await dispatch(fetchWalletBalance());
+    console.log(response);
   };
   useEffect(() => {
     verify_user();
@@ -58,7 +58,6 @@ function App() {
             </Routes>
 
             {myArr[1] === "dashboard" ? <Dashboard /> : <RouteInit />}
-
             {myArr[1] === "dashboard" ? null : <Footer />}
           </div>
         </div>

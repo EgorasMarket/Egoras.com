@@ -1,6 +1,8 @@
 .DashboardProdDiv {
   display: flex;
   flex-direction: column;
+  animation: zoomOutCustom2;
+  animation-duration: 0.5s;
 }
 .DashboardProdDiv_div1 {
   margin-bottom: 1em;
