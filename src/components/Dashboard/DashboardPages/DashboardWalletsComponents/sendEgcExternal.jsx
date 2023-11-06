@@ -8,7 +8,7 @@ import {
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
+const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pinModal, setPinModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
@@ -130,7 +130,7 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">240.5 EGC</div>
+                <div className="availegc_bal_div_amount">{balance} EGC</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">

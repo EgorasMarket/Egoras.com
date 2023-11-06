@@ -36,11 +36,9 @@ const PlanSubDivs = ({
             ${PlanAmountLocal}{" "}
           </div>
         </div>
-        <div className="Step2Div2_member_div2_body_1_amount_title_slashed">
-          <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount">
-            {planTxt}
-          </div>
-        </div>
+        {/* <div className="Step2Div2_member_div2_body_1_amount_title_slashed">
+          <div className="Step2Div2_member_div2_body_1_amount_title_slashed_amount"></div>
+        </div> */}
       </div>
       <div className="Step2Div2_member_div2_body_1_sub_button">
         {activePlan == id ? (
@@ -60,42 +58,12 @@ const PlanSubDivs = ({
       <div className="Step2Div2_member_div2_body_1_features_div">
         <div className="Step2Div2_member_div2_body_1_features_div_1">
           <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Access to a world of sustainable energy.
+            {planTxt}
           </div>
-          <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
+          {/* <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
             <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
             <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-          </div>
-        </div>
-
-        <div className="Step2Div2_member_div2_body_1_features_div_1">
-          <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Seamless online shopping and delivery,
-          </div>
-          <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-          </div>
-        </div>
-        <div className="Step2Div2_member_div2_body_1_features_div_1">
-          <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Environmental stewardship, through promoting our gas and electric
-            vehicles.
-          </div>
-          <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-          </div>
-        </div>
-        <div className="Step2Div2_member_div2_body_1_features_div_1">
-          <div className="Step2Div2_member_div2_body_1_features_div_1_feature">
-            Instant remote earnings through referral purchases and subscription
-            cashbacks as high as 25%.
-          </div>
-          <div className="Step2Div2_member_div2_body_1_features_div_1_rate">
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-            <CheckIcon className="joinCooperativeModalDiv_area_body1_div1_icon2" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 
-const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
+const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
@@ -37,9 +37,13 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
 
   const handleOnChange = async (e) => {
     const { id, value } = e.target;
+
+    setPayload({ ...payload, [id]: value });
+    if (id === "amount") {
+      return;
+    }
     setBeneficiaryData("");
     setHasUser(false);
-    setPayload({ ...payload, [id]: value });
     if (e.target.value === "") {
       setFetchingUser(false);
       setHasUserError(false);
@@ -80,15 +84,17 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
     //console.logog(response);
     setLoading(false);
 
-    if (response.data.success === false) {
+    if (response.success) {
+      setSuccessMsg("Transaction succesful");
+      setPinModal(false);
+      setSuccessModal(true);
+      return;
+    }
+    if (!response.data.success) {
       setPinModal(false);
       toast.error(response.data.errorMessage);
       return;
     }
-    setPinModal(false);
-    setSuccessMsg("Transaction succesful");
-    setSuccessModal(true);
-    setPinModal(false);
     // window.location.href = "/dashboard/transaction";
   };
 
@@ -126,7 +132,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
               <div className="depositMoneyDiv_cont_body_input_div_div">
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
-                    src="/img/egc_icon2.svg"
+                    src="https://i.imgur.com/JXm7zwC.png"
                     alt=""
                     className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                   />
@@ -210,7 +216,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">240.5 EGC</div>
+                <div className="availegc_bal_div_amount">{balance}NGN</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">

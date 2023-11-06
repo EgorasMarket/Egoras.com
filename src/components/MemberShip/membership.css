@@ -2468,13 +2468,13 @@ x .benefits_section1_area2_body1_cont2 {
   font-size: 13px;
   text-align: left;
   width: 100%;
-  max-width: 250px;
 }
 
 .Step2Div2_member_div2_body_1_features_div_1_rate {
   display: flex;
   align-items: center;
 }
+
 .Step2Div2_member_div2_body_1_amount_title_slashed_amount_save {
   text-decoration: none !important;
   color: #22ad62;
