@@ -28,6 +28,7 @@ function App() {
     // const response = await VERIFY_USER();
     const response = await dispatch(fetchWalletBalance());
     // console.log(response);
+    // console.log(response);
   };
   useEffect(() => {
     verify_user();
