@@ -21,8 +21,8 @@ const DasboardMember = ({ refCode }) => {
 
   const getMySubscriptions = async () => {
     const response = await GET_MY_SUBSCRIPTION();
-    console.log(response);
-    console.log(response.data.subcribers);
+    // console.log(response);
+    // console.log(response.data.subcribers);
     if (response.success === true) {
       setComponentLoading(false);
       if (response.data.subcribers == null) {
@@ -47,11 +47,11 @@ const DasboardMember = ({ refCode }) => {
   useEffect(() => {
     getMySubscriptions();
   }, []);
-  console.log(noPlan);
+  // console.log(noPlan);
   useEffect(() => {
     const elapsedTime = CurrentDate - StartDate;
     const totalTimeRange = EndDate - StartDate;
-    console.log(progressPercent);
+    // console.log(progressPercent);
     const progressPercentVar = (elapsedTime / totalTimeRange) * 100;
     const daysRemainingVar = Math.ceil(
       (EndDate - CurrentDate) / (1000 * 60 * 60 * 24)

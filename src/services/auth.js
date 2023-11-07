@@ -15,9 +15,9 @@ import { CustomResponse } from "../utils/CustomResponse";
 import setAuthToken from "../utils/setAuthToken";
 
 export const LOGIN_USER = async (payload) => {
-  console.log("====================================");
-  console.log(LOGIN);
-  console.log("====================================");
+  // // console.log("====================================");
+  // // console.log(LOGIN);
+  // // console.log("====================================");
   /**
      * 
      *      Map<String, String> data = {
@@ -31,10 +31,10 @@ export const LOGIN_USER = async (payload) => {
   try {
     const response = await axios.post(`${LOGIN}`, payload);
 
-    //console.logog(response.data.message);
+    //// console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    //console.logog(error.response || error.response.data.message);
+    //// console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -52,10 +52,10 @@ export const REGISTER_USER = async (payload) => {
   try {
     const response = await axios.post(`${REGISTER_ROUTE}`, payload);
 
-    //console.logog(response.data.message);
+    //// console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    //console.logog(error.response || error.response.data.message);
+    //// console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -73,10 +73,10 @@ export const GENERATE_USER_WALLET_ADDRESS = async (payload) => {
       payload
     );
 
-    //console.logog(response.data.message);
+    //// console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    //console.logog(error.response || error.response.data.message);
+    //// console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -90,10 +90,10 @@ export const GENERATE_USER_WALLET_ADDRESS_MART_GPT = async (payload) => {
   try {
     const response = await axios.post(`${REGISTER_WALLET_MARTGPT}`, payload);
 
-    //console.logog(response.data.message);
+    //// console.logog(response.data.message);
     return response.data;
   } catch (error) {
-    //console.logog(error.response || error.response.data.message);
+    //// console.logog(error.response || error.response.data.message);
     return error.response;
   }
 };
@@ -116,6 +116,15 @@ export const VERIFY_OTP = async (payload) => {
     return error.response || error.message;
   }
 };
+// export const RESEND_SMS_OTP = async (payload) => {
+//   try {
+//     setAuthToken(localStorage.getItem("x-token"));
+//     const response = await axios.post(VERIFY_OTP_ROUTE, payload);
+//     return response.data;
+//   } catch (error) {
+//     return error.response || error.message;
+//   }
+// };
 export const RESEND_SMS_OTP = async (payload) => {
   try {
     setAuthToken(localStorage.getItem("x-token"));

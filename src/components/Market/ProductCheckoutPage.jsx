@@ -64,7 +64,7 @@ const ProductCheckoutPage = () => {
     symbol: "NGN",
     user: user?.wallet_address,
   });
-  //console.logog(id);
+  //// console.logog(id);
   useEffect(() => {
     let states = State.getStatesOfCountry("NG");
     let tempState = states;
@@ -88,7 +88,7 @@ const ProductCheckoutPage = () => {
       index_id: response.data.index_id,
       amount: response.data.final_amount,
     });
-    //console.logog(response);
+    //// console.logog(response);
   };
 
   const createPin = async () => {
@@ -98,11 +98,11 @@ const ProductCheckoutPage = () => {
     temp = { ...payload, pin_code: pin };
     // setPinModal(false);
     const response = await MAKE_PAYMENT_FOR_PRODUCT(temp);
-    //console.logog(response);
+    //// console.logog(response);
 
     if (response.success === true) {
       // toast.success("Product Purchase Successful");
-      //console.logog(response);
+      //// console.logog(response);
       setSuccess(true);
       setPinLoading(false);
       setProcessing(false);
@@ -114,7 +114,7 @@ const ProductCheckoutPage = () => {
       setProcessing(false);
       setErrorTxt(response.data.errorMessage);
       setPinModal(false);
-      //console.logog(response);
+      //// console.logog(response);
       // toast.warn(response.data.errorMessage);
       return;
     }
@@ -142,7 +142,7 @@ const ProductCheckoutPage = () => {
       }
     }
   }, []);
-  console.log(nairaBalance, egcBalance, data);
+  // console.log(nairaBalance, egcBalance, data);
   useEffect(() => {
     if (selectedState == "" || deliveryVal == "") {
       setDeliverBtnDisable(true);
@@ -159,7 +159,7 @@ const ProductCheckoutPage = () => {
   }, [deliveryVal]);
 
   const handleStateOnChange = (e) => {
-    //console.logog(e);
+    //// console.logog(e);
     setSelectedState(e.label);
     const city = City.getCitiesOfState("NG", e.isoCode.toString());
     let tempCity = city;
@@ -169,8 +169,8 @@ const ProductCheckoutPage = () => {
     });
   };
 
-  //console.logog(selectedState);
-  //console.logog(deliveryVal);
+  //// console.logog(selectedState);
+  //// console.logog(deliveryVal);
   const checkedPickupStore = () => {
     setDeliveryVal("PICKUP");
   };
@@ -186,23 +186,23 @@ const ProductCheckoutPage = () => {
       state: selectedState,
       item: name,
     };
-    //console.logog(values);
+    //// console.logog(values);
     const response = await SUBMIT_USER_DELIEVRY(id, values);
-    //console.logog(response);
+    //// console.logog(response);
     if (response.success === true) {
       setIsDeliverLoading(false);
       setSuccessModal(true);
       setSuccessTxt(
         "You have selcted to pick up your product on delivery, our customer service will reach out to you soon."
       );
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
       setIsDeliverLoading(false);
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
   };
@@ -213,9 +213,9 @@ const ProductCheckoutPage = () => {
       delivery_type: deliveryVal,
       item: name,
     };
-    //console.logog(values);
+    //// console.logog(values);
     const response = await SUBMIT_USER_DELIEVRY(id, values);
-    //console.logog(response);
+    //// console.logog(response);
     if (response.success === true) {
       setIsDeliverLoading(false);
 
@@ -236,7 +236,7 @@ const ProductCheckoutPage = () => {
           </div>
         </div>
       );
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
@@ -244,7 +244,7 @@ const ProductCheckoutPage = () => {
 
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
   };

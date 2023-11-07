@@ -324,10 +324,24 @@
   width: 100%;
   max-width: 450px;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   overflow-y: scroll;
   animation: fadeInRight;
   animation-duration: 0.5s;
+}
+.depositMoneyDiv_iconb {
+  background: #000000b3;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 28px !important;
+  padding: 4px;
+  position: absolute !important;
+  right: 32px;
+  top: 20px;
+  z-index: 100 !important;
+  display: block !important;
+  /* display: block !important; */
+  color: #fff;
 }
 .depositMoneyDiv_table_body {
   display: flex;

@@ -121,7 +121,7 @@
   height: 0.45rem;
   width: 0.45rem;
   right: 0%;
-  left: 100%;
+  left: 95%;
   top: 3%;
 }
 
@@ -137,8 +137,8 @@
   display: inline-flex;
   height: 100%;
   width: 100%;
-  left: 100%;
-  top: 4%;
+  left: 95%;
+  top: 3%;
   opacity: 0.75;
 }
 
@@ -150,8 +150,8 @@
 @-webkit-keyframes ping {
   75%,
   to {
-    -webkit-transform: scale(2);
-    transform: scale(2);
+    -webkit-transform: scale(5);
+    transform: scale(5);
     opacity: 0;
   }
 }
@@ -159,8 +159,8 @@
 @keyframes ping {
   75%,
   to {
-    -webkit-transform: scale(2);
-    transform: scale(2);
+    -webkit-transform: scale(5);
+    transform: scale(5);
     opacity: 0;
   }
 }
