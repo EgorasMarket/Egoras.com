@@ -26,7 +26,7 @@ const TableModal = ({
   // };
   return (
     <div className="depositMoneyDiv">
-      <div className="depositMoneyDiv_cont">
+      <div className="depositMoneyDiv_contb">
         <CloseOutlinedIcon
           className="depositMoneyDiv_iconb"
           onClick={closeModal}

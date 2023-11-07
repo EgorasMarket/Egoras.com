@@ -315,20 +315,7 @@
   padding: 1em;
   padding-top: 2em;
 }
-.depositMoneyDiv_contb {
-  background: #161619;
-  height: 100%;
-  padding: 2em 0em;
-  color: #fff;
-  display: flex;
-  width: 100%;
-  max-width: 450px;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow-y: scroll;
-  animation: fadeInRight;
-  animation-duration: 0.5s;
-}
+
 .depositMoneyDiv_iconb {
   background: #000000b3;
   border-radius: 5px;
