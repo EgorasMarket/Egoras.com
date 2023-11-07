@@ -164,12 +164,12 @@ const TableModal = ({
             />
           </div>
         </div>
-        <div className="SaveReceipt_btn_div">
+        {/* <div className="SaveReceipt_btn_div">
           <button className="SaveReceipt_btn" onClick={saveDivAsImage}>
             <DownloadIcon />
             Save Receipt
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
