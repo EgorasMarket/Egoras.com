@@ -41,7 +41,7 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
       ...payload,
       pin_code: pin,
     });
-    //console.logog(response);
+    //// console.logog(response);
     setLoading(false);
 
     if (response.success) {
@@ -91,7 +91,7 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
 
       const resp = await USERNAME_EMAIL_IS_VALID(data);
       setFetchingUser(false);
-      console.log(resp);
+      // console.log(resp);
       if (resp.data.success === false) {
         setHasUser(false);
         setBeneficiaryData("");

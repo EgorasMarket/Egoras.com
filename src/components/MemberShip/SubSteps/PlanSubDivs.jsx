@@ -14,7 +14,7 @@ const PlanSubDivs = ({
   planTxt,
   id,
 }) => {
-  console.log(id, activePlan);
+  // console.log(id, activePlan);
   return (
     <div
       className={

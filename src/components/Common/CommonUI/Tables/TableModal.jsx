@@ -17,25 +17,20 @@ const TableModal = ({
 
   const saveDivAsImage = () => {
     const divElement = divRef.current;
-
-    // Use html2canvas to capture the content of the div and convert it to an image
     html2canvas(divElement).then(function (canvas) {
-      // Create a temporary link to download the image
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
       link.download = "transaction_details.png"; // The filename for the downloaded image
-
-      // Trigger a click event on the link to download the image
       link.click();
     });
   };
   return (
     <div className="depositMoneyDiv">
+      <CloseOutlinedIcon
+        className="depositMoneyDiv_iconb"
+        onClick={closeModal}
+      />
       <div className="depositMoneyDiv_contb">
-        <CloseOutlinedIcon
-          className="depositMoneyDiv_icon"
-          onClick={closeModal}
-        />
         <div className="depositMoneyDiv_table_body" ref={divRef}>
           <div className="depositMoneyDiv_table_body_title">
             Transaction Details

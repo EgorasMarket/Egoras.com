@@ -30,7 +30,7 @@ const SendUsdExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
       ...payload,
       pin_code: pin,
     });
-    //console.logog(response);
+    //// console.logog(response);
     setLoading(false);
     if (!response.data.success) {
       setPinModal(false);

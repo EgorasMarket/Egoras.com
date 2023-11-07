@@ -54,13 +54,13 @@ const UpdatedSwap = () => {
     }
 
     if (selectedToken1.symbol === "EGC" && selectedToken2.symbol === "USD") {
-      console.log("USD/EGC");
+      // console.log("USD/EGC");
       setPriceLoading(true);
       const response = await GET_SWAP_PRICE({
         tokenA: "USD",
         tokenB: "EGC",
       });
-      console.log(response);
+      // console.log(response);
       if (!response.success) {
         setPriceLoading(false);
         return;
@@ -71,13 +71,13 @@ const UpdatedSwap = () => {
     }
 
     if (selectedToken1.symbol === "USD" && selectedToken2.symbol === "EGC") {
-      console.log("USD/EGC");
+      // console.log("USD/EGC");
       setPriceLoading(true);
       const response = await GET_SWAP_PRICE({
         tokenA: "USD",
         tokenB: "EGC",
       });
-      console.log(response);
+      // console.log(response);
       if (!response.success) {
         setPriceLoading(false);
         return;
@@ -89,13 +89,13 @@ const UpdatedSwap = () => {
     }
 
     if (selectedToken1.symbol === "NGN" && selectedToken2.symbol === "EGC") {
-      console.log("NGN/EGC");
+      // console.log("NGN/EGC");
       setPriceLoading(true);
       const response = await GET_SWAP_PRICE({
         tokenA: "NGN",
         tokenB: "EGC",
       });
-      console.log(response);
+      // console.log(response);
       if (!response.success) {
         setPriceLoading(false);
         return;
@@ -106,13 +106,13 @@ const UpdatedSwap = () => {
     }
 
     if (selectedToken1.symbol === "EGC" && selectedToken2.symbol === "NGN") {
-      console.log("NGN/EGC");
+      // console.log("NGN/EGC");
       setPriceLoading(true);
       const response = await GET_SWAP_PRICE({
         tokenA: "NGN",
         tokenB: "EGC",
       });
-      console.log(response);
+      // console.log(response);
       if (!response.success) {
         setPriceLoading(false);
         return;
@@ -123,13 +123,13 @@ const UpdatedSwap = () => {
     }
 
     if (selectedToken1.symbol === "USD" && selectedToken2.symbol === "NGN") {
-      console.log("USD/NGN");
+      // console.log("USD/NGN");
       setPriceLoading(true);
       const response = await GET_SWAP_PRICE({
         tokenA: "USD",
         tokenB: "NGN",
       });
-      console.log(response);
+      // console.log(response);
 
       if (!response.success) {
         setPriceLoading(false);
@@ -141,13 +141,13 @@ const UpdatedSwap = () => {
     }
 
     if (selectedToken1.symbol === "NGN" && selectedToken2.symbol === "USD") {
-      console.log("USD/NGN");
+      // console.log("USD/NGN");
       setPriceLoading(true);
       const response = await GET_SWAP_PRICE({
         tokenA: "USD",
         tokenB: "NGN",
       });
-      console.log(response);
+      // console.log(response);
       if (!response.success) {
         setPriceLoading(false);
         return;
@@ -159,9 +159,9 @@ const UpdatedSwap = () => {
   };
   const getSwapTickers = async () => {
     const response = await FETCH_SWAP();
-    console.log(response);
+    // console.log(response);
   };
-  console.log(marketPrice);
+  // console.log(marketPrice);
   useEffect(() => {
     getSwapTickers();
   }, []);
@@ -216,7 +216,7 @@ const UpdatedSwap = () => {
 
   useEffect(() => {
     if (selectedToken1) {
-      console.log(parseFloat(SwapAmount), parseFloat(selectedToken1.balance));
+      // console.log(parseFloat(SwapAmount), parseFloat(selectedToken1.balance));
       const ParsedSwapAmount = parseFloat(SwapAmount);
       const ParsedTokenBal = parseFloat(selectedToken1.balance);
       if (
@@ -257,9 +257,9 @@ const UpdatedSwap = () => {
         amountOut: AmountOut,
         swapWithMarketPrice: false,
       };
-      //console.logog(payload);
+      //// console.logog(payload);
       const response = await SWAP(payload);
-      //console.logog(response);
+      //// console.logog(response);
       if (response.success === true) {
         setLoading(false);
         setSuccessModal(true);
@@ -267,7 +267,7 @@ const UpdatedSwap = () => {
         setSuccessTxt(
           ` You have successfully swapped ${SwapAmount} ${selectedToken1.symbol} for ${AmountOut} ${selectedToken2.symbol}`
         );
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       if (!response?.data?.success || !response?.data) {
@@ -275,7 +275,7 @@ const UpdatedSwap = () => {
         setPinModal(false);
         setErrorModal(true);
         setErrorTxt(response.data.errorMessage);
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       return;
@@ -291,9 +291,9 @@ const UpdatedSwap = () => {
         amountOut: AmountOut,
         swapWithMarketPrice: false,
       };
-      //console.logog(payload);
+      //// console.logog(payload);
       const response = await SWAP(payload);
-      //console.logog(response);
+      //// console.logog(response);
       if (response.success === true) {
         setLoading(false);
         setSuccessModal(true);
@@ -301,7 +301,7 @@ const UpdatedSwap = () => {
         setSuccessTxt(
           ` You have successfully swapped ${SwapAmount} ${selectedToken1.symbol} for ${AmountOut} ${selectedToken2.symbol}`
         );
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       if (!response?.data?.success || !response?.data) {
@@ -309,7 +309,7 @@ const UpdatedSwap = () => {
         setPinModal(false);
         setErrorModal(true);
         setErrorTxt(response.data.errorMessage);
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       return;
@@ -325,9 +325,9 @@ const UpdatedSwap = () => {
         amountOut: AmountOut,
         swapWithMarketPrice: false,
       };
-      //console.logog(payload);
+      //// console.logog(payload);
       const response = await SWAP(payload);
-      //console.logog(response);
+      //// console.logog(response);
       if (response.success === true) {
         setLoading(false);
         setSuccessModal(true);
@@ -335,7 +335,7 @@ const UpdatedSwap = () => {
         setSuccessTxt(
           ` You have successfully swapped ${SwapAmount} ${selectedToken1.symbol} for ${AmountOut} ${selectedToken2.symbol}`
         );
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       if (!response?.data?.success || !response?.data) {
@@ -343,7 +343,7 @@ const UpdatedSwap = () => {
         setPinModal(false);
         setErrorModal(true);
         setErrorTxt(response.data.errorMessage);
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       return;
@@ -359,9 +359,9 @@ const UpdatedSwap = () => {
         amountOut: AmountOut,
         swapWithMarketPrice: false,
       };
-      //console.logog(payload);
+      //// console.logog(payload);
       const response = await SWAP(payload);
-      //console.logog(response);
+      //// console.logog(response);
       if (response.success === true) {
         setLoading(false);
         setSuccessModal(true);
@@ -369,7 +369,7 @@ const UpdatedSwap = () => {
         setSuccessTxt(
           ` You have successfully swapped ${SwapAmount} ${selectedToken1.symbol} for ${AmountOut} ${selectedToken2.symbol}`
         );
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       if (!response?.data?.success || !response?.data) {
@@ -377,7 +377,7 @@ const UpdatedSwap = () => {
         setPinModal(false);
         setErrorModal(true);
         setErrorTxt(response.data.errorMessage);
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       return;
@@ -393,9 +393,9 @@ const UpdatedSwap = () => {
         amountOut: AmountOut,
         swapWithMarketPrice: false,
       };
-      //console.logog(payload);
+      //// console.logog(payload);
       const response = await SWAP(payload);
-      //console.logog(response);
+      //// console.logog(response);
       if (response.success === true) {
         setLoading(false);
         setSuccessModal(true);
@@ -403,7 +403,7 @@ const UpdatedSwap = () => {
         setSuccessTxt(
           ` You have successfully swapped ${SwapAmount} ${selectedToken1.symbol} for ${AmountOut} ${selectedToken2.symbol}`
         );
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       if (!response?.data?.success || !response?.data) {
@@ -411,7 +411,7 @@ const UpdatedSwap = () => {
         setPinModal(false);
         setErrorModal(true);
         setErrorTxt(response.data.errorMessage);
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       return;
@@ -427,9 +427,9 @@ const UpdatedSwap = () => {
         amountOut: AmountOut,
         swapWithMarketPrice: false,
       };
-      //console.logog(payload);
+      //// console.logog(payload);
       const response = await SWAP(payload);
-      //console.logog(response);
+      //// console.logog(response);
       if (response.success === true) {
         setLoading(false);
         setSuccessModal(true);
@@ -437,7 +437,7 @@ const UpdatedSwap = () => {
         setSuccessTxt(
           ` You have successfully swapped ${SwapAmount} ${selectedToken1.symbol} for ${AmountOut} ${selectedToken2.symbol}`
         );
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       if (!response?.data?.success || !response?.data) {
@@ -445,7 +445,7 @@ const UpdatedSwap = () => {
         setPinModal(false);
         setErrorModal(true);
         setErrorTxt(response.data.errorMessage);
-        //console.logog(response);
+        //// console.logog(response);
         return;
       }
       return;
@@ -468,7 +468,7 @@ const UpdatedSwap = () => {
     setAmountOut(parseNumber * marketPrice);
   };
 
-  console.log(SwapAmount);
+  // console.log(SwapAmount);
   const ToggleSwapInputs = () => {
     setSwapAmount("");
     setSelectedToken2(selectedToken1);
@@ -501,9 +501,9 @@ const UpdatedSwap = () => {
   const closeTokenModal1 = (token) => {
     setSwapAmount("");
     setTokenModal1(!tokenModal1);
-    console.log(token);
-    console.log(selectedToken2);
-    console.log(selectedToken1);
+    // console.log(token);
+    // console.log(selectedToken2);
+    // console.log(selectedToken1);
     if (selectedToken1 === null && selectedToken2 === null) {
       setSelectedToken1(token);
       return;
@@ -537,9 +537,9 @@ const UpdatedSwap = () => {
   const closeTokenModal2 = (token) => {
     setSwapAmount("");
     setTokenModal2(!tokenModal2);
-    console.log(token);
-    console.log(selectedToken1);
-    console.log(selectedToken2);
+    // console.log(token);
+    // console.log(selectedToken1);
+    // console.log(selectedToken2);
     if (selectedToken1 === null && selectedToken2 === null) {
       setSelectedToken2(token);
       return;
@@ -568,7 +568,7 @@ const UpdatedSwap = () => {
     }
   };
 
-  console.log(data);
+  // console.log(data);
   const updatedTokenObject = TokenObject.map((token) => {
     const matchingNewToken = data.find(
       (newToken) => newToken.symbol === token.symbol
@@ -579,7 +579,7 @@ const UpdatedSwap = () => {
     }
     return token;
   });
-  console.log(updatedTokenObject);
+  // console.log(updatedTokenObject);
   return (
     <div className="liquidity_area">
       <div className="liquidity_area1">

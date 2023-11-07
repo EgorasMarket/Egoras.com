@@ -22,14 +22,14 @@ const DashboardOrders = () => {
   const [orders, setOrders] = useState([]);
   const ToggleSaleDetails = (product_id) => {
     setSaleDetails(product_id);
-    //console.logog(product_id);
+    //// console.logog(product_id);
   };
   //
   const showPurchasedProduct = async () => {
     setProductLoading(true);
 
     const response = await SHOW_ALL_PURCHASED_PRODUCT(user?.wallet_address);
-    console.log(response);
+    // console.log(response);
     if (response.success === true) {
       setProductLoading(false);
     } else {

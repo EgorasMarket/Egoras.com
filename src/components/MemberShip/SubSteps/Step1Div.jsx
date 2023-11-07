@@ -104,8 +104,8 @@ export const Step1Div = ({ toggleSteps }) => {
   const [memberStatus, setMemberStatus] = useState(false);
   const getMySubscriptions = async () => {
     const response = await GET_MY_SUBSCRIPTION();
-    console.log(response);
-    console.log(response.data.subcribers);
+    // console.log(response);
+    // console.log(response.data.subcribers);
     if (response.success === true) {
       if (response.data.subcribers === null) {
         setMemberStatus(false);
