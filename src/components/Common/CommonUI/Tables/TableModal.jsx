@@ -15,22 +15,22 @@ const TableModal = ({
 }) => {
   const divRef = useRef(null);
 
-  const saveDivAsImage = () => {
-    const divElement = divRef.current;
-    html2canvas(divElement).then(function (canvas) {
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = "transaction_details.png"; // The filename for the downloaded image
-      link.click();
-    });
-  };
+  // const saveDivAsImage = () => {
+  //   const divElement = divRef.current;
+  //   html2canvas(divElement).then(function (canvas) {
+  //     const link = document.createElement("a");
+  //     link.href = canvas.toDataURL("image/png");
+  //     link.download = "transaction_details.png"; // The filename for the downloaded image
+  //     link.click();
+  //   });
+  // };
   return (
     <div className="depositMoneyDiv">
-      <CloseOutlinedIcon
-        className="depositMoneyDiv_iconb"
-        onClick={closeModal}
-      />
-      <div className="depositMoneyDiv_contb">
+      <div className="depositMoneyDiv_cont">
+        <CloseOutlinedIcon
+          className="depositMoneyDiv_iconb"
+          onClick={closeModal}
+        />
         <div className="depositMoneyDiv_table_body" ref={divRef}>
           <div className="depositMoneyDiv_table_body_title">
             Transaction Details
@@ -164,12 +164,12 @@ const TableModal = ({
             />
           </div>
         </div>
-        <div className="SaveReceipt_btn_div">
+        {/* <div className="SaveReceipt_btn_div">
           <button className="SaveReceipt_btn" onClick={saveDivAsImage}>
             <DownloadIcon />
             Save Receipt
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
