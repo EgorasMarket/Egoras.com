@@ -33,19 +33,19 @@ const ProductDetailPage = () => {
   };
   const countChange = (e) => {
     setCount(parseFloat(e.target.value));
-    //console.logog(e.target.value);
+    //// console.logog(e.target.value);
     if (e.target.value === "") {
       setCount(1);
       return;
     }
     if (parseFloat(e.target.value) >= product.quantity) {
       setCount(product.quantity);
-      //console.logog("ive reached");
+      //// console.logog("ive reached");
       return;
     }
     if (parseFloat(e.target.value) <= 1) {
       setCount(1);
-      //console.logog("ive reached");
+      //// console.logog("ive reached");
       return;
     }
   };
@@ -57,7 +57,7 @@ const ProductDetailPage = () => {
       return;
     }
     setProduct(response.data);
-    //console.logog(response);
+    //// console.logog(response);
   };
 
   useEffect(() => {

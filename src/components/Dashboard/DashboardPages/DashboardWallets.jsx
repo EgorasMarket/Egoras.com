@@ -160,8 +160,8 @@ const DashboardWallets = () => {
       setContentLoadingTable(true);
       //  setTableData([]);
     }
-    //console.logog(response.data);
-    //console.logog(response);
+    //// console.logog(response.data);
+    //// console.logog(response);
   };
   useEffect(() => {
     fetchWalletTransactions();

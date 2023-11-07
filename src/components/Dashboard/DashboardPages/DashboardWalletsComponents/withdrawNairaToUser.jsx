@@ -60,7 +60,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
 
       const resp = await USERNAME_EMAIL_IS_VALID(data);
       setFetchingUser(false);
-      console.log(resp);
+      // console.log(resp);
       if (resp.data.success === false) {
         setHasUser(false);
         setBeneficiaryData("");
@@ -81,7 +81,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
     data = { ...data, pin_code: pin };
 
     const response = await SEND_CRYPTO_FUNDS_INTERNAL(data);
-    //console.logog(response);
+    //// console.logog(response);
     setLoading(false);
 
     if (response.success) {

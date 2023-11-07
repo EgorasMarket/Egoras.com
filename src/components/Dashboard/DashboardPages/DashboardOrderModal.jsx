@@ -20,7 +20,7 @@ const DashboardOrderModal = ({ closeModal, payload }) => {
 
   const images = JSON.parse(payload.product_images);
   const specifications = payload.product_specifications.split(",");
-  //console.logog(specifications);
+  //// console.logog(specifications);
 
   return (
     <div className="depositMoneyDiv">

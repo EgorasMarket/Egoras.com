@@ -53,7 +53,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal, balance }) => {
   const fetchBankList = async () => {
     if (bankList.length >= 1) return;
     const response = await FETCH_BANK_LIST();
-    //console.logog(response, "mma");
+    //// console.logog(response, "mma");
 
     setBankList(response.data?.rows);
   };
@@ -61,7 +61,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal, balance }) => {
   const handleBankOnChange = (e) => {
     const { value } = e.target;
 
-    //console.logog(JSON.parse(value));
+    //// console.logog(JSON.parse(value));
     let temp = JSON.parse(value);
 
     if (Object.keys(value).length === 0) return;
@@ -87,7 +87,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal, balance }) => {
       account_number: value,
     });
     verify_account_number(value);
-    //console.logog(bankInfo);
+    //// console.logog(bankInfo);
 
     return;
   };

@@ -68,9 +68,9 @@ const DashboardReferral = () => {
   const fetchWalletTransactions = async () => {
     setContentLoadingTable(true);
     const response = await FETCH_WALLET_TRANSACTIONS();
-    console.log("====================================");
-    console.log(response);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(response);
+    // console.log("====================================");
     if (response.success === true) {
       setContentLoadingTable(false);
       setTableData(response.data);
@@ -100,8 +100,8 @@ const DashboardReferral = () => {
 
   const getMyRewardBalance = async () => {
     const response = await GET_MY_REWARD_BALANCE();
-    console.log(response);
-    console.log(response.data);
+    // console.log(response);
+    // console.log(response.data);
     setRefEarnings2(response.data.referral);
     setRefEarnings(response.data.purchase);
     if (response.success === true) {
@@ -112,15 +112,15 @@ const DashboardReferral = () => {
   };
   const getMySubscriptions = async () => {
     const response = await GET_MY_SUBSCRIPTION();
-    console.log(response);
-    console.log(response.data.subcribers);
+    // console.log(response);
+    // console.log(response.data.subcribers);
     if (response.success === true) {
       setComponentLoading(false);
       if (response.data.referralCode == null) {
         setRefLink("");
       } else {
         setRefLink(response.data.referralCode.referral);
-        console.log(response.data.referralCode.referral);
+        // console.log(response.data.referralCode.referral);
       }
       if (response.data.subcribers == null) {
         setDisable(true);
@@ -136,15 +136,15 @@ const DashboardReferral = () => {
   };
   const getMyReferrals = async () => {
     const response = await GET_MY_REFERRAL();
-    console.log(response);
-    console.log(response.data.listOfReferrals);
+    // console.log(response);
+    // console.log(response.data.listOfReferrals);
     setMyReferrals(response.data.listOfReferrals);
     setRefCount(response.data.listOfReferrals.length);
   };
   const getReferralLeaderBoard = async () => {
     const response = await GET_REFERRAL_LEADERBOARD();
-    console.log(response);
-    console.log(response.data.referralLeaderBoard);
+    // console.log(response);
+    // console.log(response.data.referralLeaderBoard);
     setLeaderBoard(response.data.referralLeaderBoard);
   };
   useEffect(() => {
@@ -157,13 +157,13 @@ const DashboardReferral = () => {
   useEffect(() => {
     const parseRefEarn1 = parseInt(refEarnings);
     const parseRefEarn2 = parseInt(refEarnings2);
-    console.log(refEarnings, refEarnings2);
+    // console.log(refEarnings, refEarnings2);
     if (parseRefEarn2 < 10) {
-      console.log("you cant withdraw less tha 10 dollars");
+      // console.log("you cant withdraw less tha 10 dollars");
       return;
     }
     if (parseRefEarn1 < 100000) {
-      console.log("you cant withdraw less tha 100,000 naira");
+      // console.log("you cant withdraw less tha 100,000 naira");
       return;
     }
   }, [refEarnings, refEarnings2]);
@@ -189,9 +189,9 @@ const DashboardReferral = () => {
       type: type,
       pin_code: pin,
     };
-    console.log(payload);
+    // console.log(payload);
     const response = await WITHDRAW_REFERRAL_EARNINGS(payload);
-    console.log(response);
+    // console.log(response);
 
     if (type == "PURCHASE") {
       if (response.success === true) {

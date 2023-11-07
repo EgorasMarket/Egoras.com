@@ -36,8 +36,8 @@ const Home = () => {
 
   const getMySubscriptions = async () => {
     const response = await GET_MY_SUBSCRIPTION();
-    console.log(response);
-    console.log(response.data.subcribers);
+    // console.log(response);
+    // console.log(response.data.subcribers);
     if (response.success === true) {
       if (response.data.subcribers === null) {
         setMemberStatus(false);
@@ -57,9 +57,9 @@ const Home = () => {
       setIsLoggedIn(true);
     }
   }, [user]);
-  console.log("====================================");
-  console.log(isLoggedIn);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log(isLoggedIn);
+  // console.log("====================================");
   return (
     <div className="HomeDiv">
       <section className="HomeDivSection1">

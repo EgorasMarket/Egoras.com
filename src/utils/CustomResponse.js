@@ -1,7 +1,7 @@
 export const CustomResponse = ({ data, message, error, code }) => {
-  //console.logog(code);
+  //// console.logog(code);
   let isOk = Number(code) >= 200 && Number(code) < 300 ? true : false;
-  //console.logog(isOk);
+  //// console.logog(isOk);
   if (isOk === true)
     return {
       isOk: true,

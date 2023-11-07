@@ -26,7 +26,7 @@ const AreaChartComp = ({
   // const [lastIndex, setlastIndex] = useState(0);
 
   // useEffect(() => {
-  //   //console.logog(chartData);
+  //   //// console.logog(chartData);
 
   // }, []);
 
