@@ -166,7 +166,7 @@ const TableModal = ({
         </div>
 
         <button onClick={saveDivAsImage} className="SaveReceipt_btn">
-          {" "}
+          <DownloadIcon />
           Save
         </button>
         {/* <div className="SaveReceipt_btn_div">
