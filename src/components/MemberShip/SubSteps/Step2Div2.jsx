@@ -14,7 +14,7 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
   const [plans, setPlans] = useState([]);
   const toggleActivePlan = (e) => {
     setActivePlan(e.currentTarget.id);
-    console.log(e.currentTarget.id);
+    // console.log(e.currentTarget.id);
   };
 
   const fetchPlans = async () => {
@@ -23,16 +23,16 @@ const Step2Div2 = ({ toggleSteps, toggleCheckAgree, checkAgree }) => {
     if (!response.success) return;
 
     setPlans(response.data.subscriptionPlan);
-    console.log(response);
+    // console.log(response);
   };
 
   useEffect(() => {
     fetchPlans();
   }, []);
   const togglePlanDivs = (e) => {
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
     setPlanDiv(e.currentTarget.id);
-    console.log(e.currentTarget.id);
+    // console.log(e.currentTarget.id);
   };
   return (
     <div className="Step2Div2_member_div">

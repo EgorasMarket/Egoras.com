@@ -86,7 +86,7 @@ section.header_section {
   padding: 4em;
   backdrop-filter: blur(50px);
   animation: fadeInLeft;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   /* animation-delay: 3s; */
 }
 .headerMenuDiv_cont {

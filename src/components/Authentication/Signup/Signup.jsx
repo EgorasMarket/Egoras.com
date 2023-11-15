@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import SuccessModal from "../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
 import ErrorModal from "../../Common/CommonUI/Modals/ErrorModal/ErrorModal";
+import { RESEND_SMS_OTP } from "../../../services/auth";
 // import { setPayload } from "../../../features/user-registration/userRegistration";
 import { registerUser } from "../../../features/auth/authActions";
 import { setPayload } from "../../../features/auth/authSlice";
@@ -71,7 +72,7 @@ const Signup = () => {
   };
 
   const handleOnChange = (e) => {
-    //console.logog(e);
+    //// console.logog(e);
     const { id, value } = e.target;
     dispatch(setPayload({ ...payload, [id]: value }));
   };
@@ -89,7 +90,7 @@ const Signup = () => {
       referral,
       countrycode,
     } = payload;
-    //console.logog(payload);
+    //// console.logog(payload);
 
     let temp = "+" + phone.toString();
     let result = temp.replace(countrycode, "0");
@@ -102,7 +103,7 @@ const Signup = () => {
     const res = await dispatch(registerUser(newPayload));
     setPayload(newPayload);
 
-    //console.logog(res);
+    //// console.logog(res);
     if (res.payload?.code === 200) {
       setSubmitDisable(false);
       setOtpModal(true);
@@ -116,7 +117,31 @@ const Signup = () => {
       // return alert(res.payload?.data?.errorMessage);
     }
 
-    //console.logog("Failed");
+    //// console.logog("Failed");
+  };
+  const handleSignUpResend = async () => {
+    // const {
+    //   email,
+    //   password,
+    //   firstName,
+    //   lastName,
+    //   fullName,
+    //   username,
+    //   phone,
+    //   referral,
+    //   countrycode,
+    // } = payload;
+    const res = await RESEND_SMS_OTP({
+      email: payload.email,
+    });
+    // console.log("====================================");
+    // console.log(res);
+    // console.log("====================================");
+    if (res.payload?.data?.success === false) {
+      setSubmitDisable(false);
+      setErrorModal(true);
+      setErrorTxt(res.payload?.data?.errorMessage);
+    }
   };
 
   if (error) {
@@ -126,7 +151,7 @@ const Signup = () => {
   const handleVerifyOtp = async () => {
     setOtpDisable(true);
     setOtpLoading(true);
-    //console.logog(payload);
+    //// console.logog(payload);
 
     let temp = "+" + payload.phone.toString();
     let newPhone = temp.replace(payload.countrycode, "0");
@@ -137,7 +162,7 @@ const Signup = () => {
       phone: newPhone,
     });
 
-    //console.logog(response);
+    //// console.logog(response);
 
     if (response.success) {
       setSuccess(true);
@@ -314,7 +339,7 @@ const Signup = () => {
                     onChange={(value, country, e, formattedValue) => {
                       // let text = value;
                       // let result = text.replace(country.dialCode, "0");
-                      // //console.logog(result);
+                      // //// console.logog(result);
                       dispatch(
                         setPayload({
                           ...payload,
@@ -322,7 +347,7 @@ const Signup = () => {
                           phone: value,
                         })
                       );
-                      //console.logog(country, formattedValue, value);
+                      //// console.logog(country, formattedValue, value);
                     }}
                     // onChange={(phone) => this.setState({ phone })}
                   />
@@ -455,6 +480,7 @@ const Signup = () => {
           payload={payload}
           otpDisable={otpDisable}
           otpLoading={otpLoading}
+          resendOtp={handleSignUpResend}
         />
       ) : null}
       {success ? (

@@ -33,7 +33,7 @@ const PlanSubDivModal = ({
   const [swapModal, setSwapModal] = useState(false);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
     for (let i = 0; i < data.length; i++) {
       switch (data[i].name) {
         case "Dollar":
@@ -49,18 +49,18 @@ const PlanSubDivModal = ({
 
   const subscribe_membership = async () => {
     setisLoading(true);
-    console.log(planId);
+    // console.log(planId);
     const res = await SUBSCRIBE_MEMBERSHIP({
       planID: planId,
       symbol: "USD",
       pin_code: pin,
     });
-    console.log(res);
+    // console.log(res);
     setisLoading(false);
     setPinModal(false);
     if (res.success || res.data.success) {
       setSuccess(true);
-      console.log(res);
+      // console.log(res);
       return;
     }
     if (!res.success || !res.data.success) {
@@ -72,8 +72,8 @@ const PlanSubDivModal = ({
         setMessage(res.data.errorMessage);
       }
       setError(true);
-      console.log(res.data.errorMessage);
-      console.log(res);
+      // console.log(res.data.errorMessage);
+      // console.log(res);
       return;
     }
 
@@ -81,7 +81,7 @@ const PlanSubDivModal = ({
   };
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
     if (user === undefined) {
       setIsLoggedIn(false);
     } else {
@@ -90,7 +90,7 @@ const PlanSubDivModal = ({
   }, [user]);
 
   const UserLogin = () => {
-    console.log(window.location.href);
+    // console.log(window.location.href);
     localStorage.setItem("RedirectRoute", window.location.href);
     window.location.href = "/login"; // Redirect to the login page
   };
@@ -296,6 +296,9 @@ const PlanSubDivModal = ({
               const a = e.join("");
               setPin(a);
               return;
+            }}
+            toggleWebpin={() => {
+              setPinModal(false);
             }}
           />
         ) : null}

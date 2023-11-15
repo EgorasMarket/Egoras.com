@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SouthWestIcon from "@mui/icons-material/SouthWest";
 import { numberWithCommas } from "../../../../assets/js/numberWithCommas";
+import DownloadIcon from "@mui/icons-material/Download";
+import html2canvas from "html2canvas";
 const TableModal = ({
   closeModal,
   data,
@@ -11,14 +13,25 @@ const TableModal = ({
   formattedDate,
   formattedTime,
 }) => {
+  const divRef = useRef(null);
+
+  const saveDivAsImage = () => {
+    const divElement = divRef.current;
+    html2canvas(divElement).then(function (canvas) {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "transaction_details.png"; // The filename for the downloaded image
+      link.click();
+    });
+  };
   return (
     <div className="depositMoneyDiv">
-      <div className="depositMoneyDiv_cont">
+      <div className="depositMoneyDiv_contb">
         <CloseOutlinedIcon
-          className="depositMoneyDiv_icon"
+          className="depositMoneyDiv_iconb"
           onClick={closeModal}
         />
-        <div className="depositMoneyDiv_table_body">
+        <div className="depositMoneyDiv_table_body" ref={divRef}>
           <div className="depositMoneyDiv_table_body_title">
             Transaction Details
           </div>
@@ -143,7 +156,18 @@ const TableModal = ({
               </div>
             </div>
           </div>
+          <div className="depositMoneyDiv_table_body_title_img_div">
+            <img
+              src="/img/egoras-logo.png"
+              alt=""
+              className="depositMoneyDiv_table_body_title_img"
+            />
+          </div>
         </div>
+        <button onClick={saveDivAsImage} className="SaveReceipt_btn">
+          <DownloadIcon />
+          Save
+        </button>
       </div>
     </div>
   );

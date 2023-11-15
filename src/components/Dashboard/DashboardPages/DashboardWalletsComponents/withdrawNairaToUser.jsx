@@ -60,7 +60,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
 
       const resp = await USERNAME_EMAIL_IS_VALID(data);
       setFetchingUser(false);
-      console.log(resp);
+      // console.log(resp);
       if (resp.data.success === false) {
         setHasUser(false);
         setBeneficiaryData("");
@@ -81,7 +81,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
     data = { ...data, pin_code: pin };
 
     const response = await SEND_CRYPTO_FUNDS_INTERNAL(data);
-    //console.logog(response);
+    //// console.logog(response);
     setLoading(false);
 
     if (response.success) {
@@ -107,6 +107,9 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
       return;
     }
     setPinModal(true);
+  };
+  const AddMax = () => {
+    setPayload({ amount: balance });
   };
   return (
     <div className="depositMoneyDiv">
@@ -210,7 +213,10 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
                   onChange={handleOnChange}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
-                <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
+                <button
+                  className="depositMoneyDiv_cont_body_wallet_addr_div_btn"
+                  onClick={AddMax}
+                >
                   Max
                 </button>
               </div>
@@ -256,12 +262,15 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
             isLoading={loading}
             btnFunc={initiatePayout}
             pinTitle="Enter Pin to validate Transaction"
-            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            pinPara="Input your transaction pin to complete this transaction"
             btnFuncTxt="Proceed"
             handleOnComplete={(e) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+            toggleWebpin={() => {
+              setPinModal(false);
             }}
           />
         ) : null}

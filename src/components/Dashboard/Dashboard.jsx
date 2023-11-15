@@ -15,18 +15,18 @@ const Dashboard = () => {
   const { user, loading, error } = useSelector((state) => state.auth);
   useEffect(() => {
     if (user === null || (user === undefined && loading === false)) {
-      console.log(window.location.href);
+      // console.log(window.location.href);
       localStorage.setItem("RedirectRoute", window.location.href);
       window.location.href = "/login";
     }
-    //console.logog(user);
+    //// console.logog(user);
   }, [user]);
   useEffect(() => {
     const currentRoute = routes.find(
       (data) => `${data.layout}/${data.path}` === currentPathname
     );
     if (currentRoute) {
-      //console.logog(currentRoute.name);
+      //// console.logog(currentRoute.name);
       setCurrentRoute(currentRoute.name);
     }
   }, [currentPathname]);

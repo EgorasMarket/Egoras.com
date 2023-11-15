@@ -18,7 +18,7 @@ const DepositUsd = ({ ToggleEgcBlockchainDepositModal }) => {
       symbol: "USD",
     });
 
-    console.log(response);
+    // console.log(response);
 
     if (!response.success) {
       setLoading(false);

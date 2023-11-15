@@ -58,13 +58,13 @@ const DashboardHome = () => {
     const response = await GET_WALLET({
       symbol: "EGC",
     });
-    console.log(response, "shalli");
+    // console.log(response, "shalli");
 
     if (response.success === undefined || !response.success) {
       return;
     }
 
-    //console.logog(response.data.address, "generating wallet");
+    //// console.logog(response.data.address, "generating wallet");
     await GENERATE_USER_WALLET_ADDRESS({
       wallet: response.data.address,
       email: auth.user.email,
@@ -72,7 +72,7 @@ const DashboardHome = () => {
     await GENERATE_USER_WALLET_ADDRESS_MART_GPT({
       userAddress: response.data.address,
     });
-    //console.logog(registerAddress, "responses");
+    //// console.logog(registerAddress, "responses");
   };
 
   const setPin = async () => {
@@ -84,7 +84,7 @@ const DashboardHome = () => {
         auth.user?.wallet_address === "n/a" ||
         auth.user?.wallet_address === ""
       ) {
-        console.log("entered block");
+        // console.log("entered block");
         generateWallet();
       }
     }, 5000);
@@ -93,9 +93,9 @@ const DashboardHome = () => {
   const fetchWalletTransactions = async () => {
     setContentLoadingTable(true);
     const response = await FETCH_WALLET_TRANSACTIONS();
-    console.log("====================================");
-    console.log(response);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(response);
+    // console.log("====================================");
     if (response.success === true) {
       setChartLoading(false);
       setContentLoadingTable(false);
@@ -113,8 +113,8 @@ const DashboardHome = () => {
           year: "numeric",
         }),
       }));
-      //console.logog(transformedData, "transformedData");
-      //console.logog(transformedData, "transformedData");
+      //// console.logog(transformedData, "transformedData");
+      //// console.logog(transformedData, "transformedData");
       setNewState(transformedData);
       if (transformedData.length > 0) {
         setlastIndex(transformedData.length - 1);
@@ -132,8 +132,8 @@ const DashboardHome = () => {
 
       // setTableData([]);
     }
-    //console.logog(response.data);
-    //console.logog(response);
+    //// console.logog(response.data);
+    //// console.logog(response);
   };
   useEffect(() => {
     fetchWalletTransactions();
@@ -149,9 +149,9 @@ const DashboardHome = () => {
     return null;
   };
 
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
     for (let i = 0; i < data.length; i++) {
       switch (data[i].name) {
         case "Naira":
@@ -185,7 +185,7 @@ const DashboardHome = () => {
   const processPinRequest = async () => {
     if (pin !== confirmPin) {
       toast.warn("Pin does not match");
-      //console.logog("pin does not match");
+      //// console.logog("pin does not match");
       return;
     }
 
@@ -195,7 +195,7 @@ const DashboardHome = () => {
       type: "set",
     });
 
-    //console.logog(response);
+    //// console.logog(response);
 
     if (response.success) {
       toast.success("Pin is set Successfully");
@@ -218,14 +218,14 @@ const DashboardHome = () => {
   const fechAllProducts = async () => {
     setProductLoading(true);
     const response = await ALL_PRODUCTS();
-    console.log(response);
+    // console.log(response);
     setProductLoading(false);
     if (response?.status === false) {
       toast.error("Cannont retrieve all products");
       return;
     }
     const ano = response.data.getAllUploadedProduct.filter((data) => {
-      //console.logog(data);
+      //// console.logog(data);
       return data.product_brand === "EGORAS";
     });
     setEgorasProducts(ano);
@@ -237,8 +237,8 @@ const DashboardHome = () => {
     const response = await SHOW_ALL_PURCHASED_PRODUCT(
       auth.user?.wallet_address
     );
-    console.log(response);
-    console.log(response);
+    // console.log(response);
+    // console.log(response);
     if (response?.status === false) {
       toast.error("Cannont retrieve orders");
       return;
@@ -803,6 +803,7 @@ const DashboardHome = () => {
           pinPara={
             "You'll need to create a pin to be able to make transactions"
           }
+          newUser={true}
         />
       )}
       {confirmPinModal && (
@@ -813,6 +814,7 @@ const DashboardHome = () => {
           handleOnComplete={handleOnComplete2}
           pinTitle={"Please Confirm Your Pin"}
           pinPara={"Just to be sure, we'll want you to confirm your pin "}
+          newUser={true}
         />
       )}
       <ToastContainer />
