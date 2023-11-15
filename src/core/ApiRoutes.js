@@ -1,4 +1,4 @@
-import { EGORAS_PAY_URL, MART_GPT_URL } from "./constants";
+import { EGORAS_PAY_URL, MART_GPT_URL, EGORAS_PAY_TESTNET } from "./constants";
 
 // export const SUBSCRIBE_MEMBERSHIP_ROUTE = `${EGORAS_PAY_URL}/api/withdrawal/fortPayNewSub`;
 export const SUBSCRIBE_MEMBERSHIP_ROUTE = `${EGORAS_PAY_URL}/subscription/pay`;

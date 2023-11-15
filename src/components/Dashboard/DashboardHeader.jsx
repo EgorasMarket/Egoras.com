@@ -8,6 +8,7 @@ import "modern-react-avatar/dist/index.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { GET_ALL_NOTIFICATIONS } from "../../services/notification";
 
 const DashboardHeader = ({ currentPathName }) => {
   const { user } = useSelector((state) => state.auth);
@@ -17,7 +18,17 @@ const DashboardHeader = ({ currentPathName }) => {
     setHeaderMenu(!headerMenu);
   };
 
-  useEffect(() => {}, []);
+  const fetchNotifications = async () => {
+    const res = await GET_ALL_NOTIFICATIONS({
+      limit: 300,
+      page: 1,
+    });
+    console.log(res);
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
   return (
     <div className="DashboardHeader">
       <div className="DashboardHeader_area">
