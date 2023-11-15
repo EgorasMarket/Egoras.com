@@ -7,6 +7,7 @@ export const RESEND_EMAIL_VERIFICATION = `${EGORAS_PAY_URL}/pub/emailResendLink`
 export const VERIFY_SENDOUT_EMAIL_USERNAME = `${EGORAS_PAY_URL}/api/withdrawal/get/user`;
 
 export const PAY_FOR_PRODUCT = `${EGORAS_PAY_URL}/api/withdrawal/fortPayNew`;
+export const POPULATE_NOTIFICATION = `${EGORAS_PAY_URL}/api/account/notifications`;
 export const GET_ALL_SUBSCRIPTION = `${EGORAS_PAY_URL}/subscription`;
 export const VERIFY_USER_ROUTE = `${EGORAS_PAY_URL}/api/me`;
 export const VIEW_PURCHASED_PRODUCTS = `${MART_GPT_URL}/order/buy`;

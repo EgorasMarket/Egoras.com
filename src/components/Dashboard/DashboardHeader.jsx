@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DashboardStyles/DashboardHeader.css";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -8,12 +8,16 @@ import "modern-react-avatar/dist/index.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
 const DashboardHeader = ({ currentPathName }) => {
   const { user } = useSelector((state) => state.auth);
   const [headerMenu, setHeaderMenu] = useState(false);
+  const [notifications, setNotifications] = useState([]);
   const ToggleHeaderMenu = () => {
     setHeaderMenu(!headerMenu);
   };
+
+  useEffect(() => {}, []);
   return (
     <div className="DashboardHeader">
       <div className="DashboardHeader_area">
@@ -27,6 +31,9 @@ const DashboardHeader = ({ currentPathName }) => {
         <div className="DashboardHeader_area_2">
           <div className="DashboardHeader_area_2_cont1">
             <NotificationsOutlinedIcon className="DashboardHeader_area_2_cont1_icon" />
+            <p className="" style={{ color: "red" }}>
+              {notifications.length}
+            </p>
           </div>
           <div className="DashboardHeader_area_2_cont2">
             <div className="DashboardHeader_area_2_cont2_cont1">

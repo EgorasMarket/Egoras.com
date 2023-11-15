@@ -17,6 +17,7 @@ import ProtectedRoute from "./Router/ProtectedRoute";
 import ProductDetail from "./components/Market/ProductDetail";
 import { fetchWalletBalance } from "./features/walletServices/walletActions";
 import NotFoundComponent from "./components/Home/NotFoundComponent";
+import { socket } from "./socket/init";
 function App() {
   const dispatch = useDispatch();
   const [loadingDiv, setLoadingDiv] = useState(true);
@@ -30,6 +31,22 @@ function App() {
     console.log(response);
   };
   useEffect(() => {
+    socket.on("connect", () => {
+      // alert("socket connected");
+
+      socket.on("testing", (data) => {
+        alert(JSON.stringify(data));
+        console.log("testing data recieved", data);
+        // if (data === 1) {
+        //   alert("Payment made");
+        // } else {
+        //   alert("Payment incompletee");
+        // }
+      });
+      socket.on("second", (data) => {
+        alert(data);
+      });
+    });
     verify_user();
     fetch_walllet();
   }, []);
