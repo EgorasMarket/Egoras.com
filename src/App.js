@@ -33,19 +33,9 @@ function App() {
   };
   useEffect(() => {
     socket.on("connect", () => {
-      // alert("socket connected");
-
       socket.on("testing", (data) => {
         alert(JSON.stringify(data));
         console.log("testing data recieved", data);
-        // if (data === 1) {
-        //   alert("Payment made");
-        // } else {
-        //   alert("Payment incompletee");
-        // }
-      });
-      socket.on("second", (data) => {
-        alert(data);
       });
     });
     verify_user();

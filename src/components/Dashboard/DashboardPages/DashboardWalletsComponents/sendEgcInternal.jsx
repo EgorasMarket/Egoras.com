@@ -15,7 +15,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
+const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
@@ -41,20 +41,17 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
       ...payload,
       pin_code: pin,
     });
-    //// console.logog(response);
+    //console.logog(response);
     setLoading(false);
 
-    if (response.success) {
-      setSuccessMsg("Transaction succesful");
-      setPinModal(false);
-      setSuccessModal(true);
-      return;
-    }
     if (!response.data.success) {
       setPinModal(false);
       toast.error(response.data.errorMessage);
       return;
     }
+    setSuccessMsg("Transaction succesful");
+    setPinModal(false);
+    setSuccessModal(true);
   };
 
   const processSend = () => {
@@ -68,13 +65,12 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
   };
   const handleOnChange = async (e) => {
     const { id, value } = e.target;
-
+    setBeneficiaryData("");
+    setHasUser(false);
     setPayload({ ...payload, [id]: value });
     if (id === "amount") {
       return;
     }
-    setBeneficiaryData("");
-    setHasUser(false);
     if (e.target.value === "") {
       setFetchingUser(false);
       setHasUserError(false);
@@ -91,7 +87,7 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
 
       const resp = await USERNAME_EMAIL_IS_VALID(data);
       setFetchingUser(false);
-      // console.log(resp);
+      console.log(resp);
       if (resp.data.success === false) {
         setHasUser(false);
         setBeneficiaryData("");
@@ -105,9 +101,7 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
       setBeneficiaryData(resp.data);
     }
   };
-  const AddMax = () => {
-    setPayload({ amount: balance });
-  };
+
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
@@ -210,16 +204,13 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
                   onChange={handleOnChange}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
-                <button
-                  className="depositMoneyDiv_cont_body_wallet_addr_div_btn"
-                  onClick={AddMax}
-                >
-                  Max
+                <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
+                  Maxs
                 </button>
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">{balance} EGC</div>
+                <div className="availegc_bal_div_amount">240.5 EGC</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
@@ -267,15 +258,12 @@ const SendEgcInternal = ({ ToggleEgcUserWithdrawtModal, balance }) => {
             isLoading={loading}
             btnFunc={sendFunds}
             pinTitle="Enter Pin to validate Transaction"
-            pinPara="Input your transaction pin to complete this transaction"
+            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
             btnFuncTxt="Proceed"
             handleOnComplete={(e) => {
               const a = e.join("");
               setPin(a);
               return;
-            }}
-            toggleWebpin={() => {
-              setPinModal(false);
             }}
           />
         ) : null}

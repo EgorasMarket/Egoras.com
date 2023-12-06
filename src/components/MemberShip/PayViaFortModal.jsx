@@ -44,7 +44,6 @@ const PayViaFortModal = ({
 
   useEffect(() => {
     socket.on(account, (data) => {
-      //// console.logog(data);
       alert(data);
     });
   }, [account]);
@@ -104,6 +103,7 @@ const PayViaFortModal = ({
     //  call the api and generate a qr data
     fetchShortCode();
   }, []);
+  
   const CloseErrorModal = () => {
     setErrorModal(false);
   };

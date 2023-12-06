@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { GET_ALL_NOTIFICATIONS } from "../../services/notification";
+import { socket } from "../../socket/init";
 
 const DashboardHeader = ({ currentPathName }) => {
   const { user } = useSelector((state) => state.auth);
@@ -23,12 +24,27 @@ const DashboardHeader = ({ currentPathName }) => {
       limit: 300,
       page: 1,
     });
+    if (!res.success) {
+      return;
+    }
+    setNotifications(res.data);
     console.log(res);
   };
 
+  //make socket connection
   useEffect(() => {
     fetchNotifications();
+
+    socket.connect();
+
+    socket.on("notification/goodluckcanhelp@gmail.com", (data) => {
+      alert("her");
+    });
+    socket.on("transactio/goodluckcanhelp@gmail.com", (data) => {
+      alert("him");
+    });
   }, []);
+
   return (
     <div className="DashboardHeader">
       <div className="DashboardHeader_area">
