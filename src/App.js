@@ -32,13 +32,8 @@ function App() {
     // console.log(response);
   };
   useEffect(() => {
-    socket.on("connect", () => {
-      socket.on("testing", (data) => {
-        alert(JSON.stringify(data));
-        console.log("testing data recieved", data);
-      });
-    });
     verify_user();
+
     fetch_walllet();
   }, []);
 

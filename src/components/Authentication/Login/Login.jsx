@@ -59,6 +59,7 @@ const Login = () => {
       // //// console.logog(res);
       if (res.payload?.data?.errorMessage === "VERIFICATION_REQUIRED") {
         // call the resend API
+        await RESEND_SMS_OTP({ email: values.email });
 
         // //// console.logog(resendsms);
         setOtpModal(true);
@@ -251,6 +252,9 @@ const Login = () => {
       {otpModal ? (
         <OtpModal
           handleChange={handleChange}
+          resendOtp={async () => {
+            await RESEND_SMS_OTP({ email: values.email });
+          }}
           otp={otp}
           handleVerifyOtp={handleVerifyOtp}
           otpDisable={otpDisable}
