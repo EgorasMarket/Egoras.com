@@ -6,12 +6,9 @@
   -webkit-font-smoothing: antialiased;
 }
 body {
-  font-family: "Omnes", sans-serif;
+  font-family: "Omnes", sans-serif !important;
   /* cursor: none; */
-  -webkit-font-smoothing: antialiased;
-}
-body {
-  background: #000;
+  -webkit-font-smoothing: antialiased !important;
 }
 body::-webkit-scrollbar {
   background: #000000 !important;
@@ -27,6 +24,13 @@ body::-webkit-scrollbar-thumb {
   margin: 0 auto;
   padding: 0em 1em;
   height: 100%;
+}
+button {
+  transition: 0.3s ease-in-out;
+}
+button:hover {
+  transform: translate3d(0, -5px, 0);
+  transition: 0.3s ease-in-out;
 }
 html {
   scroll-behavior: smooth;
@@ -117,4 +121,7 @@ button:focus {
 }
 .shimmer-button {
   margin-bottom: 0px !important;
+}
+.swiper-wrapper {
+  align-items: center !important;
 }

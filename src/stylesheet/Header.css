@@ -85,7 +85,9 @@ section.header_section {
   top: 0;
   padding: 4em;
   backdrop-filter: blur(50px);
-  /* overflow: scroll; */
+  animation: fadeInLeft;
+  animation-duration: 0.5s;
+  /* animation-delay: 3s; */
 }
 .headerMenuDiv_cont {
   height: 100%;
@@ -214,6 +216,8 @@ section.header_section {
   height: 100%;
   overflow: scroll;
   padding-bottom: 4em;
+  animation: bounceInUp;
+  animation-duration: 1s;
   /* margin-bottom: 3em; */
 }
 .headerMenuDiv_cont_model_list_div::-webkit-scrollbar {

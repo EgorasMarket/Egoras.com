@@ -15,7 +15,7 @@ import {
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
+const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
@@ -53,7 +53,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
   const fetchBankList = async () => {
     if (bankList.length >= 1) return;
     const response = await FETCH_BANK_LIST();
-    //console.logog(response, "mma");
+    //// console.logog(response, "mma");
 
     setBankList(response.data?.rows);
   };
@@ -61,7 +61,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
   const handleBankOnChange = (e) => {
     const { value } = e.target;
 
-    //console.logog(JSON.parse(value));
+    //// console.logog(JSON.parse(value));
     let temp = JSON.parse(value);
 
     if (Object.keys(value).length === 0) return;
@@ -87,7 +87,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
       account_number: value,
     });
     verify_account_number(value);
-    //console.logog(bankInfo);
+    //// console.logog(bankInfo);
 
     return;
   };
@@ -135,7 +135,9 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
     setBaneficiary(response.data.responseBody.accountName);
     setIsNameResolved(true);
   };
-
+  const AddMax = () => {
+    setPayload({ amount: balance });
+  };
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
@@ -160,7 +162,7 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
               <div className="depositMoneyDiv_cont_body_input_div_div">
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
-                    src="/img/bsc_icon.png"
+                    src="https://i.imgur.com/JXm7zwC.png"
                     alt=""
                     className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                   />
@@ -258,13 +260,16 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
                   // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
-                <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
+                <button
+                  className="depositMoneyDiv_cont_body_wallet_addr_div_btn"
+                  onClick={AddMax}
+                >
                   Max
                 </button>
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">240.5 EGC</div>
+                <div className="availegc_bal_div_amount">{balance} NGN</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
@@ -311,6 +316,9 @@ const WithdrawNairaToBank = ({ ToggleWithdrawNairaBankModal }) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+            toggleWebpin={() => {
+              setPinModal(false);
             }}
           />
         ) : null}

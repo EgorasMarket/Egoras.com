@@ -11,10 +11,12 @@ import {
   SEND_CRYPTO_FUNDS_INTERNAL,
   USERNAME_EMAIL_IS_VALID,
 } from "../../../../services/finance_services";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
+
+const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [pinModal, setPinModal] = useState(false);
@@ -22,7 +24,8 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
   const [hasUser, setHasUser] = useState(false);
   const [beneficiaryData, setBeneficiaryData] = useState({});
   const [fetchingUser, setFetchingUser] = useState(false);
-
+  const [hasUserSuccess, setHasUserSuccess] = useState(false);
+  const [hasUserError, setHasUserError] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const [payload, setPayload] = useState({
     pin_code: "",
@@ -33,29 +36,43 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
   });
 
   const handleOnChange = async (e) => {
-    setBeneficiaryData("");
-    setHasUser(false);
-    const { value, id } = e.target;
+    const { id, value } = e.target;
+
     setPayload({ ...payload, [id]: value });
-
-    setFetchingUser(true);
-    const data = {
-      username_email: value,
-      type: "username_email",
-    };
-
-    const resp = await USERNAME_EMAIL_IS_VALID(data);
-    setFetchingUser(false);
-    console.log(resp);
-
-    if (resp.data.success === false) {
-      setHasUser(false);
-      setBeneficiaryData("");
+    if (id === "amount") {
       return;
     }
+    setBeneficiaryData("");
+    setHasUser(false);
+    if (e.target.value === "") {
+      setFetchingUser(false);
+      setHasUserError(false);
+      setHasUserSuccess(false);
+    } else {
+      setFetchingUser(true);
+      setHasUserError(false);
+      setHasUserSuccess(false);
 
-    setHasUser(true);
-    setBeneficiaryData(resp.data);
+      const data = {
+        username_email: value,
+        type: "username_email",
+      };
+
+      const resp = await USERNAME_EMAIL_IS_VALID(data);
+      setFetchingUser(false);
+      // console.log(resp);
+      if (resp.data.success === false) {
+        setHasUser(false);
+        setBeneficiaryData("");
+        setHasUserError(true);
+        setHasUserSuccess(false);
+        return;
+      }
+      setHasUserError(false);
+      setHasUserSuccess(true);
+      setHasUser(true);
+      setBeneficiaryData(resp.data);
+    }
   };
   const initiatePayout = async () => {
     setLoading(true);
@@ -64,18 +81,20 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
     data = { ...data, pin_code: pin };
 
     const response = await SEND_CRYPTO_FUNDS_INTERNAL(data);
-    //console.logog(response);
+    //// console.logog(response);
     setLoading(false);
 
-    if (response.data.success === false) {
+    if (response.success) {
+      setSuccessMsg("Transaction succesful");
+      setPinModal(false);
+      setSuccessModal(true);
+      return;
+    }
+    if (!response.data.success) {
       setPinModal(false);
       toast.error(response.data.errorMessage);
       return;
     }
-    setPinModal(false);
-    setSuccessMsg("Transaction succesful");
-    setSuccessModal(true);
-    setPinModal(false);
     // window.location.href = "/dashboard/transaction";
   };
 
@@ -88,6 +107,9 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
       return;
     }
     setPinModal(true);
+  };
+  const AddMax = () => {
+    setPayload({ amount: balance });
   };
   return (
     <div className="depositMoneyDiv">
@@ -113,7 +135,7 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
               <div className="depositMoneyDiv_cont_body_input_div_div">
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
-                    src="/img/egc_icon2.svg"
+                    src="https://i.imgur.com/JXm7zwC.png"
                     alt=""
                     className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                   />
@@ -128,20 +150,52 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
               <div className="depositMoneyDiv_cont_body_wallet_addr_div_title">
                 Recipient Email or Username:
               </div>
-              <input
-                type="text"
-                value={payload.username_email}
-                id="username_email"
-                placeholder="@John Doe"
-                onChange={handleOnChange}
-                className="depositMoneyDiv_cont_body_wallet_addr_div_input"
-              />
+              <div className="depositMoneyDiv_cont_body_wallet_addr_divb_input_div">
+                <input
+                  type="text"
+                  value={payload.username_email}
+                  id="username_email"
+                  placeholder="@John Doe"
+                  onChange={handleOnChange}
+                  className="depositMoneyDiv_cont_body_wallet_addr_div_input"
+                />
+
+                {fetchingUser && (
+                  <div className="userNameLoader">
+                    <ScaleLoader color="#366e51" height={20} />
+                  </div>
+                )}
+                {hasUserSuccess && (
+                  <div className="userNameLoader2">
+                    <img
+                      src="/img/checked_icon.png"
+                      alt=""
+                      className="userNameLoader_img"
+                    />
+                  </div>
+                )}
+                {hasUserError && (
+                  <div className="userNameLoader2">
+                    <img
+                      src="/img/error_icon.png"
+                      alt=""
+                      className="userNameLoader_img"
+                    />
+                  </div>
+                )}
+              </div>
 
               {hasUser === true ? (
-                <div>
-                  <p>fullname: {beneficiaryData?.firstName}</p>
-                  <p>Email: {beneficiaryData?.email}</p>
-                  <p>Phone Number: {beneficiaryData?.phone}</p>
+                <div className="userNameLoaded_div">
+                  <p className="userNameLoaded_div_para">
+                    fullname: {beneficiaryData?.firstName}
+                  </p>
+                  <p className="userNameLoaded_div_para">
+                    Email: {beneficiaryData?.email}
+                  </p>
+                  <p className="userNameLoaded_div_para">
+                    Phone Number: {beneficiaryData?.phone}
+                  </p>
                 </div>
               ) : null}
             </div>
@@ -159,13 +213,16 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
                   onChange={handleOnChange}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
-                <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
+                <button
+                  className="depositMoneyDiv_cont_body_wallet_addr_div_btn"
+                  onClick={AddMax}
+                >
                   Max
                 </button>
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">240.5 EGC</div>
+                <div className="availegc_bal_div_amount">{balance}NGN</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
@@ -205,12 +262,15 @@ const WithdrawNairaToUser = ({ ToggleNairaUserWithdrawtModal }) => {
             isLoading={loading}
             btnFunc={initiatePayout}
             pinTitle="Enter Pin to validate Transaction"
-            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            pinPara="Input your transaction pin to complete this transaction"
             btnFuncTxt="Proceed"
             handleOnComplete={(e) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+            toggleWebpin={() => {
+              setPinModal(false);
             }}
           />
         ) : null}

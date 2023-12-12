@@ -8,7 +8,7 @@ import {
 import WebPin from "../../../Common/CommonUI/Modals/WebPin";
 import { ToastContainer, toast } from "react-toastify";
 import SuccessModal from "../../../Common/CommonUI/Modals/SuccessModal/SuccessModal";
-const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
+const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal, balance }) => {
   const [loading, setLoading] = useState(false);
   const [pinModal, setPinModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
@@ -30,7 +30,7 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
       ...payload,
       pin_code: pin,
     });
-    //console.logog(response);
+    //// console.logog(response);
     setLoading(false);
     if (!response.data.success) {
       setPinModal(false);
@@ -60,7 +60,9 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
 
     setPayload({ ...payload, [id]: value });
   };
-
+  const AddMax = () => {
+    setPayload({ amount: balance });
+  };
   return (
     <div className="depositMoneyDiv">
       <div className="depositMoneyDiv_cont">
@@ -124,13 +126,16 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
                   // value={"0x3dE79168402278C0DA2Bf9A209C3A91d755790FC"}
                   className="depositMoneyDiv_cont_body_wallet_addr_div_input"
                 />
-                <button className="depositMoneyDiv_cont_body_wallet_addr_div_btn">
+                <button
+                  className="depositMoneyDiv_cont_body_wallet_addr_div_btn"
+                  onClick={AddMax}
+                >
                   Max
                 </button>
               </div>
               <div className="availegc_bal_div">
                 <div className="availegc_bal_div_title">Available</div>
-                <div className="availegc_bal_div_amount">240.5 EGC</div>
+                <div className="availegc_bal_div_amount">{balance} EGC</div>
               </div>
             </div>
             <div className="depositMoneyDiv_cont_body_wallet_addr_divb">
@@ -184,12 +189,15 @@ const SendEgcExternal = ({ ToggleEgcBlockchainWithdrawModal }) => {
             isLoading={loading}
             btnFunc={sendFunds}
             pinTitle="Enter Pin to validate Transaction"
-            pinPara="Create a transaction pin that will be used to validate your transactions within the platform"
+            pinPara="Input your transaction pin to complete this transaction"
             btnFuncTxt="Proceed"
             handleOnComplete={(e) => {
               const a = e.join("");
               setPin(a);
               return;
+            }}
+            toggleWebpin={() => {
+              setPinModal(false);
             }}
           />
         ) : null}

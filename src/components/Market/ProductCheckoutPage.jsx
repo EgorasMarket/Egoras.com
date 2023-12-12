@@ -64,18 +64,15 @@ const ProductCheckoutPage = () => {
     symbol: "NGN",
     user: user?.wallet_address,
   });
-  //console.logog(id);
+  //// console.logog(id);
   useEffect(() => {
     let states = State.getStatesOfCountry("NG");
-    //console.logog(states);
-    //intercept the state object
     let tempState = states;
     tempState.forEach((state) => {
       state.value = state.name;
       state.label = state.name;
     });
     setStates(tempState);
-    //console.logog(tempState);
   }, []);
 
   const fetchProductDetail = async () => {
@@ -91,7 +88,7 @@ const ProductCheckoutPage = () => {
       index_id: response.data.index_id,
       amount: response.data.final_amount,
     });
-    //console.logog(response);
+    //// console.logog(response);
   };
 
   const createPin = async () => {
@@ -101,11 +98,11 @@ const ProductCheckoutPage = () => {
     temp = { ...payload, pin_code: pin };
     // setPinModal(false);
     const response = await MAKE_PAYMENT_FOR_PRODUCT(temp);
-    //console.logog(response);
+    //// console.logog(response);
 
     if (response.success === true) {
       // toast.success("Product Purchase Successful");
-      //console.logog(response);
+      //// console.logog(response);
       setSuccess(true);
       setPinLoading(false);
       setProcessing(false);
@@ -117,7 +114,7 @@ const ProductCheckoutPage = () => {
       setProcessing(false);
       setErrorTxt(response.data.errorMessage);
       setPinModal(false);
-      //console.logog(response);
+      //// console.logog(response);
       // toast.warn(response.data.errorMessage);
       return;
     }
@@ -134,12 +131,18 @@ const ProductCheckoutPage = () => {
   }, [id]);
 
   useEffect(() => {
-    //console.logog(data);
-    //console.logog(data[0]?.value);
-    //console.logog(data[1]?.value);
-    setEgcBalance(data[0]?.value === null ? "0" : data[0]?.value);
-    setNairaBalance(data[1]?.value === null ? "0" : data[1]?.value);
+    for (let i = 0; i < data.length; i++) {
+      switch (data[i].name) {
+        case "Naira":
+          setNairaBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+        case "Egoras Credit":
+          setEgcBalance(data[i]?.value === null ? "0" : data[i]?.value);
+          break;
+      }
+    }
   }, []);
+  // console.log(nairaBalance, egcBalance, data);
   useEffect(() => {
     if (selectedState == "" || deliveryVal == "") {
       setDeliverBtnDisable(true);
@@ -156,7 +159,7 @@ const ProductCheckoutPage = () => {
   }, [deliveryVal]);
 
   const handleStateOnChange = (e) => {
-    //console.logog(e);
+    //// console.logog(e);
     setSelectedState(e.label);
     const city = City.getCitiesOfState("NG", e.isoCode.toString());
     let tempCity = city;
@@ -166,8 +169,8 @@ const ProductCheckoutPage = () => {
     });
   };
 
-  //console.logog(selectedState);
-  //console.logog(deliveryVal);
+  //// console.logog(selectedState);
+  //// console.logog(deliveryVal);
   const checkedPickupStore = () => {
     setDeliveryVal("PICKUP");
   };
@@ -183,23 +186,23 @@ const ProductCheckoutPage = () => {
       state: selectedState,
       item: name,
     };
-    //console.logog(values);
+    //// console.logog(values);
     const response = await SUBMIT_USER_DELIEVRY(id, values);
-    //console.logog(response);
+    //// console.logog(response);
     if (response.success === true) {
       setIsDeliverLoading(false);
       setSuccessModal(true);
       setSuccessTxt(
         "You have selcted to pick up your product on delivery, our customer service will reach out to you soon."
       );
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
       setIsDeliverLoading(false);
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
   };
@@ -210,9 +213,9 @@ const ProductCheckoutPage = () => {
       delivery_type: deliveryVal,
       item: name,
     };
-    //console.logog(values);
+    //// console.logog(values);
     const response = await SUBMIT_USER_DELIEVRY(id, values);
-    //console.logog(response);
+    //// console.logog(response);
     if (response.success === true) {
       setIsDeliverLoading(false);
 
@@ -233,7 +236,7 @@ const ProductCheckoutPage = () => {
           </div>
         </div>
       );
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
@@ -241,7 +244,7 @@ const ProductCheckoutPage = () => {
 
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
   };
@@ -500,25 +503,19 @@ const ProductCheckoutPage = () => {
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_2_area1_body">
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={`${user.firstName} ${user.lastName}`}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      {`${user.firstName} ${user.lastName}`}
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="email"
-                      value={user.email}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      {user.email}
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="number"
-                      value={user.phone}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      {user.phone}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -528,39 +525,29 @@ const ProductCheckoutPage = () => {
                 </div>
                 <div className="ProductCheckoutPage_div_section_area_2_area1_body">
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"Address"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      Address
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"City"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      City
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"State"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      State
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"Zip Code"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      Zip Code
+                    </div>
                   </div>
                   <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont">
-                    <input
-                      type="text"
-                      value={"Country"}
-                      className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input"
-                    />
+                    <div className="ProductCheckoutPage_div_section_area_2_area1_body_cont_input">
+                      Country
+                    </div>
                   </div>
                 </div>
               </div>
@@ -597,14 +584,18 @@ const ProductCheckoutPage = () => {
                                 <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
                                   ₦
                                 </span>
-                                {parseFloat(nairaBalance).toFixed(2)}
+                                {numberWithCommas(
+                                  parseFloat(nairaBalance).toFixed(2)
+                                )}
                               </div>
                             )}
                           </div>
-                          <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2">
-                            Swap Funds{" "}
-                            <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
-                          </div>
+                          <a href="/dashboard/wallet" style={{ color: "#fff" }}>
+                            <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2">
+                              Add Funds{" "}
+                              <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
+                            </div>
+                          </a>
                         </div>
                         <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2">
                           <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2_add">
@@ -633,17 +624,21 @@ const ProductCheckoutPage = () => {
                               />
                             ) : (
                               <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal">
-                                {parseFloat(egcBalance).toFixed(2)}
+                                {numberWithCommas(
+                                  parseFloat(egcBalance).toFixed(2)
+                                )}
                                 <span className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div1_bal_span">
                                   egc
                                 </span>{" "}
                               </div>
                             )}
                           </div>
-                          <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2 egc_card">
-                            Swap Funds{" "}
-                            <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
-                          </div>
+                          <a href="/dashboard/wallet" style={{ color: "#fff" }}>
+                            <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2 egc_card">
+                              Add Funds{" "}
+                              <SwapHorizIcon className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont1_div2_icon" />
+                            </div>
+                          </a>
                         </div>
                         <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2">
                           <div className="ProductCheckoutPage_div_section_area_1_area3_body_card1_cont2_add egc_card">
@@ -732,6 +727,9 @@ const ProductCheckoutPage = () => {
             setPin(a);
             // setPayload({ ...payload, pin_code: a });
             return;
+          }}
+          toggleWebpin={() => {
+            setPinModal(false);
           }}
         />
       ) : null}

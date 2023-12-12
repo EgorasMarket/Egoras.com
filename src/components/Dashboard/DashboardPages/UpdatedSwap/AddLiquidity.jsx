@@ -75,7 +75,7 @@ const AddLiquidity = () => {
       tokenA: "NGN",
       tokenB: "EGC",
     });
-    //console.logog(response);
+    //// console.logog(response);
     if (!response.success) return;
     if (baseTokenObject.symbol === "NGN") {
       setMarketPrice(1 / response.data.price);
@@ -86,9 +86,9 @@ const AddLiquidity = () => {
   useEffect(() => {
     getSwapPrice();
   }, [baseTokenObject]);
-  console.log("====================================");
-  console.log(selectedToken);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log(selectedToken);
+  // console.log("====================================");
   const handleTokenClick = (token) => {
     setSelectedToken(token);
     ToggleTokenDrop(); // Close the dropdown if needed
@@ -110,7 +110,7 @@ const AddLiquidity = () => {
   };
 
   const getTokenBalances = () => {
-    console.log(data);
+    // console.log(data);
     const newBaseTokenObject = {
       ...baseTokenObject,
       balance: data[0]?.value === null ? "0" : data[0]?.value,
@@ -168,9 +168,9 @@ const AddLiquidity = () => {
   // =================
 
   useEffect(() => {
-    //console.logog("====================================");
-    //console.logog(SwapAmount, baseTokenObject.balance, parseFloat(SwapAmount));
-    //console.logog("====================================");
+    //// console.logog("====================================");
+    //// console.logog(SwapAmount, baseTokenObject.balance, parseFloat(SwapAmount));
+    //// console.logog("====================================");
     if (SwapAmount === "" || parseFloat(SwapAmount) > baseTokenObject.balance) {
       setSwapDisable(true);
     } else {
@@ -196,9 +196,9 @@ const AddLiquidity = () => {
       token_a_amount: AmountOut,
       token_b_amount: SwapAmount,
     };
-    //console.logog(payload);
+    //// console.logog(payload);
     const response = await LIQUIDITY(payload);
-    //console.logog(response);
+    //// console.logog(response);
     if (response.success === true) {
       setLoading(false);
       setSuccessModal(true);
@@ -206,7 +206,7 @@ const AddLiquidity = () => {
       setSuccessTxt(
         ` You have successfully added ${SwapAmount} ${baseTokenObject.symbol} with ${AmountOut} ${selectedToken.symbol} liquidity`
       );
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
     if (!response?.data?.success || !response?.data) {
@@ -214,7 +214,7 @@ const AddLiquidity = () => {
       setPinModal(false);
       setErrorModal(true);
       setErrorTxt(response.data.errorMessage);
-      //console.logog(response);
+      //// console.logog(response);
       return;
     }
   };
@@ -233,7 +233,7 @@ const AddLiquidity = () => {
     let parseNumber = parseFloat(e.target.value);
     setSwapAmount(parseNumber);
     setAmountOut(parseNumber * marketPrice);
-    //console.logog(e.target.value);
+    //// console.logog(e.target.value);
   };
 
   const add25Per = () => {
@@ -262,9 +262,9 @@ const AddLiquidity = () => {
   //     setShareSwap(!shareSwap);
   //   };
 
-  //console.logog("====================================");
-  //console.logog(AmountOut);
-  //console.logog("====================================");
+  //// console.logog("====================================");
+  //// console.logog(AmountOut);
+  //// console.logog("====================================");
   return (
     <div className="liquidity_area">
       <div className="liquidity_area1">
@@ -499,6 +499,9 @@ const AddLiquidity = () => {
             const a = e.join("");
             setPin(a);
             return;
+          }}
+          toggleWebpin={() => {
+            setPinModal(false);
           }}
         />
       ) : null}

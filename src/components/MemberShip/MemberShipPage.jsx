@@ -41,13 +41,7 @@ const MemberShipPage = () => {
   };
 
   return (
-    <section className="joinCooperativeDiv">
-      <img
-        src="/img/scrolling_images.webp"
-        alt=""
-        className="HomeDivSection3_bg"
-      />
-
+    <section>
       {step1 ? <Step1Div toggleSteps={toggleSteps} /> : null}
       {step2 ? (
         <Step2Div2

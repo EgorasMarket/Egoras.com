@@ -44,7 +44,7 @@ const Login = () => {
     setIsLoading(true);
     const res = await dispatch(loginUser(values));
     setIsLoading(false);
-    // //console.logog(res);
+    // //// console.logog(res);
     if (res.payload.code === 200) {
       setDisable(false);
       if (userPin === null) {
@@ -56,15 +56,12 @@ const Login = () => {
     }
 
     if (res.payload?.data?.success === false) {
-      // //console.logog(res);
+      // //// console.logog(res);
       if (res.payload?.data?.errorMessage === "VERIFICATION_REQUIRED") {
         // call the resend API
+        await RESEND_SMS_OTP({ email: values.email });
 
-        const resendsms = await RESEND_SMS_OTP({
-          email: values.email,
-        });
-
-        // //console.logog(resendsms);
+        // //// console.logog(resendsms);
         setOtpModal(true);
         return;
       }
@@ -75,12 +72,12 @@ const Login = () => {
   };
 
   const handleChange = (enteredOtp) => {
-    //console.logog(enteredOtp);
+    //// console.logog(enteredOtp);
     setOtp(enteredOtp);
   };
 
   const processOtp = async () => {
-    //console.logog("return");
+    //// console.logog("return");
   };
   const handleVerifyOtp = async () => {
     setOtpDisable(true);
@@ -90,7 +87,7 @@ const Login = () => {
       email: values.email,
     });
 
-    //console.logog(response);
+    //// console.logog(response);
 
     if (response.success) {
       window.location.reload();
@@ -129,6 +126,16 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  function redirectToSavedRoute() {
+    const savedRoute = localStorage.getItem("RedirectRoute");
+    if (savedRoute) {
+      localStorage.removeItem("RedirectRoute"); // Remove the stored route
+      window.location.href = savedRoute; // Redirect to the intended checkout page
+    } else {
+      window.location.href = "/dashboard"; // Replace with your default checkout
+    }
+  }
   return (
     <div className="signup_div">
       <section
@@ -250,6 +257,9 @@ const Login = () => {
           otpDisable={otpDisable}
           otpLoading={otpLoading}
           payload={values}
+          resendOtp={async () => {
+            await RESEND_SMS_OTP({ email: values.email });
+          }}
         />
       ) : null}
       {pinModal ? (
@@ -264,9 +274,7 @@ const Login = () => {
       {success ? (
         <SuccessModal
           SuccesTxt={"You have successfully logged in "}
-          successFunc={() => {
-            window.location.href = "/dashboard";
-          }}
+          successFunc={redirectToSavedRoute}
         />
       ) : null}
       {errorModal ? (

@@ -23,6 +23,8 @@
   text-align: center;
   border: solid 1px #2d2d2d;
   box-shadow: 0px 0px 20px 8px #000000a6;
+  animation: zoomIn;
+  animation-duration: 0.5s;
 }
 .otp_modal_container_head {
   font-size: 24px;
@@ -43,6 +45,25 @@
   justify-content: center;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.otp_modal_container_body_resend {
+  margin-top: 1em;
+  color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 18px;
+}
+.otp_modal_container_body_resend_span {
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  /* margin-left: 6px; */
+  font-size: 20px;
+  text-decoration: underline !important;
 }
 .otp_modal_container_body2 {
   margin-top: 2em;
@@ -52,6 +73,9 @@
   justify-content: center;
   align-items: center;
   justify-content: center;
+  color: #fff !important;
+}
+.otp_modal_container_body2 div input {
   color: #fff !important;
 }
 .otp_modal_container_body_button {

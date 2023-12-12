@@ -49,7 +49,7 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
               <div className="depositMoneyDiv_cont_body_input_div_div">
                 <div className="depositMoneyDiv_cont_body_input_div_div_cont1">
                   <img
-                    src="/img/egc_icon2.svg"
+                    src="https://i.imgur.com/JXm7zwC.png"
                     alt=""
                     className="depositMoneyDiv_cont_body_input_div_div_cont1_img"
                   />
@@ -67,7 +67,7 @@ const DepositNairaUser = ({ ToggleDepositMoneyNairaUserModal }) => {
                 eyeColor="#fff"
                 bgColor="#161619"
                 fgColor="#fff"
-                logoImage="/img/egc_icon2.svg"
+                logoImage="https://i.imgur.com/JXm7zwC.png"
                 eyeRadius={[
                   [5, 5, 0, 5],
                   [5, 5, 5, 0],

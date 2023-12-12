@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Staticdata from "../../assets/json/Static";
 import { useDispatch, useSelector } from "react-redux";
+import { GET_MY_SUBSCRIPTION } from "../../services/referral_services";
 import { numberWithCommas } from "../../assets/js/numberWithCommas";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -17,19 +18,48 @@ import {
   NoBgButtonWithBorder,
 } from "../Common/CommonUI/Button";
 import "../../stylesheet/Home.css";
-import { setError } from "../../features/auth/authSlice";
-const Home = () => {
-  const dispatch = useDispatch();
+import ScrollAnimation from "react-animate-on-scroll";
+import { ScrollerMotion } from "scroller-motion";
 
+const Home = () => {
+  const { user, loading, error } = useSelector((state) => state.auth);
   const [genVideo, setGenVideo] = useState(false);
   const [swiperIndex, setSwiperIndex] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [memberStatus, setMemberStatus] = useState(false);
   const TogglegenVideoDiv = () => {
     setGenVideo(!genVideo);
   };
   const handleSlideChange = (swiper) => {
-    //console.logog("Active Slide Index:", swiper.realIndex);
     setSwiperIndex(swiper.realIndex);
   };
+
+  const getMySubscriptions = async () => {
+    const response = await GET_MY_SUBSCRIPTION();
+    // console.log(response);
+    // console.log(response.data.subcribers);
+    if (response.success === true) {
+      if (response.data.subcribers === null) {
+        setMemberStatus(false);
+      } else {
+        setMemberStatus(true);
+      }
+      return;
+    }
+  };
+  useEffect(() => {
+    getMySubscriptions();
+  }, []);
+  useEffect(() => {
+    if (user === null || (user === undefined && loading === false)) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
+  // console.log("====================================");
+  // console.log(isLoggedIn);
+  // console.log("====================================");
   return (
     <div className="HomeDiv">
       <section className="HomeDivSection1">
@@ -59,22 +89,62 @@ const Home = () => {
                       kmph.
                     </div>
                   </div>
+
                   <div className="HomeDivSection1_div_txts_2">
-                    <a
-                      href="/membership/sub"
-                      className="HomeDivSection1_div_txts_2_link1"
-                    >
-                      <BgButtonNoBorder
-                        btnTxt={
-                          <div
-                            className="HomeDivSection1_div_txts_2_div
+                    {isLoggedIn === false ? (
+                      <a
+                        href="/membership/sub"
+                        className="HomeDivSection1_div_txts_2_link1"
+                      >
+                        <BgButtonNoBorder
+                          btnTxt={
+                            <div
+                              className="HomeDivSection1_div_txts_2_div
                       "
+                            >
+                              Join Sales-Pro
+                            </div>
+                          }
+                        />
+                      </a>
+                    ) : (
+                      <>
+                        {memberStatus === false ? (
+                          <a
+                            href="/membership/sub"
+                            className="HomeDivSection1_div_txts_2_link1"
                           >
-                            Join Egoras Corp
-                          </div>
-                        }
-                      />
-                    </a>
+                            <BgButtonNoBorder
+                              btnTxt={
+                                <div
+                                  className="HomeDivSection1_div_txts_2_div
+                      "
+                                >
+                                  Join Sales-Pro
+                                </div>
+                              }
+                            />
+                          </a>
+                        ) : (
+                          <a
+                            href="/dashboard/egocoop"
+                            className="HomeDivSection1_div_txts_2_link1"
+                          >
+                            <BgButtonNoBorder
+                              btnTxt={
+                                <div
+                                  className="HomeDivSection1_div_txts_2_div
+                      "
+                                >
+                                  Ego Sales-Pro
+                                </div>
+                              }
+                            />
+                          </a>
+                        )}
+                      </>
+                    )}
+
                     <a
                       href="/dashboard/products"
                       className="HomeDivSection1_div_txts_2_member_link"
@@ -83,7 +153,7 @@ const Home = () => {
                     </a>
                   </div>
                 </div>
-                <div className="tricycle_overview_div">
+                <div className="tricycle_overview_div  ">
                   <div className="tricycle_overview_div1">
                     <div className="tricycle_overview_div1_cont1">
                       <div className="tricycle_overview_div1_cont2_head">
@@ -137,24 +207,34 @@ const Home = () => {
           <div className="HomeDivSection2_area">
             <div className="HomeDivSection2_area1">
               <div className="HomeDivSection2_area1_cont1">
-                Egoras Dual-Fuel
-                <br />
-                Generators
+                <div className="HomeDivSection2_area1_cont1">
+                  Egoras Dual-Fuel
+                  <br />
+                  Generators
+                </div>
               </div>
             </div>
-            <div className="HomeDivSection2_area2">
-              <img
-                src="/img/egoras-dual_fuel_vid_thumb.png"
-                alt=""
-                className="HomeDivSection2_area2_img"
-              />
-              <div className="HomeDivSection2_area2_icon">
-                <PlayArrowIcon
-                  className="HomeDivSection2_area2_icon_icon"
-                  onClick={TogglegenVideoDiv}
+
+            <ScrollAnimation
+              animateIn="bounceInUp"
+              delay={300}
+              // duration={2}
+              animatePreScroll={false}
+            >
+              <div className="HomeDivSection2_area2">
+                <img
+                  src="/img/egoras-dual_fuel_vid_thumb.png"
+                  alt=""
+                  className="HomeDivSection2_area2_img"
                 />
+                <div className="HomeDivSection2_area2_icon">
+                  <PlayArrowIcon
+                    className="HomeDivSection2_area2_icon_icon"
+                    onClick={TogglegenVideoDiv}
+                  />
+                </div>
               </div>
-            </div>
+            </ScrollAnimation>
           </div>
         </div>
       </section>
@@ -171,17 +251,23 @@ const Home = () => {
           alt=""
           className="HomeDivSection3_bg"
         />
+
         <div className="HomeDivSection3_area">
           <Swiper
             // ref={swiperRef}
             slidesPerView={3}
             spaceBetween={10}
             centeredSlides={true}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
             pagination={{
               clickable: true,
             }}
             // modules={[Pagination]}
-            modules={[Pagination, Navigation]}
+            modules={[Autoplay, Pagination, Navigation]}
             navigation={true}
             className="HomeDivSection3_area_swiper"
             onSlideChange={handleSlideChange}
@@ -260,7 +346,6 @@ const Home = () => {
       {/* ================= */}
       {/* ================= */}
       {/* ================= */}
-
       {/* ====================== */}
       {/* ====================== */}
       {/* ====================== */}
@@ -268,28 +353,7 @@ const Home = () => {
       {/* ====================== */}
       {/* ====================== */}
       {/* ====================== */}
-      {/* ====================== */}
-      {/* <section className="ProductDetailDiv_last_section">
-        <div className="custom_container">
-          <div className="ProductDetailDiv_last_section_area">
-            <img
-              src="/img/dummyDetailPageImages/Big Gen.png"
-              alt=""
-              className="ProductDetailDiv_last_section_area_img"
-            />
-            <div className="ProductDetailDiv_last_section_area_txt">
-              <div className="ProductDetailDiv_last_section_area_txt_area1">
-                Experience Egoras
-              </div>
-              <div className="ProductDetailDiv_last_section_area_txt_area2">
-                <button className="ProductDetailDiv_last_section_area_txt_area2_btn">
-                  Join Now
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
+      {/* ====================== */}{" "}
       <section className="landingPageSectionlast">
         <div className="container">
           <div className="landingPageSectionlast_area">
@@ -326,18 +390,25 @@ const Home = () => {
                   className="landingPageSection1_area1_div3_btn1_link"
                 >
                   <button className="landingPageSection1_area1_div3_btn1_join">
-                    Join Egoras Corp
+                    Join Sales-Pro
                   </button>
                 </a>
               </div>
             </div>
-            <div className="landingPageSectionlast_area_2">
-              <img
-                src="/img/download_now_screen.png"
-                alt=""
-                className="landingPageSectionlast_area_2_img"
-              />
-            </div>
+            <ScrollAnimation
+              animateIn="bounceInUp"
+              delay={300}
+              // duration={2}
+              animatePreScroll={false}
+            >
+              <div className="landingPageSectionlast_area_2">
+                <img
+                  src="/img/download_now_screen.png"
+                  alt=""
+                  className="landingPageSectionlast_area_2_img"
+                />
+              </div>
+            </ScrollAnimation>
           </div>
         </div>
         <img

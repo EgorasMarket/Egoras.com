@@ -25,20 +25,20 @@
 .updatedTokenModal_area {
   width: 100%;
   max-width: 420px;
-  background: grey;
   height: 100%;
-  max-height: 48em;
+  max-height: 600px;
   border-radius: 20px;
   box-shadow: 3px 5px 20px 10px #000;
-  /* padding: 1em; */
-  border: solid 1px #41564a;
-  background: #1c2c22;
+  border: solid 1px #484853;
+  background: #232328;
   overflow: scroll;
   color: #fff;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
+  animation: zoomIn;
+  animation-duration: 0.5s;
 }
 .updatedTokenModal_area1 {
   display: flex;
@@ -72,8 +72,8 @@
   padding: 10px;
   width: 100%;
   border-radius: 10px;
-  border: solid 1px #334b3c;
-  background: #0f1813;
+  border: solid 1px #3a3a42;
+  background: #000000;
   color: #fff;
 }
 .updatedTokenModal_area1_favorites {
