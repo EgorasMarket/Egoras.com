@@ -114,7 +114,7 @@ const DashboardOrderModal = ({ closeModal, payload }) => {
             {/* ===== */}
             {/* ===== */}
             <div className="ProductDetailPage_section_area_2_warranty_div">
-              2 years Warranty
+              6 months Warranty
             </div>
             {/* ===== */}
             {/* ===== */}
