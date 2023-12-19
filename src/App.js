@@ -30,6 +30,7 @@ function App() {
     // console.log(response);
     // console.log(response);
   };
+
   useEffect(() => {
     verify_user();
     fetch_walllet();
