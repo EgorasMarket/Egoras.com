@@ -6,17 +6,20 @@ FROM node:20-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Install Yarn globally
+RUN npm install -g yarn
 
-# Install dependencies
-RUN npm ci
+# Copy package.json and yarn.lock
+COPY package.json yarn.lock ./
+
+# Install dependencies using Yarn
+RUN yarn install --frozen-lockfile
 
 # Copy source code
 COPY . .
 
 # Build the app
-RUN npm run build
+RUN yarn build
 
 # ==============================
 # Stage 2: Serve with Nginx
