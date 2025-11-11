@@ -1,0 +1,54 @@
+# k8s/dhive-web.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: egoras-web
+  labels:
+    app: egoras-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: egoras-web
+  template:
+    metadata:
+      labels:
+        app: egoras-web
+    spec:
+      containers:
+        - name: egoras-web
+          image: ghcr.io/dhive-protocol/egoras-com:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+      # Reference the GHCR secret for pulling private images
+      imagePullSecrets:
+        - name: ghcr-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: egoras-web-service
+spec:
+  selector:
+    app: egoras-web
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32082
