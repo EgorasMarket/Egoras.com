@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-deploy:
     name: Build & Deploy to Kubernetes
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, control-plane]   # ✅ Use only control-plane runner
 
     env:
       IMAGE_NAME: ghcr.io/dhive-protocol/egoras-com:latest
