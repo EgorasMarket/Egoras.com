@@ -6,13 +6,10 @@ FROM node:20-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Install Yarn globally
-RUN npm install -g yarn
-
 # Copy package.json and yarn.lock
 COPY package.json yarn.lock ./
 
-# Install dependencies using Yarn
+# Install dependencies using Yarn (pre-installed in Node 20-alpine)
 RUN yarn install --frozen-lockfile
 
 # Copy source code
