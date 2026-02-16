@@ -83,3 +83,5 @@ jobs:
         run: |
           kubectl get pods -l app=egoras-web -o wide
           kubectl get svc egoras-web-service -o wide
+
+          # comment y'all
