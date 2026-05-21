@@ -22,11 +22,11 @@ http:
           Server: ""
 
   routers:
-    xngn-frontend:
+    egoras-frontend:
       rule: "Host(`__DOMAIN__`) || Host(`www.__DOMAIN__`)"
       entryPoints: [websecure]
-      middlewares: [rate-limit-api, xngn-secure-headers, compress]
-      service: xngn-frontend-svc
+      middlewares: [rate-limit-api, egoras-secure-headers, compress]
+      service: egoras-frontend-svc
       tls:
         certResolver: letsencrypt
 
@@ -34,7 +34,7 @@ http:
     egoras-frontend-svc:
       loadBalancer:
         servers:
-          - url: "http://__CONTAINER__:3000"
+          - url: "http://__CONTAINER__:80"
         healthCheck:
           path: /
           interval: 10s
