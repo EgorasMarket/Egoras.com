@@ -19,6 +19,7 @@ jobs:
       CONTAINER_NAME: egoras-com
       TRAEFIK_NETWORK: cube_public
       # Update this if the domain served by Traefik changes
+      #another comment
       DOMAIN: egoras.com
     steps:
       - name: Checkout code
