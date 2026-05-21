@@ -1,0 +1,41 @@
+# xngn-frontend — Traefik v3 dynamic route
+# Deployed by CI: placeholders __DOMAIN__ and __CONTAINER__ are substituted at deploy time.
+# Drop this file into /opt/cube/traefik/dynamic/ — Traefik hot-reloads it automatically.
+# Network: container must be attached to cube_public so Traefik can reach it.
+
+http:
+
+  middlewares:
+    # Frontend-safe security headers (permissive CSP for Next.js assets/hydration)
+    egoras-secure-headers:
+      headers:
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        forceSTSHeader: true
+        contentTypeNosniff: true
+        browserXssFilter: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        customFrameOptionsValue: "SAMEORIGIN"
+        customResponseHeaders:
+          X-Powered-By: ""
+          Server: ""
+
+  routers:
+    xngn-frontend:
+      rule: "Host(`__DOMAIN__`) || Host(`www.__DOMAIN__`)"
+      entryPoints: [websecure]
+      middlewares: [rate-limit-api, xngn-secure-headers, compress]
+      service: xngn-frontend-svc
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    egoras-frontend-svc:
+      loadBalancer:
+        servers:
+          - url: "http://__CONTAINER__:3000"
+        healthCheck:
+          path: /
+          interval: 10s
+          timeout: 5s

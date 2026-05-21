@@ -3,7 +3,7 @@ name: 🚀 Build, Push & Deploy egoras-web
 on:
   push:
     branches:
-      - deploy
+      - main
   workflow_dispatch:
 
 jobs:

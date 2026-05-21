@@ -1,0 +1,106 @@
+name: 🚀 Build & Deploy Egoras.com (Traefik / Production)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy on Server
+    runs-on: [self-hosted]
+    permissions:
+      contents: read
+      packages: write
+
+    env:
+      IMAGE_NAME: ghcr.io/egorasmarket/egoras-com
+      CONTAINER_NAME: egoras-com
+      TRAEFIK_NETWORK: cube_public
+      # Update this if the domain served by Traefik changes
+      DOMAIN: egoras.com
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push image
+        run: |
+          set -e
+          FULL_IMAGE="${IMAGE_NAME}:latest"
+
+          echo "🛠 Building ${FULL_IMAGE}"
+          docker buildx build \
+            --cache-from type=registry,ref="${IMAGE_NAME}:cache" \
+            --cache-to   type=registry,ref="${IMAGE_NAME}:cache",mode=max \
+            --tag "${FULL_IMAGE}" \
+            --push \
+            .
+
+          echo "FULL_IMAGE=${FULL_IMAGE}" >> "$GITHUB_ENV"
+
+      - name: Ensure Traefik network
+        run: |
+          docker network inspect "${TRAEFIK_NETWORK}" >/dev/null 2>&1 || \
+            docker network create "${TRAEFIK_NETWORK}"
+
+      - name: Stop old container
+        run: |
+          docker stop "${CONTAINER_NAME}" 2>/dev/null || true
+          docker rm   "${CONTAINER_NAME}" 2>/dev/null || true
+
+      - name: Run new container
+        run: |
+          # (both containers share the cube_public Docker network)
+          docker run -d \
+            --name "${CONTAINER_NAME}" \
+            --network "${TRAEFIK_NETWORK}" \
+            --restart unless-stopped \
+            "${FULL_IMAGE}"
+
+      - name: Write Traefik dynamic config
+        run: |
+          # Template lives in .traefik/egoras-com.yml in the repo.
+          # Placeholders __DOMAIN__ and __CONTAINER__ are substituted here.
+          # Using a repo-committed template avoids heredoc indentation issues.
+          sed \
+            -e "s|__DOMAIN__|${DOMAIN}|g" \
+            -e "s|__CONTAINER__|${CONTAINER_NAME}|g" \
+            .traefik/egoras-com.yml > /opt/cube/traefik/dynamic/egoras-com.yml
+          echo "Traefik config written:"
+          cat /opt/cube/traefik/dynamic/egoras-com.yml
+
+      - name: Verify deployment
+        run: |
+          echo "⏳ Waiting for container to become healthy…"
+          for i in $(seq 1 20); do
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' "${CONTAINER_NAME}" 2>/dev/null || echo "starting")
+            echo "  attempt $i/20 — health: ${STATUS}"
+            [ "${STATUS}" = "healthy" ] && break
+            sleep 3
+          done
+          docker ps \
+            --filter "name=${CONTAINER_NAME}" \
+            --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+          echo "⏳ Waiting for HTTPS to become available…"
+          for i in $(seq 1 15); do
+            HTTP_CODE=$(curl -sk "https://${DOMAIN}/" -o /dev/null -w '%{http_code}' 2>/dev/null || echo "000")
+            echo "  attempt $i/15 — https://${DOMAIN}/ → HTTP ${HTTP_CODE}"
+            [ "${HTTP_CODE}" = "200" ] && echo "✅ HTTPS OK" && break
+            sleep 4
+          done
+          echo "✅ xngn-frontend deployed at https://${DOMAIN}/"
+
+      - name: Cleanup unused images
+        run: docker image prune -f
