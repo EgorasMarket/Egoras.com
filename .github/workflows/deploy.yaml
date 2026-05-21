@@ -3,7 +3,7 @@ name: 🚀 Build & Deploy Egoras.com (Traefik / Production)
 on:
   push:
     branches:
-      - main
+      - deploy
   workflow_dispatch:
 
 jobs:
