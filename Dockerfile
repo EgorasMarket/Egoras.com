@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.7
+
 # ==============================
 # Stage 1: Build the React app
 # ==============================
@@ -6,17 +8,23 @@ FROM node:20-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock
+# Build-time env knobs for faster CRA builds
+ENV YARN_CACHE_FOLDER=/usr/local/share/.cache/yarn \
+    GENERATE_SOURCEMAP=false
+
+# Copy package.json and yarn.lock first to maximize cache reuse
 COPY package.json yarn.lock ./
 
-# Install dependencies using Yarn (pre-installed in Node 20-alpine)
-RUN yarn install --frozen-lockfile
+# Install dependencies (cache Yarn downloads between builds)
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
+    yarn install --frozen-lockfile --prefer-offline
 
 # Copy source code
 COPY . .
 
 # Build the app
-RUN yarn build
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
+    yarn build
 
 # ==============================
 # Stage 2: Serve with Nginx

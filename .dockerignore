@@ -1,3 +1,18 @@
 node_modules
-.git
 build
+
+# VCS / editor metadata
+.git
+.gitignore
+.github
+.vscode
+.traefik
+
+# Infra and docs not needed for React build
+k8s
+README.md
+Untitled-1
+
+# Local artifacts
+*.log
+coverage
